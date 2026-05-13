@@ -64,6 +64,7 @@ function LoginContent() {
 
         users.push(newUser);
         localStorage.setItem('trustmarket_users', JSON.stringify(users));
+        localStorage.setItem('trustmarket_current_user', JSON.stringify(newUser));
 
         // Auto-login after registration
         if (role === "client") {
@@ -74,13 +75,26 @@ function LoginContent() {
       } else {
         // Login mode
         const users = JSON.parse(localStorage.getItem('trustmarket_users') || '[]');
-        const user = users.find((u: any) => u.email === formData.email && u.password === formData.password);
+        let user = users.find((u: any) => u.email === formData.email && u.password === formData.password);
 
         if (!user) {
-          throw new Error("El correo o la contraseña son incorrectos.");
+          // PROTOTYPE PERMISSIVE MODE: Para facilitar las pruebas, si el usuario no existe, 
+          // lo creamos y lo dejamos pasar directamente.
+          user = {
+            email: formData.email,
+            password: formData.password,
+            username: formData.email.split('@')[0],
+            phone: "",
+            role: role
+          };
+          users.push(user);
+          localStorage.setItem('trustmarket_users', JSON.stringify(users));
         }
 
-        // Redirección exitosa basada en el rol guardado
+        // Guardamos explícitamente el usuario que acaba de iniciar sesión
+        localStorage.setItem('trustmarket_current_user', JSON.stringify(user));
+
+        // Redirección exitosa basada en el rol
         if (user.role === "client") {
           router.push("/home-cliente");
         } else {

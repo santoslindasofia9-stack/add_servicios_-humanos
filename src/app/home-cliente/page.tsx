@@ -50,22 +50,18 @@ export default function HomeCliente() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      
-      if (error || !user) {
+      // PROTOTYPE LOGIC: get from localStorage instead of Supabase
+      const user = JSON.parse(localStorage.getItem('trustmarket_current_user') || 'null');
+
+      if (!user) {
         router.push("/auth/login");
         return;
       }
 
-      const name = user.user_metadata?.full_name || 
-                   user.user_metadata?.first_name || 
-                   user.email?.split('@')[0] || 
-                   "Usuario";
-      
-      const avatar = user.user_metadata?.avatar_url || null;
+      const name = user.username || user.email?.split('@')[0] || "Usuario";
       
       setUserName(name);
-      setUserAvatar(avatar);
+      setUserAvatar(null);
       setLoading(false);
     };
 

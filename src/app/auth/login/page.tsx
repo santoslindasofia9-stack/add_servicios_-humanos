@@ -58,10 +58,25 @@ function LoginContent() {
         if (signUpError) throw signUpError;
         
         if (data.user) {
-          // Registration successful. Switch to login mode and prompt them to log in.
-          setSuccess("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
-          setMode("login");
-          setFormData({ ...formData, password: "" }); // Clear password for security
+          // Intentar iniciar sesión automáticamente para entrar de una vez
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: formData.email,
+            password: formData.password,
+          });
+
+          if (signInError) {
+            if (signInError.message.includes("Email not confirmed")) {
+              throw new Error("Para entrar directamente, DEBES desactivar 'Confirm email' en tu panel de Supabase (Authentication -> Providers -> Email).");
+            }
+            throw signInError;
+          }
+
+          // Redirección a la página principal según su rol
+          if (role === "client") {
+            router.push("/home-cliente");
+          } else {
+            router.push("/dashboard-pro");
+          }
         }
       } else {
         // Login mode

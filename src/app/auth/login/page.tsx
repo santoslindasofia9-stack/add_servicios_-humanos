@@ -42,9 +42,6 @@ function LoginContent() {
     setSuccess(null);
     
     try {
-      // Simulamos un pequeño retraso de carga para que se vea natural
-      await new Promise(resolve => setTimeout(resolve, 800));
-
       if (mode === "register") {
         // PROTOTYPE LOGIC: Guardar en localStorage
         const users = JSON.parse(localStorage.getItem('trustmarket_users') || '[]');
@@ -68,9 +65,9 @@ function LoginContent() {
 
         // Auto-login after registration
         if (role === "client") {
-          router.push("/home-cliente");
+          window.location.href = "/home-cliente";
         } else {
-          router.push("/dashboard-pro");
+          window.location.href = "/dashboard-pro";
         }
       } else {
         // Login mode
@@ -96,9 +93,9 @@ function LoginContent() {
 
         // Redirección exitosa basada en el rol
         if (user.role === "client") {
-          router.push("/home-cliente");
+          window.location.href = "/home-cliente";
         } else {
-          router.push("/dashboard-pro");
+          window.location.href = "/dashboard-pro";
         }
       }
     } catch (err: any) {

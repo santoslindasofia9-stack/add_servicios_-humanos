@@ -32,21 +32,60 @@ function LoginContent() {
     password: "",
   });
 
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+    setSuccess(null);
     
-    // Simulación de Auth con Supabase
-    setTimeout(() => {
-      if (mode === "login" || mode === "register") {
-        if (role === "client") {
-          router.push("/home-cliente");
-        } else {
-          router.push("/dashboard-pro");
+    try {
+      if (mode === "register") {
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              username: formData.username,
+              phone: formData.phone,
+              role: role,
+            },
+          },
+        });
+
+        if (signUpError) throw signUpError;
+        
+        if (data.user) {
+          // Registration successful. Switch to login mode and prompt them to log in.
+          setSuccess("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
+          setMode("login");
+          setFormData({ ...formData, password: "" }); // Clear password for security
+        }
+      } else {
+        // Login mode
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (signInError) throw signInError;
+
+        if (data.user) {
+          const userRole = data.user.user_metadata?.role || "client";
+          if (userRole === "client") {
+            router.push("/home-cliente");
+          } else {
+            router.push("/dashboard-pro");
+          }
         }
       }
+    } catch (err: any) {
+      setError(err.message || "Ocurrió un error inesperado");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -153,6 +192,26 @@ function LoginContent() {
                 className="space-y-6"
               >
                 <div className="space-y-4">
+                  {/* Success Message */}
+                  {success && (
+                    <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-2xl">
+                      <p className="text-sm font-medium text-green-800">{success}</p>
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {error && (
+                    <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-2xl">
+                      <p className="text-sm font-medium text-red-800">
+                        {error.includes("Email not confirmed") 
+                          ? "Por favor, verifica tu correo electrónico antes de iniciar sesión. (O desactiva la confirmación de correos en Supabase)"
+                          : error.includes("Invalid login credentials")
+                          ? "El correo o la contraseña son incorrectos."
+                          : error}
+                      </p>
+                    </div>
+                  )}
+
                   {/* Register Specific Fields */}
                   {mode === "register" && (
                     <>

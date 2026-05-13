@@ -40,68 +40,19 @@ function LoginContent() {
     setLoading(true);
     setError(null);
     setSuccess(null);
-    
-    try {
-      if (mode === "register") {
-        // PROTOTYPE LOGIC: Guardar en localStorage
-        const users = JSON.parse(localStorage.getItem('trustmarket_users') || '[]');
-        
-        // Verificar si el correo ya existe
-        if (users.find((u: any) => u.email === formData.email)) {
-          throw new Error("Este correo electrónico ya está registrado.");
-        }
+    // EXTREME PROTOTYPE BYPASS
+    // Garantizar que sin importar lo que pase, el botón navegue a la siguiente página
+    const user = {
+      email: formData.email || "test@test.com",
+      username: formData.email ? formData.email.split('@')[0] : "Usuario",
+      role: role || "client"
+    };
+    localStorage.setItem('trustmarket_current_user', JSON.stringify(user));
 
-        const newUser = {
-          email: formData.email,
-          password: formData.password,
-          username: formData.username,
-          phone: formData.phone,
-          role: role,
-        };
-
-        users.push(newUser);
-        localStorage.setItem('trustmarket_users', JSON.stringify(users));
-        localStorage.setItem('trustmarket_current_user', JSON.stringify(newUser));
-
-        // Auto-login after registration
-        if (role === "client") {
-          window.location.href = "/home-cliente";
-        } else {
-          window.location.href = "/dashboard-pro";
-        }
-      } else {
-        // Login mode
-        const users = JSON.parse(localStorage.getItem('trustmarket_users') || '[]');
-        let user = users.find((u: any) => u.email === formData.email && u.password === formData.password);
-
-        if (!user) {
-          // PROTOTYPE PERMISSIVE MODE: Para facilitar las pruebas, si el usuario no existe, 
-          // lo creamos y lo dejamos pasar directamente.
-          user = {
-            email: formData.email,
-            password: formData.password,
-            username: formData.email.split('@')[0],
-            phone: "",
-            role: role
-          };
-          users.push(user);
-          localStorage.setItem('trustmarket_users', JSON.stringify(users));
-        }
-
-        // Guardamos explícitamente el usuario que acaba de iniciar sesión
-        localStorage.setItem('trustmarket_current_user', JSON.stringify(user));
-
-        // Redirección exitosa basada en el rol
-        if (user.role === "client") {
-          window.location.href = "/home-cliente";
-        } else {
-          window.location.href = "/dashboard-pro";
-        }
-      }
-    } catch (err: any) {
-      setError(err.message || "Ocurrió un error inesperado");
-    } finally {
-      setLoading(false);
+    if (role === "client") {
+      window.location.href = "/home-cliente";
+    } else {
+      window.location.href = "/dashboard-pro";
     }
   };
 

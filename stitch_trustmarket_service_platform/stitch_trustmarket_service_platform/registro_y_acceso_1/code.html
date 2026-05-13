@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#f4dce4",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#efefef",
+                        "surface-tint": "#50616b",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary-fixed-dim": "#b7c9d5",
+                        "on-primary-fixed": "#0c1e26",
+                        "inverse-surface": "#233144",
+                        "on-primary-container": "#5e6f79",
+                        "primary-fixed": "#d3e5f1",
+                        "on-tertiary-container": "#6b6c6d",
+                        "on-secondary-fixed": "#25181e",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#5d5f5f",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#6b5a60",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-primary": "#b7c9d5",
+                        "on-secondary-container": "#716066",
+                        "on-background": "#0d1c2e",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "primary": "#50616b",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#f4dce4",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#0d1c2e",
+                        "primary-container": "#e0f2fe",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#43474b",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-dim": "#ccdbf3",
+                        "surface-container": "#e6eeff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "outline-variant": "#c3c7cb",
+                        "surface-variant": "#d5e3fc",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-highest": "#d5e3fc",
+                        "on-secondary-fixed-variant": "#524249",
+                        "outline": "#73787b",
+                        "on-primary-fixed-variant": "#384953",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "brand-pink": "#FCE4EC"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1.5rem",
+                        "lg": "1.5rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "card-padding": "32px",
+                        "section-gap": "80px",
+                        "gutter": "32px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "sans": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .ethereal-shadow { box-shadow: 0 20px 40px rgba(224, 242, 254, 0.4); }
+        .input-focus-effect:focus-within { box-shadow: 0 0 0 4px rgba(186, 230, 253, 0.5); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-sky-50/50">
+<div class="max-w-container-max mx-auto px-6 py-4 flex justify-between items-center">
+<div class="text-xl md:text-2xl font-bold text-sky-500 tracking-tight">Marketplace</div>
+<div class="flex items-center gap-4">
+<nav class="hidden md:flex items-center gap-8 mr-8">
+<a class="text-on-surface-variant hover:text-sky-500 font-medium transition-colors" href="#">Inicio</a>
+<a class="text-on-surface-variant hover:text-sky-500 font-medium transition-colors" href="#">Servicios</a>
+<a class="text-on-surface-variant hover:text-sky-500 font-medium transition-colors" href="#">Ayuda</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden cursor-pointer hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined text-slate-400">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-24 pb-32 md:pb-12">
+<div class="max-w-container-max mx-auto px-6 h-full">
+<div class="grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-180px)]">
+<!-- Left Side: Visual/Branding (Desktop Only Hero Style) -->
+<div class="hidden lg:flex flex-col gap-8 pr-12">
+<div>
+<h1 class="text-6xl font-bold text-on-background mb-6 leading-tight">Encuentra al profesional ideal para tu próximo proyecto.</h1>
+<p class="text-xl text-on-surface-variant max-w-lg">Únete a la comunidad de marketplace más segura y confiable. Servicios verificados y pagos garantizados.</p>
+</div>
+<div class="relative h-80 rounded-lg overflow-hidden ethereal-shadow mt-4">
+<img class="w-full h-full object-cover" data-alt="A serene, high-end boutique interior with vast amounts of white space and soft, pastel sky blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwaTROmFJR9GGXIjG2VxPjXBHF5zXN8Ghac9u3EWxNqvxjoNUc5cSPBnDwOM-DwLDNqphT4nkrjlD4rX6zcQo3FLIO8IXU_Hd6uUORYhP2lbwKoLy4jCBdcVgElfB8QMNaGTXzLxU5RhGkJQ8x7_sOJ8rlyxV4OK-vcf_8-K48oHvZWOGZ0nVBHI_dZrcGCqibjc-5uo8687D8hYqizWcAKxHZHHGS8EaIZCFnYRIPxK9SMpBxSZci_i0GXeuD2F_Gt6z6QjY7fA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-sky-900/40 to-transparent flex items-end p-8">
+<div class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined fill-1">verified_user</span>
+<span class="font-medium">Más de 50,000 profesionales verificados</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="w-full max-w-md mx-auto">
+<div class="text-center lg:text-left mb-10">
+<h2 class="font-h1 text-h1 text-on-background mb-2">Bienvenido</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Elige cómo quieres empezar hoy</p>
+</div>
+<!-- Role Selection -->
+<div class="flex justify-center lg:justify-start gap-6 mb-10">
+<button class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-105 focus:outline-none">
+<div class="w-20 h-20 rounded-full bg-sky-50 flex items-center justify-center ethereal-shadow group-focus:ring-4 group-focus:ring-sky-100 transition-all border border-sky-100/50">
+<span class="material-symbols-outlined text-sky-500 text-3xl" data-icon="person">person</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-focus:text-sky-600">Soy Cliente</span>
+</button>
+<button class="group flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-105 focus:outline-none">
+<div class="w-20 h-20 rounded-full bg-white border border-slate-100 flex items-center justify-center ethereal-shadow group-focus:ring-4 group-focus:ring-sky-100 transition-all">
+<span class="material-symbols-outlined text-slate-400 text-3xl" data-icon="work">work</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Soy Profesional</span>
+</button>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-lg p-card-padding ethereal-shadow border border-sky-50/50">
+<form class="space-y-6">
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant ml-2">CORREO ELECTRÓNICO</label>
+<div class="relative input-focus-effect rounded-full transition-shadow">
+<input class="w-full px-6 py-4 rounded-full bg-white border border-sky-50 focus:ring-0 focus:border-sky-200 outline-none transition-all font-body-md text-on-surface placeholder:text-slate-300" placeholder="nombre@ejemplo.com" type="email"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant ml-2">CONTRASEÑA</label>
+<div class="relative input-focus-effect rounded-full transition-shadow">
+<input class="w-full px-6 py-4 rounded-full bg-white border border-sky-50 focus:ring-0 focus:border-sky-200 outline-none transition-all font-body-md text-on-surface placeholder:text-slate-300" placeholder="••••••••" type="password"/>
+<button class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between px-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-sky-200 text-sky-400 focus:ring-sky-100 transition-all" type="checkbox"/>
+<span class="font-body-md text-[14px] text-on-surface-variant group-hover:text-on-surface">Recuérdame</span>
+</label>
+<a class="font-body-md text-[14px] text-sky-500 font-semibold hover:underline" href="#">¿Olvidaste tu clave?</a>
+</div>
+<button class="w-full py-4 bg-brand-pink text-pink-700 font-bold rounded-full transition-all duration-300 hover:brightness-95 active:scale-[0.98] shadow-lg shadow-pink-100/50" type="submit">
+                                Iniciar Sesión
+                            </button>
+</form>
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center"><div class="w-full border-t border-sky-50"></div></div>
+<div class="relative flex justify-center text-label-caps">
+<span class="bg-surface-container-lowest px-4 text-slate-300">O CONTINÚA CON</span>
+</div>
+</div>
+<div class="flex justify-center gap-4">
+<button class="w-14 h-14 rounded-full bg-white border border-sky-50 flex items-center justify-center ethereal-shadow hover:scale-110 transition-transform">
+<img alt="Google Logo" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWMcqE0upASHbz8OjXWo0co4SKVZxG9QN96I__IhIu_f3St12OVtEbWNTZV5I2cAe_lG5J5Q5I3YtKQXYbil-UCdbTysPc9wU0Vj5_0dFUwvr6a1azHQ56OvjV3ojQKfeAxhXiZkTbWGtlZMHKSF7ht5AgUbjCDfyINVvhh1DQCQmYqcVCAa5vWkcoHUGlRBGpiZek-jSU_oIziL_UOZ7kTKU-colwl2Rb3hTugDLAkOrjLMBoP8zJaPFwmaRAIvpCC_VWmAYp6A"/>
+</button>
+<button class="w-14 h-14 rounded-full bg-white border border-sky-50 flex items-center justify-center ethereal-shadow hover:scale-110 transition-transform">
+<img alt="Apple Logo" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9q_XO4lGipTGlxdHOQ8dpviIS7nlQXx8_-zdh_DpXuzsu1FiaswmGuLfcNqnqYYClFKSKkmF4Ec-kxV9qMF0OoeukVglqSbz8pSEoK2PihjkviQ8wDrore0R4IUGwHG4dWzAaBVM2Jxc77CJ4IIOZCHof_QZ6ZviSf0uiTcxr1r7KIWZjh-xbWoLvqsB3T34y9_cdyRbf7-exqht_BSQrBTWFZf41ATykSekZQUbOfgouArq8jO9hTc5rJ7YJupKcEeazJ4WPcA"/>
+</button>
+</div>
+<div class="mt-8 text-center">
+<p class="font-body-md text-on-surface-variant">
+                                ¿No tienes cuenta? 
+                                <a class="text-sky-500 font-bold hover:underline" href="#">Regístrate gratis</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Desktop Footer -->
+<footer class="hidden md:block bg-white border-t border-sky-50/50 py-12">
+<div class="max-w-container-max mx-auto px-6">
+<div class="grid grid-cols-4 gap-gutter text-sm">
+<div class="col-span-1">
+<div class="text-xl font-bold text-sky-500 mb-4">Marketplace</div>
+<p class="text-on-surface-variant">Conectamos talento con oportunidades de forma segura y sencilla.</p>
+</div>
+<div>
+<h4 class="font-bold mb-4">Compañía</h4>
+<ul class="space-y-2 text-on-surface-variant">
+<li><a class="hover:text-sky-500" href="#">Sobre nosotros</a></li>
+<li><a class="hover:text-sky-500" href="#">Carreras</a></li>
+<li><a class="hover:text-sky-500" href="#">Prensa</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Soporte</h4>
+<ul class="space-y-2 text-on-surface-variant">
+<li><a class="hover:text-sky-500" href="#">Centro de ayuda</a></li>
+<li><a class="hover:text-sky-500" href="#">Seguridad</a></li>
+<li><a class="hover:text-sky-500" href="#">Contacto</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Legal</h4>
+<ul class="space-y-2 text-on-surface-variant">
+<li><a class="hover:text-sky-500" href="#">Privacidad</a></li>
+<li><a class="hover:text-sky-500" href="#">Términos</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-sky-50/50 text-center text-on-surface-variant text-xs">
+                © 2024 Marketplace Inc. Todos los derechos reservados.
+            </div>
+</div>
+</footer>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 w-full h-20 bg-white border-t border-sky-50/50 flex justify-around items-center px-4 pb-safe z-50">
+<div class="flex flex-col items-center justify-center text-sky-600 font-bold bg-sky-50 rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-[10px] font-medium">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="local_mall">local_mall</span>
+<span class="text-[10px] font-medium">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[10px] font-medium">Inbox</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</div>
+</nav>
+</body></html>

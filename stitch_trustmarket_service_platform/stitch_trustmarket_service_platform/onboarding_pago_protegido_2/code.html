@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#efefef",
+                    "surface-tint": "#50616b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#b7c9d5",
+                    "on-primary-fixed": "#0c1e26",
+                    "inverse-surface": "#233144",
+                    "on-primary-container": "#5e6f79",
+                    "primary-fixed": "#d3e5f1",
+                    "on-tertiary-container": "#6b6c6d",
+                    "on-secondary-fixed": "#25181e",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#5d5f5f",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b5a60",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-primary": "#b7c9d5",
+                    "on-secondary-container": "#716066",
+                    "on-background": "#0d1c2e",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary": "#50616b",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#f4dce4",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0d1c2e",
+                    "primary-container": "#e0f2fe",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#ccdbf3",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c7cb",
+                    "surface-variant": "#d5e3fc",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "on-secondary-fixed-variant": "#524249",
+                    "outline": "#73787b",
+                    "on-primary-fixed-variant": "#384953",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "card-padding": "24px",
+                    "section-gap": "80px",
+                    "gutter": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                "sans": ["'Plus Jakarta Sans'", "sans-serif"]
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ethereal-blur {
+            backdrop-filter: blur(40px);
+        }
+        .soft-shadow {
+            box-shadow: 0 20px 40px rgba(224, 242, 254, 0.4);
+        }
+        .pill-shape {
+            border-radius: 9999px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-sans text-on-surface overflow-x-hidden selection:bg-secondary-container">
+<div class="min-h-screen flex flex-col max-w-[430px] mx-auto bg-surface-container-lowest relative overflow-hidden">
+<!-- Background Accent Orbs -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+<div class="absolute top-1/2 -left-20 w-72 h-72 bg-secondary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+<!-- Top Status Area (Simulated) -->
+<div class="h-12 w-full flex justify-between items-center px-8 z-10">
+<span class="text-sm font-semibold text-primary">9:41</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="signal_cellular_4_bar">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="battery_full">battery_full</span>
+</div>
+</div>
+<!-- Main Onboarding Content -->
+<main class="flex-grow flex flex-col items-center justify-center px-gutter text-center z-10 pt-base">
+<!-- Illustration Container (Bento-inspired single card) -->
+<div class="relative w-full aspect-square mb-12 flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-secondary-container/20 rounded-xl transform rotate-3"></div>
+<div class="relative w-full h-full bg-white rounded-xl soft-shadow flex items-center justify-center p-card-padding">
+<img class="w-full h-full object-contain" data-alt="A minimalist ethereal illustration of a digital vault and a shield rendered in soft pastel sky blue and light pink tones. The vault is transparent with glass-morphic textures, revealing glowing digital coins inside. The background is a clean snow-white space with soft-focus ambient lighting. The overall mood is serene, secure, and trustworthy, following a modern boutique marketplace aesthetic with diffuse blue-tinted shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkSRYKrNQ9V8qWr3RP7CTp3cQkGP_27kZro5uFPsoi3DcQ2Vup1hArsaHFSuy2LtawPb8rYen3LeIuNZpfvhGr9Y_WOrfSl7kLM2VGyjlHnxrhgJG849vR3gqQfFwlnwKkcm0xPZ6N797z6w-3SJglWTkHwDM_nSyHXJWoqmVgkUVDTGLg_-xfdoqbVrW3B_w0kIjfp1uAgVkJaIewR60V4LIUyhXxGxpUWBJO-lyWOit-CtWyB7qEdmKdDLrFDgbnR3oK_GZ_UA"/>
+</div>
+<!-- Floating Decorative Icon -->
+<div class="absolute -bottom-4 -right-4 w-16 h-16 bg-white rounded-full soft-shadow flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+</div>
+<!-- Typography Content -->
+<div class="space-y-4 max-w-sm">
+<h1 class="font-h2 text-h2 text-on-surface tracking-tight">Tu Pago está Protegido</h1>
+<p class="font-body-md text-body-md text-on-surface-variant px-2">
+                    Usamos tecnología de pago seguro para que tu dinero solo se libere cuando estés satisfecho
+                </p>
+</div>
+</main>
+<!-- Footer Navigation -->
+<footer class="p-gutter flex flex-col items-center gap-8 z-10">
+<!-- Navigation Dots -->
+<div class="flex gap-3">
+<div class="w-8 h-2 rounded-full bg-secondary"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+<!-- Primary Action -->
+<button class="w-full py-5 bg-[#FCE4EC] hover:scale-[1.02] transition-transform duration-300 ease-out text-on-secondary-container font-semibold text-lg rounded-[32px] flex items-center justify-center gap-2">
+<span>Siguiente</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary Action -->
+<button class="font-label-caps text-on-surface-variant hover:opacity-80 transition-opacity">
+                OMITIR
+            </button>
+</footer>
+<!-- Navigation Shell Suppression: This is a focused onboarding screen, so TopAppBar and BottomNavBar are omitted per hierarchy rules -->
+</div>
+</body></html>

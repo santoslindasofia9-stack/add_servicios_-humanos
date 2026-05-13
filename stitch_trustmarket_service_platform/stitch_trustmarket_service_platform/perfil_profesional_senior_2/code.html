@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#efefef",
+                    "surface-tint": "#50616b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#b7c9d5",
+                    "on-primary-fixed": "#0c1e26",
+                    "inverse-surface": "#233144",
+                    "on-primary-container": "#5e6f79",
+                    "primary-fixed": "#d3e5f1",
+                    "on-tertiary-container": "#6b6c6d",
+                    "on-secondary-fixed": "#25181e",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#5d5f5f",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b5a60",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-primary": "#b7c9d5",
+                    "on-secondary-container": "#716066",
+                    "on-background": "#0d1c2e",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary": "#50616b",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#f4dce4",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0d1c2e",
+                    "primary-container": "#e0f2fe",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#ccdbf3",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c7cb",
+                    "surface-variant": "#d5e3fc",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-highest": "#d5e3fc",
+                    "on-secondary-fixed-variant": "#524249",
+                    "outline": "#73787b",
+                    "on-primary-fixed-variant": "#384953",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1.5rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "card-padding": "24px",
+                    "section-gap": "80px",
+                    "gutter": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+              'sans': ['Plus Jakarta Sans', 'sans-serif']
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 242, 254, 0.5);
+        }
+        .ethereal-shadow {
+            box-shadow: 0 20px 40px rgba(224, 242, 254, 0.4);
+        }
+        body {
+            background-color: #f8f9ff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-sky-50/50 flex justify-center items-center w-full h-16 px-4 md:px-8">
+<div class="max-w-container-max w-full flex justify-between items-center">
+<div class="flex items-center gap-4">
+<button class="text-sky-400 dark:text-sky-300 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-bold text-sky-500 dark:text-sky-400 font-['Plus_Jakarta_Sans'] tracking-tight">Marketplace</h1>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex items-center gap-8 text-on-surface-variant font-medium">
+<a class="hover:text-pink-400 transition-colors" href="#">Home</a>
+<a class="hover:text-pink-400 transition-colors" href="#">Marketplace</a>
+<a class="hover:text-pink-400 transition-colors" href="#">Creators</a>
+<a class="hover:text-pink-400 transition-colors" href="#">About</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center justify-center p-2 text-on-surface-variant hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional portrait of a smiling male designer in a bright, modern studio. The lighting is soft and airy, emphasizing a high-key light-mode aesthetic with ethereal blue undertones. He wears a neutral linen shirt, and the background is a blurred minimalist office with white furniture and soft pastel accents, suggesting a clean and safe boutique environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnktgLOxCqD9AalgCaGh4W2Z5iSA0FkAFagYkG7zSz2T5k1FrtcPJwY0wdvjw9FLJpzTYNr1g-pwIEGQELvRbu_sN4yhPSt2iHJNm5rTULAGkjRRBletMjm9WvSZ_TwGBPt0TIlu6JlrX3FeCDFhwiiXbqhobzRDoQrEYCAcGAcBMEOwFCrjIAliV6sbqWcCIzn5njcBaSvocNoaRT4BjhWYHBp4iK1E90HRTgzJw6vmZDq2-h4DTy2ESl9PF-HBt46fsaQCNOjQ"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-4 md:px-gutter pt-24 pb-32 space-y-gutter">
+<!-- Profile Header Section -->
+<section class="flex flex-col md:flex-row items-center md:items-start gap-gutter p-card-padding md:p-12 bg-white rounded-DEFAULT ethereal-shadow">
+<div class="relative flex-shrink-0">
+<div class="w-48 h-48 md:w-56 md:h-56 rounded-full border-[6px] border-primary-container overflow-hidden shadow-xl">
+<img alt="Expert Professional" class="w-full h-full object-cover" data-alt="Close up portrait of a male creative professional with a friendly expression. The scene is bathed in bright, soft-focus natural light that creates a serene and optimistic mood. The color palette is dominated by snow-white and very faint sky-blue hues. The style is minimalist and high-end, evoking ethereal trust and professional safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw"/>
+</div>
+<div class="absolute bottom-4 right-4 bg-pink-400 text-white p-2.5 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left space-y-4">
+<div class="space-y-1">
+<div class="flex flex-col md:flex-row md:items-center gap-3">
+<h2 class="font-h1 text-h1 text-on-surface">Expert Professional</h2>
+<span class="inline-flex px-3 py-1 bg-primary-container text-primary text-label-caps rounded-full w-fit mx-auto md:mx-0">Gold Member</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Visual Designer &amp; Brand Strategist creating serene digital experiences for modern boutique brands.</p>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-6 pt-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sky-400" data-icon="location_on">location_on</span>
+<span class="font-body-md text-body-md">Barcelona, ES</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-pink-400" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">4.9</span>
+<span class="font-body-md text-body-md opacity-60">(128 Reviews)</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 pt-4 justify-center md:justify-start">
+<button class="px-8 py-3.5 bg-secondary-fixed text-on-secondary-fixed font-semibold rounded-full hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-sm">
+                        Follow Professional
+                    </button>
+<button class="px-8 py-3.5 bg-surface-container-highest text-on-surface-variant font-semibold rounded-full hover:bg-surface-container-high transition-colors">
+                        Send Message
+                    </button>
+</div>
+</div>
+</section>
+<!-- Main Content Area: Bio & Stats -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 space-y-6 p-card-padding md:p-10 bg-white rounded-DEFAULT ethereal-shadow">
+<h3 class="font-h3 text-h3 text-on-surface flex items-center gap-3">
+<span class="material-symbols-outlined text-sky-400" data-icon="auto_awesome">auto_awesome</span>
+                    Professional Biography
+                </h3>
+<div class="font-body-md text-body-md text-on-surface-variant space-y-4">
+<p>With over 10 years of experience in high-end minimalism, I specialize in crafting visual identities that communicate peace, security, and premium quality. My approach is rooted in "Ethereal Trust," ensuring every pixel serves a purpose in building a serene connection between brands and their audiences.</p>
+<p>I have collaborated with global leaders in the wellness, architecture, and luxury boutique sectors, bringing a soft-focus aesthetic to complex digital ecosystems.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-1 gap-gutter">
+<div class="p-card-padding md:p-8 bg-primary-container/30 rounded-DEFAULT border border-sky-100 flex flex-col justify-center items-center text-center">
+<span class="text-h1 font-h1 text-primary">98%</span>
+<span class="font-label-caps text-label-caps text-on-primary-container mt-1">Success Rate</span>
+</div>
+<div class="p-card-padding md:p-8 bg-secondary-container/30 rounded-DEFAULT border border-pink-100 flex flex-col justify-center items-center text-center">
+<span class="text-h1 font-h1 text-secondary">24h</span>
+<span class="font-label-caps text-label-caps text-on-secondary-container mt-1">Avg. Response</span>
+</div>
+</div>
+</section>
+<!-- Portfolio Grid -->
+<section class="space-y-gutter pt-4">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+<div>
+<h3 class="font-h2 text-h2 text-on-surface">Curated Portfolio</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A selection of recent works reflecting Soft Minimalism.</p>
+</div>
+<button class="flex items-center gap-2 text-sky-500 font-bold hover:gap-3 transition-all duration-300">
+                    View full gallery <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Portfolio Item 1 -->
+<div class="group relative overflow-hidden rounded-DEFAULT ethereal-shadow bg-white transition-transform duration-500 hover:-translate-y-2">
+<div class="aspect-[4/5] overflow-hidden">
+<img alt="Interior Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A minimalist interior design project featuring a serene, sun-drenched living room with snow-white walls and light oak flooring. The furniture is organic and sculptural in soft pastel sky blue and beige. Large windows allow soft-focus natural light to flood the space, creating an ethereal and airy atmosphere that reflects modern soft minimalism and boutique luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUkElGt0NxvD9BR8AcD0ffRoU68KTleJoIWAikW5MwXrrMCLCY2Dnv8YUeUxU614e8QIVnQXiwg07cHq3KQQvVZQqrFQFWWLQPwDouzqYn8nVdacPa6OIdFT43oueWJKGCF0w1Styha1jY5-63oA1Tzk687t9Hu6Pf8u6bpYpfIv545eof2kXrVE4Vx9KWVq1ps0vDAtQA-34dvzPyouy_zzVpPh7gMLU1rBV0jeXqS0ZL_psYiN0XKBPl_YTBV_DUduTK6mvMZw"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+<span class="text-white font-bold text-h3">Serenity Lounge</span>
+<span class="text-white/80 text-body-md">Architectural Visualization</span>
+</div>
+</div>
+<!-- Portfolio Item 2 -->
+<div class="group relative overflow-hidden rounded-DEFAULT ethereal-shadow bg-white transition-transform duration-500 hover:-translate-y-2">
+<div class="aspect-[4/5] overflow-hidden">
+<img alt="Branding Piece" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An abstract digital branding piece with fluid, cloud-like shapes in pastel pink and soft sky blue against a snow-white background. The composition is asymmetrical and lightweight, with subtle diffuse shadows creating a sense of layered depth. The aesthetic is gentle and optimistic, perfect for a high-end boutique trust-based identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3UHr9BkD1YMOzLLziprwckdjDIifcOR4K61T_ZcxDeNVGX-Mtho2x4-FWxwJ99HUwVXGARDlHJDLQISzYrioS_fkm9wcOiqXBrwvxmL5OVEJigEl6oqUogorB28NGs9iXB6dMO9JWbzRpYp8BOLa_RI5LDSlJXGDgq38J4F4aNrGInvwPh8GiWaMzTCKb8Ozgb8q98X8kLwpbakGc7kmqdUOhEyFTLsLxRbQxvyQHU6BlQDaoIhuZyUW91SiHWAWwMZimaxJ2VQ"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+<span class="text-white font-bold text-h3">Ethereal Motion</span>
+<span class="text-white/80 text-body-md">Brand Identity</span>
+</div>
+</div>
+<!-- Portfolio Item 3 -->
+<div class="group relative overflow-hidden rounded-DEFAULT ethereal-shadow bg-white transition-transform duration-500 hover:-translate-y-2 md:col-span-2 lg:col-span-1">
+<div class="aspect-[4/5] overflow-hidden">
+<img alt="Product Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A clean, high-end editorial product shot of a minimalist skincare line. The bottles are frosted glass with soft-touch textures, arranged on a marble slab. The lighting is bright and diffuse, casting very soft shadows. The overall palette is white and very light blue, evoking a sense of calm, cleanliness, and boutique sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtvnhQ23IvE930TsIJ9buPQClYwMz-iJW5pFyc0PgwCsfq6HPo5kos_D5LIqTaCYWfFOFVxcZmCGKhfwNBlgoZzIn31KuK2NUT7T7nD4SQYvPZgS41nYHCZFnV5XHqhCc7hj1wQXldYH2uvbv50Svo3wY32k3v723pmm_jeN-p2bbSqc7oEVN-mRy-Q6Yx94t5txpStbq-wALbYebghCbXUnTA8DQPsFEFkd73PHQTgRuHwIVCZFzp9nS9rVDtGWTI4_RjY9vRmw"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+<span class="text-white font-bold text-h3">Pure Ritual</span>
+<span class="text-white/80 text-body-md">Packaging Design</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-xl border-t border-sky-50 shadow-[0_-10px_40px_rgba(224,242,254,0.3)] flex justify-around items-center h-20 px-4 pb-safe md:hidden">
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-[10px] font-medium">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="local_mall">local_mall</span>
+<span class="text-[10px] font-medium">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[10px] font-medium">Inbox</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-pink-50 text-pink-600 rounded-full px-5 py-1.5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-16 h-16 bg-[#E0F2FE] text-sky-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 z-[60]">
+<span class="material-symbols-outlined text-[32px]" data-icon="chat">chat</span>
+</button>
+</body></html>

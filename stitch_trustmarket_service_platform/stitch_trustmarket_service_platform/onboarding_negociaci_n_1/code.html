@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#efefef",
+                    "surface-tint": "#50616b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#b7c9d5",
+                    "on-primary-fixed": "#0c1e26",
+                    "inverse-surface": "#233144",
+                    "on-primary-container": "#5e6f79",
+                    "primary-fixed": "#d3e5f1",
+                    "on-tertiary-container": "#6b6c6d",
+                    "on-secondary-fixed": "#25181e",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#5d5f5f",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b5a60",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-primary": "#b7c9d5",
+                    "on-secondary-container": "#716066",
+                    "on-background": "#0d1c2e",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary": "#50616b",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#f4dce4",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0d1c2e",
+                    "primary-container": "#e0f2fe",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#ccdbf3",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c7cb",
+                    "surface-variant": "#d5e3fc",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-highest": "#d5e3fc",
+                    "on-secondary-fixed-variant": "#524249",
+                    "outline": "#73787b",
+                    "on-primary-fixed-variant": "#384953",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "card-padding": "24px",
+                    "section-gap": "80px",
+                    "gutter": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+              'sans': ['Plus Jakarta Sans', 'sans-serif']
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ethereal-shadow {
+            box-shadow: 0 40px 80px -15px rgba(224, 242, 254, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center p-6">
+<!-- Onboarding Container -->
+<main class="w-full max-w-[450px] flex flex-col items-center text-center">
+<!-- Illustration Section -->
+<div class="relative w-full aspect-square mb-12 flex items-center justify-center">
+<!-- Background Decorative Elements -->
+<div class="absolute inset-0 bg-primary-container/30 rounded-full blur-3xl opacity-60 transform scale-90"></div>
+<!-- Main Illustration Card (Asymmetric Bento Style) -->
+<div class="relative z-10 w-full grid grid-cols-12 gap-4 h-full p-4">
+<div class="col-span-8 row-span-6 bg-surface-container-lowest ethereal-shadow rounded-xl p-6 flex flex-col justify-between border border-white">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div class="text-left">
+<p class="font-h3 text-[14px] text-on-surface">Alex M.</p>
+<p class="text-[10px] text-on-surface-variant">Experto en Diseño</p>
+</div>
+</div>
+<div class="mt-4 space-y-2">
+<div class="h-2 w-full bg-surface-variant rounded-full"></div>
+<div class="h-2 w-3/4 bg-surface-variant rounded-full"></div>
+</div>
+<div class="mt-6 flex justify-end">
+<div class="bg-primary-container text-primary-fixed-dim px-4 py-2 rounded-lg text-[14px] font-bold">
+                            $250.00
+                        </div>
+</div>
+</div>
+<div class="col-span-4 row-span-4 bg-white/40 backdrop-blur-md ethereal-shadow rounded-xl border border-white/60 p-4 flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-label-caps text-[10px] text-secondary">SUBASTA</span>
+</div>
+<div class="col-span-12 row-span-5 bg-white ethereal-shadow rounded-xl p-4 flex items-center justify-around border border-white">
+<div class="flex flex-col items-center gap-1">
+<div class="w-8 h-8 rounded-full bg-primary-container/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+</div>
+<span class="text-[10px] font-medium text-on-surface-variant">Chat</span>
+</div>
+<div class="h-10 w-px bg-outline-variant/30"></div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-8 h-8 rounded-full bg-secondary-container/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-lg">handshake</span>
+</div>
+<span class="text-[10px] font-medium text-on-surface-variant">Acuerdo</span>
+</div>
+</div>
+</div>
+<!-- Image Asset for Visual Depth (Hidden prompt for generation) -->
+<img alt="" class="hidden" data-alt="A delicate digital 3D illustration of a floating tablet showing a negotiation chat between two avatars. The interface features soft pastel colors like sky blue and pale pink. Glowing holographic price tags and handshake icons float around the device in a clean, bright, and serene environment. The lighting is soft and airy, creating a professional yet friendly atmosphere in a high-key light mode style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkI9nFqDCmnS04_aWgBwtxfijhBqWlr_-HIkOj2UYwL-apMHYhKgK_WW50fhbo72BUxhQl6xI6YHh_XiRMWObGUkQ-PIXYLI93nmRzYdWhGCAw9dQJM56JyCpz0aC2KKsoKAHZinM_Zidahj4AcIFLXbhqZOjrRBp0P5yYRAQ_rKrORVAPUSGBR69Yuh7pq20o5E_E2--GQYI8OFmVami73rU7KA3DaOA0t3CM7RC-UCOWTS-_XI1xOlO0ZEFTA_mc4wpZfiLhRg"/>
+</div>
+<!-- Content Section -->
+<div class="space-y-4 px-4">
+<h1 class="font-h1 text-on-surface tracking-tight leading-tight">
+                Negocia como un Experto
+            </h1>
+<p class="font-body-lg text-on-surface-variant px-2">
+                Habla con profesionales y llega al precio justo para ambos
+            </p>
+</div>
+<!-- Progress Indicators (Dots) -->
+<div class="flex gap-2 mt-12 mb-10">
+<div class="h-2 w-2 rounded-full bg-outline-variant"></div>
+<div class="h-2 w-6 rounded-full bg-secondary transition-all"></div>
+<div class="h-2 w-2 rounded-full bg-outline-variant"></div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-5 bg-[#FCE4EC] hover:bg-[#F8BBD0] text-secondary font-h3 text-lg rounded-[2rem] transition-all transform hover:scale-[1.02] active:scale-[0.98] ethereal-shadow">
+            Comenzar
+        </button>
+<!-- Secondary Action -->
+<button class="mt-6 text-on-surface-variant font-label-caps hover:text-on-surface transition-colors">
+            SALTAR
+        </button>
+</main>
+<!-- Global Decoration -->
+<div class="fixed top-[-10%] right-[-10%] w-80 h-80 bg-primary-container/20 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="fixed bottom-[-5%] left-[-5%] w-64 h-64 bg-secondary-container/20 rounded-full blur-[80px] pointer-events-none"></div>
+</body></html>

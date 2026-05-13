@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* Custom Colors from Stitch */
+  --color-secondary-container: #f4dce4;
+  --color-error: #ba1a1a;
+  --color-tertiary-container: #efefef;
+  --color-surface-tint: #50616b;
+  --color-on-tertiary-fixed: #1a1c1c;
+  --color-primary-fixed-dim: #b7c9d5;
+  --color-on-primary-fixed: #0c1e26;
+  --color-inverse-surface: #233144;
+  --color-on-primary-container: #5e6f79;
+  --color-primary-fixed: #d3e5f1;
+  --color-on-tertiary-container: #6b6c6d;
+  --color-on-secondary-fixed: #25181e;
+  --color-surface: #f8f9ff;
+  --color-tertiary: #5d5f5f;
+  --color-surface-bright: #f8f9ff;
+  --color-secondary: #6b5a60;
+  --color-on-primary: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-inverse-primary: #b7c9d5;
+  --color-on-secondary-container: #716066;
+  --color-on-background: #0d1c2e;
+  --color-tertiary-fixed-dim: #c6c6c7;
+  --color-primary-brand: #50616b;
+  --color-surface-container-high: #dce9ff;
+  --color-secondary-fixed: #f4dce4;
+  --color-on-error-container: #93000a;
+  --color-on-surface: #0d1c2e;
+  --color-primary-container: #e0f2fe;
+  --color-on-tertiary: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface-variant: #43474b;
+  --color-tertiary-fixed: #e2e2e2;
+  --color-surface-dim: #ccdbf3;
+  --color-surface-container: #e6eeff;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-outline-variant: #c3c7cb;
+  --color-surface-variant: #d5e3fc;
+  --color-secondary-fixed-dim: #d7c1c8;
+  --color-on-tertiary-fixed-variant: #454747;
+  --color-surface-container-highest: #d5e3fc;
+  --color-on-secondary-fixed-variant: #524249;
+  --color-outline: #73787b;
+  --color-on-primary-fixed-variant: #384953;
+  --color-on-secondary: #ffffff;
+  --color-on-error: #ffffff;
+
+  /* Border Radius */
+  --radius-default: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+
+  /* Font Family */
+  --font-plus-jakarta: var(--font-plus-jakarta-sans);
+
+  /* Font Sizes */
+  --font-size-h1: 40px;
+  --font-size-h2: 32px;
+  --font-size-h3: 24px;
+  --font-size-body-lg: 18px;
+  --font-size-body-md: 16px;
+  --font-size-label-caps: 12px;
+
+  /* Spacing */
+  --spacing-container-max: 1280px;
+  --spacing-card-padding: 24px;
+  --spacing-section-gap: 80px;
+  --spacing-gutter: 32px;
+  --spacing-base: 8px;
+
+  /* Splash Screen Colors */
+  --color-crema: #FFFDD0;
+  --color-celeste-pastel: #E0F2FE;
+  --color-rosa-claro: #FCE4EC;
+  --color-dark-blue-gray: #374151;
+
+  /* Animations */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes pulse-custom {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+  }
+  @keyframes blob-float {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { transform: translate(30px, -50px) scale(1.1) rotate(10deg); }
+    66% { transform: translate(-20px, 20px) scale(0.9) rotate(-10deg); }
+  }
+  @keyframes blob-rotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  @keyframes wave-move {
+    0% { transform: translate(-50%, 0) rotate(0deg); }
+    50% { transform: translate(-20%, -2%) rotate(2deg); }
+    100% { transform: translate(-50%, 0) rotate(0deg); }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  --animate-shimmer: shimmer 2.5s infinite linear;
+  --animate-soft-pulse: pulse-custom 4s ease-in-out infinite;
+  --animate-blob: blob-float 20s ease-in-out infinite;
+  --animate-blob-slow: blob-float 30s ease-in-out infinite;
+  --animate-rotate-slow: blob-rotate 40s linear infinite;
+  --animate-wave: wave-move 15s ease-in-out infinite;
+  --animate-float-slow: float-slow 5s ease-in-out infinite;
+}
+
+:root {
+  --background: #f8f9ff;
+  --foreground: #0d1c2e;
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+  }
+}
+
+@layer utilities {
+  .shimmer-effect {
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.6) 50%, 
+        rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite linear;
+  }
+
+  .ethereal-gradient {
+    background: linear-gradient(135deg, #E0F2FE 0%, #FCE4EC 100%);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}

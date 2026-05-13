@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panel de Progreso - Gestión de Confianza</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#50616b",
+                        "primary-fixed-dim": "#b7c9d5",
+                        "primary-fixed": "#d3e5f1",
+                        "outline": "#73787b",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "tertiary": "#5d5f5f",
+                        "on-primary-fixed": "#0c1e26",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-error-container": "#93000a",
+                        "on-background": "#0d1c2e",
+                        "tertiary-container": "#efefef",
+                        "on-secondary-container": "#716066",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-surface-variant": "#43474b",
+                        "surface-container-highest": "#d5e3fc",
+                        "primary": "#50616b",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#384953",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#e6eeff",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#f4dce4",
+                        "surface-variant": "#d5e3fc",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-fixed": "#25181e",
+                        "inverse-primary": "#b7c9d5",
+                        "primary-container": "#e0f2fe",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#6b5a60",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0d1c2e",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-primary-container": "#5e6f79",
+                        "secondary-container": "#f4dce4",
+                        "outline-variant": "#c3c7cb",
+                        "surface-dim": "#ccdbf3",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#233144",
+                        "on-tertiary-container": "#6b6c6d",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#524249",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "card-padding": "24px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        'sans': ['Plus Jakarta Sans', 'sans-serif']
+                    },
+                    "fontSize": {
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #0d1c2e;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .step-gradient {
+            background: linear-gradient(135deg, #e0f2fe 0%, #fce4ec 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-shadow {
+            shadow-[0_8px_40px_rgba(224,242,254,0.05)];
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-sky-50/50 dark:border-sky-900/30 shadow-[0_8px_40px_rgba(224,242,254,0.05)]">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity scale-102 active:scale-95 duration-300 ease-out text-sky-400 dark:text-sky-300">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-bold text-sky-500 dark:text-sky-300 font-['Plus_Jakarta_Sans'] tracking-tight">Gestión de Confianza</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="hidden md:block text-slate-500 text-sm font-medium">Panel Profesional</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Professional profile picture" class="w-full h-full object-cover" data-alt="A professional headshot of a confident male consultant in his late 30s wearing a modern navy blue suit. He is smiling warmly in a bright, high-key office environment with soft ethereal lighting and a blurred background of a contemporary workspace. The image is clean, sharp, and embodies a sense of reliability and expert trust within a light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9vhyfA3wwUHOoxHc2YEvipoK44IQkLwsbCmWylsKtPea75vO7G8I7P9rP7P1KHm_PKxAUbk3x4p1y3c3uUOlebcaFdOcsNN6R5ruLdnNLHoMVaKZDCk5nusgb9TC-uer1dSnU4-Pmro2lBF5Xh1gPfpjjSB3PFaPsUUg5h9TC6k_yqrpAJN_88s6R4ehO9e9b2_1bBsQA-bzJAJM-kEvxGeEyaGWhvrLCuBMhJbalFSlITv4F_78hYGxSFDcYouO9daBOEmN7vQ"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-container-max mx-auto">
+<!-- Header Section -->
+<section class="mb-10">
+<nav class="flex mb-4 text-slate-400 text-sm gap-2 items-center">
+<span>Mis Trabajos</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-sky-500 font-semibold">Proyecto #84291</span>
+</nav>
+<h2 class="font-h1 text-h1 text-on-background mb-2">Seguimiento de Servicio</h2>
+<p class="text-slate-500 font-body-md">Mantenimiento de Sistema de Climatización Residencial</p>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Progress & Steps -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Progress Stepper Card -->
+<div class="bg-surface-container-lowest rounded-lg p-card-padding shadow-[0_10px_40px_rgba(224,242,254,0.15)] border border-sky-50/50">
+<h3 class="font-h3 text-h3 mb-8 text-on-background">Pasos a seguir</h3>
+<div class="relative space-y-12 before:content-[''] before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[2px] before:bg-sky-50">
+<!-- Step 1: Completed -->
+<div class="relative flex items-start gap-6 group">
+<div class="relative z-10 w-10 h-10 rounded-full step-gradient flex items-center justify-center text-pink-400 shadow-sm border-2 border-white">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-lg text-on-background">En Camino</h4>
+<p class="text-slate-400 text-sm">Registrado a las 09:15 AM - El profesional se dirige a la ubicación.</p>
+<div class="mt-4 flex gap-2">
+<span class="px-3 py-1 bg-sky-50 text-sky-600 rounded-full text-xs font-bold">COMPLETADO</span>
+</div>
+</div>
+</div>
+<!-- Step 2: Completed -->
+<div class="relative flex items-start gap-6 group">
+<div class="relative z-10 w-10 h-10 rounded-full step-gradient flex items-center justify-center text-pink-400 shadow-sm border-2 border-white">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-lg text-on-background">Iniciado</h4>
+<p class="text-slate-400 text-sm">Registrado a las 09:45 AM - El trabajo ha comenzado oficialmente.</p>
+<div class="mt-4 flex gap-2">
+<span class="px-3 py-1 bg-sky-50 text-sky-600 rounded-full text-xs font-bold">COMPLETADO</span>
+</div>
+</div>
+</div>
+<!-- Step 3: Current -->
+<div class="relative flex items-start gap-6 group">
+<div class="relative z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center text-sky-400 border-2 border-sky-200 shadow-lg shadow-sky-100">
+<span class="material-symbols-outlined text-xl">upload_file</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-lg text-sky-600">Evidencia Enviada</h4>
+<p class="text-slate-500 text-sm">Sube fotos o documentos que certifiquen el progreso o finalización del servicio.</p>
+<div class="mt-4 p-6 border-2 border-dashed border-sky-200 rounded-lg bg-surface-container-low flex flex-col items-center justify-center hover:bg-sky-50 transition-colors cursor-pointer group/upload">
+<span class="material-symbols-outlined text-4xl text-sky-300 mb-3 group-hover/upload:scale-110 transition-transform">cloud_upload</span>
+<p class="text-sm font-medium text-slate-600">Arrastra archivos o <span class="text-sky-500 underline">haz clic aquí</span></p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">JPG, PNG o PDF hasta 10MB</p>
+</div>
+</div>
+</div>
+<!-- Step 4: Upcoming -->
+<div class="relative flex items-start gap-6 group opacity-50">
+<div class="relative z-10 w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 border-2 border-slate-100">
+<span class="material-symbols-outlined text-xl">verified</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-lg text-slate-400">Validación del Cliente</h4>
+<p class="text-slate-400 text-sm">Esperando confirmación de satisfacción por parte del cliente.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Evidence & Action -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Action Card -->
+<div class="bg-white rounded-lg p-card-padding shadow-[0_15px_50px_rgba(252,228,236,0.2)] border border-secondary-container">
+<h3 class="font-h3 text-h3 mb-4 text-on-background">Acción Requerida</h3>
+<p class="text-slate-500 mb-6 font-body-md">Para finalizar este hito, asegúrate de haber subido al menos 2 fotos del trabajo realizado.</p>
+<button class="w-full py-4 bg-[#fce4ec] hover:bg-[#f8bbd0] text-secondary font-bold rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+                        Completar Hito
+                    </button>
+<div class="mt-4 flex items-center justify-center">
+<p class="text-xs text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">info</span>
+                            Esto notificará inmediatamente al cliente.
+                        </p>
+</div>
+</div>
+<!-- Live Evidence Preview Bento -->
+<div class="space-y-4">
+<h3 class="font-label-caps text-slate-400 uppercase tracking-[0.1em]">Evidencia Actual</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="relative aspect-square rounded-lg overflow-hidden group cursor-pointer shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close-up of a professional HVAC technician's hands using a specialized digital gauge to test the pressure of an air conditioning unit. The lighting is crisp and natural, highlighting the metallic textures of the equipment. The scene is clean, organized, and evokes technical expertise and attention to detail in a modern residential setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANCmccLmP5VLBD4ovsebrMsYMzTr_19L1NLXGLU4kyyo7Ht0fdT44hOeRvqw-JHqZWLSqGYRnoN4-6iy17ZXgIAS3NzZybTaKrIde4ksKi86a-S8XioQ5rG2N8ejVDHsKhTNiVzbN6vZToI_sl0aXEaNDMHMfMl5gdnINct9_y0sqBxAHkO-tWCVAZeTjBHRWqmTRXkZ5coFLe9wLT9Q87to-pFmxoXaSDRykoAGxSzXLhfpAl3q_WJzk8bd5F2AKYaNv-3BaikA"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="relative aspect-square rounded-lg overflow-hidden group cursor-pointer shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A meticulously organized technician's tool bag placed on a clean marble floor next to a modern interior wall. The tools are neatly arranged, showcasing high-quality equipment. The lighting is soft and bright, creating an atmosphere of professionalism and care for the workspace. The color palette is composed of soft whites, greys, and subtle metallic tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUkC1ONAJP8L89X-iyL-xlLIvVN-acoXCZKHfWU93h7N3Z6Ejmjy_IwMOM_BZ2Ag5Tzm1h5dqRAZ35FieJ8Zo1BU9hpIJmvhlldfzhPJNqLYZp8_25wc3XpuUnEpl4nqCpNX5l23qq-DKOLtRE4WMkiy-o8ds2uomrp9kq0-chfB-MUxlJ008m_dpawOPTUWl_BX9sjgxd7ZGDGNyyvcs1a6ESzgY4ptfETuDZ_rFwWRSuibBvQrm8katN31vvJka9HyiVf213Ig"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Client Info Card -->
+<div class="bg-surface-container-low rounded-lg p-card-padding flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-sky-100">
+<img class="w-full h-full object-cover" data-alt="A portrait of a satisfied female client in her 40s with a friendly and calm expression. She is standing in a brightly lit, modern living room with large windows and soft pastel decor. The lighting is ethereal and warm, suggesting a safe and trusting environment. Her appearance is professional and appreciative, fitting the boutique-inspired trust management theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkWOkGNQ0d9QzC0kw6vpqzMYa8eBRCu1SebTrw27jv0PnHmzBTeT3zbJmNelwA14uRqF1-hagvh8RZaM9cAf4uuoB6L1Hfx_u-liqRwBWYzMwDKbMMCfX4Dr0jJIb_vrIdqNCwVD2uCGiImpgCCLODaRIEzWE55vgvaiqZt1bOD0HlwfSlco-lULfuzj4Ak8Ilkd2fKwBGCU8_aQpY3mb-NhwZ4PctPEWffPxAY9dL092CjPN0z5rfridGiog9GjG2G_CUGkjZLQ"/>
+</div>
+<div>
+<p class="text-xs text-slate-400 font-bold uppercase">Cliente</p>
+<h4 class="font-bold text-on-background">Elena Martínez</h4>
+<div class="flex items-center gap-1 text-pink-400 mt-0.5">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">Usuario Verificado</span>
+</div>
+</div>
+<button class="ml-auto w-10 h-10 rounded-full bg-white flex items-center justify-center text-sky-400 shadow-sm hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-3 pb-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl rounded-t-[32px] z-50 shadow-[0_-10px_40px_rgba(224,242,254,0.1)] border-t border-sky-50/30 dark:border-sky-900/20">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-pink-300 dark:hover:text-pink-200 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium mt-1">Perfil</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-pink-300 dark:hover:text-pink-200 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-pink-300 dark:hover:text-pink-200 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium mt-1">Mapa</span>
+</a>
+<a class="flex flex-col items-center justify-center text-pink-400 dark:text-pink-300 font-bold bg-pink-50/50 dark:bg-pink-900/20 rounded-full px-4 py-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium mt-1">Agenda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-pink-300 dark:hover:text-pink-200 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium mt-1">Mensajes</span>
+</a>
+</nav>
+</body></html>

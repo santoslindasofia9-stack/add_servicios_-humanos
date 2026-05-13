@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#efefef",
+                    "surface-tint": "#50616b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#b7c9d5",
+                    "on-primary-fixed": "#0c1e26",
+                    "inverse-surface": "#233144",
+                    "on-primary-container": "#5e6f79",
+                    "primary-fixed": "#d3e5f1",
+                    "on-tertiary-container": "#6b6c6d",
+                    "on-secondary-fixed": "#25181e",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#5d5f5f",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b5a60",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-primary": "#b7c9d5",
+                    "on-secondary-container": "#716066",
+                    "on-background": "#0d1c2e",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary": "#50616b",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#f4dce4",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0d1c2e",
+                    "primary-container": "#e0f2fe",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#ccdbf3",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c7cb",
+                    "surface-variant": "#d5e3fc",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-highest": "#d5e3fc",
+                    "on-secondary-fixed-variant": "#524249",
+                    "outline": "#73787b",
+                    "on-primary-fixed-variant": "#384953",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "1.5rem",
+                    "xl": "2rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1200px",
+                    "card-padding": "24px",
+                    "section-gap": "64px",
+                    "gutter": "24px",
+                    "base": "8px"
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .upload-dashed { border: 2px dashed #b7c9d5; }
+        .custom-shadow { shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- Header -->
+<header class="bg-white/80 backdrop-blur-md sticky top-0 w-full z-50 border-b border-surface-container">
+<div class="flex justify-between items-center w-full px-4 md:px-8 py-3 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-surface-container rounded-full p-2 transition-colors lg:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-bold tracking-tight text-xl text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">dataset</span>
+                Marketplace
+            </h1>
+</div>
+<div class="flex items-center gap-4 lg:gap-8">
+<nav class="hidden lg:flex gap-8">
+<a class="text-primary font-bold border-b-2 border-primary py-1" href="#">Dashboard</a>
+<a class="text-outline hover:text-primary transition-colors py-1" href="#">Proyectos</a>
+<a class="text-outline hover:text-primary transition-colors py-1" href="#">Pagos</a>
+</nav>
+<div class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary-container ring-offset-2">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5hhqGeHZSehgB9cJloFDnCsqswQn9QUSKZ86K2nD9BENbvKVCxloWEGU4wQo_s4hSwrSQ-VfQYP8HW6mXkTakjF1g-UVcLlCMvl79icnwiQGqJpL6Jlo6aSjNcrbDhWUKQ7LWScyuKI7KVcgRg__mHb6NDJATdN1NNoIOH-yNQ7FfG6CcRZoS3iWZWeQSMPIvU_dhQAWXR-rh-5cKjR6GQcrF89oaySFqIF6V-EyBAidQRkVzcWosnKMC-E64nnm1bZbPznzcag"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-8 pb-32 lg:pb-12 px-4 md:px-8">
+<div class="max-w-container-max mx-auto">
+<!-- Welcome/Info Section -->
+<section class="mb-10 lg:mb-12">
+<h2 class="text-3xl lg:text-4xl font-bold text-on-surface mb-6">Centro de Evidencias</h2>
+<div class="bg-primary-container/40 border border-primary-container/50 rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+<div class="p-2 bg-white rounded-full flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">info</span>
+</div>
+<p class="text-sm md:text-base text-on-primary-container leading-relaxed">
+                    Tus evidencias garantizan la liberación de fondos. Sube capturas de pantalla, documentos o enlaces del progreso finalizado para que el cliente pueda validar tu trabajo.
+                </p>
+</div>
+</section>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+<!-- Left Column: Upload and Files -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Upload Area -->
+<div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-surface-container">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold">Subir archivos</h3>
+<span class="material-symbols-outlined text-outline">help_outline</span>
+</div>
+<div class="upload-dashed rounded-lg p-10 md:p-16 flex flex-col items-center justify-center text-center group cursor-pointer hover:bg-surface-container-low transition-all duration-300">
+<div class="w-16 h-16 bg-secondary-container/50 rounded-full flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'wght' 300;">cloud_upload</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Arrastra y suelta tus archivos aquí</h4>
+<p class="text-sm text-outline mb-8">JPG, PNG, PDF, ZIP (Máx. 25MB)</p>
+<button class="bg-secondary-container text-on-secondary-container font-bold px-8 py-3 rounded-full hover:bg-secondary-container/80 transition-colors shadow-sm">
+                            Seleccionar Archivos
+                        </button>
+</div>
+</div>
+<!-- Files List -->
+<div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-surface-container">
+<div class="flex justify-between items-center mb-8">
+<div class="flex items-center gap-3">
+<h3 class="text-xl font-bold">Archivos subidos</h3>
+<span class="text-[10px] font-bold tracking-widest uppercase text-primary bg-primary-container px-2.5 py-1 rounded-full">3 ARCHIVOS</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- File 1 -->
+<div class="flex items-center gap-4 p-4 border border-outline-variant rounded-lg hover:border-primary/40 hover:bg-surface/50 transition-all group">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">entrega_final_v1.pdf</p>
+<p class="text-[11px] text-outline">2.4 MB • Hace 5 min</p>
+</div>
+<button class="text-outline hover:text-error p-2 rounded-full hover:bg-error-container/20 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+<!-- File 2 -->
+<div class="flex items-center gap-4 p-4 border border-outline-variant rounded-lg hover:border-primary/40 hover:bg-surface/50 transition-all group">
+<div class="w-12 h-12 bg-surface-container rounded-lg overflow-hidden shrink-0">
+<img alt="Preview" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Kc50vsuRSguJHzvPDF04iXEbeQ6lnksD6_uC9dK6UQ-lWvanodaFZ-6hGWw_BF-G6Ao53mOsFKu3uXrHRSqaZDDG1NNRyzLrME0y1uPMMd6soTx0_GoxyLRLBLiD28H-HwnDso4nwZ0GPSaogCQyek1TTuQsxAwHqYkQsLpI1zLEMRm3R4vWAr0se_7Mhl9Z77X1nt0c_4v3DPDXWY2TAZq2og289BbIgKgHgRjwmrTqx8FpXWRCNk-hP_Yt4ZTvZOt_Bh0PwA"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">screenshot_resultado.png</p>
+<p class="text-[11px] text-outline">1.1 MB • Hace 10 min</p>
+</div>
+<button class="text-outline hover:text-error p-2 rounded-full hover:bg-error-container/20 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+<!-- File 3 -->
+<div class="flex items-center gap-4 p-4 border border-outline-variant rounded-lg hover:border-primary/40 hover:bg-surface/50 transition-all group md:col-span-2">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">link</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">Repositorio de Código</p>
+<p class="text-[11px] text-outline truncate">github.com/proyecto/main</p>
+</div>
+<button class="text-outline hover:text-error p-2 rounded-full hover:bg-error-container/20 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Project Summary -->
+<div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-surface-container">
+<h3 class="text-xl font-bold mb-6">Resumen del Proyecto</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-surface-container-low">
+<span class="text-sm text-outline">Contrato</span>
+<span class="text-sm font-bold">#CTR-89231</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container-low">
+<span class="text-sm text-outline">Presupuesto</span>
+<span class="text-base font-extrabold text-primary">$4,500.00 USD</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container-low">
+<span class="text-sm text-outline">Hito</span>
+<span class="text-sm font-bold">Entrega Final</span>
+</div>
+</div>
+<div class="mt-8 mb-8 bg-surface-container-low rounded-lg p-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined">corporate_fare</span>
+</div>
+<div class="min-w-0">
+<p class="text-[10px] font-bold uppercase text-outline tracking-wider">CLIENTE</p>
+<p class="text-sm font-bold truncate">Studio Arq. Minimal</p>
+</div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container font-extrabold py-4 rounded-full hover:shadow-lg hover:shadow-secondary-container/20 transition-all active:scale-[0.98]">
+                        Enviar para Revisión
+                    </button>
+</div>
+<!-- Support Card -->
+<div class="bg-primary-container/20 rounded-lg p-6 border border-primary-container/30 relative overflow-hidden group">
+<div class="relative z-10">
+<h4 class="text-lg font-bold text-on-primary-container mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined">help</span>
+                            ¿Necesitas ayuda?
+                        </h4>
+<p class="text-sm text-on-primary-container/80 mb-6 leading-relaxed">
+                            Si tienes problemas para subir tus archivos, contacta a nuestro equipo de soporte técnico disponible 24/7.
+                        </p>
+<a class="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+                            Abrir Chat de Soporte
+                        </a>
+</div>
+<!-- Decorative element -->
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-8xl">support_agent</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 w-full bg-white border-t border-surface-container z-[60] lg:hidden">
+<div class="flex justify-around items-center h-16 px-4">
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-bold mt-0.5">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">search</span>
+<span class="text-[10px] font-bold mt-0.5">Explorar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary relative" href="#">
+<div class="absolute -top-6 bg-secondary-container p-3 rounded-full shadow-lg ring-4 ring-surface">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+</div>
+<span class="text-[10px] font-bold mt-6">Subir</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">chat_bubble</span>
+<span class="text-[10px] font-bold mt-0.5">Mensajes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+<span class="text-[10px] font-bold mt-0.5">Perfil</span>
+</a>
+</div>
+<div class="h-safe-area-bottom bg-white"></div>
+</nav>
+</body></html>

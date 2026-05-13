@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#f4dce4",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#efefef",
+                        "surface-tint": "#50616b",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary-fixed-dim": "#b7c9d5",
+                        "on-primary-fixed": "#0c1e26",
+                        "inverse-surface": "#233144",
+                        "on-primary-container": "#5e6f79",
+                        "primary-fixed": "#d3e5f1",
+                        "on-tertiary-container": "#6b6c6d",
+                        "on-secondary-fixed": "#25181e",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#5d5f5f",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#6b5a60",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-primary": "#b7c9d5",
+                        "on-secondary-container": "#716066",
+                        "on-background": "#0d1c2e",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "primary": "#50616b",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#f4dce4",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#0d1c2e",
+                        "primary-container": "#e0f2fe",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#43474b",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-dim": "#ccdbf3",
+                        "surface-container": "#e6eeff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "outline-variant": "#c3c7cb",
+                        "surface-variant": "#d5e3fc",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-highest": "#d5e3fc",
+                        "on-secondary-fixed-variant": "#524249",
+                        "outline": "#73787b",
+                        "on-primary-fixed-variant": "#384953",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1.5rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "card-padding": "24px",
+                        "section-gap": "80px",
+                        "gutter": "32px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "sans": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .celestial-gradient {
+            background: linear-gradient(135deg, #e0f2fe 0%, #fce4ec 100%);
+        }
+        @media (min-width: 768px) {
+            .desktop-shadow {
+                box-shadow: 0 40px 80px -20px rgba(80, 97, 107, 0.08);
+            }
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-on-background min-h-screen pb-32 md:pb-40">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md font-['Plus_Jakarta_Sans'] font-semibold tracking-tight sticky top-0 z-50 border-b border-surface-container-high/50">
+<div class="max-w-[1280px] mx-auto flex justify-between items-center w-full px-4 md:px-8 py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary hover:bg-surface-container p-2 rounded-full transition-colors cursor-pointer">arrow_back</span>
+<h1 class="text-lg md:text-xl font-bold text-on-surface">Marketplace</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] md:text-base" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="hidden sm:inline">Verified by AI</span>
+<span class="sm:hidden">AI Verified</span>
+</div>
+<img alt="User profile" class="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-white shadow-sm ring-1 ring-surface-container-highest/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrwXa6sIfyPSCsC7ntlZCL3lmAm2POprAFGDay-p2FdeFqnsp0wHACla2sxL9oYiocXWbBp_6l6NIl9v2SNf0uQCOPX4GJnnpb-4rodzFu2nQUy69EM0kkD0msPDo6W0LxtQ9sdmVqoB03atMEHWagZf_EXOK0EmfKU4YmUH49wgu2136G_wLC9lVohrdTMVLo6n6qPvi4I9T9B09DcEu8iXroSwvVT7F5VJAl9PQYxMxhwfmp3LWQSJMYTMfzqoIgztUDlupvlw"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-4 md:px-8 pt-8 md:pt-12">
+<!-- Hero Section -->
+<section class="celestial-gradient rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-16 mb-8 md:mb-12 flex flex-col md:flex-row items-center gap-8 md:gap-16 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/20 blur-3xl -mr-32 -mt-32 rounded-full"></div>
+<div class="flex-1 space-y-4 md:space-y-6 relative z-10 text-center md:text-left">
+<div class="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-sm rounded-full text-primary font-bold text-[10px] md:text-xs tracking-wider uppercase">SMART CONTRACT v2.1</div>
+<h2 class="text-[2.5rem] md:text-[3.5rem] leading-[1.1] font-bold text-on-background tracking-tight">Confirmación de Contrato</h2>
+<p class="text-body-md md:text-body-lg text-on-surface-variant max-w-xl mx-auto md:mx-0">
+                    Nuestra Inteligencia Artificial ha redactado y verificado los términos legales para garantizar una transacción segura y transparente.
+                </p>
+</div>
+<div class="relative w-48 h-48 md:w-80 md:h-80 flex-shrink-0">
+<div class="absolute inset-0 bg-white/40 rounded-full blur-3xl animate-pulse"></div>
+<img class="relative z-10 w-full h-full object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500" data-alt="A sophisticated 3D abstract digital render of a glowing crystalline structure representing data nodes and legal connectivity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlj_p_BMeaLZXlZd4ggY46d5F6EUTu7t4Kts19qk5yyxgpoAnYBtzlWxWkAk9LECM4Bdi8xZHLl_bvzKBktnM-hfqo09j9YNOyZ-DNhrJF498rblHcwb4lvK6ZHt18BimXFMQ3Dbb6bo0yTTE4JhBcPQHGvdqm40MesdRfb2GrJipTRFl1TYYxdaYp7GLhcHP-s-to_ssmHUEaY8voQZI-MxyJ32prIDjYMJBDaKdovlwNxw5inC3-iniKNrbL99ogUu06nvGuTQ"/>
+</div>
+</section>
+<!-- Terms Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
+<!-- Price Card -->
+<div class="bg-white rounded-[1.5rem] p-6 md:p-8 border border-surface-container-high/50 flex flex-col justify-between hover:shadow-xl transition-all duration-300 desktop-shadow">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-primary-container/30 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">payments</span>
+</div>
+<h3 class="text-xl md:text-2xl font-bold text-on-background mb-2">Inversión Total</h3>
+<p class="text-on-surface-variant text-body-md mb-6">Monto acordado para el cumplimiento del servicio.</p>
+</div>
+<div class="text-4xl md:text-5xl font-extrabold text-primary tracking-tighter">
+                    $2,450.00 <span class="text-sm font-semibold text-outline tracking-normal">USD</span>
+</div>
+</div>
+<!-- Deadline Card -->
+<div class="bg-white rounded-[1.5rem] p-6 md:p-8 border border-surface-container-high/50 flex flex-col justify-between hover:shadow-xl transition-all duration-300 desktop-shadow">
+<div>
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/30 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-3xl">event_upcoming</span>
+</div>
+<h3 class="text-xl md:text-2xl font-bold text-on-background mb-2">Fecha de Entrega</h3>
+<p class="text-on-surface-variant text-body-md mb-6">Plazo máximo estipulado por el algoritmo.</p>
+</div>
+<div class="text-4xl md:text-5xl font-extrabold text-secondary tracking-tighter">
+                    14 <span class="text-sm font-semibold text-outline tracking-normal">Días Hábiles</span>
+</div>
+</div>
+<!-- Deliverables Card -->
+<div class="bg-white rounded-[1.5rem] p-6 md:p-8 border border-surface-container-high/50 hover:shadow-xl transition-all duration-300 desktop-shadow">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-high flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">inventory_2</span>
+</div>
+<h3 class="text-xl md:text-2xl font-bold text-on-background mb-4">Entregables</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Documentación Técnica
+                    </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Activos Digitales Finales
+                    </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Código Fuente Protegido
+                    </li>
+</ul>
+</div>
+</div>
+<!-- Detailed Terms -->
+<div class="bg-white rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 border border-surface-container-high/50 mb-12 desktop-shadow">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+<div class="space-y-1">
+<h3 class="text-2xl md:text-4xl font-bold text-on-background">Cláusulas de Cumplimiento</h3>
+<p class="text-on-surface-variant">Revisa los términos de protección automática</p>
+</div>
+<button class="w-full md:w-auto px-6 py-3 bg-surface-container hover:bg-surface-container-high text-on-surface-variant rounded-full font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3 transition-colors">
+<span class="material-symbols-outlined text-lg">download</span> Descargar PDF
+                </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
+<div class="space-y-6 md:space-y-8">
+<div class="p-6 md:p-8 bg-surface-container-low rounded-[1.5rem] border border-surface-container/50 hover:border-primary/20 transition-colors">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">gavel</span>
+</div>
+<h4 class="font-bold text-lg text-primary">Arbitraje Automático</h4>
+</div>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                            En caso de disputa, el contrato entrará en una fase de mediación digital procesada por nodos de confianza, asegurando imparcialidad absoluta y rapidez en la resolución.
+                        </p>
+</div>
+<div class="p-6 md:p-8 bg-surface-container-low rounded-[1.5rem] border border-surface-container/50 hover:border-secondary/20 transition-colors">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">lock</span>
+</div>
+<h4 class="font-bold text-lg text-secondary">Depósito en Garantía</h4>
+</div>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                            Los fondos serán retenidos en un "Escrow Account" inteligente y solo se liberarán tras la validación mutua de los entregables mediante tokens de aceptación.
+                        </p>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] h-[300px] md:h-auto min-h-[400px] group">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A minimalist and clean photograph of a high-end designer office desk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChEZiFHZsq8kx_LX0jXAsETW2iyHKvfhoAVPcnguKmb2yXYczrrZpFGzFYYgtGVvxNsm8ypxj6rET1ycohwDuWI1Tme7R_0M-JWheC0JyvTsn8tneGVotJ5GY2T540A4fHlHzXaa7EMASWyhZm_9Q7S1jvJhIgdWcd07vcnC_mLp2kCSwGKb2YQy7LJDoMo-kaeBGSStXZ-fl9l5PL5hd_2sNBJDELsKadgy03_Ich9MsW4iiycNcMRP_nD0LBUmXkQT8wfIZtMw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 via-on-background/20 to-transparent flex flex-col justify-end p-8 md:p-12">
+<p class="text-white text-xl md:text-2xl font-medium italic leading-snug">"La seguridad jurídica del futuro, ejecutada hoy por inteligencia artificial."</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar / Desk Footer -->
+<div class="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-2xl border-t border-surface-container-high/50 z-[100] transition-all">
+<div class="max-w-[1280px] mx-auto px-4 md:px-8 py-4 md:py-6">
+<!-- Mobile Layout (hidden on md) -->
+<div class="flex md:hidden flex-col gap-4 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">draw</span>
+</div>
+<div>
+<p class="text-[10px] text-outline font-bold uppercase tracking-widest">Estado</p>
+<p class="text-on-background font-bold text-sm">Pendiente de Firma Digital</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 px-4 py-4 text-on-surface-variant font-bold text-sm bg-surface-container/50 rounded-full active:scale-95 transition-transform">Revisar</button>
+<button class="flex-[2] px-4 py-4 bg-secondary text-white font-bold rounded-full shadow-lg shadow-secondary/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                        Firmar Contrato <span class="material-symbols-outlined text-lg">border_color</span>
+</button>
+</div>
+</div>
+<!-- Desktop Layout (hidden on mobile) -->
+<div class="hidden md:flex items-center justify-between gap-8">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container ring-8 ring-secondary-container/20">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">draw</span>
+</div>
+<div>
+<p class="text-xs text-outline font-bold uppercase tracking-widest mb-1">Estado Actual del Contrato</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<p class="text-on-background font-bold text-xl">Pendiente de Firma Digital</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="px-8 py-4 text-on-surface-variant font-bold hover:bg-surface-container rounded-full transition-all">
+                        Revisar Términos
+                    </button>
+<button class="px-14 py-5 bg-secondary hover:bg-secondary/90 text-white font-bold rounded-full shadow-2xl shadow-secondary/30 flex items-center gap-3 transform hover:-translate-y-1 transition-all text-lg">
+                        Firmar Contrato Digitalmente
+                        <span class="material-symbols-outlined text-2xl">border_color</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-[110] bg-white dark:bg-slate-900 border-t border-surface-container-high md:hidden flex justify-around items-center h-20 px-4 pb-safe translate-y-full pointer-events-none opacity-0">
+<!-- Hidden for this specific responsive layout as bottom bar takes precedence -->
+</nav>
+</body></html>

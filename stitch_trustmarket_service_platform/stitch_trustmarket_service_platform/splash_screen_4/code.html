@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#f4dce4",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#efefef",
+                        "surface-tint": "#50616b",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary-fixed-dim": "#b7c9d5",
+                        "on-primary-fixed": "#0c1e26",
+                        "inverse-surface": "#233144",
+                        "on-primary-container": "#5e6f79",
+                        "primary-fixed": "#d3e5f1",
+                        "on-tertiary-container": "#6b6c6d",
+                        "on-secondary-fixed": "#25181e",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#5d5f5f",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#6b5a60",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-primary": "#b7c9d5",
+                        "on-secondary-container": "#716066",
+                        "on-background": "#0d1c2e",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "primary": "#50616b",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#f4dce4",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#0d1c2e",
+                        "primary-container": "#e0f2fe",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#43474b",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-dim": "#ccdbf3",
+                        "surface-container": "#e6eeff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "outline-variant": "#c3c7cb",
+                        "surface-variant": "#d5e3fc",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-highest": "#d5e3fc",
+                        "on-secondary-fixed-variant": "#524249",
+                        "outline": "#73787b",
+                        "on-primary-fixed-variant": "#384953",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem", // Updated to 24px (1.5rem) as per request
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "card-padding": "24px",
+                        "section-gap": "80px",
+                        "gutter": "32px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "plus-jakarta": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9ff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .shimmer-effect {
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.6) 50%, 
+                rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .ethereal-gradient {
+            background: linear-gradient(135deg, #E0F2FE 0%, #FCE4EC 100%);
+        }
+
+        .soft-pulse {
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.03); opacity: 0.9; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6 md:p-12">
+<!-- Main Container: Responsive layout that adapts to screen size -->
+<main class="relative w-full max-w-container-max mx-auto flex flex-col items-center justify-center min-h-[600px] md:min-h-[70vh]">
+<!-- Background Ambient Glow (Scaled for Desktop) -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-square ethereal-gradient blur-[120px] opacity-10 rounded-full soft-pulse pointer-events-none"></div>
+<!-- Content Content -->
+<div class="relative z-10 flex flex-col items-center text-center w-full max-w-2xl px-4">
+<!-- Logo Container (Size adjusted for desktop hierarchy) -->
+<div class="relative mb-8 md:mb-16">
+<!-- Inner Ambient Glow -->
+<div class="absolute inset-0 ethereal-gradient blur-3xl opacity-20 rounded-full scale-150"></div>
+<!-- Central Icon Glyph (24px rounding implied via lg class) -->
+<div class="relative w-32 h-32 md:w-40 md:h-40 ethereal-gradient rounded-lg flex items-center justify-center shadow-[0_20px_50px_rgba(224,242,254,0.5)] overflow-hidden soft-pulse">
+<!-- Inner Shimmer Layer -->
+<div class="absolute inset-0 shimmer-effect"></div>
+<!-- Icon -->
+<span class="material-symbols-outlined text-white text-6xl md:text-7xl font-light" data-icon="verified_user">
+                        verified_user
+                    </span>
+</div>
+</div>
+<!-- Branding Text (Improved Hierarchy) -->
+<div class="space-y-4 md:space-y-6">
+<h1 class="font-plus-jakarta text-h1 md:text-[56px] text-on-background tracking-tighter leading-tight">
+                    Marketplace de Confianza
+                </h1>
+<p class="font-plus-jakarta text-body-lg md:text-h3 text-on-surface-variant font-medium opacity-60 max-w-md mx-auto">
+                    Tu boutique segura para transacciones serenas.
+                </p>
+</div>
+<!-- Loading Indicator & Footer Info Grouped for Hierarchy on Desktop -->
+<div class="mt-20 md:mt-32 w-full flex flex-col items-center">
+<!-- Loading Indicator -->
+<div class="w-48 md:w-64 h-1 bg-surface-container rounded-full overflow-hidden mb-8">
+<div class="h-full w-1/3 ethereal-gradient rounded-full shimmer-effect"></div>
+</div>
+<!-- Encryption Label (Centered below loader) -->
+<div class="flex items-center gap-2 opacity-30 transition-opacity hover:opacity-50">
+<span class="material-symbols-outlined text-sm md:text-base" data-icon="lock">lock</span>
+<span class="text-label-caps font-plus-jakarta uppercase tracking-[0.2em] text-on-surface">End-to-End Encryption</span>
+</div>
+</div>
+</div>
+<!-- Optional Decorative Element for Desktop (Minimalist Side Accents) -->
+<div class="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-32 bg-gradient-to-b from-transparent via-outline-variant to-transparent opacity-20"></div>
+<div class="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-32 bg-gradient-to-b from-transparent via-outline-variant to-transparent opacity-20"></div>
+</main>
+<!-- Hidden Descriptive Content -->
+<div class="sr-only">
+<img data-alt="A high-key, minimalist digital art piece representing safety and trust. The composition features soft, overlapping translucent spheres in pastel celestial blue and soft pink against a pristine white background. The lighting is diffused and ethereal, creating a sense of weightlessness and calm. The visual style is boutique-inspired, prioritizing vast white space and elegant, subtle tonal shifts that evoke a premium, secure environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnqBZz56q0FU4cPitefZcincSNkdMvhmIlUyNIhflKi7WvzkjwUDRtaAb-8FzkhHc0Eu2mLuVyBS7sod2EAn6TpK1eGY2MsQLgILU56MGeMQO-8PijT8uWotswzXpLS_iumpuz1KufisCPum8DXWDvYHEpB2FCA8TnnaN_-_rJeMaYR1f2lNzNA9hTPlzgq9C87C0rkbmBTz_0fAtJGr7YplVAZnh56hQcg3Yib7qeIPzov_KE4iBb0FqLlMEp7oeHNVVc-naQTg"/>
+</div>
+</body></html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Custom scrollbar for desktop sidebar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d3e5f1;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#50616b",
+                        "primary-fixed-dim": "#b7c9d5",
+                        "primary-fixed": "#d3e5f1",
+                        "outline": "#73787b",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "tertiary": "#5d5f5f",
+                        "on-primary-fixed": "#0c1e26",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-error-container": "#93000a",
+                        "on-background": "#0d1c2e",
+                        "tertiary-container": "#efefef",
+                        "on-secondary-container": "#716066",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-surface-variant": "#43474b",
+                        "surface-container-highest": "#d5e3fc",
+                        "primary": "#50616b",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#384953",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#e6eeff",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#f4dce4",
+                        "surface-variant": "#d5e3fc",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-fixed": "#25181e",
+                        "inverse-primary": "#b7c9d5",
+                        "primary-container": "#e0f2fe",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#6b5a60",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0d1c2e",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-primary-container": "#5e6f79",
+                        "secondary-container": "#f4dce4",
+                        "outline-variant": "#c3c7cb",
+                        "surface-dim": "#ccdbf3",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#233144",
+                        "on-tertiary-container": "#6b6c6d",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#524249",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem", /* Updated to ~24px as requested */
+                        "xl": "2rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "base": "8px",
+                        "container-max": "1200px",
+                        "card-padding": "24px",
+                        "section-gap": "64px"
+                    },
+                    "fontSize": {
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- Sidebar Navigation - Hidden on Mobile, Fixed on Desktop -->
+<aside class="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-white dark:bg-slate-900 border-r border-sky-50 dark:border-sky-900/30 flex-col z-50">
+<div class="p-8">
+<h1 class="text-xl font-bold text-sky-500 dark:text-sky-300 tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-500">verified_user</span>
+            Gestión de Confianza
+        </h1>
+</div>
+<nav class="flex-1 px-4 space-y-2 custom-scrollbar overflow-y-auto">
+<a class="flex items-center gap-3 p-4 bg-primary-container text-on-primary-container rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-4 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">account_circle</span>
+<span class="font-medium">Perfil de Usuario</span>
+</a>
+<a class="flex items-center gap-3 p-4 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">history</span>
+<span class="font-medium">Historial</span>
+</a>
+<a class="flex items-center gap-3 p-4 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">map</span>
+<span class="font-medium">Mapa de Red</span>
+</a>
+<a class="flex items-center gap-3 p-4 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">calendar_today</span>
+<span class="font-medium">Agenda</span>
+</a>
+<a class="flex items-center gap-3 p-4 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">chat_bubble</span>
+<span class="font-medium">Mensajes</span>
+</a>
+</nav>
+<div class="p-6 border-t border-sky-50 dark:border-sky-900/30">
+<div class="flex items-center gap-4 bg-surface-container-low p-3 rounded-lg">
+<img alt="Profile" class="w-10 h-10 rounded-full object-cover border border-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVTy-WVsC1HxwtUjiq3UOBJ-T-qDouIZEqBu8qEo0kYrioFIFF5lWx1rMmihhIx2-eViR8s9LoZxf_1MsZYV89KJm2O6HU61tYqS-un5AYCwmEC7lvNsC9Dw8Cf9u0P4p8cyMAjhOTappE-S8zwAoryOBLk-xXuc5lmzh_qJzrOyPo8WytHtEU9Ad3De_bH4lJC4EGxQxb1LSr5tiVWQdfhO0juFdDu0PnE-yoZHcf03pSI7sfwhVjDkGPXdlhZqFSqDfzsRu8ug"/>
+<div class="min-w-0">
+<p class="font-bold text-sm truncate">Profesional Premium</p>
+<p class="text-xs text-on-surface-variant">ID: #882103</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top bar - Mobile Header & Desktop Branding/Search -->
+<header class="fixed top-0 right-0 left-0 lg:left-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-40 border-b border-sky-50/50 dark:border-sky-900/30">
+<div class="flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">menu</span>
+</button>
+<h1 class="lg:hidden text-lg font-bold text-sky-500">Gestión de Confianza</h1>
+<div class="hidden lg:flex items-center gap-4 bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full outline-none" placeholder="Buscar contratos o clientes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container lg:hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVTy-WVsC1HxwtUjiq3UOBJ-T-qDouIZEqBu8qEo0kYrioFIFF5lWx1rMmihhIx2-eViR8s9LoZxf_1MsZYV89KJm2O6HU61tYqS-un5AYCwmEC7lvNsC9Dw8Cf9u0P4p8cyMAjhOTappE-S8zwAoryOBLk-xXuc5lmzh_qJzrOyPo8WytHtEU9Ad3De_bH4lJC4EGxQxb1LSr5tiVWQdfhO0juFdDu0PnE-yoZHcf03pSI7sfwhVjDkGPXdlhZqFSqDfzsRu8ug"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Viewport -->
+<main class="lg:ml-72 pt-20 pb-24 lg:pb-8">
+<div class="max-w-container-max mx-auto px-6 py-8">
+<!-- Dashboard Heading Section -->
+<section class="mb-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="text-primary font-label-caps uppercase tracking-widest mb-2 block">Resumen de Cuenta</span>
+<h2 class="font-h1 text-h1 text-on-background">Tu Panel de Reputación</h2>
+</div>
+<div class="bg-primary-container px-6 py-3 rounded-lg flex items-center gap-3 self-start md:self-auto">
+<span class="material-symbols-outlined text-primary" data-icon="verified">verified</span>
+<span class="text-on-primary-container font-semibold">Perfil Verificado Nivel Premium</span>
+</div>
+</div>
+</section>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-12">
+<!-- Main Reputación Card -->
+<div class="xl:col-span-8 bg-surface-container-lowest p-card-padding rounded-lg shadow-sm border border-sky-50/50">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div>
+<h3 class="font-h3 text-h3 mb-1">Reputación General</h3>
+<p class="text-on-surface-variant body-md">Basado en los últimos 124 contratos</p>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-[#FFD700]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-lg font-bold text-on-secondary-container">4.9 / 5.0</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+<div class="bg-surface-container-low p-6 rounded-lg border border-sky-50/50 flex flex-col items-center sm:items-start text-center sm:text-left">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="thumb_up">thumb_up</span>
+<span class="text-label-caps text-on-surface-variant">CONFIANZA</span>
+</div>
+<p class="text-h3 font-h3 text-on-background">98%</p>
+<p class="text-sm text-on-surface-variant mt-1">Recomendado</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg border border-sky-50/50 flex flex-col items-center sm:items-start text-center sm:text-left">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="schedule">schedule</span>
+<span class="text-label-caps text-on-surface-variant">PUNTUALIDAD</span>
+</div>
+<p class="text-h3 font-h3 text-on-background">100%</p>
+<p class="text-sm text-on-surface-variant mt-1">Entregas a tiempo</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg border border-sky-50/50 flex flex-col items-center sm:items-start text-center sm:text-left">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="chat">chat</span>
+<span class="text-label-caps text-on-surface-variant">COMUNICACIÓN</span>
+</div>
+<p class="text-h3 font-h3 text-on-background">4.8</p>
+<p class="text-sm text-on-surface-variant mt-1">Calidad de respuesta</p>
+</div>
+</div>
+</div>
+<!-- Earnings Card -->
+<div class="xl:col-span-4 bg-primary-container p-card-padding rounded-lg relative overflow-hidden flex flex-col justify-between min-h-[280px]">
+<div class="relative z-10">
+<h3 class="font-h3 text-h3 text-on-primary-fixed-variant mb-1">Ganancias</h3>
+<p class="text-on-primary-fixed-variant/70 body-md">Este mes</p>
+<p class="text-h1 font-bold text-on-primary-fixed mt-4 tracking-tighter">$4,250.00</p>
+</div>
+<div class="relative z-10 mt-8">
+<button class="w-full bg-white text-primary font-bold py-4 rounded-lg shadow-sm hover:translate-y-[-2px] active:translate-y-[0px] transition-all duration-300">
+                        Retirar Fondos
+                    </button>
+</div>
+<!-- Abstract visual decoration -->
+<div class="absolute -bottom-10 -right-10 w-48 h-48 bg-white/20 rounded-full blur-3xl"></div>
+<div class="absolute -top-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+</div>
+</div>
+<!-- Main Content Area Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Left Side: Contracts (Takes 2/3 on XL desktop) -->
+<section class="xl:col-span-2">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-h2 text-h2">Contratos Recientes</h2>
+<button class="text-primary font-semibold flex items-center gap-2 hover:opacity-70 transition-opacity">
+                        Ver todos <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Contract Item 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-sky-50/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-md transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-sky-50 flex items-center justify-center text-sky-400 border border-sky-100">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-bold text-on-background">Alejandro Ruiz</p>
+<p class="text-sm text-on-surface-variant">Consultoría de Negocios Digitales</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex items-center gap-8 w-full md:w-auto">
+<div>
+<p class="text-label-caps text-on-surface-variant mb-1">FECHA</p>
+<p class="font-medium text-sm">12 Oct, 2023</p>
+</div>
+<div>
+<p class="text-label-caps text-on-surface-variant mb-1">MONTO</p>
+<p class="font-bold text-on-background">$850.00 USD</p>
+</div>
+<div class="col-span-2 md:col-auto">
+<div class="bg-primary-container/40 text-primary px-4 py-1.5 rounded-full text-xs font-bold border border-primary-fixed/30 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Completado
+                                </div>
+</div>
+</div>
+</div>
+<!-- Contract Item 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-sky-50/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-md transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-pink-50 flex items-center justify-center text-pink-300 border border-pink-100">
+<span class="material-symbols-outlined">business</span>
+</div>
+<div>
+<p class="font-bold text-on-background">TechSolutions Inc.</p>
+<p class="text-sm text-on-surface-variant">Diseño de Interfaz Ethereal</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex items-center gap-8 w-full md:w-auto">
+<div>
+<p class="text-label-caps text-on-surface-variant mb-1">FECHA</p>
+<p class="font-medium text-sm">08 Oct, 2023</p>
+</div>
+<div>
+<p class="text-label-caps text-on-surface-variant mb-1">MONTO</p>
+<p class="font-bold text-on-background">$1,200.00 USD</p>
+</div>
+<div class="col-span-2 md:col-auto">
+<div class="bg-primary-container/40 text-primary px-4 py-1.5 rounded-full text-xs font-bold border border-primary-fixed/30 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Completado
+                                </div>
+</div>
+</div>
+</div>
+<!-- Contract Item 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-sky-50/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-md transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-sky-50 flex items-center justify-center text-sky-400 border border-sky-100">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<div>
+<p class="font-bold text-on-background">Mariana Gómez</p>
+<p class="text-sm text-on-surface-variant">Auditoría de UX Boutique</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:flex items-center gap-8 w-full md:w-auto">
+<div>
+<p class="text-label-caps text-on-surface-variant mb-1">FECHA</p>
+<p class="font-medium text-sm">02 Oct, 2023</p>
+</div>
+<div>
+<p class="text-label-caps text-on-surface-variant mb-1">MONTO</p>
+<p class="font-bold text-on-background">$450.00 USD</p>
+</div>
+<div class="col-span-2 md:col-auto">
+<div class="bg-primary-container/40 text-primary px-4 py-1.5 rounded-full text-xs font-bold border border-primary-fixed/30 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Completado
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Action Panel / Activity (Visible on Desktop) -->
+<aside class="hidden xl:block xl:col-span-1 space-y-6">
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-sky-50/50">
+<h3 class="font-bold mb-6 text-on-background">Acciones Rápidas</h3>
+<div class="grid grid-cols-1 gap-3">
+<button class="flex items-center gap-4 p-4 bg-surface hover:bg-surface-container-low rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">edit_document</span>
+<span class="font-medium">Nuevo Contrato</span>
+</button>
+<button class="flex items-center gap-4 p-4 bg-surface hover:bg-surface-container-low rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">share</span>
+<span class="font-medium">Compartir Perfil</span>
+</button>
+<button class="flex items-center gap-4 p-4 bg-surface hover:bg-surface-container-low rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">settings</span>
+<span class="font-medium">Configuración</span>
+</button>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg border border-sky-50 shadow-sm">
+<h3 class="font-bold mb-4 text-on-background">Próximos Hitos</h3>
+<div class="space-y-4">
+<div class="flex gap-4 border-l-2 border-primary-fixed pl-4 pb-4">
+<div class="flex-1">
+<p class="text-sm font-bold">Entrega TechSolutions</p>
+<p class="text-xs text-on-surface-variant">Mañana, 10:00 AM</p>
+</div>
+</div>
+<div class="flex gap-4 border-l-2 border-slate-100 pl-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface-variant">Reunión Alejandro R.</p>
+<p class="text-xs text-on-surface-variant">Viernes, 15:30 PM</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation - Only visible on Mobile/Tablet -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-3 pb-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl z-50 rounded-t-xl border-t border-sky-50/30 dark:border-sky-900/20 shadow-[0_-8px_30px_rgba(224,242,254,0.1)]">
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-medium mt-1">Perfil</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container px-5 py-2 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-[10px] font-bold mt-0.5">Dash</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[10px] font-medium mt-1">Mapa</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-medium mt-1">Mensajes</span>
+</a>
+</nav>
+</body></html>

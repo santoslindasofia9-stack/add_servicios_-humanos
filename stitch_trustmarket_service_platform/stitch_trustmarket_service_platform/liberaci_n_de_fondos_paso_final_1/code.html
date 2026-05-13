@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Liberación de Fondos - Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#efefef",
+                    "surface-tint": "#50616b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#b7c9d5",
+                    "on-primary-fixed": "#0c1e26",
+                    "inverse-surface": "#233144",
+                    "on-primary-container": "#5e6f79",
+                    "primary-fixed": "#d3e5f1",
+                    "on-tertiary-container": "#6b6c6d",
+                    "on-secondary-fixed": "#25181e",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#5d5f5f",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b5a60",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-primary": "#b7c9d5",
+                    "on-secondary-container": "#716066",
+                    "on-background": "#0d1c2e",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary": "#50616b",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#f4dce4",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0d1c2e",
+                    "primary-container": "#e0f2fe",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#ccdbf3",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c7cb",
+                    "surface-variant": "#d5e3fc",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-highest": "#d5e3fc",
+                    "on-secondary-fixed-variant": "#524249",
+                    "outline": "#73787b",
+                    "on-primary-fixed-variant": "#384953",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "card-padding": "24px",
+                    "section-gap": "80px",
+                    "gutter": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+              'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif']
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff; /* Snow White */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md docked full-width top-0 z-50 shadow-[0_20px_40px_rgba(224,242,254,0.3)] dark:shadow-none">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<button class="text-sky-400 dark:text-sky-300 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<h1 class="font-plus-jakarta font-semibold tracking-tight text-xl font-bold text-sky-500 dark:text-sky-400">Marketplace</h1>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a friendly user with a warm smile, set against a soft-focus, bright minimalist office background. The lighting is ethereal and high-key, maintaining a clean snow-white aesthetic with subtle pastel blue tones. The overall atmosphere is trustworthy and modern, perfectly aligned with a premium digital marketplace identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHs6JgJ5ROVkcSmGMXruU21HnEVSSLSMRQe8TfZ-493sqYxFSDsLNJ97DxQu796C4SLtLVzb41jpZ_AB4vA1LlyeZA_rsdAI64ErFD67BEEtsJsfiABLyhFI3r8UShvAaNZ28yawbbn03GP3h94phy8BNqW1pZtEPjmrzIWqW6m94k7h7XhVqmVByyY9PxWNpytbsG2Pnbq_xB_tsbZgI-g4rLFMY6MDckKBzcV7rBGjxWsTGTHrCGxEsb6bgAd8u72Su8885ggA"/>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center p-6 md:p-12">
+<div class="max-w-2xl w-full">
+<!-- Celebratory Icon Section -->
+<div class="flex flex-col items-center mb-12">
+<div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center mb-8 shadow-[0_20px_40px_rgba(224,242,254,0.5)]">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="celebration" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+<h2 class="font-h1 text-h1 text-on-background text-center mb-4">¡Listo para finalizar!</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-center max-w-md">El trabajo ha sido completado satisfactoriamente. Revisa el resumen final para proceder con el pago.</p>
+</div>
+<!-- Summary Card (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="md:col-span-3 bg-surface-container-lowest p-card-padding rounded-lg shadow-[0_40px_80px_rgba(224,242,254,0.3)] border border-primary-container/50">
+<div class="flex items-start justify-between mb-6">
+<div>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest block mb-2">Servicio Prestado</span>
+<h3 class="font-h3 text-h3 text-on-background">Diseño de Identidad Visual Premium</h3>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full text-sm font-semibold">
+                            Completado
+                        </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-6 border-y border-surface-container-high">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="person_pin">person_pin</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-outline">Profesional</p>
+<p class="font-body-md text-body-md font-semibold text-on-background">Expert Professional</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-outline">Fecha de Entrega</p>
+<p class="font-body-md text-body-md font-semibold text-on-background">24 de Mayo, 2024</p>
+</div>
+</div>
+</div>
+<div class="pt-6">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Honorarios del Servicio</span>
+<span class="font-body-md text-body-md font-semibold text-on-background">$1,200.00</span>
+</div>
+<div class="flex justify-between items-center mb-4">
+<span class="font-body-md text-body-md text-on-surface-variant">Tasa de Marketplace</span>
+<span class="font-body-md text-body-md font-semibold text-on-background">$45.00</span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-dashed border-outline-variant">
+<span class="font-h3 text-h3 text-on-background">Total a Liberar</span>
+<span class="font-h3 text-h3 text-primary">$1,245.00</span>
+</div>
+</div>
+</div>
+<!-- Small Detail Cards -->
+<div class="md:col-span-1 bg-primary-container/30 p-6 rounded-lg flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="verified_user">verified_user</span>
+<p class="font-label-caps text-label-caps text-primary">Garantía Trust</p>
+</div>
+<div class="md:col-span-1 bg-secondary-container/30 p-6 rounded-lg flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-secondary mb-2" data-icon="history_edu">history_edu</span>
+<p class="font-label-caps text-label-caps text-secondary">Contrato Digital</p>
+</div>
+<div class="md:col-span-1 bg-surface-container p-6 rounded-lg flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-on-surface-variant mb-2" data-icon="support_agent">support_agent</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Soporte 24/7</p>
+</div>
+</div>
+<!-- Action Button Section -->
+<div class="flex flex-col items-center gap-6">
+<button class="w-full md:w-auto px-12 py-5 bg-[#FCE4EC] hover:scale-[1.02] transition-transform duration-300 ease-out text-pink-600 font-bold text-lg rounded-full shadow-[0_15px_30px_rgba(252,228,236,0.5)]">
+                    Confirmar y Pagar
+                </button>
+<button class="text-outline hover:text-on-surface-variant transition-colors font-body-md">
+                    Revisar detalles nuevamente
+                </button>
+</div>
+</div>
+</main>
+<!-- Success Feedback (Soft Cloud Shape Decorative Element) -->
+<div class="fixed -bottom-20 -right-20 w-80 h-80 bg-primary-container/20 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="fixed -top-20 -left-20 w-64 h-64 bg-secondary-container/20 rounded-full blur-[60px] pointer-events-none"></div>
+<!-- No NavBar as per Transactional/Focus rule -->
+</body></html>

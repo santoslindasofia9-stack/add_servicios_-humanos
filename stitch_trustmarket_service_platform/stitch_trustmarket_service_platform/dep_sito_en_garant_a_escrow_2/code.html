@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#efefef",
+                    "surface-tint": "#50616b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#b7c9d5",
+                    "on-primary-fixed": "#0c1e26",
+                    "inverse-surface": "#233144",
+                    "on-primary-container": "#5e6f79",
+                    "primary-fixed": "#d3e5f1",
+                    "on-tertiary-container": "#6b6c6d",
+                    "on-secondary-fixed": "#25181e",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#5d5f5f",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b5a60",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-primary": "#b7c9d5",
+                    "on-secondary-container": "#716066",
+                    "on-background": "#0d1c2e",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary": "#50616b",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed": "#f4dce4",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0d1c2e",
+                    "primary-container": "#e0f2fe",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#43474b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#ccdbf3",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c7cb",
+                    "surface-variant": "#d5e3fc",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-highest": "#d5e3fc",
+                    "on-secondary-fixed-variant": "#524249",
+                    "outline": "#73787b",
+                    "on-primary-fixed-variant": "#384953",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "1.5rem", // 24px per request
+                    "xl": "2rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "card-padding": "24px",
+                    "section-gap": "80px",
+                    "gutter": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+              "sans": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for better aesthetic */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8f9ff; }
+        ::-webkit-scrollbar-thumb { background: #d3e5f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b7c9d5; }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen flex flex-col">
+<!-- Header -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-[0_2px_15px_rgba(224,242,254,0.5)] sticky top-0 w-full z-50">
+<div class="max-w-[1280px] mx-auto flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-sky-400 md:hidden">menu</span>
+<span class="text-xl font-bold text-sky-500 tracking-tight">Marketplace</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 text-slate-400 font-medium text-body-md">
+<span class="text-sky-600">Home</span>
+<span class="hover:text-sky-400 transition-colors cursor-pointer">Explore</span>
+<span class="hover:text-sky-400 transition-colors cursor-pointer">Safety</span>
+</nav>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnBBnWgjhG_Diq3772aypQcqw615NKsq1iw-sES7Ey2gPWEvmZ-NbOPBibNNwJUqNaYB1B_VZ8mTzo3JSHgc3OrhXkYlCZz5x_7LWIVyj_pm7tVrv3zAl0ssk-_OYHIoXaiNNPUHOYX0hu-xCGBWpGCe2AiSwyAYmuRZ83hMoekOXYUQuHLZu2nqKR3nhmI3tnCcpuzmrmuajBU14zFwQSTP3PpZHHueGYFIKoqT6JhOSVCI8Fr1m4t8JTBKb4XoegFsvTxzb3OA"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-10 pb-24 md:pb-12 px-4 md:px-8 max-w-[1280px] mx-auto w-full">
+<!-- Title & Intro -->
+<div class="mb-10 text-center max-w-2xl mx-auto">
+<h1 class="font-h1 text-3xl md:text-h1 text-on-surface mb-3">Finalizar Pago Seguro</h1>
+<p class="text-on-surface-variant font-body-md leading-relaxed">Tus fondos se mantendrán bajo custodia segura hasta que confirmes la recepción del trabajo.</p>
+</div>
+<!-- Responsive Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-start">
+<!-- Order Summary Card -->
+<div class="lg:col-span-5 order-1 lg:order-1">
+<div class="bg-primary-container rounded-lg p-6 md:p-8 shadow-[0_10px_30px_rgba(224,242,254,0.6)]">
+<div class="space-y-8">
+<!-- Service Header -->
+<div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-white shadow-md flex-shrink-0 border-2 border-white">
+<img alt="Service Image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIZMrCnIw9GVva4PBN_dTFjKW_wj5Z3KKkmf5atR5gUxhf5G1TB5w-CEJlVUgkU8JZpbjHLYa2nWCIsYn6FNHXECES-_DsH8kRThd0jvNUI7bZrndV8k4BrXxf7vNTrsFFhE6WvgdiQ6rJH-PeX55HKqIZFtFA9SMEACH3bpQ070nfLzVDglLaiF9T2HPrGDN_Lm1Utn67AJE7zAspl9DeuM3Es4uigOBxA1mUV__zhVjH92L1czMdFrsPdFiI9ZSrEsKKVpb0Hw"/>
+</div>
+<div class="flex-1">
+<span class="inline-block bg-white/60 text-on-primary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-2">Premium</span>
+<h3 class="text-xl md:text-h3 font-bold leading-tight">Desarrollo Web Full-Stack</h3>
+<p class="text-on-primary-container/80 text-body-md mt-1">Por: <span class="font-semibold text-on-primary-container">Alex Martínez</span></p>
+</div>
+</div>
+<!-- Price Details -->
+<div class="bg-white/50 backdrop-blur-sm rounded-lg p-5 md:p-6 space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-medium">Subtotal del servicio</span>
+<span class="font-semibold text-on-surface">$1,200.00</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface-variant font-medium">Comisión Escrow</span>
+<span class="text-[10px] bg-sky-100 text-sky-700 px-1.5 py-0.5 rounded font-bold">2%</span>
+</div>
+<span class="font-semibold text-on-surface">$24.00</span>
+</div>
+<div class="border-t border-sky-200/50 pt-4 mt-2 flex justify-between items-center">
+<span class="font-bold text-on-surface text-lg">Total a depositar</span>
+<span class="font-bold text-2xl md:text-3xl text-sky-600 tracking-tight">$1,224.00</span>
+</div>
+</div>
+<!-- Security Badges -->
+<div class="grid grid-cols-2 gap-y-4 gap-x-2 pt-2 border-t border-sky-200/30">
+<div class="flex items-center gap-2.5 text-on-primary-container">
+<span class="material-symbols-outlined text-sky-500 !text-xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Protección SSL</span>
+</div>
+<div class="flex items-center gap-2.5 text-on-primary-container">
+<span class="material-symbols-outlined text-sky-500 !text-xl" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Escrow Seguro</span>
+</div>
+<div class="flex items-center gap-2.5 text-on-primary-container">
+<span class="material-symbols-outlined text-sky-500 !text-xl" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Antifraude AI</span>
+</div>
+<div class="flex items-center gap-2.5 text-on-primary-container">
+<span class="material-symbols-outlined text-sky-500 !text-xl" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Soporte 24/7</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Payment Form Card -->
+<div class="lg:col-span-7 order-2 lg:order-2">
+<div class="bg-white rounded-lg p-6 md:p-10 shadow-[0_15px_40px_rgba(224,242,254,0.3)] border border-sky-50/50">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-h3 text-xl md:text-h3">Método de Pago</h3>
+<div class="flex gap-2">
+<img alt="Visa" class="h-4 opacity-40 grayscale hover:grayscale-0 transition-all cursor-help" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxtbCR1OQvhdAnJBTUGwybkJiekwsA89OmGGIVNuI12iecF7nFoA4POpfrklOtiGpgY7vQv4eHgV4f2iwz5G8qK-JPsqyanpJi83guh2sq2Rfe9rUvopz9CYUNoxoW-xZp9b6sL2RnK9lEEsawnbuGPXZnhl-u6BisLp-JgylEgEr1jM2VJYO-R3jQZfy2ZSZRgvmotaDRNLx2rHTtrTNn3aboZvztXXu-2evrNTY8aX6vYXqskyvElNUkZB1s6mkkNHUqQ1OUGg"/>
+<img alt="Mastercard" class="h-4 opacity-40 grayscale hover:grayscale-0 transition-all cursor-help" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1-6hTHcTyoTBtVwN25c1zeSdt6a8W_rs3Yhhe1MGtr0v6fD1z_5yWem6D8C91jbjLs8SkE0PJ2JeVsmbxmlJ-BbZ_27USB8vpPv_rlMhmJ2Y5Ceh6H74RFkYl2-0rLNjM79OIbfXjIdqzSgkeh6o0a_qBCp5y9FvQ8i5rrsLeMk4cvO3X4PR5mlgUTis6549XJx334eAd_CRX9hkAfRI-r4PN8MgGTaiUk-JHqzJ9qr6uMBroc1KWXflm6fyL6DAo150kyKHjdQ"/>
+</div>
+</div>
+<form class="space-y-6">
+<!-- Card Number -->
+<div class="space-y-2">
+<label class="block text-label-caps text-on-surface-variant px-1 uppercase tracking-widest text-[10px]">Número de Tarjeta</label>
+<div class="relative group">
+<input class="w-full h-14 pl-14 pr-6 rounded-lg bg-surface-container-lowest border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 transition-all outline-none font-body-lg text-on-surface" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">credit_card</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Expiry -->
+<div class="space-y-2">
+<label class="block text-label-caps text-on-surface-variant px-1 uppercase tracking-widest text-[10px]">Fecha Exp.</label>
+<input class="w-full h-14 px-6 rounded-lg bg-surface-container-lowest border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 transition-all outline-none font-body-lg text-on-surface text-center" placeholder="MM / YY" type="text"/>
+</div>
+<!-- CVC -->
+<div class="space-y-2">
+<label class="block text-label-caps text-on-surface-variant px-1 uppercase tracking-widest text-[10px]">CVC / CVV</label>
+<div class="relative">
+<input class="w-full h-14 px-6 rounded-lg bg-surface-container-lowest border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 transition-all outline-none font-body-lg text-on-surface text-center" placeholder="***" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm cursor-help" title="3 o 4 dígitos al reverso">help</span>
+</div>
+</div>
+</div>
+<!-- Name -->
+<div class="space-y-2">
+<label class="block text-label-caps text-on-surface-variant px-1 uppercase tracking-widest text-[10px]">Nombre en la Tarjeta</label>
+<input class="w-full h-14 px-6 rounded-lg bg-surface-container-lowest border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 transition-all outline-none font-body-lg text-on-surface" placeholder="Ej. Juan Pérez" type="text"/>
+</div>
+<!-- Trust Message Box -->
+<div class="flex items-start gap-4 p-5 bg-surface-container-low/50 rounded-lg border border-sky-100/50">
+<span class="material-symbols-outlined text-sky-500 mt-0.5 !text-2xl">info</span>
+<p class="text-[13px] text-on-surface-variant leading-relaxed">
+                            Al confirmar el depósito, los fondos se retendrán de manera segura en nuestra cuenta de fideicomiso. El vendedor será pagado solo tras tu aprobación final del proyecto.
+                        </p>
+</div>
+<!-- Actions -->
+<div class="pt-4 flex flex-col-reverse sm:flex-row gap-4">
+<button class="flex-[1.5] h-14 bg-surface-container-high text-on-surface-variant font-bold rounded-lg hover:bg-surface-dim transition-all active:scale-95" type="button">
+                            Cancelar
+                        </button>
+<button class="flex-[3] h-14 bg-secondary-container hover:bg-[#fbd1dd] text-on-secondary-container font-bold rounded-lg transition-all hover:shadow-lg hover:scale-[1.01] flex items-center justify-center gap-3 active:scale-95" type="submit">
+<span class="material-symbols-outlined !text-xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Confirmar Depósito
+                        </button>
+</div>
+</form>
+<!-- Trust Footer Logos -->
+<div class="mt-10 flex justify-center items-center gap-10 opacity-30">
+<img alt="PayPal" class="h-4 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAer2X6cNJIO45cfX5X_rMyrg9nREripEbrXnbLokdpwkWGDu7Z_GwNUuT7kPB4RpCZbxsA8EZGttN9LqFdJQod1relMhumfOdnvUQh6D4ZPXdl3DSQiZyzfZmAOXOh6pqhNuRHJ6VzTRh-jwlNpgrE1bPNvJDRq9fo-gh5W1yiVvrPXCuJXyXYpwv4lvUXyo2N_95N3jPjXeLO90wNVbUEu9DmJx6vA0b9DU5m5trxCzFhLA8E5ECjMrBMcJPa6q0ADyUW-idb7w"/>
+<div class="w-px h-4 bg-slate-300"></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Pago Encriptado</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-sky-50 z-50 shadow-[0_-5px_20px_rgba(224,242,254,0.4)]">
+<div class="flex justify-around items-center h-20 px-4 pb-safe">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[10px] font-bold uppercase">Explorar</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary-container bg-on-secondary-container/5 p-2 px-4 rounded-full -mt-4 shadow-sm border border-secondary-container/20" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_mall</span>
+<span class="text-[10px] font-bold uppercase">Pagar</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-bold uppercase">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Perfil</span>
+</a>
+</div>
+</nav>
+</body></html>

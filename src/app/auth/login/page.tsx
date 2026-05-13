@@ -42,58 +42,49 @@ function LoginContent() {
     setSuccess(null);
     
     try {
+      // Simulamos un pequeño retraso de carga para que se vea natural
+      await new Promise(resolve => setTimeout(resolve, 800));
+
       if (mode === "register") {
-        const { data, error: signUpError } = await supabase.auth.signUp({
+        // PROTOTYPE LOGIC: Guardar en localStorage
+        const users = JSON.parse(localStorage.getItem('trustmarket_users') || '[]');
+        
+        // Verificar si el correo ya existe
+        if (users.find((u: any) => u.email === formData.email)) {
+          throw new Error("Este correo electrónico ya está registrado.");
+        }
+
+        const newUser = {
           email: formData.email,
           password: formData.password,
-          options: {
-            data: {
-              username: formData.username,
-              phone: formData.phone,
-              role: role,
-            },
-          },
-        });
+          username: formData.username,
+          phone: formData.phone,
+          role: role,
+        };
 
-        if (signUpError) throw signUpError;
-        
-        if (data.user) {
-          // Intentar iniciar sesión automáticamente para entrar de una vez
-          const { error: signInError } = await supabase.auth.signInWithPassword({
-            email: formData.email,
-            password: formData.password,
-          });
+        users.push(newUser);
+        localStorage.setItem('trustmarket_users', JSON.stringify(users));
 
-          if (signInError) {
-            if (signInError.message.includes("Email not confirmed")) {
-              throw new Error("Para entrar directamente, DEBES desactivar 'Confirm email' en tu panel de Supabase (Authentication -> Providers -> Email).");
-            }
-            throw signInError;
-          }
-
-          // Redirección a la página principal según su rol
-          if (role === "client") {
-            router.push("/home-cliente");
-          } else {
-            router.push("/dashboard-pro");
-          }
+        // Auto-login after registration
+        if (role === "client") {
+          router.push("/home-cliente");
+        } else {
+          router.push("/dashboard-pro");
         }
       } else {
         // Login mode
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
+        const users = JSON.parse(localStorage.getItem('trustmarket_users') || '[]');
+        const user = users.find((u: any) => u.email === formData.email && u.password === formData.password);
 
-        if (signInError) throw signInError;
+        if (!user) {
+          throw new Error("El correo o la contraseña son incorrectos.");
+        }
 
-        if (data.user) {
-          const userRole = data.user.user_metadata?.role || "client";
-          if (userRole === "client") {
-            router.push("/home-cliente");
-          } else {
-            router.push("/dashboard-pro");
-          }
+        // Redirección exitosa basada en el rol guardado
+        if (user.role === "client") {
+          router.push("/home-cliente");
+        } else {
+          router.push("/dashboard-pro");
         }
       }
     } catch (err: any) {

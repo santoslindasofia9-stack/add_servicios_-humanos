@@ -99,25 +99,51 @@ export default function HomeCliente() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   
+  // Profile Dropdown state
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [editName, setEditName] = useState("");
+
+  // Notifications state
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, read: false, icon: "🎉", title: "¡Bienvenido a Tool Link!", body: "Explora cientos de profesionales verificados cerca de ti.", time: "Ahora" },
+    { id: 2, read: false, icon: "⭐", title: "Profesional recomendado", body: "Sarah Jenkins está disponible esta semana. ¡Contáctala ahora!", time: "Hace 5 min" },
+    { id: 3, read: true, icon: "🔒", title: "Pago protegido activo", body: "Tu saldo en garantía está asegurado y listo para usar.", time: "Hace 1 hora" },
+  ]);
+  const unreadCount = notifications.filter(n => !n.read).length;
+
   // Ads carousel state
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
   useEffect(() => {
     const initData = async () => {
-      // 1. Get User
+      // 1. Get User — localStorage SIEMPRE tiene prioridad sobre Supabase
+      // para respetar los cambios que el usuario haya guardado en su perfil.
+      const savedName = typeof window !== 'undefined' ? localStorage.getItem("userName") : null;
+      const savedAvatar = typeof window !== 'undefined' ? localStorage.getItem("userAvatar") : null;
+
       const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (!userError && user) {
-        const name = user.user_metadata?.full_name || 
-                     user.user_metadata?.first_name || 
-                     user.user_metadata?.username || 
-                     user.email?.split('@')[0] || 
+
+      if (savedName) {
+        // El usuario ya personalizó su perfil → usar esos datos
+        setUserName(savedName);
+        if (savedAvatar) setUserAvatar(savedAvatar);
+        else if (!userError && user) setUserAvatar(user.user_metadata?.avatar_url || null);
+      } else if (!userError && user) {
+        // Primera vez — usar datos de Supabase y guardarlos en localStorage
+        const name = user.user_metadata?.full_name ||
+                     user.user_metadata?.first_name ||
+                     user.user_metadata?.username ||
+                     user.email?.split('@')[0] ||
                      "Usuario";
         setUserName(name);
-        setUserAvatar(user.user_metadata?.avatar_url || null);
+        localStorage.setItem("userName", name);
+        const avatar = user.user_metadata?.avatar_url || null;
+        setUserAvatar(avatar);
+        if (avatar) localStorage.setItem("userAvatar", avatar);
       } else {
-        // Enfoque Prototipo Permisivo
-        const storedName = typeof window !== 'undefined' ? localStorage.getItem("userName") : null;
-        setUserName(storedName || "Usuario Invitado");
+        // Sin sesión ni historial → nombre por defecto
+        setUserName("Usuario");
       }
 
       // 2. Fetch Professionals
@@ -160,6 +186,39 @@ export default function HomeCliente() {
     return matchesSearch && matchesCategory;
   });
 
+  // Notification Handlers
+  const toggleNotif = () => {
+    setIsNotifOpen(!isNotifOpen);
+    setIsProfileOpen(false);
+  };
+  const markAllRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+
+  // Profile Handlers
+  const toggleProfile = () => {
+    setEditName(userName);
+    setIsProfileOpen(!isProfileOpen);
+    setIsNotifOpen(false);
+  };
+
+  const handleSaveProfile = () => {
+    setUserName(editName);
+    localStorage.setItem("userName", editName);
+    setIsProfileOpen(false);
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setUserAvatar(base64String);
+        localStorage.setItem("userAvatar", base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center bg-[#f8f9ff]">
@@ -197,17 +256,163 @@ export default function HomeCliente() {
             <a className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors cursor-pointer">Mensajes</a>
           </nav>
           
-          <div className="flex items-center gap-2 md:gap-4">
-            <button className="p-2 text-[#5e6f79] hidden md:block hover:text-[#0d1c2e] transition-colors">
-              <Bell size={24} />
-            </button>
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#e6eeff] cursor-pointer bg-white flex items-center justify-center">
+          <div className="flex items-center gap-2 md:gap-4 relative">
+            {/* Bell / Notifications */}
+            <div className="relative hidden md:block">
+              <button
+                onClick={toggleNotif}
+                className="p-2 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors relative"
+              >
+                <Bell size={24} />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#FCE4EC] border-2 border-white rounded-full" />
+                )}
+              </button>
+
+              {/* Notifications Dropdown */}
+              <AnimatePresence>
+                {isNotifOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsNotifOpen(false)} />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-12 right-0 w-80 bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden z-50"
+                    >
+                      {/* Header */}
+                      <div className="flex justify-between items-center px-5 pt-5 pb-3 border-b border-gray-100">
+                        <div className="flex items-center gap-2">
+                          <span className="font-extrabold text-[#0d1c2e]">Notificaciones</span>
+                          {unreadCount > 0 && (
+                            <span className="bg-[#FCE4EC] text-[#0d1c2e] text-xs font-bold px-2 py-0.5 rounded-full">{unreadCount}</span>
+                          )}
+                        </div>
+                        {unreadCount > 0 && (
+                          <button onClick={markAllRead} className="text-xs font-bold text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+                            Marcar todo leído
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Notification list */}
+                      <div className="divide-y divide-gray-50 max-h-72 overflow-y-auto">
+                        {notifications.map((notif) => (
+                          <div
+                            key={notif.id}
+                            onClick={() => setNotifications(prev => prev.map(n => n.id === notif.id ? { ...n, read: true } : n))}
+                            className={`flex gap-3 px-5 py-4 cursor-pointer transition-colors ${
+                              !notif.read ? 'bg-[#f8f9ff] hover:bg-[#E0F2FE]/30' : 'hover:bg-gray-50'
+                            }`}
+                          >
+                            <div className="w-10 h-10 rounded-2xl bg-gray-100 flex items-center justify-center text-lg flex-shrink-0">
+                              {notif.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <p className={`text-sm leading-tight ${!notif.read ? 'font-bold text-[#0d1c2e]' : 'font-medium text-[#5e6f79]'}`}>
+                                  {notif.title}
+                                </p>
+                                {!notif.read && <span className="w-2 h-2 bg-[#D81B60] rounded-full flex-shrink-0 mt-1" />}
+                              </div>
+                              <p className="text-xs text-[#5e6f79] mt-0.5 line-clamp-2">{notif.body}</p>
+                              <p className="text-[10px] text-gray-400 font-medium mt-1">{notif.time}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Footer */}
+                      <div className="px-5 py-3 border-t border-gray-100 text-center">
+                        <button className="text-xs font-bold text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+                          Ver todas las notificaciones
+                        </button>
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
+            <div 
+              onClick={toggleProfile}
+              className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#e6eeff] cursor-pointer bg-white flex items-center justify-center relative z-50 hover:border-[#FCE4EC] transition-colors"
+            >
               {userAvatar ? (
                 <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
               ) : (
                 <span className="text-[#0d1c2e] font-bold text-sm uppercase">{userName.charAt(0)}</span>
               )}
             </div>
+
+            {/* Profile Dropdown */}
+            <AnimatePresence>
+              {isProfileOpen && (
+                <>
+                  {/* Invisible overlay to close dropdown when clicking outside */}
+                  <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-14 right-0 w-80 bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 p-6 z-50 origin-top-right"
+                  >
+                    <div className="flex flex-col items-center mb-6">
+                      <div className="relative group cursor-pointer mb-4">
+                        <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-[#f8f9ff] bg-gray-100 flex items-center justify-center shadow-sm">
+                          {userAvatar ? (
+                            <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-[#0d1c2e] font-bold text-2xl uppercase">{userName.charAt(0)}</span>
+                          )}
+                        </div>
+                        <label className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white opacity-0 group-hover:opacity-100 rounded-full transition-opacity cursor-pointer">
+                          <span className="text-xs font-bold">Cambiar</span>
+                          <span className="text-[10px]">foto</span>
+                          <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                        </label>
+                      </div>
+                      <p className="text-xs font-bold text-[#5e6f79] uppercase tracking-wider mb-1">Perfil de Usuario</p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-xs font-bold text-[#0d1c2e] ml-1">Nombre de Usuario</label>
+                        <input 
+                          type="text" 
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          className="w-full mt-1 px-4 py-3 bg-[#f8f9ff] border border-gray-200 rounded-xl focus:outline-none focus:border-[#FCE4EC] focus:ring-2 focus:ring-[#FCE4EC] transition-all text-[#0d1c2e] font-medium"
+                        />
+                      </div>
+                      
+                      <button 
+                        onClick={handleSaveProfile}
+                        className="w-full py-3 bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#0d1c2e] font-bold rounded-xl transition-all shadow-sm"
+                      >
+                        Guardar Cambios
+                      </button>
+
+                      <div className="border-t border-gray-100 pt-4 mt-2">
+                        <button 
+                          onClick={async () => {
+                            // Solo limpiar la sesión — conservar nombre y foto del perfil
+                            localStorage.removeItem("userRole");
+                            await supabase.auth.signOut();
+                            router.push("/auth/login");
+                          }}
+                          className="w-full py-3 text-red-500 font-bold hover:bg-red-50 rounded-xl transition-all"
+                        >
+                          Cerrar Sesión
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </header>

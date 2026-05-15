@@ -40,19 +40,88 @@ function LoginContent() {
     setLoading(true);
     setError(null);
     setSuccess(null);
-    // EXTREME PROTOTYPE BYPASS
-    // Garantizar que sin importar lo que pase, el botón navegue a la siguiente página
-    const user = {
-      email: formData.email || "test@test.com",
-      username: formData.email ? formData.email.split('@')[0] : "Usuario",
-      role: role || "client"
-    };
-    localStorage.setItem('trustmarket_current_user', JSON.stringify(user));
 
-    if (role === "client") {
-      window.location.href = "/home-cliente";
-    } else {
-      window.location.href = "/dashboard-pro";
+    try {
+      if (mode === "register") {
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              nombre_completo: formData.username,
+              telefono: formData.phone,
+              rol: role
+            }
+          }
+        });
+
+        if (signUpError) throw signUpError;
+
+        if (data.user) {
+          // Inserción inmediata en tabla usuarios
+          const { error: insertError } = await supabase.from('usuarios').insert({
+            id: data.user.id,
+            nombre_completo: formData.username,
+            email: formData.email,
+            telefono: formData.phone,
+            rol: role
+          });
+
+          if (insertError) {
+            console.error("Error inserting into usuarios:", insertError);
+            // Si el error es por duplicidad o algo, el trigger a lo mejor ya lo hizo si el usuario lo creó. 
+            // Si no, notificamos, pero el signUp fue exitoso.
+          }
+          
+          setSuccess("Cuenta creada exitosamente. Iniciando sesión...");
+          
+          // Login automatically
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: formData.email,
+            password: formData.password,
+          });
+
+          if (!signInError) {
+            router.push(role === "client" ? "/dashboard/client" : "/dashboard-pro");
+          } else {
+            router.push("/auth/login?mode=login");
+          }
+        }
+      } else {
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (signInError) throw signInError;
+
+        // Fetch role to redirect correctly
+        const { data: userData } = await supabase.from('usuarios').select('rol').eq('id', data.user.id).single();
+        
+        if (userData?.rol === 'profesional') {
+          router.push("/dashboard-pro");
+        } else {
+          router.push("/dashboard/client");
+        }
+      }
+    } catch (err: any) {
+      setError(err.message || "Ha ocurrido un error inesperado.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard/client`, // Fallback, could check role
+        }
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      setError(err.message || "Error al iniciar sesión con Google.");
     }
   };
 
@@ -147,6 +216,8 @@ function LoginContent() {
                 Soy Profesional
               </button>
             </div>
+
+
 
             {/* Form Container with Animation */}
             <AnimatePresence mode="wait">
@@ -278,6 +349,30 @@ function LoginContent() {
                 </button>
               </motion.form>
             </AnimatePresence>
+
+            {/* Opciones de Login Social */}
+            <div className="relative my-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm font-bold">
+                <span className="px-4 bg-white text-[#5e6f79] tracking-wider text-xs">
+                  O CONTINÚA CON
+                </span>
+              </div>
+            </div>
+
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleGoogleLogin}
+                className="w-14 h-14 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:border-gray-300 hover:shadow-md transition-all active:scale-95"
+              >
+                <Image src="/google-icon.svg" alt="Google" width={24} height={24} />
+              </button>
+              <button className="w-14 h-14 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:border-gray-300 hover:shadow-md transition-all active:scale-95">
+                <Image src="/apple-icon.svg" alt="Apple" width={24} height={24} />
+              </button>
+            </div>
 
             {/* Footer / Toggle Mode */}
             <p className="text-center text-sm font-medium text-[#5e6f79]">

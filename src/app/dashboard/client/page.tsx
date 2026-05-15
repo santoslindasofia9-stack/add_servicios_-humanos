@@ -43,39 +43,20 @@ const FEATURED_PROS = [
   },
 ];
 
+import { useAuth } from "@/context/AuthContext";
+
 export default function ClientDashboard() {
   const router = useRouter();
-  const [userName, setUserName] = useState<string>("Usuario");
-  const [userAvatar, setUserAvatar] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, profile, loading } = useAuth();
+  
+  const userName = profile?.nombre_completo || user?.user_metadata?.full_name || user?.email?.split('@')[0] || "Usuario";
+  const userAvatar = user?.user_metadata?.avatar_url || null;
 
   useEffect(() => {
-    const fetchUser = async () => {
-      // 1. Obtener usuario autenticado
-      const { data: { user }, error } = await supabase.auth.getUser();
-      
-      // Lógica Técnica: Redirección si no hay sesión activa
-      if (error || !user) {
-        router.push("/auth/login");
-        return;
-      }
-
-      // Personalización: Extraer nombre y avatar
-      const name = user.user_metadata?.full_name || 
-                   user.user_metadata?.first_name || 
-                   user.user_metadata?.username || 
-                   user.email?.split('@')[0] || 
-                   "Usuario";
-      
-      const avatar = user.user_metadata?.avatar_url || null;
-      
-      setUserName(name);
-      setUserAvatar(avatar);
-      setLoading(false);
-    };
-
-    fetchUser();
-  }, [router]);
+    if (!loading && !user) {
+      router.push("/auth/login");
+    }
+  }, [user, loading, router]);
 
   if (loading) {
     return (

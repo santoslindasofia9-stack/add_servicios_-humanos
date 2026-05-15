@@ -64,13 +64,17 @@ function LoginContent() {
       }
 
       // Prototipo Permisivo: Forzar navegación independientemente del resultado del backend
+      const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
       localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", displayName);
       router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
 
     } catch (err: any) {
       console.warn("Supabase auth error ignored in prototype mode:", err);
       // Fallback: Forzar navegación si falla
+      const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
       localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", displayName);
       router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
     } finally {
       setLoading(false);

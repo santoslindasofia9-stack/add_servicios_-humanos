@@ -116,7 +116,8 @@ export default function HomeCliente() {
         setUserAvatar(user.user_metadata?.avatar_url || null);
       } else {
         // Enfoque Prototipo Permisivo
-        setUserName("Usuario Invitado");
+        const storedName = typeof window !== 'undefined' ? localStorage.getItem("userName") : null;
+        setUserName(storedName || "Usuario Invitado");
       }
 
       // 2. Fetch Professionals

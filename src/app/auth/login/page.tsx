@@ -229,9 +229,10 @@ function LoginContent() {
                   {/* Error Message */}
                   {error && (
                     <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-2xl">
+                      <p className="text-sm font-bold text-red-800 mb-1">Error de Supabase:</p>
                       <p className="text-sm font-medium text-red-800">
                         {error.includes("Email not confirmed") 
-                          ? "Por favor, verifica tu correo electrónico antes de iniciar sesión. (O desactiva la confirmación de correos en Supabase)"
+                          ? "Supabase está bloqueando el acceso porque te exige verificar el correo. Para arreglar esto y que funcione de inmediato: Ve a tu panel de Supabase -> Authentication -> Providers -> Email -> APAGA la opción 'Confirm email' y guarda. (Luego intenta con un correo NUEVO)."
                           : error.includes("Invalid login credentials")
                           ? "El correo o la contraseña son incorrectos."
                           : error}

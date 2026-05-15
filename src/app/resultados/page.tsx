@@ -1,7 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import ProfessionalCard from "@/components/resultados/ProfessionalCard";
 import Link from "next/link";
-import { ArrowLeft, SlidersHorizontal, ArrowUpDown, Search } from "lucide-react";
 import BottomNav from "@/components/dashboard/BottomNav";
 
 export const dynamic = 'force-dynamic';
@@ -60,6 +59,60 @@ const FALLBACK_EXPERTS = [
     calificacion: 5,
     tarifa: 200,
     foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuB8PciBPx8J_AUKCIHBcXBGUlgRG_SmQklphaaOPBS7Io20uuJq9Yqq-LmnM5BE-jHMcSyCpPIvnICQJWKKlKTgI19ULZNR0yb5Zy2WjUz8C9GFMo8ovXVyg3r11ofkBuX3rfH-4GmDWyNrDpT_y2GPaEybrpRNVbFfVCdj5jBUsHDOQlJ4dx1n1IFo4WvjuYtSZiPl6qsw4viIzPKZwxMjTn_4NAFIUWX18Dnqf0EOhnKuC7df6IwgwyT-oAmPAOQZwqp9EHv3YQ"
+  },
+  {
+    id: "f7",
+    nombre_completo: "Valeria Gómez",
+    titulo_profesional: "Especialista en UX/UI enfocada en aplicaciones móviles y usabilidad.",
+    categoria: "Tech",
+    calificacion: 4.9,
+    tarifa: 110,
+    foto_perfil: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f8",
+    nombre_completo: "Andrés Silva",
+    titulo_profesional: "Asesor financiero para startups y pequeñas empresas.",
+    categoria: "Negocios",
+    calificacion: 4.8,
+    tarifa: 135,
+    foto_perfil: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f9",
+    nombre_completo: "Lucía Ortiz",
+    titulo_profesional: "Organizadora de espacios y consultora de Marie Kondo.",
+    categoria: "Hogar",
+    calificacion: 5,
+    tarifa: 75,
+    foto_perfil: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f10",
+    nombre_completo: "Roberto Sánchez",
+    titulo_profesional: "Técnico Electricista certificado, instalaciones y domótica.",
+    categoria: "Hogar",
+    calificacion: 4.7,
+    tarifa: 45,
+    foto_perfil: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f11",
+    nombre_completo: "Carolina Ruiz",
+    titulo_profesional: "Ilustradora digital y creadora de personajes para videojuegos.",
+    categoria: "Creativo",
+    calificacion: 4.9,
+    tarifa: 90,
+    foto_perfil: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f12",
+    nombre_completo: "Diego Castro",
+    titulo_profesional: "Desarrollador Backend Senior experto en Node y Python.",
+    categoria: "Tech",
+    calificacion: 5,
+    tarifa: 160,
+    foto_perfil: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"
   }
 ];
 
@@ -117,7 +170,7 @@ export default async function ResultadosBusqueda({
             href="/home-cliente"
             className="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center text-[#5e6f79] hover:text-[#0d1c2e] transition-all"
           >
-            <ArrowLeft size={20} />
+            <span className="material-symbols-outlined text-[20px]">arrow_back</span>
           </Link>
           <Link href="/home-cliente" className="flex items-center gap-2 cursor-pointer">
             <div className="w-8 h-8 bg-[#0d1c2e] rounded-lg flex items-center justify-center">
@@ -132,7 +185,7 @@ export default async function ResultadosBusqueda({
         {/* Read-only search bar styling for context */}
         <div className="hidden lg:flex flex-1 max-w-xl mx-8">
           <div className="bg-[#eff4ff] rounded-full w-full flex items-center px-5 py-2.5 border border-sky-100">
-            <Search size={18} className="text-slate-400 mr-3 flex-shrink-0" />
+            <span className="material-symbols-outlined text-slate-400 mr-3 flex-shrink-0 text-[18px]">search</span>
             <div className="text-sm text-[#0d1c2e] font-medium">
               {query ? `Buscando: ${query}` : (categoria ? `Categoría: ${categoria}` : "Todos los expertos")}
             </div>
@@ -160,10 +213,10 @@ export default async function ResultadosBusqueda({
           {/* Controles de Filtrado */}
           <div className="flex gap-3 self-start md:self-end">
             <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center gap-2 shadow-sm uppercase tracking-wider">
-              <SlidersHorizontal size={18} /> Filtrar
+              <span className="material-symbols-outlined text-[18px]">tune</span> Filtrar
             </button>
             <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center gap-2 shadow-sm uppercase tracking-wider">
-              <ArrowUpDown size={18} /> Ordenar
+              <span className="material-symbols-outlined text-[18px]">swap_vert</span> Ordenar
             </button>
           </div>
         </div>
@@ -187,7 +240,7 @@ export default async function ResultadosBusqueda({
         ) : (
           <div className="py-20 text-center bg-white rounded-3xl border border-gray-100 border-dashed">
             <div className="w-16 h-16 bg-[#f8f9ff] rounded-full flex items-center justify-center mx-auto mb-4 text-[#5e6f79]">
-              <Search size={32} />
+              <span className="material-symbols-outlined text-[32px]">search</span>
             </div>
             <h3 className="text-lg font-bold text-[#0d1c2e] mb-2">No se encontraron profesionales</h3>
             <p className="text-[#5e6f79]">Intenta buscar con otros términos o cambia la categoría.</p>

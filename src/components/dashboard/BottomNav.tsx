@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { icon: "home", label: "Inicio", href: "/home-cliente" },
-  { icon: "search", label: "Buscar", href: "/mapa-expertos" },
+  { icon: "search", label: "Buscar", href: "/resultados" },
   { icon: "shopping_bag", label: "Pedidos", href: "/pedidos" },
   { icon: "chat_bubble", label: "Mensajes", href: "/mensajes" },
   { icon: "person", label: "Perfil", href: "/perfil" },

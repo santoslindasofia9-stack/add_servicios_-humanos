@@ -4,15 +4,143 @@ import BottomNav from "@/components/dashboard/BottomNav";
 
 export const dynamic = 'force-dynamic';
 
-const FALLBACK_EXPERT = {
-  id: "f1",
-  nombre_completo: "Elena Rodríguez",
-  titulo_profesional: "Visual Designer & Brand Strategist creating serene digital experiences for modern boutique brands.",
-  categoria: "Creativo",
-  calificacion: 4.9,
-  tarifa: 85,
-  foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw"
-};
+const FALLBACK_EXPERTS = [
+  {
+    id: "f1",
+    nombre_completo: "Elena Rodríguez",
+    titulo_profesional: "Especialista en diseño de interiores con enfoque en minimalismo nórdico y espacios zen.",
+    categoria: "Hogar",
+    calificacion: 5,
+    tarifa: 85,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuBgK5hjCuI3RxK41W5sivfJ4cy_aRTeGuYkRGCYKKI_lvVVln6_bvWJRZ9aDA3Cgp5XWoZzc4NOZlP-r1En7FnpOLkUJfaOPa_l_SpVIwtYpP9FSEcMzZB-Xac3MgJ55QCyrP379jAudQUlkkTfGFcQj1oLPjQ0FoHa2lljHSpYZKaNTZZ2qNmVV1KTZtNmGT3tkhJfOeqouIKu5r1JLs5r0X2pkPgNCSCJ0ZplO9hgxOPajxv8LzrnYcQvn__PtywfZFnQghiRKA"
+  },
+  {
+    id: "e9",
+    nombre_completo: "Carolina Ruiz",
+    titulo_profesional: "Desarrolladora Web",
+    categoria: "Tech",
+    calificacion: 5.0,
+    tarifa: 80,
+    foto_perfil: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=200",
+  },
+  {
+    id: "f2",
+    nombre_completo: "Julián Martínez",
+    titulo_profesional: "Consultor de branding estratégico para marcas emergentes que buscan impacto visual.",
+    categoria: "Creativo",
+    calificacion: 5,
+    tarifa: 120,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuD8vieSJHSh8s4srhDRVc07JvNR_6zKQG2yfTNVG6xwWQaKG98OqscybPMITeYo7M7qaqYTcQqig3KcF_ZRiBRNW70bj8dQKlzQbVSJoa6PRzDLMVK32ZPlJ87tX9txfSPpZXG45CU6HAzkkBES1VESCWpOmw75y37nufVPw8cSSSJ9uahncyE58b1e2wMqe6ji-p3fnxClhkk-d_edC_R4zoJ-AxyS6yfR8Iqyg7hfTx3YXPngatGK6H7VUEdTuCxmT2NDc2Zr8w"
+  },
+  {
+    id: "f3",
+    nombre_completo: "Sofía López",
+    titulo_profesional: "Redactora creativa y especialista en storytelling emocional para catálogos de lujo.",
+    categoria: "Creativo",
+    calificacion: 5,
+    tarifa: 55,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuDq0ejKLQFaVq97cNcPankNdRGVIPMbmgSgVdufsS6wVPhWYLg-Tq3ApMsb7FeJy3T6qDZj21jIcDiA9W6x6Ggxf--TJm6Oof8TSccU7UEgftmLDhZooog8wF57B8fHK9BBEvChk8HFSsyRBUY16iFshpvEmZg_pqgDXnkVdxoDX9SDxVkkAVOQLWmp8SWB_U0p9auM9cA9TFglVEv9xkhkgIKpz5f7KmJwCdUV2Dl3BKnVKOabEcGTwE-oxd0a-88I_9ThwH0wbQ"
+  },
+  {
+    id: "f4",
+    nombre_completo: "Carlos Torres",
+    titulo_profesional: "Desarrollador web full-stack enfocado en experiencias interactivas fluidas y seguras.",
+    categoria: "Tech",
+    calificacion: 5,
+    tarifa: 150,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuDgxZQxgPl_aiCor61A6P7KfK47nBEH3_EH9EzKbcx84FJi-tLSMIog6akIcD1OWsQ6JEfMOqsbJ8lMLYPbK-sdPPBvEXSj5CHfCkWR2QLby-tMYtu0zCzpxqb2_ru_BQ_6Y-MnTPtT5H9_BnkpkxjQlpH4-IWGCQmXSMW76HthZUqhHeAaDXDCNcWpe6vHmOUrWAhBP4MkdKEag_GMkhqpWbECXx1Ibs1UPYpOdEuak5pv6FvbB4ExyY3kkOfg1OB5lo6FKzE2jg"
+  },
+  {
+    id: "f5",
+    nombre_completo: "Marta Valls",
+    titulo_profesional: "Estratega de marketing digital enfocada en ROI y crecimiento orgánico sostenible.",
+    categoria: "Negocios",
+    calificacion: 5,
+    tarifa: 95,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuAtczwaCBZDrakoJIvPXavRcfa_YWopKVV-7E7HQr1nuY1tk4Idv_KTZUmHIGTzsIPind-7xfjHamETjNysRRKAQ2ThKrJDlj6a5FhixgOXvC1i6jrRwwX-ysP3e7a9-yOoxp5NBSo4JPs_XDtNyLYRMUdnZsBicPKX-pX_Iv_hg37hGYdoAeMGNiLdo1f6Ed-T0_Ydjpy_b6DDORFaWAIhHLSdMQcDWLI9UOcZw-UVdUucDKpWNB6PVOvoF76-4pbY0nZ0NpBlTQ"
+  },
+  {
+    id: "f6",
+    nombre_completo: "David García",
+    titulo_profesional: "Fotógrafo de producto con amplia experiencia en e-commerce y catálogos editoriales.",
+    categoria: "Creativo",
+    calificacion: 5,
+    tarifa: 200,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuB8PciBPx8J_AUKCIHBcXBGUlgRG_SmQklphaaOPBS7Io20uuJq9Yqq-LmnM5BE-jHMcSyCpPIvnICQJWKKlKTgI19ULZNR0yb5Zy2WjUz8C9GFMo8ovXVyg3r11ofkBuX3rfH-4GmDWyNrDpT_y2GPaEybrpRNVbFfVCdj5jBUsHDOQlJ4dx1n1IFo4WvjuYtSZiPl6qsw4viIzPKZwxMjTn_4NAFIUWX18Dnqf0EOhnKuC7df6IwgwyT-oAmPAOQZwqp9EHv3YQ"
+  },
+  {
+    id: "f7",
+    nombre_completo: "Valeria Gómez",
+    titulo_profesional: "Especialista en UX/UI enfocada en aplicaciones móviles y usabilidad.",
+    categoria: "Tech",
+    calificacion: 4.9,
+    tarifa: 110,
+    foto_perfil: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f8",
+    nombre_completo: "Andrés Silva",
+    titulo_profesional: "Asesor financiero para startups y pequeñas empresas.",
+    categoria: "Negocios",
+    calificacion: 4.8,
+    tarifa: 135,
+    foto_perfil: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f9",
+    nombre_completo: "Lucía Ortiz",
+    titulo_profesional: "Organizadora de espacios y consultora de Marie Kondo.",
+    categoria: "Hogar",
+    calificacion: 5,
+    tarifa: 75,
+    foto_perfil: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f10",
+    nombre_completo: "Roberto Sánchez",
+    titulo_profesional: "Técnico Electricista certificado, instalaciones y domótica.",
+    categoria: "Hogar",
+    calificacion: 4.7,
+    tarifa: 45,
+    foto_perfil: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f11",
+    nombre_completo: "Carolina Ruiz",
+    titulo_profesional: "Ilustradora digital y creadora de personajes para videojuegos.",
+    categoria: "Creativo",
+    calificacion: 4.9,
+    tarifa: 90,
+    foto_perfil: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f12",
+    nombre_completo: "Diego Castro",
+    titulo_profesional: "Desarrollador Backend Senior experto en Node y Python.",
+    categoria: "Tech",
+    calificacion: 5,
+    tarifa: 160,
+    foto_perfil: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "e1",
+    nombre_completo: "Laura Vásquez",
+    titulo_profesional: "Diseñadora de Moda",
+    categoria: "Creativo",
+    calificacion: 4.9,
+    tarifa: 50,
+    foto_perfil: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+  },
+  {
+    id: "e2",
+    nombre_completo: "Roberto Sánchez",
+    titulo_profesional: "Técnico Electricista",
+    categoria: "Hogar",
+    calificacion: 4.7,
+    tarifa: 30,
+    foto_perfil: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
+  }
+];
 
 export default async function ExpertProfile({
   params,
@@ -29,13 +157,11 @@ export default async function ExpertProfile({
     .eq("id", expertId)
     .single();
 
+  // Find fallback matching the ID or use the first one if not found
+  const fallbackExpert = FALLBACK_EXPERTS.find(e => e.id === expertId) || FALLBACK_EXPERTS[0];
+
   // If we can't find them, use fallback data for demo purposes
-  const expert = expertData || {
-    ...FALLBACK_EXPERT,
-    nombre_completo: expertData ? expertData.nombre_completo : FALLBACK_EXPERT.nombre_completo,
-    titulo_profesional: expertData ? expertData.titulo_profesional : FALLBACK_EXPERT.titulo_profesional,
-    foto_perfil: expertData ? expertData.foto_perfil : FALLBACK_EXPERT.foto_perfil
-  };
+  const expert = expertData || fallbackExpert;
 
   return (
     <div className="min-h-screen bg-[#f8f9ff] font-sans pb-24 text-[#0d1c2e]">

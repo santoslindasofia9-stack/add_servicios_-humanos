@@ -182,14 +182,7 @@ export default async function ResultadosBusqueda({
           </Link>
         </div>
 
-        {/* Read-only search bar styling for context */}
-        <div className="hidden lg:flex flex-1 max-w-xl mx-8">
-          <div className="bg-[#eff4ff] rounded-full w-full flex items-center px-5 py-2.5 border border-sky-100">
-            <div className="text-sm text-[#0d1c2e] font-medium">
-              {query ? `Buscando: ${query}` : (categoria ? `Categoría: ${categoria}` : "Todos los expertos")}
-            </div>
-          </div>
-        </div>
+        {/* The read-only search bar was removed per user request */}
       </header>
 
       {/* ── Main Content ─────────────────────────────────────────────────────── */}
@@ -209,15 +202,7 @@ export default async function ResultadosBusqueda({
             </p>
           </div>
           
-          {/* Controles de Filtrado */}
-          <div className="flex gap-3 self-start md:self-end">
-            <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center justify-center shadow-sm uppercase tracking-wider">
-              Filtrar
-            </button>
-            <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center justify-center shadow-sm uppercase tracking-wider">
-              Ordenar
-            </button>
-          </div>
+          {/* Controles de Filtrado removidos por petición del usuario */}
         </div>
 
         {/* Grid de Tarjetas */}

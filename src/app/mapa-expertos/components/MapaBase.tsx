@@ -36,6 +36,7 @@ interface MapaBaseProps {
   onSelectExpert: (id: string | null) => void;
   onVerPerfil: (id: string) => void;
   userLocation: { lat: number; lng: number } | null;
+  mapCenter?: { lat: number; lng: number } | null;
 }
 
 export default function MapaBase(props: MapaBaseProps) {

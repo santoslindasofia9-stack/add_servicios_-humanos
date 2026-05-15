@@ -27,6 +27,7 @@ interface LeafletMapProps {
   onSelectExpert: (id: string | null) => void;
   onVerPerfil: (id: string) => void;
   userLocation: { lat: number; lng: number } | null;
+  mapCenter?: { lat: number; lng: number } | null;
 }
 
 const CATEGORIA_PIN_COLORS: Record<string, string> = {
@@ -95,10 +96,11 @@ export default function LeafletMap({
   onSelectExpert,
   onVerPerfil,
   userLocation,
+  mapCenter,
 }: LeafletMapProps) {
-  // Center defaults to Medellin, or the first expert's location, or user location
-  const centerLat = userLocation?.lat || (experts[0]?.lat ?? 6.2442);
-  const centerLng = userLocation?.lng || (experts[0]?.lng ?? -75.5812);
+  // Center defaults to mapCenter, then user location, then first expert's location, then Bucaramanga
+  const centerLat = mapCenter?.lat || userLocation?.lat || (experts[0]?.lat ?? 7.1193);
+  const centerLng = mapCenter?.lng || userLocation?.lng || (experts[0]?.lng ?? -73.1227);
 
   const selectedExpert = experts.find((e) => e.id === selectedId);
 
@@ -146,13 +148,12 @@ export default function LeafletMap({
   });
 
   return (
-    <div className="relative flex-1 h-full w-full z-0">
+    <div className="relative flex-1 h-full w-full z-0" onClick={() => onSelectExpert(null)}>
       <MapContainer 
         center={[centerLat, centerLng]} 
         zoom={13} 
         zoomControl={false}
         className="w-full h-full"
-        onClick={() => onSelectExpert(null)}
       >
         <MapUpdater center={[centerLat, centerLng]} zoom={13} />
         

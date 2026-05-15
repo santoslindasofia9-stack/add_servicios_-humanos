@@ -1,38 +1,56 @@
 "use client";
 
-import { Home, MessageSquare, Briefcase, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { icon: Home, label: "Inicio", href: "/dashboard/client" },
-  { icon: MessageSquare, label: "Mensajes", href: "/dashboard/client/messages" },
-  { icon: Briefcase, label: "Mis Contratos", href: "/dashboard/client/contracts" },
-  { icon: User, label: "Perfil", href: "/dashboard/client/profile" },
+  { icon: "home", label: "Inicio", href: "/home-cliente" },
+  { icon: "search", label: "Buscar", href: "/mapa-expertos" },
+  { icon: "shopping_bag", label: "Pedidos", href: "/pedidos" },
+  { icon: "chat_bubble", label: "Mensajes", href: "/mensajes" },
+  { icon: "person", label: "Perfil", href: "/perfil" },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-[#0d1c2e]/5 h-20 px-6 flex justify-between items-center z-50">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-sky-50 shadow-[0_-10px_40px_rgba(224,242,254,0.4)] h-[76px] px-2 flex justify-around items-center z-[500]">
       {navItems.map((item) => {
-        const isActive = pathname === item.href;
+        // Simple active check
+        const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+
         return (
           <Link
             key={item.label}
             href={item.href}
-            className={`flex flex-col items-center gap-1 transition-all duration-300 ${
-              isActive ? "text-[#0d1c2e]" : "text-[#5e6f79] opacity-60"
-            }`}
+            className="flex flex-col items-center justify-center min-w-[64px] h-full gap-1 group relative"
           >
-            <item.icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-            <span className="text-[10px] font-bold uppercase tracking-wider">
+            {/* Icon Pill Container */}
+            <div
+              className={`px-4 py-1 rounded-full transition-all duration-300 flex items-center justify-center ${
+                isActive ? "bg-[#FCE4EC] text-[#D81B60]" : "bg-transparent text-[#5e6f79] group-hover:text-[#0d1c2e]"
+              }`}
+            >
+              <span 
+                className="material-symbols-outlined transition-all duration-300" 
+                style={{ 
+                  fontSize: "24px",
+                  fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400" : "'FILL' 0, 'wght' 300"
+                }}
+              >
+                {item.icon}
+              </span>
+            </div>
+            
+            {/* Label */}
+            <span
+              className={`text-[10px] font-bold transition-all duration-300 ${
+                isActive ? "text-[#D81B60]" : "text-[#5e6f79] group-hover:text-[#0d1c2e]"
+              }`}
+            >
               {item.label}
             </span>
-            {isActive && (
-              <div className="absolute -bottom-1 w-1 h-1 bg-[#0d1c2e] rounded-full" />
-            )}
           </Link>
         );
       })}

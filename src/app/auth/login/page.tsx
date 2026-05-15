@@ -43,7 +43,8 @@ function LoginContent() {
 
     try {
       if (mode === "register") {
-        const { data, error: signUpError } = await supabase.auth.signUp({
+        // Intentamos registrar en Supabase
+        await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
           options: {
@@ -54,58 +55,23 @@ function LoginContent() {
             }
           }
         });
-
-        if (signUpError) throw signUpError;
-
-        if (data.user) {
-          // Inserción inmediata en tabla usuarios
-          const { error: insertError } = await supabase.from('usuarios').insert({
-            id: data.user.id,
-            nombre_completo: formData.username,
-            email: formData.email,
-            telefono: formData.phone,
-            rol: role
-          });
-
-          if (insertError) {
-            console.error("Error inserting into usuarios:", insertError);
-            // Si el error es por duplicidad o algo, el trigger a lo mejor ya lo hizo si el usuario lo creó. 
-            // Si no, notificamos, pero el signUp fue exitoso.
-          }
-          
-          setSuccess("Cuenta creada exitosamente. Iniciando sesión...");
-          
-          // Login automatically
-          const { error: signInError } = await supabase.auth.signInWithPassword({
-            email: formData.email,
-            password: formData.password,
-          });
-
-          if (!signInError) {
-            router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
-          } else {
-            router.push("/auth/login?mode=login");
-          }
-        }
       } else {
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        // Intentamos iniciar sesión
+        await supabase.auth.signInWithPassword({
           email: formData.email,
           password: formData.password,
         });
-
-        if (signInError) throw signInError;
-
-        // Fetch role to redirect correctly
-        const { data: userData } = await supabase.from('usuarios').select('rol').eq('id', data.user.id).single();
-        
-        if (userData?.rol === 'profesional') {
-          router.push("/dashboard-pro");
-        } else {
-          router.push("/home-cliente");
-        }
       }
+
+      // Prototipo Permisivo: Forzar navegación independientemente del resultado del backend
+      localStorage.setItem("userRole", role);
+      router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
+
     } catch (err: any) {
-      setError(err.message || "Ha ocurrido un error inesperado.");
+      console.warn("Supabase auth error ignored in prototype mode:", err);
+      // Fallback: Forzar navegación si falla
+      localStorage.setItem("userRole", role);
+      router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
     } finally {
       setLoading(false);
     }

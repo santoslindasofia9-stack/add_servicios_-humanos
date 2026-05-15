@@ -107,9 +107,9 @@ export default function HomeCliente() {
         setUserName(name);
         setUserAvatar(user.user_metadata?.avatar_url || null);
       } else {
-        // If no user, redirect to login as per requirements
-        router.push("/auth/login");
-        return;
+        // Enfoque Prototipo Permisivo: No redirigir al login si falla la sesión, 
+        // simplemente cargar como "Invitado" para permitir la demostración de la UI.
+        setUserName("Usuario Invitado");
       }
 
       // 2. Fetch Professionals

@@ -82,7 +82,7 @@ function LoginContent() {
           });
 
           if (!signInError) {
-            router.push(role === "client" ? "/dashboard/client" : "/dashboard-pro");
+            router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
           } else {
             router.push("/auth/login?mode=login");
           }
@@ -101,7 +101,7 @@ function LoginContent() {
         if (userData?.rol === 'profesional') {
           router.push("/dashboard-pro");
         } else {
-          router.push("/dashboard/client");
+          router.push("/home-cliente");
         }
       }
     } catch (err: any) {
@@ -114,7 +114,7 @@ function LoginContent() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard/client`,
+          redirectTo: `${window.location.origin}/home-cliente`,
         }
       });
       if (error) throw error;

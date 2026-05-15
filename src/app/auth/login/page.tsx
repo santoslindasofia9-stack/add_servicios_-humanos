@@ -109,6 +109,18 @@ function LoginContent() {
     } finally {
       setLoading(false);
     }
+  };  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard/client`,
+        }
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      setError(err.message || "Error al iniciar sesión con Google.");
+    }
   };
 
 
@@ -339,7 +351,26 @@ function LoginContent() {
               </motion.form>
             </AnimatePresence>
 
+            {/* Opciones de Login Social */}
+            <div className="relative my-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm font-bold">
+                <span className="px-4 bg-white text-[#5e6f79] tracking-wider text-xs">
+                  O CONTINÚA CON
+                </span>
+              </div>
+            </div>
 
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleGoogleLogin}
+                className="w-14 h-14 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:border-gray-300 hover:shadow-md transition-all active:scale-95"
+              >
+                <Image src="/google-icon.svg" alt="Google" width={24} height={24} />
+              </button>
+            </div>
 
             {/* Footer / Toggle Mode */}
             <p className="text-center text-sm font-medium text-[#5e6f79]">

@@ -185,7 +185,6 @@ export default async function ResultadosBusqueda({
         {/* Read-only search bar styling for context */}
         <div className="hidden lg:flex flex-1 max-w-xl mx-8">
           <div className="bg-[#eff4ff] rounded-full w-full flex items-center px-5 py-2.5 border border-sky-100">
-            <span className="material-symbols-outlined text-slate-400 mr-3 flex-shrink-0 text-[18px]">search</span>
             <div className="text-sm text-[#0d1c2e] font-medium">
               {query ? `Buscando: ${query}` : (categoria ? `Categoría: ${categoria}` : "Todos los expertos")}
             </div>
@@ -212,11 +211,11 @@ export default async function ResultadosBusqueda({
           
           {/* Controles de Filtrado */}
           <div className="flex gap-3 self-start md:self-end">
-            <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center gap-2 shadow-sm uppercase tracking-wider">
-              <span className="material-symbols-outlined text-[18px]">tune</span> Filtrar
+            <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center justify-center shadow-sm uppercase tracking-wider">
+              Filtrar
             </button>
-            <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center gap-2 shadow-sm uppercase tracking-wider">
-              <span className="material-symbols-outlined text-[18px]">swap_vert</span> Ordenar
+            <button className="px-5 md:px-7 py-3 bg-white border border-sky-50 rounded-full font-bold text-xs text-[#0d1c2e] hover:bg-sky-50 transition-all duration-300 flex items-center justify-center shadow-sm uppercase tracking-wider">
+              Ordenar
             </button>
           </div>
         </div>

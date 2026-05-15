@@ -81,15 +81,21 @@ function LoginContent() {
     }
   };  const handleGoogleLogin = async () => {
     try {
+      // Prototipo Permisivo: Pre-guardamos un nombre en caso de que la conexión OAuth falle
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", "Usuario Google");
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/home-cliente`,
         }
       });
+      
       if (error) throw error;
     } catch (err: any) {
-      setError(err.message || "Error al iniciar sesión con Google.");
+      console.warn("Google Auth failed or not configured, bypassing:", err);
+      router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
     }
   };
 

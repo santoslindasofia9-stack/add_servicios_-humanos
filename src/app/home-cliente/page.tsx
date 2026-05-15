@@ -203,7 +203,7 @@ export default function HomeCliente() {
             </button>
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#e6eeff] cursor-pointer bg-white flex items-center justify-center">
               {userAvatar ? (
-                <Image src={userAvatar} alt={userName} width={40} height={40} className="object-cover" />
+                <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
               ) : (
                 <span className="text-[#0d1c2e] font-bold text-sm uppercase">{userName.charAt(0)}</span>
               )}

@@ -35,14 +35,14 @@ const ADS = [
     id: 1, 
     title: "Descubre los Profesionales Mejor Valorados", 
     company: "Destacado de la Semana", 
-    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&q=80&w=1000",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1000", // Profesional office
     link: "#"
   },
   { 
     id: 2, 
     title: "Servicios Premium para el Hogar", 
     company: "Nueva Categoría", 
-    image: "https://images.unsplash.com/photo-1581147036324-c10842426ab1?auto=format&fit=crop&q=80&w=1000",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80&w=1000", // Home service
     link: "#"
   }
 ];
@@ -269,17 +269,16 @@ export default function HomeCliente() {
                     transition={{ duration: 0.5 }}
                     className="absolute inset-0"
                   >
-                    <Image 
+                    <img 
                       src={ADS[currentAdIndex].image} 
                       alt={ADS[currentAdIndex].title} 
-                      fill 
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0d1c2e]/90 via-[#0d1c2e]/30 to-transparent p-6 md:p-10 flex flex-col justify-end">
                       <span className="text-xs font-bold text-[#E0F2FE] mb-2 uppercase tracking-widest">
                         {ADS[currentAdIndex].company}
                       </span>
-                      <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 max-w-lg leading-tight">
+                      <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 max-w-xl leading-tight">
                         {ADS[currentAdIndex].title}
                       </h2>
                       <button className="bg-white text-[#0d1c2e] px-8 py-3.5 rounded-full font-bold w-fit hover:bg-gray-100 transition-colors shadow-lg">
@@ -390,7 +389,7 @@ export default function HomeCliente() {
                 <p className="text-[#5e6f79] font-medium mb-8">
                   Encuentra los mejores servicios y profesionales directamente en tu vecindario con nuestro mapa interactivo local.
                 </p>
-                <button className="bg-[#0d1c2e] text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all shadow-md w-full sm:w-auto">
+                <button className="bg-[#FCE4EC] text-[#0d1c2e] px-10 py-4 rounded-full font-bold hover:bg-[#fbd1de] transition-all shadow-md w-full sm:w-auto">
                   Abrir Mapa Interactivo
                 </button>
               </div>

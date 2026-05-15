@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 interface ProfessionalCardProps {
@@ -29,11 +28,10 @@ export default function ProfessionalCard({
   return (
     <article className="bg-white rounded-[24px] p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-500 flex flex-col items-center text-center group border border-gray-100 hover:border-sky-100">
       <div className="w-24 h-24 rounded-full overflow-hidden mb-6 ring-4 ring-[#FCE4EC] transition-transform duration-500 group-hover:scale-110 relative">
-        <Image 
+        <img 
           src={foto_perfil || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200"} 
           alt={nombre_completo} 
-          fill
-          className="object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
       

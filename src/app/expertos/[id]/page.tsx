@@ -160,7 +160,7 @@ export default async function ExpertProfile({
   // Find fallback matching the ID or use the first one if not found
   const fallbackExpert = FALLBACK_EXPERTS.find(e => e.id === expertId) || FALLBACK_EXPERTS[0];
 
-  // If we can't find them, use fallback data for demo purposes
+  // If we can't find them in DB, use fallback data for demo purposes
   const expert = expertData || fallbackExpert;
 
   return (
@@ -201,7 +201,7 @@ export default async function ExpertProfile({
           <div className="relative flex-shrink-0">
             <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-[6px] border-[#e0f2fe] overflow-hidden shadow-xl">
               <img 
-                src={expert.foto_perfil || FALLBACK_EXPERT.foto_perfil} 
+                src={expert.foto_perfil} 
                 alt={expert.nombre_completo} 
                 className="w-full h-full object-cover" 
               />
@@ -222,7 +222,7 @@ export default async function ExpertProfile({
                 </span>
               </div>
               <p className="text-[16px] md:text-[18px] text-[#5e6f79] max-w-2xl leading-relaxed">
-                {expert.titulo_profesional || FALLBACK_EXPERT.titulo_profesional}
+                {expert.titulo_profesional}
               </p>
             </div>
             
@@ -233,7 +233,7 @@ export default async function ExpertProfile({
               </div>
               <div className="flex items-center gap-2 text-[#5e6f79]">
                 <span className="material-symbols-outlined text-[#f472b6]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                <span className="text-[16px] font-bold text-[#0d1c2e]">{expert.calificacion || FALLBACK_EXPERT.calificacion}</span>
+                <span className="text-[16px] font-bold text-[#0d1c2e]">{expert.calificacion}</span>
                 <span className="text-[16px] opacity-60">(128 Reviews)</span>
               </div>
             </div>

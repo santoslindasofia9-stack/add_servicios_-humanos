@@ -432,7 +432,7 @@ export default function HomeCliente() {
                             // Solo limpiar la sesión — conservar nombre y foto del perfil
                             localStorage.removeItem("userRole");
                             await supabase.auth.signOut();
-                            router.push("/auth/login");
+                            window.location.replace("/auth/login");
                           }}
                           className="w-full py-3 text-red-500 font-bold hover:bg-red-50 rounded-xl transition-all"
                         >

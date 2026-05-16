@@ -88,7 +88,7 @@ export default function SecurityCenterPage() {
               <p className="text-sm font-bold text-slate-900 hidden sm:block">{userName}</p>
               <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm ring-2 ring-slate-100 bg-slate-100">
                 {userAvatar ? (
-                  <Image src={userAvatar} alt="Avatar" fill className="object-cover" />
+                  <Image src={userAvatar || ''} alt="Avatar" fill className="object-cover" />
                 ) : (
                   <span className="absolute inset-0 flex items-center justify-center font-bold text-slate-500 text-sm uppercase">{userName.charAt(0)}</span>
                 )}

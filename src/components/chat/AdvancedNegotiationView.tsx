@@ -88,11 +88,7 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
   ];
 
   const handleSendTerms = () => {
-    setIsGenerating(true);
-    // Simular procesamiento de IA para el contrato
-    setTimeout(() => {
-      router.push('/confirmacion-contrato');
-    }, 2500);
+    router.push('/confirmacion-contrato');
   };
 
   const handleSendMessage = () => {

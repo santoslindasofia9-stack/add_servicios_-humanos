@@ -155,8 +155,7 @@
         }
 
         function sendTerms() {
-            messages.push({ id: String(Date.now()), type: 'event', text: 'Propuesta enviada: Identidad Visual + Guía Social Media', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-            renderMessages();
+            window.location.href = '../contrato_inteligente_ia_2/code.html';
         }
 
         function deleteMsg(id) {

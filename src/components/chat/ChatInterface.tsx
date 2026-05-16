@@ -171,11 +171,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
   };
 
   const handleAcceptProposal = async () => {
-    setIsGenerating(true);
-    // Simular procesamiento de IA para el contrato final
-    setTimeout(() => {
-      window.location.href = '/confirmacion-contrato';
-    }, 2500);
+    router.push('/confirmacion-contrato');
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

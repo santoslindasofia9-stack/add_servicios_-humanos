@@ -61,9 +61,8 @@ export default function OnboardingPagoProtegido() {
           </p>
         </div>
 
-        {/* Progress Indicator (3 dots) - Balanced position */}
+        {/* Progress Indicator (2 dots for 2 onboarding screens) */}
         <div className="flex items-center justify-center gap-2.5 mb-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#0d1c2e]/10" />
           <div className="w-5 h-1.5 rounded-full bg-[#FCE4EC] border border-[#fcd7e5] shadow-sm" />
           <div className="w-1.5 h-1.5 rounded-full bg-[#0d1c2e]/10" />
         </div>

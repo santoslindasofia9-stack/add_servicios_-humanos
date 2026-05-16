@@ -33,7 +33,7 @@
         <!-- Sidebar (30%) -->
         <aside class="hidden lg:flex w-[30%] flex-col bg-white border-r border-gray-100 p-6 overflow-y-auto">
             <div class="flex items-center gap-4 mb-8">
-                <button class="hover:bg-gray-50 p-2 rounded-full transition-colors" onclick="window.history.back()"><span class="material-symbols-outlined">arrow_back</span></button>
+                <button class="hover:bg-gray-50 p-2 rounded-full transition-colors" onclick="window.history.back()"><span class="material-symbols-outlined text-slate-400">arrow_back</span></button>
                 <div class="flex items-center gap-3">
                     <img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOaqIQiuVhJseS3SQ5XjIOoQBb68yVPIoqkzZ4pFfgM9xTk1TmOwo3iw1qTVa132uKZngmPSUpRNA0-aNekMsP7yCNe0WYGFwfe4KBg1cVYjAh1rBYRVTjlBjUoNQClfnuf11xQdXs0Ni6eMDWjnBg-C1Wl3u7ISVcwiTiOj_xCZPIblHt5qTai9KniWnBW3GIZpMd7JDYwal5C_tNtq7xXTOCk0JqEBebntnAGNeBuUzkom_qcbrcG2Au9xu2qKIMrcURniDzAg" alt="Profile"/>
                     <div>
@@ -86,7 +86,7 @@
 
             <!-- Bottom Area -->
             <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC] to-transparent pt-12">
-                <!-- Negotiation Toolbar (CLEAN: No icons here) -->
+                <!-- Negotiation Toolbar (CLEAN: Absolutely NO icons here) -->
                 <div class="max-w-2xl mx-auto mb-6">
                     <div class="bg-white border border-gray-100 shadow-xl rounded-full p-2 flex items-center gap-2">
                         <button class="flex-1 bg-[#FCE4EC] text-[#AD1457] py-3 rounded-full font-bold text-xs hover:bg-[#F8BBD0] transition-all">AJUSTAR PRESUPUESTO</button>
@@ -94,10 +94,11 @@
                     </div>
                 </div>
 
-                <!-- Input Area (+ icon is here now) -->
+                <!-- Input Area (Style matched to original chat) -->
                 <div class="max-w-4xl mx-auto flex items-center gap-4">
-                    <button class="w-14 h-14 bg-[#E1F5FE] text-[#0288D1] rounded-full flex items-center justify-center hover:bg-blue-100 shrink-0 shadow-sm transition-transform active:scale-95">
-                        <span class="material-symbols-outlined text-2xl">add</span>
+                    <!-- Standard PlusCircle style: Gray icon, No blue background -->
+                    <button class="w-12 h-12 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors shrink-0">
+                        <span class="material-symbols-outlined text-3xl">add_circle</span>
                     </button>
                     <div class="flex-1 relative">
                         <input id="message-input" type="text" class="w-full bg-white border border-gray-100 rounded-full px-8 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-50 shadow-sm" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMessage()"/>
@@ -146,9 +147,9 @@
                                 <span>${msg.time}</span>
                                 ${isPro ? '<span class="material-symbols-outlined text-[12px] text-blue-400">check_circle</span>' : ''}
                             </div>
-                            <!-- Menu Container -->
+                            <!-- Delete Button -->
                             <div class="message-menu ${isPro ? '-left-12' : '-right-12'}">
-                                <button onclick="deleteMsg('${msg.id}', 'me')" class="p-2 bg-white border border-gray-100 rounded-full text-gray-400 hover:text-red-500 shadow-sm transition-all" title="Eliminar"><span class="material-symbols-outlined text-sm">delete</span></button>
+                                <button onclick="deleteMsg('${msg.id}')" class="p-2 bg-white border border-gray-100 rounded-full text-gray-400 hover:text-red-500 shadow-sm transition-all" title="Eliminar"><span class="material-symbols-outlined text-sm">delete</span></button>
                             </div>
                         </div>
                     </div>
@@ -160,18 +161,18 @@
         function sendMessage() {
             const input = document.getElementById('message-input');
             if (!input.value.trim()) return;
-            const newId = Date.now() + Math.random();
+            const newId = String(Date.now() + Math.random()); // Use String for consistency
             messages.push({ id: newId, sender: 'pro', text: input.value, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
             input.value = ''; 
             renderMessages();
         }
 
         function sendTerms() {
-            messages.push({ id: Date.now(), type: 'event', text: 'Propuesta enviada: Identidad Visual + Guía Social Media', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+            messages.push({ id: String(Date.now()), type: 'event', text: 'Propuesta enviada: Identidad Visual + Guía Social Media', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
             renderMessages();
         }
 
-        function deleteMsg(id, mode) {
+        function deleteMsg(id) {
             messages = messages.filter(m => String(m.id) !== String(id));
             renderMessages();
         }

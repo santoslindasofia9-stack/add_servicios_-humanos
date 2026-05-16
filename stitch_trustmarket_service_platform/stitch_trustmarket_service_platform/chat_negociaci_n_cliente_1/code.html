@@ -30,14 +30,13 @@
 </head>
 <body class="bg-surface text-slate-900 overflow-hidden">
     <div class="flex h-screen overflow-hidden">
-        <!-- Main Chat Area -->
         <main class="flex-1 flex flex-col relative bg-[#F8FAFC]">
             <!-- Header -->
             <header class="bg-white/80 backdrop-blur-md px-6 py-4 border-b border-sky-50 flex justify-between items-center shadow-sm">
                 <div class="flex items-center gap-4">
                     <button class="hover:bg-gray-50 p-2 rounded-full transition-colors"><span class="material-symbols-outlined text-slate-400">arrow_back</span></button>
                     <div class="flex items-center gap-3">
-                        <img class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6LCpSD1P0zwjsHV158KmSAoVKwdnAsXoWRFdIkjwUf0uoY3Dvsp659wXUBdZMhos5rDbQ2XjCPP3YdmwPt3EKtU_6_4qSrJ6pxi8QWjivar8OYg1QsbQDVs7TPao5d_gsKDprBPUPruBGqSyR4cR0q-qA95lt2yAch8cqgqloqs5Lsh0DglXRftIOK4TKhLSKQ4JuqT0bw7Rwhnor_O6WO5U2HZxENXvmX6cgKoaK7bCwB2Poog8FGoVsiYAjmgjRA_rUJZynCQ" alt="Sofia"/>
+                        <img class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6LCpSD1P0zwjsHV158KmSAoVKwdnAsXoWRFdIkjwUf0uoY3Dvsp659wXUBdZMhos5rDbQ2XjCPP3YdmwPt3EKtU_6_4qSrJ6pxi8QWjivar8OYg1QsbQDVs7TPao5d_gsKDprBPUPruBGqSyR4cR0q-qA95lt2yAch8cqgqloqs5Lsh0DglXRftIOK4TKhLSKQ4JuqT0bw7Rwhnor_O6WO5U2HZxENXvmX6cgKoaK7bCwB2Poog8FGoVsiYAjmgjRA_rUJZynCQ" alt="Profile"/>
                         <div>
                             <h1 class="font-bold text-slate-900">Sofia López</h1>
                             <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest flex items-center gap-1">
@@ -59,8 +58,9 @@
             <!-- Bottom Area -->
             <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC] to-transparent pt-12">
                 <div class="max-w-4xl mx-auto flex items-center gap-4">
-                    <button class="w-14 h-14 bg-[#E1F5FE] text-[#0288D1] rounded-full flex items-center justify-center hover:bg-blue-100 shrink-0 shadow-sm transition-transform active:scale-95">
-                        <span class="material-symbols-outlined text-2xl">add</span>
+                    <!-- Standard PlusCircle style: Gray icon, No blue background -->
+                    <button class="w-12 h-12 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors shrink-0">
+                        <span class="material-symbols-outlined text-3xl">add_circle</span>
                     </button>
                     <div class="flex-1 relative">
                         <input id="message-input" type="text" class="w-full bg-white border border-gray-100 rounded-full px-8 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-50 shadow-sm" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMessage()"/>
@@ -74,31 +74,6 @@
                 </div>
             </div>
         </main>
-
-        <!-- Sidebar lateral (Desktop) -->
-        <aside class="fixed right-0 top-0 bottom-0 w-80 bg-white border-l border-sky-50 p-6 hidden xl:block overflow-y-auto">
-            <div class="pt-20">
-                <div class="bg-blue-50/30 rounded-2xl p-6 border border-blue-100/50 mb-6 shadow-sm">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Oferta Actual</span>
-                    <h2 class="text-3xl font-black text-slate-900 mt-2">$1,250.00</h2>
-                    <div class="mt-6 flex flex-col gap-2">
-                        <button class="w-full py-3 bg-[#FCE4EC] text-[#880E4F] font-bold rounded-full text-sm shadow-sm">Aceptar Propuesta</button>
-                        <button class="w-full py-3 border border-blue-100 text-blue-600 font-bold rounded-full text-sm hover:bg-blue-50 transition-colors" onclick="window.location.href='../chat_negociaci_n_profesional_1/code.html'">Contraofertar</button>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Detalles del Proyecto</h3>
-                    <div class="flex items-center gap-3 text-sm text-slate-600">
-                        <span class="material-symbols-outlined text-blue-300">calendar_month</span>
-                        <span>Entrega: 4 semanas</span>
-                    </div>
-                    <div class="flex items-center gap-3 text-sm text-slate-600">
-                        <span class="material-symbols-outlined text-blue-300">verified_user</span>
-                        <span>Soporte incluido</span>
-                    </div>
-                </div>
-            </div>
-        </aside>
     </div>
 
     <script>
@@ -130,7 +105,7 @@
                                 <span>${msg.time}</span>
                                 ${isMe ? '<span class="material-symbols-outlined text-[12px] text-blue-400">done_all</span>' : ''}
                             </div>
-                            <!-- Menu Container -->
+                            <!-- Delete Button -->
                             <div class="message-menu ${isMe ? '-left-12' : '-right-12'}">
                                 <button onclick="deleteMsg('${msg.id}')" class="p-2 bg-white border border-gray-100 rounded-full text-gray-400 hover:text-red-500 shadow-sm transition-all" title="Eliminar"><span class="material-symbols-outlined text-sm">delete</span></button>
                             </div>
@@ -144,7 +119,7 @@
         function sendMessage() {
             const input = document.getElementById('message-input');
             if (!input.value.trim()) return;
-            const newId = Date.now() + Math.random();
+            const newId = String(Date.now() + Math.random());
             messages.push({ id: newId, sender: 'me', text: input.value, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
             input.value = ''; 
             renderMessages();

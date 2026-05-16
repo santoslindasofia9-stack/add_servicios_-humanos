@@ -18,28 +18,29 @@ function LoginContent() {
 
   // Redirigir si ya está logueado (Prototipo Permisivo)
   useEffect(() => {
-    // 1. Verificar localStorage primero (rápido)
-    const savedRole = localStorage.getItem("userRole");
-    if (savedRole) {
-      const target = savedRole === "client" ? "/home-cliente" : "/dashboard-pro";
-      // Solo redirigir si no estamos ya intentando loguearnos
-      if (!window.location.hash.includes("access_token")) {
-         // window.location.replace(target);
-      }
-    }
-
-    // 2. Escuchar cambios de autenticación de Supabase (especialmente para OAuth/Google)
+    // 1. Escuchar cambios de autenticación de Supabase (especialmente para OAuth/Google)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         console.log("Sesión detectada (event):", event);
         const userRole = localStorage.getItem("userRole") || "client";
         const targetPath = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
-        window.location.replace(targetPath);
+        console.log("Redirigiendo a:", targetPath);
+        window.location.href = targetPath;
       }
     });
 
+    // 2. Verificar si ya tenemos sesión activa al cargar
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const userRole = localStorage.getItem("userRole") || "client";
+        window.location.href = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
+      }
+    };
+    checkSession();
+
     return () => subscription.unsubscribe();
-  }, [router]);
+  }, []);
 
   // Update mode if query param changes
   useEffect(() => {
@@ -67,44 +68,36 @@ function LoginContent() {
     setSuccess(null);
 
     try {
+      // Guardar estado inmediatamente (Permisivo)
+      const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", displayName);
+      localStorage.setItem("isLoggedIn", "true");
+
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+
       if (mode === "register") {
-        // Intentamos registrar en Supabase
         await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
           options: {
-            data: {
-              nombre_completo: formData.username,
-              telefono: formData.phone,
-              rol: role
-            }
+            data: { nombre_completo: formData.username, telefono: formData.phone, rol: role }
           }
         });
       } else {
-        // Intentamos iniciar sesión
         await supabase.auth.signInWithPassword({
           email: formData.email,
           password: formData.password,
         });
       }
 
-      // Prototipo Permisivo: Forzar navegación inmediata
-      const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
-      localStorage.setItem("userRole", role);
-      localStorage.setItem("userName", displayName);
-      
-      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      window.location.replace(targetPath);
+      // Redirección inmediata sin esperar validaciones lentas
+      window.location.href = targetPath;
 
     } catch (err: any) {
-      console.warn("Supabase auth error ignored in prototype mode:", err);
-      // Fallback: Forzar navegación si falla
-      const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
-      localStorage.setItem("userRole", role);
-      localStorage.setItem("userName", displayName);
-      
+      console.warn("Auth error bypassed:", err);
       const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      window.location.replace(targetPath);
+      window.location.href = targetPath;
     } finally {
       setLoading(false);
     }
@@ -113,34 +106,26 @@ function LoginContent() {
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      // Prototipo Permisivo: Pre-guardamos un nombre y el rol
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      
+      // Pre-guardar estado antes del salto a Google
       localStorage.setItem("userRole", role);
       localStorage.setItem("userName", "Usuario Google");
-
-      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      const redirectUrl = `${window.location.origin}${targetPath}`;
-
-      console.log("Iniciando Google Auth con redirect:", redirectUrl);
+      localStorage.setItem("isLoggedIn", "true");
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: redirectUrl,
-          skipBrowserRedirect: false,
+          redirectTo: `${window.location.origin}${targetPath}`,
         }
       });
       
       if (error) throw error;
       
-      // Si por alguna razón no redirigió automáticamente tras un tiempo
-      setTimeout(() => {
-        window.location.replace(targetPath);
-      }, 5000);
-
     } catch (err: any) {
-      console.warn("Google Auth failed or not configured, bypassing:", err);
+      console.warn("Google Auth failed, bypassing:", err);
       const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      window.location.replace(targetPath);
+      window.location.href = targetPath;
     }
   };
 

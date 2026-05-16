@@ -62,6 +62,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     duration: '4 semanas',
     status: 'pending'
   });
+  const [isGenerating, setIsGenerating] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   
   // Obtener el ID del experto de forma segura
@@ -170,8 +171,11 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
   };
 
   const handleAcceptProposal = async () => {
-    setOffer({ ...offer, status: 'accepted' });
-    alert('¡Propuesta aceptada! Redirigiendo a la pasarela de pago Escrow...');
+    setIsGenerating(true);
+    // Simular procesamiento de IA para el contrato final
+    setTimeout(() => {
+      router.push('/confirmacion-contrato');
+    }, 2500);
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

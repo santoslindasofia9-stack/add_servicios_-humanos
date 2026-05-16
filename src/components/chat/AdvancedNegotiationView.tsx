@@ -42,6 +42,7 @@ interface AdvancedNegotiationViewProps {
 
 export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiationViewProps) {
   const router = useRouter();
+  const [isGenerating, setIsGenerating] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [budget, setBudget] = useState(2450.00);
   const [totalAgreed, setTotalAgreed] = useState(2817.50);
@@ -87,18 +88,11 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
   ];
 
   const handleSendTerms = () => {
-    const eventMessage: Message = {
-      id: Date.now().toString(),
-      sender: 'pro',
-      type: 'event',
-      text: 'Propuesta enviada: Identidad Visual + Guía Social Media',
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      eventData: {
-        title: 'EVENTO DE NEGOCIACIÓN',
-        amount: `$${budget.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD`
-      }
-    };
-    setMessages([...messages, eventMessage]);
+    setIsGenerating(true);
+    // Simular procesamiento de IA para el contrato
+    setTimeout(() => {
+      router.push('/confirmacion-contrato');
+    }, 2500);
   };
 
   const handleSendMessage = () => {
@@ -357,11 +351,12 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
             </button>
             
             <button 
-              onClick={() => router.push('/confirmacion-contrato')}
-              className="flex-[3] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95"
+              onClick={handleSendTerms}
+              disabled={isGenerating}
+              className={`flex-[3] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95 ${isGenerating ? 'opacity-50' : ''}`}
             >
               <FileText className="w-4 h-4" />
-              <span>Enviar Términos y Condiciones</span>
+              <span>{isGenerating ? 'GENERANDO...' : 'Enviar Términos y Condiciones'}</span>
             </button>
           </motion.div>
         </div>
@@ -388,6 +383,30 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
             </button>
           </div>
         </div>
+        </div>
+        
+        {/* Overlay de Generación de IA */}
+        <AnimatePresence>
+          {isGenerating && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-[100] bg-white/80 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center"
+            >
+              <div className="relative w-20 h-20 mb-8">
+                <div className="absolute inset-0 bg-blue-100 rounded-full animate-ping opacity-25"></div>
+                <div className="relative bg-white p-5 rounded-full shadow-lg border border-blue-50 flex items-center justify-center">
+                  <div className="material-symbols-outlined text-3xl text-blue-500 animate-spin">hub</div>
+                </div>
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-3">Redactando Contrato Legal con IA</h2>
+              <p className="text-gray-500 max-w-xs text-sm leading-relaxed">
+                Estamos procesando los acuerdos de esta conversación para generar un contrato inteligente vinculante.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       <style jsx global>{`

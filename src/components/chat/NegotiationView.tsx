@@ -34,6 +34,7 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
   ]);
   const [events, setEvents] = useState<any[]>([]);
   const [inputText, setInputText] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,15 +44,11 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
   }, [messages, events]);
 
   const handleSendTerms = () => {
-    const newEvent = {
-      id: Date.now(),
-      type: 'negotiation_event',
-      title: 'EVENTO DE NEGOCIACIÓN',
-      subtitle: 'Propuesta enviada: Identidad Visual + Guía Social Media',
-      amount: budget.toFixed(2),
-      time: 'Justo ahora'
-    };
-    setEvents([...events, newEvent]);
+    setIsGenerating(true);
+    // Simular procesamiento de IA para el contrato
+    setTimeout(() => {
+      router.push('/confirmacion-contrato');
+    }, 2500);
   };
 
   const handleSendMessage = () => {
@@ -281,11 +278,12 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
             </button>
             
             <button 
-              onClick={() => router.push('/confirmacion-contrato')}
-              className="flex-1 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-black text-xs rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 tracking-[0.1em]"
+              onClick={handleSendTerms}
+              disabled={isGenerating}
+              className={`flex-1 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-black text-xs rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 tracking-[0.1em] ${isGenerating ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <FileText size={16} className="opacity-70" />
-              ENVIAR TÉRMINOS Y CONDICIONES
+              {isGenerating ? 'GENERANDO CONTRATO...' : 'ENVIAR TÉRMINOS Y CONDICIONES'}
             </button>
 
           </div>
@@ -312,6 +310,35 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
             </button>
           </div>
         </div>
+
+        {/* Overlay de Generación de IA */}
+        <AnimatePresence>
+          {isGenerating && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-[100] bg-white/80 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center"
+            >
+              <div className="relative w-24 h-24 mb-8">
+                <div className="absolute inset-0 bg-[#E0F2FE] rounded-full animate-ping opacity-25"></div>
+                <div className="relative bg-white p-6 rounded-full shadow-xl border border-sky-100 flex items-center justify-center">
+                  <div className="material-symbols-outlined text-4xl text-[#38bdf8] animate-spin">hub</div>
+                </div>
+              </div>
+              <h2 className="text-2xl font-black text-[#0d1c2e] mb-4">Redactando Contrato Inteligente...</h2>
+              <p className="text-[#5e6f79] max-w-sm font-medium leading-relaxed">
+                Nuestra IA legal está analizando los acuerdos de la negociación para generar los términos de cumplimiento automático.
+              </p>
+              
+              <div className="mt-12 flex gap-3">
+                 <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce"></div>
+                 <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                 <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </main>
 

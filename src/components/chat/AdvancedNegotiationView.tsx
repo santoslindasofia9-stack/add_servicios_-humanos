@@ -58,9 +58,28 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
       sender: 'pro',
       text: '¡Hola Elena! Me alegra mucho que te guste el trabajo. Agregar la guía de estilo para redes sociales es factible, pero requeriría ajustar un poco las horas de entrega. ¿Te parece si subimos el presupuesto un 15% para cubrirlo?',
       time: '10:45 AM'
+    },
+    {
+      id: '3',
+      sender: 'client',
+      text: 'Entiendo perfectamente. El 15% adicional me parece justo si incluimos también las plantillas para Instagram Stories. ¿Podemos cerrar el trato con esos términos?',
+      time: '11:05 AM'
+    },
+    {
+      id: '4',
+      sender: 'pro',
+      text: '¡Claro que sí! Incluiré 3 plantillas editables para Stories. Voy a actualizar los términos ahora mismo para que los revises.',
+      time: '11:10 AM'
+    },
+    {
+      id: '5',
+      sender: 'client',
+      text: 'Genial, quedo a la espera de la propuesta formal para proceder con el pago.',
+      time: '11:12 AM'
     }
   ]);
   const [inputText, setInputText] = useState('');
+  const [activeMessageMenu, setActiveMessageMenu] = useState<string | null>(null);
 
   const deliverables: Deliverable[] = [
     { id: '1', text: '3 Propuestas iniciales' },
@@ -87,12 +106,21 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
     if (!inputText.trim()) return;
     const newMessage: Message = {
       id: Date.now().toString(),
-      sender: 'client', // Simulating client for now or according to user logic
+      sender: 'client',
       text: inputText,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setMessages([...messages, newMessage]);
     setInputText('');
+  };
+
+  const handleDeleteMessage = (id: string, type: 'me' | 'all') => {
+    if (type === 'all') {
+      setMessages(messages.map(m => m.id === id ? { ...m, text: '🚫 Este mensaje fue eliminado', type: 'text' } : m));
+    } else {
+      setMessages(messages.filter(m => m.id !== id));
+    }
+    setActiveMessageMenu(null);
   };
 
   return (
@@ -257,18 +285,52 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
                       animate={{ opacity: 1, x: 0 }}
                       className={`flex ${msg.sender === 'client' ? 'justify-start' : 'justify-end'} group`}
                     >
-                      <div className={`max-w-[85%] lg:max-w-[70%] p-5 rounded-2xl shadow-sm ${
+                      <div className={`max-w-[85%] lg:max-w-[70%] p-5 rounded-2xl shadow-sm relative group/msg ${
                         msg.sender === 'client' 
                           ? 'bg-[#E3F2FD]/80 text-gray-800 rounded-bl-none border border-[#BBDEFB]/30' 
                           : 'bg-white text-gray-800 rounded-br-none border border-[#FCE4EC] ring-1 ring-[#FCE4EC]/50'
                       }`}>
-                        <p className="text-sm lg:text-[15px] leading-relaxed font-medium">
+                        <p className={`text-sm lg:text-[15px] leading-relaxed font-medium ${msg.text.includes('eliminado') ? 'opacity-40 italic' : ''}`}>
                           {msg.text}
                         </p>
                         <div className={`flex items-center gap-1 mt-3 opacity-40 text-[10px] font-bold ${msg.sender === 'client' ? '' : 'justify-end'}`}>
                           <span>{msg.time}</span>
                           {msg.sender === 'pro' && <CheckCircle2 className="w-3 h-3 text-blue-400" />}
                         </div>
+
+                        {/* Menu de eliminación */}
+                        <div className={`absolute top-2 ${msg.sender === 'client' ? '-right-10' : '-left-10'} opacity-0 group-hover/msg:opacity-100 transition-opacity`}>
+                          <button 
+                            onClick={() => setActiveMessageMenu(activeMessageMenu === msg.id ? null : msg.id)}
+                            className="p-1.5 bg-white border border-gray-100 rounded-full text-gray-400 hover:text-gray-600 shadow-sm"
+                          >
+                            <Plus className="w-3.5 h-3.5 rotate-45" />
+                          </button>
+                        </div>
+
+                        <AnimatePresence>
+                          {activeMessageMenu === msg.id && (
+                            <motion.div 
+                              initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                              animate={{ opacity: 1, scale: 1, y: 0 }}
+                              exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                              className={`absolute z-50 top-10 ${msg.sender === 'client' ? 'right-0' : 'left-0'} bg-white border border-gray-100 rounded-xl shadow-xl p-1 min-w-[140px]`}
+                            >
+                              <button 
+                                onClick={() => handleDeleteMessage(msg.id, 'me')}
+                                className="w-full text-left px-3 py-2 text-[11px] font-bold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                              >
+                                Eliminar para mí
+                              </button>
+                              <button 
+                                onClick={() => handleDeleteMessage(msg.id, 'all')}
+                                className="w-full text-left px-3 py-2 text-[11px] font-bold text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                              >
+                                Eliminar para todos
+                              </button>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     </motion.div>
                   )}
@@ -297,28 +359,31 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
             
             <button 
               onClick={handleSendTerms}
-              className="flex-[2] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95"
+              className="flex-[3] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95"
             >
               <FileText className="w-4 h-4" />
-              <span>Enviar Términos</span>
-            </button>
-            
-            <button className="w-12 h-12 flex items-center justify-center bg-[#E1F5FE] text-blue-600 rounded-full hover:bg-blue-100 transition-colors shadow-sm">
-              <Plus className="w-6 h-6" />
+              <span>Enviar Términos y Condiciones</span>
             </button>
           </motion.div>
         </div>
 
         {/* Input de Mensaje (Fijo en el fondo inferior) */}
         <div className="bg-white border-t border-gray-50 p-4 lg:p-6 pb-8 lg:pb-10">
+          <input type="file" id="advanced-attach" className="hidden" />
           <div className="max-w-4xl mx-auto flex items-center gap-4">
+            <label 
+              htmlFor="advanced-attach"
+              className="w-14 h-14 flex items-center justify-center bg-[#E1F5FE] text-blue-600 rounded-full hover:bg-blue-100 transition-colors shadow-sm cursor-pointer shrink-0"
+            >
+              <Plus className="w-6 h-6" />
+            </label>
             <div className="flex-1 relative">
               <input 
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Escribe un mensaje..."
+                placeholder="Escribe una contraoferta o mensaje..."
                 className="w-full bg-[#F8FAFC] border border-gray-100 rounded-full px-8 py-4 pr-16 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-blue-50/50 focus:border-blue-100 transition-all placeholder:text-gray-400 shadow-inner"
               />
               <button className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors">

@@ -413,7 +413,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
                 Aceptar Propuesta
               </button>
               <button 
-                onClick={() => router.push(`/chat/${expertId}/negociacion`)}
+                onClick={() => router.push(`/chat/${expertId}/contraoferta`)}
                 className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm flex items-center justify-center"
               >
                 Contraofertar

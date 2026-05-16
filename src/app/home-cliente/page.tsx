@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { 
@@ -425,7 +426,13 @@ export default function HomeCliente() {
             <h2 className="text-4xl md:text-[56px] font-extrabold text-[#0d1c2e] mb-6 max-w-3xl leading-tight tracking-tight">
               Ayuda experta para tu próximo gran proyecto.
             </h2>
-            <div className="relative w-full max-w-2xl mx-auto">
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push(`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`);
+              }}
+              className="relative w-full max-w-2xl mx-auto"
+            >
               <input 
                 type="text"
                 value={searchTerm}
@@ -434,13 +441,13 @@ export default function HomeCliente() {
                 className="w-full h-14 md:h-16 pl-14 pr-32 rounded-full border border-gray-200 bg-white shadow-sm focus:ring-4 focus:ring-[#E0F2FE] focus:border-[#0d1c2e] transition-all text-lg font-medium text-[#0d1c2e] placeholder:text-[#5e6f79]/60 outline-none"
               />
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#5e6f79] pointer-events-none" size={24} />
-              <Link 
-                href={`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`}
+              <button 
+                type="submit"
                 className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0d1c2e] text-white px-6 py-2.5 md:py-3 rounded-full font-bold text-sm hover:bg-[#233144] transition-all flex items-center justify-center"
               >
                 Buscar
-              </Link>
-            </div>
+              </button>
+            </form>
           </section>
 
           {/* 3. Categories (Horizontal scroll) */}

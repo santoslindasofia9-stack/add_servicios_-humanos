@@ -227,6 +227,13 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Link 
+            href={`/chat/${expertData.id}/negociacion`}
+            className="flex items-center gap-2 px-4 py-2 bg-[#FCE4EC] text-[#D81B60] hover:bg-[#fbd1de] rounded-full transition-all font-bold text-xs shadow-sm active:scale-95"
+          >
+            <Wallet className="w-4 h-4" />
+            <span>Negociar</span>
+          </Link>
           <button className="hidden md:flex items-center gap-2 px-4 py-2 text-[#5e6f79] hover:bg-sky-50 rounded-full transition-colors">
             <HelpCircle className="w-5 h-5" />
             <span className="text-sm font-medium">Ayuda</span>

@@ -113,6 +113,24 @@ const FALLBACK_EXPERTS = [
     calificacion: 5,
     tarifa: 160,
     foto_perfil: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "e1",
+    nombre_completo: "Laura Vásquez",
+    titulo_profesional: "Diseñadora de Moda enfocada en colecciones sostenibles y materiales reciclados.",
+    categoria: "Creativo",
+    calificacion: 4.9,
+    tarifa: 50,
+    foto_perfil: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "e2",
+    nombre_completo: "Roberto Sánchez",
+    titulo_profesional: "Técnico Electricista certificado para instalaciones industriales y residenciales.",
+    categoria: "Hogar",
+    calificacion: 4.7,
+    tarifa: 30,
+    foto_perfil: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
   }
 ];
 

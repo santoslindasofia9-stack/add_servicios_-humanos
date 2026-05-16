@@ -64,6 +64,16 @@ const FALLBACK_EXPERTS = [
     id: "f12",
     nombre_completo: "Diego Castro",
     foto_perfil: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "e1",
+    nombre_completo: "Laura Vásquez",
+    foto_perfil: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "e2",
+    nombre_completo: "Roberto Sánchez",
+    foto_perfil: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
   }
 ];
 

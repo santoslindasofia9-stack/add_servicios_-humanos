@@ -383,8 +383,8 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
             </button>
           </div>
         </div>
-        </div>
         
+
         {/* Overlay de Generación de IA */}
         <AnimatePresence>
           {isGenerating && (

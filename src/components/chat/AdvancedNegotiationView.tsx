@@ -346,14 +346,13 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
               <span>{isEditing ? 'GUARDAR CAMBIOS' : 'AJUSTAR PRESUPUESTO'}</span>
             </button>
             
-            <button 
-              onClick={handleSendTerms}
-              disabled={isGenerating}
-              className={`flex-[3] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95 ${isGenerating ? 'opacity-50' : ''}`}
+            <Link 
+              href="/confirmacion-contrato"
+              className={`flex-[3] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95`}
             >
               <FileText className="w-4 h-4" />
-              <span>{isGenerating ? 'GENERANDO...' : 'Enviar Términos y Condiciones'}</span>
-            </button>
+              <span>Enviar Términos y Condiciones</span>
+            </Link>
           </motion.div>
         </div>
 

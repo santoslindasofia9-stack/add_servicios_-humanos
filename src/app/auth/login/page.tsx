@@ -16,28 +16,21 @@ function LoginContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Redirigir si ya está logueado (Prototipo Permisivo)
+  // Eliminamos la redirección automática al cargar para permitir que el usuario vea la pantalla de login
+  // a menos que sea una redirección específica después de un flujo.
   useEffect(() => {
-    // 1. Escuchar cambios de autenticación de Supabase (especialmente para OAuth/Google)
+    // Solo escuchamos cambios de estado para OAuth
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        console.log("Sesión detectada (event):", event);
+      if (session && event === 'SIGNED_IN') {
         const userRole = localStorage.getItem("userRole") || "client";
         const targetPath = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
-        console.log("Redirigiendo a:", targetPath);
+        // Guardamos el nombre si viene de Google
+        if (session.user.user_metadata?.full_name) {
+          localStorage.setItem("userName", session.user.user_metadata.full_name);
+        }
         window.location.href = targetPath;
       }
     });
-
-    // 2. Verificar si ya tenemos sesión activa al cargar
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        const userRole = localStorage.getItem("userRole") || "client";
-        window.location.href = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
-      }
-    };
-    checkSession();
 
     return () => subscription.unsubscribe();
   }, []);
@@ -68,36 +61,56 @@ function LoginContent() {
     setSuccess(null);
 
     try {
-      // Guardar estado inmediatamente (Permisivo)
-      const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
-      localStorage.setItem("userRole", role);
-      localStorage.setItem("userName", displayName);
-      localStorage.setItem("isLoggedIn", "true");
-
-      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-
+      let authResponse;
+      
       if (mode === "register") {
-        await supabase.auth.signUp({
+        authResponse = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
           options: {
-            data: { nombre_completo: formData.username, telefono: formData.phone, rol: role }
+            data: { 
+              nombre_completo: formData.username, 
+              telefono: formData.phone, 
+              rol: role 
+            }
           }
         });
       } else {
-        await supabase.auth.signInWithPassword({
+        authResponse = await supabase.auth.signInWithPassword({
           email: formData.email,
           password: formData.password,
         });
       }
 
-      // Redirección inmediata sin esperar validaciones lentas
-      window.location.href = targetPath;
+      if (authResponse.error) {
+        throw authResponse.error;
+      }
+
+      // Si llegamos aquí, la autenticación fue exitosa
+      const user = authResponse.data.user;
+      const displayName = formData.username || 
+                          user?.user_metadata?.nombre_completo || 
+                          user?.user_metadata?.full_name || 
+                          formData.email.split('@')[0] || 
+                          "Usuario";
+
+      // Guardar estado solo en éxito real
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", displayName);
+      localStorage.setItem("isLoggedIn", "true");
+
+      setSuccess(mode === "register" ? "¡Cuenta creada con éxito!" : "¡Inicio de sesión exitoso!");
+      
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      
+      // Pequeño delay para mostrar el mensaje de éxito
+      setTimeout(() => {
+        window.location.href = targetPath;
+      }, 1000);
 
     } catch (err: any) {
-      console.warn("Auth error bypassed:", err);
-      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      window.location.href = targetPath;
+      console.error("Auth error:", err);
+      setError(err.message || "Ocurrió un error durante la autenticación.");
     } finally {
       setLoading(false);
     }
@@ -106,26 +119,24 @@ function LoginContent() {
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      setError(null);
       
-      // Pre-guardar estado antes del salto a Google
       localStorage.setItem("userRole", role);
-      localStorage.setItem("userName", "Usuario Google");
       localStorage.setItem("isLoggedIn", "true");
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}${targetPath}`,
+          redirectTo: `${window.location.origin}/auth/login`, // Redirigir de vuelta aquí para que onAuthStateChange lo maneje
         }
       });
       
       if (error) throw error;
       
     } catch (err: any) {
-      console.warn("Google Auth failed, bypassing:", err);
-      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      window.location.href = targetPath;
+      console.error("Google Auth failed:", err);
+      setError(err.message || "Error al iniciar sesión con Google.");
+      setLoading(false);
     }
   };
 

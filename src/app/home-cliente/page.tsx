@@ -345,15 +345,21 @@ export default function HomeCliente() {
                 )}
               </AnimatePresence>
             </div>
-            <div 
-              onClick={toggleProfile}
-              className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#e6eeff] cursor-pointer bg-white flex items-center justify-center relative z-50 hover:border-[#FCE4EC] transition-colors"
-            >
-              {userAvatar ? (
-                <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
-              ) : (
-                <span className="text-[#0d1c2e] font-bold text-sm uppercase">{userName.charAt(0)}</span>
-              )}
+            <div className="flex items-center gap-3">
+              <div className="hidden md:flex flex-col items-end mr-1">
+                <span className="text-sm font-bold text-[#0d1c2e] leading-none">{userName}</span>
+                <span className="text-[10px] font-medium text-[#5e6f79]">Cliente</span>
+              </div>
+              <div 
+                onClick={toggleProfile}
+                className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#e6eeff] cursor-pointer bg-white flex items-center justify-center relative z-50 hover:border-[#FCE4EC] transition-colors"
+              >
+                {userAvatar ? (
+                  <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-[#0d1c2e] font-bold text-sm uppercase">{userName.charAt(0)}</span>
+                )}
+              </div>
             </div>
 
             {/* Profile Dropdown */}

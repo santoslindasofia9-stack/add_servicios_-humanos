@@ -67,12 +67,12 @@ export default function ProfessionalCard({
             {precio}
           </span>
         </div>
-        <button 
-          onClick={() => window.location.href = `/expertos/${id}`}
-          className="px-6 py-2.5 bg-[#FCE4EC] text-[#D81B60] rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#fbd1de] transition-all duration-300 active:scale-95"
+        <Link 
+          href={`/expertos/${id}`}
+          className="px-6 py-2.5 bg-[#FCE4EC] text-[#D81B60] rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#fbd1de] transition-all duration-300 active:scale-95 inline-block text-center"
         >
           Perfil
-        </button>
+        </Link>
       </div>
     </article>
   );

@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bell, 
   ChevronRight, 
@@ -17,42 +17,137 @@ import { useRouter } from 'next/navigation';
 export default function ProjectTrackingPage() {
   const router = useRouter();
 
+  // Estados de Usuario (cargados desde localStorage)
+  const [userName, setUserName] = useState<string>("Usuario");
+  const [userAvatar, setUserAvatar] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string>("CLIENTE PREMIUM");
+
+  // Estados de Notificaciones
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, read: false, text: "Nueva actualización de Ana Valery.", time: "Hace 5 min" },
+    { id: 2, read: false, text: "Materiales aprobados.", time: "Hace 1 hora" }
+  ]);
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  // Estados de Evidencias (con carga funcional)
+  const [evidences, setEvidences] = useState([
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=400",
+    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=400",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=400",
+    "https://images.unsplash.com/photo-1615529182904-14819c35d55a?auto=format&fit=crop&q=80&w=400",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400",
+  ]);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const savedName = localStorage.getItem("userName");
+    const savedAvatar = localStorage.getItem("userAvatar");
+    const savedRole = localStorage.getItem("userRole");
+    
+    if (savedName) setUserName(savedName);
+    if (savedAvatar) setUserAvatar(savedAvatar);
+    if (savedRole) setUserRole(savedRole === 'client' ? 'CLIENTE PREMIUM' : savedRole.toUpperCase());
+  }, []);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setEvidences(prev => [...prev, base64String]);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans pb-32">
       {/* Navbar Superior Integrado */}
       <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+          
           <div className="flex items-center gap-12">
-            {/* Logo placeholder */}
-            <div className="text-2xl font-black tracking-tighter text-slate-800">
-              Tool<span className="text-sky-500">Link</span>
+            {/* Logo Actualizado de Tool Link */}
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/home-cliente')}>
+              <div className="w-10 h-10 bg-[#0d1c2e] rounded-full flex items-center justify-center">
+                <span className="material-symbols-outlined text-white text-2xl">hub</span>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-extrabold text-[#0d1c2e] tracking-tight">Tool Link</h1>
             </div>
             
+            {/* Enlaces de Navegación Limpiados (Solo Proyectos) */}
             <div className="hidden md:flex items-center gap-8">
               <span className="text-sky-500 font-semibold border-b-2 border-sky-500 py-7">Proyectos</span>
-              <span className="text-slate-500 hover:text-slate-900 cursor-pointer font-medium transition-colors">Pedidos</span>
-              <span className="text-slate-500 hover:text-slate-900 cursor-pointer font-medium transition-colors">Mensajes</span>
-              <span className="text-slate-500 hover:text-slate-900 cursor-pointer font-medium transition-colors">Catálogo</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <button className="text-slate-400 hover:text-slate-600 transition-colors relative">
-              <Bell size={24} />
-              <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white"></span>
-            </button>
+          <div className="flex items-center gap-6 relative">
+            {/* Campanita Funcional */}
+            <div>
+              <button onClick={() => setIsNotifOpen(!isNotifOpen)} className="text-slate-400 hover:text-slate-600 transition-colors relative p-2">
+                <Bell size={24} />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white"></span>
+                )}
+              </button>
+              
+              <AnimatePresence>
+                {isNotifOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsNotifOpen(false)} />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      className="absolute top-12 right-0 md:right-12 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 z-50 overflow-hidden"
+                    >
+                      <div className="p-4 border-b border-slate-100 flex justify-between items-center">
+                        <span className="font-bold text-slate-900">Notificaciones</span>
+                        {unreadCount > 0 && (
+                          <button onClick={() => setNotifications(n => n.map(x => ({...x, read: true})))} className="text-xs text-sky-500 font-bold hover:underline">
+                            Marcar leídas
+                          </button>
+                        )}
+                      </div>
+                      <div className="max-h-60 overflow-y-auto">
+                        {notifications.map(n => (
+                          <div key={n.id} className={`p-4 border-b border-slate-50 text-sm ${n.read ? 'bg-white' : 'bg-slate-50'}`}>
+                            <p className={`text-slate-800 ${n.read ? '' : 'font-semibold'}`}>{n.text}</p>
+                            <p className="text-xs text-slate-400 mt-1">{n.time}</p>
+                          </div>
+                        ))}
+                        {notifications.length === 0 && (
+                          <div className="p-4 text-center text-slate-500 text-sm">No hay notificaciones</div>
+                        )}
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Perfil del Usuario Logueado */}
             <div className="flex items-center gap-3 pl-6 border-l border-slate-200">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-bold text-slate-900">Juan Pérez</p>
-                <p className="text-[11px] font-semibold text-sky-500 uppercase tracking-wider">Cliente Premium</p>
+                <p className="text-sm font-bold text-slate-900">{userName}</p>
+                <p className="text-[11px] font-semibold text-sky-500 uppercase tracking-wider">{userRole}</p>
               </div>
-              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm ring-2 ring-slate-100">
-                <Image 
-                  src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" 
-                  alt="Avatar Cliente" 
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm ring-2 ring-slate-100 bg-slate-100">
+                {userAvatar ? (
+                  <Image 
+                    src={userAvatar} 
+                    alt="Avatar de Usuario" 
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <span className="absolute inset-0 flex items-center justify-center font-bold text-slate-500 text-sm uppercase">
+                    {userName.charAt(0)}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -122,30 +217,43 @@ export default function ProjectTrackingPage() {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {[
-                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=400",
-                "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=400",
-                "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=400",
-                "https://images.unsplash.com/photo-1615529182904-14819c35d55a?auto=format&fit=crop&q=80&w=400",
-                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400",
-              ].map((src, i) => (
-                <div key={i} className="relative aspect-square rounded-2xl overflow-hidden group border border-slate-200">
-                  <Image 
-                    src={src}
-                    alt={`Evidencia ${i+1}`}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors"></div>
-                </div>
-              ))}
+              <AnimatePresence>
+                {evidences.map((src, i) => (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    key={i} 
+                    className="relative aspect-square rounded-2xl overflow-hidden group border border-slate-200"
+                  >
+                    <Image 
+                      src={src}
+                      alt={`Evidencia ${i+1}`}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors"></div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
               
-              <button className="aspect-square rounded-2xl border-2 border-dashed border-sky-200 bg-sky-50/50 hover:bg-sky-50 hover:border-sky-300 transition-all flex flex-col items-center justify-center gap-3 text-sky-600 group">
+              <button 
+                onClick={() => fileInputRef.current?.click()}
+                className="aspect-square rounded-2xl border-2 border-dashed border-sky-200 bg-sky-50/50 hover:bg-sky-50 hover:border-sky-300 transition-all flex flex-col items-center justify-center gap-3 text-sky-600 group cursor-pointer"
+              >
                 <div className="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Camera size={24} />
                 </div>
                 <span className="font-bold text-sm">Añadir Nueva</span>
               </button>
+              
+              {/* Input de archivo oculto para la subida */}
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                className="hidden" 
+                accept="image/*" 
+                onChange={handleImageUpload} 
+              />
             </div>
           </div>
 

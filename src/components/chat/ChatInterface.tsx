@@ -171,7 +171,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
   };
 
   const handleAcceptProposal = async () => {
-    router.push('/confirmacion-contrato');
+    window.location.href = '/confirmacion-contrato';
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

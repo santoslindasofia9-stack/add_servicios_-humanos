@@ -406,9 +406,12 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
               >
                 Aceptar Propuesta
               </button>
-              <button className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm">
+              <Link 
+                href={`/chat/${expertData.id}/negociacion`}
+                className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm flex items-center justify-center"
+              >
                 Contraofertar
-              </button>
+              </Link>
             </div>
 
             <div className="mt-10 pt-8 border-t border-sky-50">

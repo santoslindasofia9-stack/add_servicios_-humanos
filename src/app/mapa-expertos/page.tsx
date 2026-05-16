@@ -271,10 +271,12 @@ export default function MapaExpertos() {
     showToast("Obteniendo tu ubicación…");
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setUserLocation({
+        const loc = {
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
-        });
+        };
+        setUserLocation(loc);
+        localStorage.setItem("userLastLocation", JSON.stringify(loc));
         showToast("✓ Mapa centrado en tu ubicación");
       },
       () => showToast("No se pudo obtener tu ubicación.")
@@ -288,7 +290,7 @@ export default function MapaExpertos() {
 
 
 
-  const handleVerPerfil = (id: string) => router.push(`/expertos/${id}`);
+  const handleVerPerfil = (id: string) => window.location.href = `/expertos/${id}`;
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col bg-[#f0f4f8] font-sans">

@@ -445,7 +445,7 @@ export default function HomeCliente() {
             <form 
               onSubmit={(e) => {
                 e.preventDefault();
-                router.push(`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`);
+                window.location.href = `/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`;
               }}
               className="relative w-full max-w-2xl mx-auto"
             >
@@ -631,7 +631,7 @@ export default function HomeCliente() {
                   Encuentra los mejores servicios y profesionales directamente en tu vecindario con nuestro mapa interactivo local.
                 </p>
                 <button
-                  onClick={() => router.push('/mapa-expertos')}
+                  onClick={() => window.location.href = '/mapa-expertos'}
                   className="bg-[#FCE4EC] text-[#0d1c2e] px-10 py-4 rounded-full font-bold hover:bg-[#fbd1de] transition-all shadow-md w-full sm:w-auto active:scale-95"
                 >
                   Abrir Mapa Interactivo

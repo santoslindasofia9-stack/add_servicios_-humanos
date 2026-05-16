@@ -1,8 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import BottomNav from "@/components/dashboard/BottomNav";
-
-export const dynamic = 'force-dynamic';
 
 const FALLBACK_EXPERTS = [
   {
@@ -133,26 +134,44 @@ const FALLBACK_EXPERTS = [
   }
 ];
 
-export default async function ExpertProfile({
+export default function ExpertProfile({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: any;
 }) {
-  const resolvedParams = await params;
-  const expertId = resolvedParams.id;
+  const [expert, setExpert] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // 1. Fetch from Supabase
-  const { data: expertData, error } = await supabase
-    .from("perfiles_profesionales")
-    .select("*")
-    .eq("id", expertId)
-    .single();
+  useEffect(() => {
+    const fetchExpert = async () => {
+      const resolvedParams = await params;
+      const expertId = resolvedParams.id;
 
-  // Find fallback matching the ID or use the first one if not found
-  const fallbackExpert = FALLBACK_EXPERTS.find(e => e.id === expertId) || FALLBACK_EXPERTS[0];
+      // 1. Fetch from Supabase
+      const { data: expertData } = await supabase
+        .from("perfiles_profesionales")
+        .select("*")
+        .eq("id", expertId)
+        .single();
 
-  // If we can't find them in DB, use fallback data for demo purposes
-  const expert = expertData || fallbackExpert;
+      // Find fallback matching the ID or use the first one if not found
+      const fallbackExpert = FALLBACK_EXPERTS.find(e => e.id === expertId) || FALLBACK_EXPERTS[0];
+
+      // If we can't find them in DB, use fallback data for demo purposes
+      setExpert(expertData || fallbackExpert);
+      setLoading(false);
+    };
+
+    fetchExpert();
+  }, [params]);
+
+  if (loading || !expert) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-white">
+        <div className="w-8 h-8 border-4 border-[#FCE4EC] border-t-[#0d1c2e] rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f8f9ff] font-sans pb-24 text-[#0d1c2e]">
@@ -160,13 +179,13 @@ export default async function ExpertProfile({
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-sky-50 flex justify-center items-center w-full h-16 px-4 md:px-8">
         <div className="max-w-[1280px] w-full flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <Link
-              href="/resultados"
+            <button
+              onClick={() => window.location.href = '/resultados'}
               className="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center text-[#5e6f79] hover:text-[#0d1c2e] transition-all"
             >
               <span className="material-symbols-outlined text-[20px]">arrow_back</span>
-            </Link>
-            <div className="flex items-center gap-2">
+            </button>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.href = '/home-cliente'}>
               <div className="w-8 h-8 bg-[#0d1c2e] rounded-lg flex items-center justify-center">
                 <span className="material-symbols-outlined text-white text-lg leading-none">hub</span>
               </div>
@@ -233,12 +252,12 @@ export default async function ExpertProfile({
               <button className="px-10 py-4 bg-[#fce4ec] text-[#880e4f] font-bold rounded-full hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-sm border border-pink-100">
                 Seguir Profesional
               </button>
-              <Link 
-                href={`/chat/${expert.id}`}
+              <button 
+                onClick={() => window.location.href = `/chat/${expert.id}`}
                 className="px-10 py-4 bg-[#e0f2fe] text-[#0369a1] font-bold rounded-full hover:bg-[#d1e9ff] hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-sm border border-sky-100 text-center"
               >
                 Enviar Mensaje
-              </Link>
+              </button>
             </div>
           </div>
         </section>
@@ -331,12 +350,12 @@ export default async function ExpertProfile({
       </main>
 
       {/* Floating Action Button */}
-      <Link 
-        href={`/chat/${expert.id}`}
+      <button 
+        onClick={() => window.location.href = `/chat/${expert.id}`}
         className="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-16 h-16 bg-[#E0F2FE] text-[#0288D1] rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 z-[60]"
       >
         <span className="material-symbols-outlined text-[32px]">chat</span>
-      </Link>
+      </button>
 
       {/* Global Bottom Nav for Mobile */}
       <BottomNav />

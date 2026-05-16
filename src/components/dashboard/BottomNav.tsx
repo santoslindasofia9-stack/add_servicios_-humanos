@@ -21,10 +21,10 @@ export default function BottomNav() {
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
 
         return (
-          <Link
+          <div
             key={item.label}
-            href={item.href}
-            className="flex flex-col items-center justify-center min-w-[64px] h-full gap-1 group relative"
+            onClick={() => window.location.href = item.href}
+            className="flex flex-col items-center justify-center min-w-[64px] h-full gap-1 group relative cursor-pointer"
           >
             {/* Icon Pill Container */}
             <div
@@ -51,7 +51,7 @@ export default function BottomNav() {
             >
               {item.label}
             </span>
-          </Link>
+          </div>
         );
       })}
     </nav>

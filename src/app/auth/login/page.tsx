@@ -18,11 +18,28 @@ function LoginContent() {
 
   // Redirigir si ya está logueado (Prototipo Permisivo)
   useEffect(() => {
+    // 1. Verificar localStorage primero (rápido)
     const savedRole = localStorage.getItem("userRole");
     if (savedRole) {
-      window.location.replace(savedRole === "client" ? "/home-cliente" : "/dashboard-pro");
+      const target = savedRole === "client" ? "/home-cliente" : "/dashboard-pro";
+      // Solo redirigir si no estamos ya intentando loguearnos
+      if (!window.location.hash.includes("access_token")) {
+         // window.location.replace(target);
+      }
     }
-  }, []);
+
+    // 2. Escuchar cambios de autenticación de Supabase (especialmente para OAuth/Google)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        console.log("Sesión detectada (event):", event);
+        const userRole = localStorage.getItem("userRole") || "client";
+        const targetPath = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
+        window.location.replace(targetPath);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   // Update mode if query param changes
   useEffect(() => {
@@ -95,20 +112,31 @@ function LoginContent() {
 
   const handleGoogleLogin = async () => {
     try {
-      // Prototipo Permisivo: Pre-guardamos un nombre en caso de que la conexión OAuth falle
+      setLoading(true);
+      // Prototipo Permisivo: Pre-guardamos un nombre y el rol
       localStorage.setItem("userRole", role);
       localStorage.setItem("userName", "Usuario Google");
 
       const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      const redirectUrl = `${window.location.origin}${targetPath}`;
+
+      console.log("Iniciando Google Auth con redirect:", redirectUrl);
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}${targetPath}`,
+          redirectTo: redirectUrl,
+          skipBrowserRedirect: false,
         }
       });
       
       if (error) throw error;
+      
+      // Si por alguna razón no redirigió automáticamente tras un tiempo
+      setTimeout(() => {
+        window.location.replace(targetPath);
+      }, 5000);
+
     } catch (err: any) {
       console.warn("Google Auth failed or not configured, bypassing:", err);
       const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";

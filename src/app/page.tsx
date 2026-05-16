@@ -8,8 +8,16 @@ export default function SplashScreen() {
   const router = useRouter();
   const [progress, setProgress] = useState(0);
 
-  // Simulación de carga
+  // Simulación de carga y verificación de sesión
   useEffect(() => {
+    // Verificar si ya hay una sesión guardada para saltar el splash
+    const savedRole = localStorage.getItem("userRole");
+    if (savedRole) {
+      const target = savedRole === "client" ? "/home-cliente" : "/dashboard-pro";
+      router.replace(target);
+      return;
+    }
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -20,7 +28,7 @@ export default function SplashScreen() {
       });
     }, 25);
     return () => clearInterval(interval);
-  }, []);
+  }, [router]);
 
   const handleContinue = () => {
     router.push("/onboarding");

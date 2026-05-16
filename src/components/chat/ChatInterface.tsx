@@ -20,9 +20,11 @@ import {
   Inbox,
   ShoppingBag,
   User,
-  Trash2
+  Trash2,
+  Wallet
 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface Message {
   id: string;
@@ -51,6 +53,7 @@ interface Attachment {
 }
 
 export default function ChatInterface({ negotiationId, expertData, currentUser }: ChatInterfaceProps) {
+  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [offer, setOffer] = useState({
@@ -230,13 +233,13 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Link 
-            href={`/chat/${expertId}/negociacion`}
+          <button 
+            onClick={() => router.push(`/chat/${expertId}/negociacion`)}
             className="flex items-center gap-2 px-4 py-2 bg-[#FCE4EC] text-[#D81B60] hover:bg-[#fbd1de] rounded-full transition-all font-bold text-xs shadow-sm active:scale-95"
           >
             <Wallet className="w-4 h-4" />
             <span>Negociar</span>
-          </Link>
+          </button>
           <button className="hidden md:flex items-center gap-2 px-4 py-2 text-[#5e6f79] hover:bg-sky-50 rounded-full transition-colors">
             <HelpCircle className="w-5 h-5" />
             <span className="text-sm font-medium">Ayuda</span>
@@ -409,12 +412,12 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
               >
                 Aceptar Propuesta
               </button>
-              <Link 
-                href={`/chat/${expertId}/negociacion`}
+              <button 
+                onClick={() => router.push(`/chat/${expertId}/negociacion`)}
                 className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm flex items-center justify-center"
               >
                 Contraofertar
-              </Link>
+              </button>
             </div>
 
             <div className="mt-10 pt-8 border-t border-sky-50">

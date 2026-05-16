@@ -24,6 +24,11 @@ const FALLBACK_EXPERTS = [
     id: "f3",
     nombre_completo: "Sofía López",
     foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuDq0ejKLQFaVq97cNcPankNdRGVIPMbmgSgVdufsS6wVPhWYLg-Tq3ApMsb7FeJy3T6qDZj21jIcDiA9W6x6Ggxf--TJm6Oof8TSccU7UEgftmLDhZooog8wF57B8fHK9BBEvChk8HFSsyRBUY16iFshpvEmZg_pqgDXnkVdxoDX9SDxVkkAVOQLWmp8SWB_U0p9auM9cA9TFglVEv9xkhkgIKpz5f7KmJwCdUV2Dl3BKnVKOabEcGTwE-oxd0a-88I_9ThwH0wbQ"
+  },
+  {
+    id: "f2",
+    nombre_completo: "Julián Martínez",
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuD8vieSJHSh8s4srhDRVc07JvNR_6zKQG2yfTNVG6xwWQaKG98OqscybPMITeYo7M7qaqYTcQqig3KcF_ZRiBRNW70bj8dQKlzQbVSJoa6PRzDLMVK32ZPlJ87tX9txfSPpZXG45CU6HAzkkBES1VESCWpOmw75y37nufVPw8cSSSJ9uahncyE58b1e2wMqe6ji-p3fnxClhkk-d_edC_R4zoJ-AxyS6yfR8Iqyg7hfTx3YXPngatGK6H7VUEdTuCxmT2NDc2Zr8w"
   }
 ];
 

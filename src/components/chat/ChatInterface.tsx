@@ -19,7 +19,8 @@ import {
   Home,
   Inbox,
   ShoppingBag,
-  User
+  User,
+  Trash2
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -157,13 +158,16 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
 
   const handleAcceptProposal = async () => {
     setOffer({ ...offer, status: 'accepted' });
-    // Update Supabase
-    /*
-    await supabase.from('negociaciones')
-      .update({ estado_propuesta: 'aceptada' })
-      .eq('id', negotiationId);
-    */
     alert('¡Propuesta aceptada! Redirigiendo a la pasarela de pago Escrow...');
+  };
+  
+  const handleDeleteMessage = (messageId: string, forEveryone: boolean) => {
+    if (forEveryone) {
+      setMessages(prev => prev.filter(m => m.id !== messageId));
+    } else {
+      // Simulate "Delete for me" by just removing from local state as well
+      setMessages(prev => prev.filter(m => m.id !== messageId));
+    }
   };
 
   return (
@@ -223,7 +227,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
                   key={msg.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex gap-3 max-w-[90%] md:max-w-[80%] ${msg.is_expert ? '' : 'ml-auto flex-row-reverse'}`}
+                  className={`flex gap-3 max-w-[90%] md:max-w-[80%] relative group ${msg.is_expert ? '' : 'ml-auto flex-row-reverse'}`}
                 >
                   {msg.is_expert && (
                     <img 
@@ -231,7 +235,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
                       className="w-8 h-8 rounded-full self-end mb-1 shrink-0 shadow-sm"
                     />
                   )}
-                  <div className={`relative p-4 shadow-sm ${
+                  <div className={`relative p-4 shadow-sm group ${
                     msg.is_expert 
                       ? 'bg-[#e0f2fe] text-[#0d1c2e] rounded-2xl rounded-bl-none' 
                       : 'bg-white border border-[#fce4ec]/50 text-[#0d1c2e] rounded-2xl rounded-br-none'
@@ -259,6 +263,21 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
                         <CheckCheck className="w-3.5 h-3.5 text-[#38bdf8]" />
                       )}
                     </div>
+
+                    {/* Delete Message Context Menu (Simple version) */}
+                    <div className={`absolute top-0 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 ${msg.is_expert ? '-right-12' : '-left-12'}`}>
+                      <button 
+                        onClick={() => {
+                          if (confirm('¿Eliminar mensaje?')) {
+                            handleDeleteMessage(msg.id, true);
+                          }
+                        }}
+                        className="p-1.5 bg-white shadow-md rounded-full text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                        title="Eliminar mensaje"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -266,7 +285,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
           </div>
 
           {/* Input Area */}
-          <div className="bg-white border-t border-sky-50 p-4 md:p-6 pb-24 md:pb-8">
+          <div className="bg-white border-t border-sky-50 p-4 md:p-6">
             <div className="max-w-4xl mx-auto flex items-center gap-4">
               <button className="text-[#5e6f79] hover:text-[#0369a1] transition-colors p-2">
                 <PlusCircle className="w-6 h-6" />
@@ -293,27 +312,25 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
             </div>
           </div>
 
-          {/* Floating Bottom Nav (Integrated) */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-[60]">
-             <div className="bg-white/90 backdrop-blur-xl border border-sky-100 rounded-full px-8 py-3 shadow-2xl flex items-center justify-between">
-                <Link href="/home-cliente" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0369a1] transition-colors">
-                  <Home className="w-5 h-5" />
-                  <span className="text-[10px] font-bold">Home</span>
-                </Link>
-                <div className="flex flex-col items-center gap-1 text-[#880e4f]">
-                  <div className="absolute -top-1 right-1/2 translate-x-8 w-2 h-2 bg-pink-500 rounded-full border-2 border-white"></div>
-                  <Inbox className="w-5 h-5 fill-pink-50" />
-                  <span className="text-[10px] font-bold">Inbox</span>
-                </div>
-                <button className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0369a1] transition-colors">
-                  <ShoppingBag className="w-5 h-5" />
-                  <span className="text-[10px] font-bold">Pedidos</span>
-                </button>
-                <button className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0369a1] transition-colors">
-                  <User className="w-5 h-5" />
-                  <span className="text-[10px] font-bold">Perfil</span>
-                </button>
-             </div>
+          {/* Integrated Navigation Bar - Moved to Bottom of Chat Area to prevent interference */}
+          <div className="bg-white border-t border-sky-50 px-8 py-3 flex items-center justify-between shadow-[0_-4px_12px_rgba(0,0,0,0.02)]">
+            <Link href="/home-cliente" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+              <Home className="w-5 h-5" />
+              <span className="text-[10px] font-bold">Home</span>
+            </Link>
+            <div className="flex flex-col items-center gap-1 text-[#880e4f] relative">
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-500 rounded-full border-2 border-white"></div>
+              <Inbox className="w-5 h-5 fill-pink-50" />
+              <span className="text-[10px] font-bold">Inbox</span>
+            </div>
+            <button className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+              <ShoppingBag className="w-5 h-5" />
+              <span className="text-[10px] font-bold">Pedidos</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+              <User className="w-5 h-5" />
+              <span className="text-[10px] font-bold">Perfil</span>
+            </button>
           </div>
         </div>
 

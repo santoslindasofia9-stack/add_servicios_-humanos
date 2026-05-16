@@ -51,39 +51,39 @@ const ADS = [
 const FALLBACK_PROS = [
   {
     id: "f1",
-    nombre_completo: "Sarah Jenkins",
-    titulo_profesional: "Diseñadora de Interiores",
+    nombre_completo: "Elena Rodríguez",
+    titulo_profesional: "Especialista en diseño de interiores",
     categoria: "Hogar",
     distancia_km: 2.4,
-    calificacion: 4.9,
-    foto_perfil: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400",
+    calificacion: 5.0,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuBgK5hjCuI3RxK41W5sivfJ4cy_aRTeGuYkRGCYKKI_lvVVln6_bvWJRZ9aDA3Cgp5XWoZzc4NOZlP-r1En7FnpOLkUJfaOPa_l_SpVIwtYpP9FSEcMzZB-Xac3MgJ55QCyrP379jAudQUlkkTfGFcQj1oLPjQ0FoHa2lljHSpYZKaNTZZ2qNmVV1KTZtNmGT3tkhJfOeqouIKu5r1JLs5r0X2pkPgNCSCJ0ZplO9hgxOPajxv8LzrnYcQvn__PtywfZFnQghiRKA"
   },
   {
     id: "f2",
-    nombre_completo: "David Chen",
-    titulo_profesional: "Consultor Tech",
-    categoria: "Tech",
+    nombre_completo: "Julián Martínez",
+    titulo_profesional: "Consultor de branding estratégico",
+    categoria: "Creativo",
     distancia_km: 1.8,
-    calificacion: 4.8,
-    foto_perfil: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&q=80&w=400",
+    calificacion: 5.0,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuD8vieSJHSh8s4srhDRVc07JvNR_6zKQG2yfTNVG6xwWQaKG98OqscybPMITeYo7M7qaqYTcQqig3KcF_ZRiBRNW70bj8dQKlzQbVSJoa6PRzDLMVK32ZPlJ87tX9txfSPpZXG45CU6HAzkkBES1VESCWpOmw75y37nufVPw8cSSSJ9uahncyE58b1e2wMqe6ji-p3fnxClhkk-d_edC_R4zoJ-AxyS6yfR8Iqyg7hfTx3YXPngatGK6H7VUEdTuCxmT2NDc2Zr8w"
   },
   {
     id: "f3",
-    nombre_completo: "Elena Rodriguez",
-    titulo_profesional: "Directora Creativa",
+    nombre_completo: "Sofía López",
+    titulo_profesional: "Redactora creativa y storytelling",
     categoria: "Creativo",
     distancia_km: 0.5,
     calificacion: 5.0,
-    foto_perfil: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400",
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuDq0ejKLQFaVq97cNcPankNdRGVIPMbmgSgVdufsS6wVPhWYLg-Tq3ApMsb7FeJy3T6qDZj21jIcDiA9W6x6Ggxf--TJm6Oof8TSccU7UEgftmLDhZooog8wF57B8fHK9BBEvChk8HFSsyRBUY16iFshpvEmZg_pqgDXnkVdxoDX9SDxVkkAVOQLWmp8SWB_U0p9auM9cA9TFglVEv9xkhkgIKpz5f7KmJwCdUV2Dl3BKnVKOabEcGTwE-oxd0a-88I_9ThwH0wbQ"
   },
   {
     id: "f4",
-    nombre_completo: "Michael Scott",
-    titulo_profesional: "Organizador de Eventos",
-    categoria: "Eventos",
+    nombre_completo: "Carlos Torres",
+    titulo_profesional: "Desarrollador web full-stack",
+    categoria: "Tech",
     distancia_km: 3.1,
-    calificacion: 4.7,
-    foto_perfil: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
+    calificacion: 5.0,
+    foto_perfil: "https://lh3.googleusercontent.com/aida-public/AB6AXuDgxZQxgPl_aiCor61A6P7KfK47nBEH3_EH9EzKbcx84FJi-tLSMIog6akIcD1OWsQ6JEfMOqsbJ8lMLYPbK-sdPPBvEXSj5CHfCkWR2QLby-tMYtu0zCzpxqb2_ru_BQ_6Y-MnTPtT5H9_BnkpkxjQlpH4-IWGCQmXSMW76HthZUqhHeAaDXDCNcWpe6vHmOUrWAhBP4MkdKEag_GMkhqpWbECXx1Ibs1UPYpOdEuak5pv6FvbB4ExyY3kkOfg1OB5lo6FKzE2jg"
   },
 ];
 

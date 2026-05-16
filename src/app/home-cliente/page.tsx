@@ -156,7 +156,17 @@ export default function HomeCliente() {
         if (error || !data || data.length === 0) {
           setProfessionals(FALLBACK_PROS);
         } else {
-          setProfessionals(data);
+          // Asegurar que si la DB tiene fotos rotas, usemos los fallbacks de alta calidad
+          const validatedData = data.map((pro: any) => {
+            const fallback = FALLBACK_PROS.find(f => f.nombre_completo === pro.nombre_completo);
+            return {
+              ...pro,
+              foto_perfil: pro.foto_perfil && pro.foto_perfil.includes('http') 
+                ? pro.foto_perfil 
+                : (fallback?.foto_perfil || FALLBACK_PROS[0].foto_perfil)
+            };
+          });
+          setProfessionals(validatedData);
         }
       } catch (err) {
         setProfessionals(FALLBACK_PROS);
@@ -554,11 +564,10 @@ export default function HomeCliente() {
                     className="group bg-white rounded-[20px] p-4 border border-gray-100 hover:border-[#E0F2FE] hover:shadow-xl hover:shadow-[#0d1c2e]/5 transition-all duration-300 flex flex-col cursor-pointer"
                   >
                     <div className="relative aspect-square rounded-[16px] overflow-hidden mb-5 bg-gray-50">
-                      <Image 
+                      <img 
                         src={pro.foto_perfil || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"} 
                         alt={pro.nombre_completo || "Profesional"} 
-                        fill 
-                        className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                       />
                       <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
                         <Star size={14} className="fill-yellow-400 text-yellow-400" />

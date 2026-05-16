@@ -381,7 +381,10 @@ export default function ProjectTrackingPage() {
       </div>
 
       {/* Botón Flotante de Soporte Técnico */}
-      <button className="fixed bottom-6 right-6 w-14 h-14 bg-sky-500 hover:bg-sky-600 text-white rounded-full shadow-lg shadow-sky-500/30 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-50">
+      <button 
+        onClick={() => router.push('/centro-seguridad')}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-sky-500 hover:bg-sky-600 text-white rounded-full shadow-lg shadow-sky-500/30 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-50"
+      >
         <HeadphonesIcon size={24} />
       </button>
 

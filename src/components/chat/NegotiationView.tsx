@@ -44,11 +44,7 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
   }, [messages, events]);
 
   const handleSendTerms = () => {
-    setIsGenerating(true);
-    // Simular procesamiento de IA para el contrato
-    setTimeout(() => {
-      window.location.href = '/confirmacion-contrato';
-    }, 2500);
+    router.push('/confirmacion-contrato');
   };
 
   const handleSendMessage = () => {

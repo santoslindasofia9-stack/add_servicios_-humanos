@@ -279,9 +279,6 @@ export default function HomeCliente() {
           
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/home-cliente" className="text-[#0d1c2e] font-bold">Inicio</Link>
-            <Link href="/resultados" className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors">Explorar</Link>
-            <Link href="/resultados" className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors">Guardados</Link>
-            <Link href="/chat/f1" className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors">Mensajes</Link>
           </nav>
           
           <div className="flex items-center gap-2 md:gap-4 relative">
@@ -462,7 +459,7 @@ export default function HomeCliente() {
             <form 
               onSubmit={(e) => {
                 e.preventDefault();
-                window.location.href = `/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`;
+                router.push(`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`);
               }}
               className="relative w-full max-w-2xl mx-auto"
             >

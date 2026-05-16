@@ -10,10 +10,6 @@ export default function OnboardingPagoProtegido() {
     window.location.href = "/onboarding/negociacion";
   };
 
-  const handleSkip = () => {
-    window.location.href = "/auth/login?mode=register";
-  };
-
   return (
     <main className="relative h-screen min-h-[600px] w-full overflow-hidden flex flex-col bg-gradient-to-br from-[#fffef5] via-[#fffbf7] to-[#fdf8f0] font-plus-jakarta px-6 py-8">
       {/* Background aesthetic blobs (Manchas en movimiento lento - Enriquecidas) */}
@@ -78,14 +74,6 @@ export default function OnboardingPagoProtegido() {
           <span className="relative z-10 text-base">Siguiente</span>
           <span className="material-symbols-outlined relative z-10 text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
           <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-        </button>
-
-        {/* Botón OMITIR */}
-        <button
-          onClick={handleSkip}
-          className="relative z-20 text-[12px] font-extrabold text-[#0d1c2e]/25 tracking-[0.3em] hover:text-[#0d1c2e]/50 transition-colors uppercase py-4 px-8"
-        >
-          OMITIR
         </button>
       </div>
     </main>

@@ -7,13 +7,11 @@ export default function OnboardingPagoProtegido() {
   const router = useRouter();
 
   const handleNext = () => {
-    // Preparado para ir a la Pantalla 3 (Negociación)
-    router.push("/onboarding/negociacion");
+    window.location.href = "/onboarding/negociacion";
   };
 
   const handleSkip = () => {
-    // Omitir flujo de onboarding
-    router.push("/auth/login?mode=register");
+    window.location.href = "/auth/login?mode=register";
   };
 
   return (

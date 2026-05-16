@@ -31,7 +31,7 @@ export default function SplashScreen() {
   }, [router]);
 
   const handleContinue = () => {
-    router.push("/onboarding");
+    window.location.href = "/onboarding";
   };
 
   return (

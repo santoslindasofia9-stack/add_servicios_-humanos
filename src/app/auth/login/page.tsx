@@ -102,11 +102,7 @@ function LoginContent() {
       setSuccess(mode === "register" ? "¡Cuenta creada con éxito!" : "¡Inicio de sesión exitoso!");
       
       const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      
-      // Pequeño delay para mostrar el mensaje de éxito
-      setTimeout(() => {
-        window.location.href = targetPath;
-      }, 1000);
+      window.location.href = targetPath;
 
     } catch (err: any) {
       console.error("Auth error:", err);

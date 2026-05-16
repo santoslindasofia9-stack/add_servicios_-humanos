@@ -7,13 +7,11 @@ export default function OnboardingNegociacion() {
   const router = useRouter();
 
   const handleStart = () => {
-    // Redirigir a Pantalla 4 (Registro/Login) en modo registro
-    router.push("/auth/login?mode=register");
+    window.location.href = "/auth/login?mode=register";
   };
 
   const handleSkip = () => {
-    // Saltar directamente al registro
-    router.push("/auth/login?mode=register");
+    window.location.href = "/auth/login?mode=register";
   };
 
   return (

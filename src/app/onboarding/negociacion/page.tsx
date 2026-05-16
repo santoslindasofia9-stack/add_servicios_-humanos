@@ -108,14 +108,6 @@ export default function OnboardingNegociacion() {
           <span className="relative z-10 text-base">Comenzar</span>
           <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
         </button>
-
-        {/* Botón SALTAR */}
-        <button
-          onClick={handleSkip}
-          className="relative z-20 text-[12px] font-extrabold text-[#0d1c2e]/25 tracking-[0.3em] hover:text-[#0d1c2e]/50 transition-colors uppercase py-4 px-8"
-        >
-          SALTAR
-        </button>
       </div>
     </main>
   );

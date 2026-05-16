@@ -10,9 +10,11 @@ export default function SplashScreen() {
 
   // Simulación de carga y verificación de sesión
   useEffect(() => {
-    // Verificar si ya hay una sesión guardada para saltar el splash
+    // Verificar si ya hay una sesión activa real para saltar el splash
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const savedRole = localStorage.getItem("userRole");
-    if (savedRole) {
+
+    if (isLoggedIn && savedRole) {
       const target = savedRole === "client" ? "/home-cliente" : "/dashboard-pro";
       router.replace(target);
       return;

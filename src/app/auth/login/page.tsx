@@ -19,16 +19,25 @@ function LoginContent() {
   // Eliminamos la redirección automática al cargar para permitir que el usuario vea la pantalla de login
   // a menos que sea una redirección específica después de un flujo.
   useEffect(() => {
-    // Solo escuchamos cambios de estado para OAuth
+    // Solo escuchamos cambios de estado para OAuth (Google)
+    // Evitamos la redirección automática inmediata si ya había una sesión previa
+    // para que el usuario pueda "cerrar sesión" o cambiar de cuenta si lo desea.
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session && event === 'SIGNED_IN') {
-        const userRole = localStorage.getItem("userRole") || "client";
-        const targetPath = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
-        // Guardamos el nombre si viene de Google
-        if (session.user.user_metadata?.full_name) {
-          localStorage.setItem("userName", session.user.user_metadata.full_name);
+        // Solo redirigimos si detectamos que viene de un flujo de login activo
+        const isLoggingIn = localStorage.getItem("isLoggingIn") === "true";
+        if (isLoggingIn) {
+          const userRole = localStorage.getItem("userRole") || "client";
+          const targetPath = userRole === "client" ? "/home-cliente" : "/dashboard-pro";
+          
+          if (session.user.user_metadata?.full_name) {
+            localStorage.setItem("userName", session.user.user_metadata.full_name);
+          }
+          
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.removeItem("isLoggingIn"); // Limpiar flag
+          window.location.href = targetPath;
         }
-        window.location.href = targetPath;
       }
     });
 
@@ -117,17 +126,21 @@ function LoginContent() {
       setLoading(true);
       setError(null);
       
+      // Guardamos el rol deseado y marcamos que estamos en proceso de login
       localStorage.setItem("userRole", role);
-      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("isLoggingIn", "true");
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/login`, // Redirigir de vuelta aquí para que onAuthStateChange lo maneje
+          redirectTo: `${window.location.origin}/auth/login`,
         }
       });
       
-      if (error) throw error;
+      if (error) {
+        localStorage.removeItem("isLoggingIn");
+        throw error;
+      }
       
     } catch (err: any) {
       console.error("Google Auth failed:", err);

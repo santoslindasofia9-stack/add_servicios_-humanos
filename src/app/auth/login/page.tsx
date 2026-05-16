@@ -172,7 +172,7 @@ function LoginContent() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/login`,
+          redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
 
@@ -180,7 +180,7 @@ function LoginContent() {
         localStorage.removeItem("pendingRole");
         throw error;
       }
-      // La página se redirige a Google, no necesitamos hacer nada más aquí
+      // La página redirige a Google automáticamente
     } catch (err: any) {
       console.error("Google Auth failed:", err);
       setError(err.message || "Error al iniciar sesión con Google.");

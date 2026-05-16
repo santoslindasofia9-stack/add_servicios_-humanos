@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import BottomNav from "@/components/dashboard/BottomNav";
 
 const FALLBACK_EXPERTS = [
@@ -139,6 +140,7 @@ export default function ExpertProfile({
 }: {
   params: any;
 }) {
+  const router = useRouter();
   const [expert, setExpert] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -180,12 +182,12 @@ export default function ExpertProfile({
         <div className="max-w-[1280px] w-full flex justify-between items-center">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => window.location.href = '/resultados'}
+              onClick={() => router.push('/resultados')}
               className="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center text-[#5e6f79] hover:text-[#0d1c2e] transition-all"
             >
               <span className="material-symbols-outlined text-[20px]">arrow_back</span>
             </button>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.href = '/home-cliente'}>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/home-cliente')}>
               <div className="w-8 h-8 bg-[#0d1c2e] rounded-lg flex items-center justify-center">
                 <span className="material-symbols-outlined text-white text-lg leading-none">hub</span>
               </div>
@@ -253,7 +255,7 @@ export default function ExpertProfile({
                 Seguir Profesional
               </button>
               <button 
-                onClick={() => window.location.href = `/chat/${expert.id}`}
+                onClick={() => router.push(`/chat/${expert.id}`)}
                 className="px-10 py-4 bg-[#e0f2fe] text-[#0369a1] font-bold rounded-full hover:bg-[#d1e9ff] hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-sm border border-sky-100 text-center"
               >
                 Enviar Mensaje
@@ -351,7 +353,7 @@ export default function ExpertProfile({
 
       {/* Floating Action Button */}
       <button 
-        onClick={() => window.location.href = `/chat/${expert.id}`}
+        onClick={() => router.push(`/chat/${expert.id}`)}
         className="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-16 h-16 bg-[#E0F2FE] text-[#0288D1] rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 z-[60]"
       >
         <span className="material-symbols-outlined text-[32px]">chat</span>

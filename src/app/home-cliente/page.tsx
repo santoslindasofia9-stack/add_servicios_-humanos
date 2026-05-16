@@ -432,7 +432,7 @@ export default function HomeCliente() {
                             // Solo limpiar la sesión — conservar nombre y foto del perfil
                             localStorage.removeItem("userRole");
                             await supabase.auth.signOut();
-                            window.location.replace("/auth/login");
+                            router.push("/auth/login");
                           }}
                           className="w-full py-3 text-red-500 font-bold hover:bg-red-50 rounded-xl transition-all"
                         >
@@ -645,7 +645,7 @@ export default function HomeCliente() {
                   Encuentra los mejores servicios y profesionales directamente en tu vecindario con nuestro mapa interactivo local.
                 </p>
                 <button
-                  onClick={() => window.location.href = '/mapa-expertos'}
+                  onClick={() => router.push('/mapa-expertos')}
                   className="bg-[#FCE4EC] text-[#0d1c2e] px-10 py-4 rounded-full font-bold hover:bg-[#fbd1de] transition-all shadow-md w-full sm:w-auto active:scale-95"
                 >
                   Abrir Mapa Interactivo

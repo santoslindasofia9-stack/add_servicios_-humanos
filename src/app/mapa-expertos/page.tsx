@@ -290,7 +290,7 @@ export default function MapaExpertos() {
 
 
 
-  const handleVerPerfil = (id: string) => window.location.href = `/expertos/${id}`;
+  const handleVerPerfil = (id: string) => router.push(`/expertos/${id}`);
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col bg-[#f0f4f8] font-sans">

@@ -178,7 +178,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
   };
 
   const handleAcceptProposal = async () => {
-    window.location.href = '/confirmacion-contrato';
+    router.push('/confirmacion-contrato');
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -241,7 +241,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         </div>
         <div className="flex items-center gap-2">
           <button 
-            onClick={() => window.location.href = `/chat/${expertId}/negociacion`}
+            onClick={() => router.push(`/chat/${expertId}/negociacion`)}
             className="flex items-center gap-2 px-4 py-2 bg-[#FCE4EC] text-[#D81B60] hover:bg-[#fbd1de] rounded-full transition-all font-bold text-xs shadow-sm active:scale-95"
           >
             <Wallet className="w-4 h-4" />
@@ -420,7 +420,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
                 Aceptar Propuesta
               </button>
               <button 
-                onClick={() => window.location.href = `/chat/${expertId}/contraoferta`}
+                onClick={() => router.push(`/chat/${expertId}/contraoferta`)}
                 className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm flex items-center justify-center"
               >
                 Contraofertar

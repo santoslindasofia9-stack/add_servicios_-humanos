@@ -2,13 +2,14 @@
 
 import { useState, Suspense, useEffect } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, User, Briefcase, Eye, EyeOff, Check, Phone, ArrowLeft, UserPlus } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 function LoginContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const initialMode = (searchParams.get("mode") as "login" | "register") || "login";
   const [mode, setMode] = useState<"login" | "register">(initialMode);
   const [role, setRole] = useState<"client" | "pro">("client");
@@ -61,7 +62,7 @@ function LoginContent() {
           localStorage.setItem("userRole", role);
           localStorage.setItem("userName", displayName);
           localStorage.setItem("isLoggedIn", "true");
-          window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+          router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
           return;
         }
 
@@ -71,7 +72,7 @@ function LoginContent() {
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
-        window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+        router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
 
       } else {
         // — INICIO DE SESIÓN —
@@ -92,7 +93,7 @@ function LoginContent() {
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
 
-        window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+        router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
       }
     } catch (err: any) {
       console.error("Auth error:", err);

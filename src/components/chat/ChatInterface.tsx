@@ -60,7 +60,6 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     status: 'pending'
   });
   const scrollRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Filter for phone numbers and emails
   const filterContactInfo = (text: string) => {
@@ -190,7 +189,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     setMessages(prev => [...prev, newAttachment]);
     
     // Clear input
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    e.target.value = '';
   };
   
   const handleDeleteMessage = (messageId: string, forEveryone: boolean) => {
@@ -319,19 +318,19 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
           {/* Input Area */}
           <div className="bg-white border-t border-sky-50 p-4 md:p-6">
             <input 
+              id="chat-file-input"
               type="file" 
-              ref={fileInputRef} 
               onChange={handleFileChange} 
               className="hidden" 
               accept="image/*,.pdf,.doc,.docx"
             />
             <div className="max-w-4xl mx-auto flex items-center gap-4">
-              <button 
-                onClick={() => fileInputRef.current?.click()}
-                className="text-[#5e6f79] hover:text-[#0369a1] transition-colors p-2"
+              <label 
+                htmlFor="chat-file-input"
+                className="text-[#5e6f79] hover:text-[#0369a1] transition-colors p-2 cursor-pointer bg-gray-50 hover:bg-gray-100 rounded-full flex items-center justify-center border border-gray-100"
               >
                 <PlusCircle className="w-6 h-6" />
-              </button>
+              </label>
               <div className="flex-1 relative">
                 <input 
                   type="text"

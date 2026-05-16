@@ -22,58 +22,7 @@ function LoginContent() {
     password: "",
   });
 
-  // Manejar retorno de Google OAuth
-  useEffect(() => {
-    // Verificar si hay una sesión activa AL CARGAR la página
-    // Esto captura el caso donde Google redirige de vuelta con un código OAuth
-    const checkSessionOnLoad = async () => {
-      const pendingRole = localStorage.getItem("pendingRole");
-      if (!pendingRole) return; // Solo actuar si hay un login de Google pendiente
-
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        const displayName =
-          session.user.user_metadata?.full_name ||
-          session.user.user_metadata?.name ||
-          session.user.email?.split("@")[0] ||
-          "Usuario";
-
-        localStorage.setItem("userRole", pendingRole);
-        localStorage.setItem("userName", displayName);
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.removeItem("pendingRole");
-
-        const target = pendingRole === "client" ? "/home-cliente" : "/dashboard-pro";
-        window.location.href = target;
-      }
-    };
-
-    checkSessionOnLoad();
-
-    // También escuchar eventos de auth (para SIGNED_IN, TOKEN_REFRESHED, etc.)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if ((event === "SIGNED_IN" || event === "TOKEN_REFRESHED") && session) {
-        const storedRole = localStorage.getItem("pendingRole");
-        if (!storedRole) return; // Solo redirigir si hay un login de Google pendiente
-
-        const displayName =
-          session.user.user_metadata?.full_name ||
-          session.user.user_metadata?.name ||
-          session.user.email?.split("@")[0] ||
-          "Usuario";
-
-        localStorage.setItem("userRole", storedRole);
-        localStorage.setItem("userName", displayName);
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.removeItem("pendingRole");
-
-        const target = storedRole === "client" ? "/home-cliente" : "/dashboard-pro";
-        window.location.href = target;
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  // No necesitamos listener de OAuth aquí — Google redirige directo a /home-cliente
 
   // Sincronizar modo con query param
   useEffect(() => {
@@ -166,20 +115,20 @@ function LoginContent() {
     try {
       setLoading(true);
       setError(null);
-      // Guardamos el rol para usarlo cuando Google regrese
-      localStorage.setItem("pendingRole", role);
+
+      // Guardamos el rol antes de salir
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("isLoggedIn", "true");
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          // Google redirige directo a Home — la página detecta la sesión automáticamente
+          redirectTo: `${window.location.origin}/home-cliente`,
         },
       });
 
-      if (error) {
-        localStorage.removeItem("pendingRole");
-        throw error;
-      }
+      if (error) throw error;
       // La página redirige a Google automáticamente
     } catch (err: any) {
       console.error("Google Auth failed:", err);

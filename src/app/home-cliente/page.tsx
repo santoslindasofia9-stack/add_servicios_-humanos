@@ -118,6 +118,22 @@ export default function HomeCliente() {
 
   useEffect(() => {
     const initData = async () => {
+      // 0. Detectar si venimos de Google OAuth y guardar sesión
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && !localStorage.getItem("isLoggedIn")) {
+        const googleName =
+          session.user.user_metadata?.full_name ||
+          session.user.user_metadata?.name ||
+          session.user.email?.split("@")[0] ||
+          "Usuario";
+        localStorage.setItem("userName", googleName);
+        localStorage.setItem("userRole", localStorage.getItem("userRole") || "client");
+        localStorage.setItem("isLoggedIn", "true");
+        if (session.user.user_metadata?.avatar_url) {
+          localStorage.setItem("userAvatar", session.user.user_metadata.avatar_url);
+        }
+      }
+
       // 1. Get User — localStorage SIEMPRE tiene prioridad sobre Supabase
       // para respetar los cambios que el usuario haya guardado en su perfil.
       const savedName = typeof window !== 'undefined' ? localStorage.getItem("userName") : null;
@@ -146,6 +162,7 @@ export default function HomeCliente() {
         // Sin sesión ni historial → nombre por defecto
         setUserName("Usuario");
       }
+
 
       // 2. Fetch Professionals
       try {

@@ -1,93 +1,36 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "secondary-container": "#f4dce4",
-                    "error": "#ba1a1a",
-                    "tertiary-container": "#efefef",
-                    "surface-tint": "#50616b",
-                    "on-tertiary-fixed": "#1a1c1c",
-                    "primary-fixed-dim": "#b7c9d5",
-                    "on-primary-fixed": "#0c1e26",
-                    "inverse-surface": "#233144",
-                    "on-primary-container": "#5e6f79",
-                    "primary-fixed": "#d3e5f1",
-                    "on-tertiary-container": "#6b6c6d",
-                    "on-secondary-fixed": "#25181e",
-                    "surface": "#f8f9ff",
-                    "tertiary": "#5d5f5f",
-                    "surface-bright": "#f8f9ff",
-                    "secondary": "#6b5a60",
-                    "on-primary": "#ffffff",
-                    "surface-container-low": "#eff4ff",
-                    "inverse-primary": "#b7c9d5",
-                    "on-secondary-container": "#716066",
-                    "on-background": "#0d1c2e",
-                    "background": "#f8f9ff",
-                    "tertiary-fixed-dim": "#c6c6c7",
-                    "primary": "#50616b",
-                    "surface-container-high": "#dce9ff",
-                    "secondary-fixed": "#f4dce4",
-                    "on-error-container": "#93000a",
-                    "on-surface": "#0d1c2e",
-                    "primary-container": "#e0f2fe",
-                    "on-tertiary": "#ffffff",
-                    "error-container": "#ffdad6",
-                    "surface-container-lowest": "#ffffff",
-                    "on-surface-variant": "#43474b",
-                    "tertiary-fixed": "#e2e2e2",
-                    "surface-dim": "#ccdbf3",
-                    "surface-container": "#e6eeff",
-                    "inverse-on-surface": "#eaf1ff",
-                    "outline-variant": "#c3c7cb",
-                    "surface-variant": "#d5e3fc",
-                    "secondary-fixed-dim": "#d7c1c8",
-                    "on-tertiary-fixed-variant": "#454747",
-                    "on-secondary-fixed-variant": "#524249",
-                    "outline": "#73787b",
-                    "on-primary-fixed-variant": "#384953",
-                    "on-secondary": "#ffffff",
-                    "on-error": "#ffffff"
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#50616b",
+                        "primary-container": "#e0f2fe",
+                        "secondary-container": "#f4dce4",
+                        "on-background": "#0d1c2e",
+                        "background": "#f8f9ff",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c7cb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "full": "9999px"
+                    }
+                },
             },
-            "borderRadius": {
-                    "DEFAULT": "1rem",
-                    "lg": "1.5rem", /* 24px per request */
-                    "xl": "2rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "container-max": "1280px",
-                    "card-padding": "24px",
-                    "section-gap": "80px",
-                    "gutter": "32px",
-                    "base": "8px"
-            },
-            "fontFamily": {
-              'sans': ['Plus Jakarta Sans', 'sans-serif']
-            },
-            "fontSize": {
-                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-            }
-          },
-        },
-      }
+        }
     </script>
-<style>
+    <style>
         body {
             background-color: #f8f9ff;
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -97,9 +40,8 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .chat-container {
-            height: calc(100vh - 120px);
+            height: calc(100vh - 200px);
             scrollbar-width: thin;
-            scrollbar-color: #d3e5f1 transparent;
         }
         .chat-container::-webkit-scrollbar {
             width: 4px;
@@ -108,192 +50,243 @@
             background-color: #d3e5f1;
             border-radius: 20px;
         }
-        @media (min-width: 1024px) {
-            .chat-container {
-                height: calc(100vh - 180px);
-            }
+        .message-menu {
+            display: none;
+        }
+        .message-item:hover .message-menu {
+            display: flex;
         }
     </style>
 </head>
 <body class="bg-surface text-on-background">
-<div class="flex h-screen flex-col lg:flex-row overflow-hidden">
-<!-- Desktop Sidebar / Project Details -->
-<aside class="hidden lg:flex w-80 xl:w-96 flex-col bg-white border-r border-outline-variant/30 p-6 overflow-y-auto">
-<div class="flex items-center gap-4 mb-8">
-<button class="text-primary hover:bg-surface-container rounded-full p-2 transition-colors">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-container ring-2 ring-primary/10">
-<img alt="Elena Rodriguez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOaqIQiuVhJseS3SQ5XjIOoQBb68yVPIoqkzZ4pFfgM9xTk1TmOwo3iw1qTVa132uKZngmPSUpRNA0-aNekMsP7yCNe0WYGFwfe4KBg1cVYjAh1rBYRVTjlBjUoNQClfnuf11xQdXs0Ni6eMDWjnBg-C1Wl3u7ISVcwiTiOj_xCZPIblHt5qTai9KniWnBW3GIZpMd7JDYwal5C_tNtq7xXTOCk0JqEBebntnAGNeBuUzkom_qcbrcG2Au9xu2qKIMrcURniDzAg"/>
-</div>
-<div>
-<h2 class="font-semibold text-lg text-on-surface">Elena Rodriguez</h2>
-<p class="text-xs text-primary font-medium">Proyecto: Identidad Visual</p>
-</div>
-</div>
-</div>
-<div class="space-y-6">
-<div class="p-6 bg-surface-container-lowest rounded-lg border border-primary-container shadow-sm">
-<div class="flex items-center gap-3 mb-2">
-<span class="material-symbols-outlined text-primary text-xl">payments</span>
-<p class="text-xs font-bold text-on-primary-container uppercase tracking-wider">Presupuesto Propuesto</p>
-</div>
-<h3 class="text-h2 text-on-background">$2,450.00 USD</h3>
-<div class="mt-4 flex items-center justify-between">
-<span class="text-[10px] font-bold text-primary px-3 py-1 bg-primary-container/50 rounded-full">EN NEGOCIACIÓN</span>
-<span class="text-[10px] text-on-surface-variant">hace 12 min</span>
-</div>
-</div>
-<div class="space-y-4">
-<h4 class="font-label-caps text-on-surface-variant border-b border-outline-variant/30 pb-2">DETALLES DEL CONTRATO</h4>
-<div class="p-4 bg-white rounded-lg border border-outline-variant/20">
-<span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Servicio Principal</span>
-<p class="text-sm font-semibold text-on-surface mt-1">Diseño de Logotipo &amp; Identidad</p>
-</div>
-<div class="p-4 bg-white rounded-lg border border-outline-variant/20">
-<span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Entregables</span>
-<ul class="text-sm text-on-surface-variant mt-3 space-y-2">
-<li class="flex items-center gap-2">
-<span class="w-1.5 h-1.5 bg-primary/40 rounded-full"></span>
-                            3 Propuestas iniciales
-                        </li>
-<li class="flex items-center gap-2">
-<span class="w-1.5 h-1.5 bg-primary/40 rounded-full"></span>
-                            Manual de marca (PDF)
-                        </li>
-<li class="flex items-center gap-2">
-<span class="w-1.5 h-1.5 bg-primary/40 rounded-full"></span>
-                            5 Assets para Social Media
-                        </li>
-</ul>
-</div>
-<div class="p-5 bg-secondary-container/40 rounded-lg border border-secondary-container/60">
-<div class="flex justify-between items-center mb-1">
-<span class="text-[10px] text-secondary font-bold uppercase tracking-tighter">Total Acordado</span>
-<span class="material-symbols-outlined text-secondary text-sm">info</span>
-</div>
-<p class="text-xl font-bold text-secondary-fixed-dim">$2,817.50</p>
-<span class="text-[10px] text-secondary italic opacity-80">Incluye 15% ajuste solicitado</span>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Chat Area -->
-<main class="flex-1 flex flex-col relative bg-surface overflow-hidden">
-<!-- Mobile Header -->
-<header class="lg:hidden flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-md border-b border-outline-variant/20 z-10">
-<div class="flex items-center gap-4">
-<button class="text-primary">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container">
-<img alt="Elena Rodriguez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOaqIQiuVhJseS3SQ5XjIOoQBb68yVPIoqkzZ4pFfgM9xTk1TmOwo3iw1qTVa132uKZngmPSUpRNA0-aNekMsP7yCNe0WYGFwfe4KBg1cVYjAh1rBYRVTjlBjUoNQClfnuf11xQdXs0Ni6eMDWjnBg-C1Wl3u7ISVcwiTiOj_xCZPIblHt5qTai9KniWnBW3GIZpMd7JDYwal5C_tNtq7xXTOCk0JqEBebntnAGNeBuUzkom_qcbrcG2Au9xu2qKIMrcURniDzAg"/>
-</div>
-<div>
-<h1 class="font-semibold text-sm text-on-surface">Elena Rodriguez</h1>
-<p class="text-[10px] text-primary font-medium">Identidad Visual</p>
-</div>
-</div>
-</div>
-<button class="material-symbols-outlined text-slate-400">more_vert</button>
-</header>
-<!-- Negotiation Status Banner (Mobile Only) -->
-<div class="lg:hidden px-4 mt-4">
-<div class="bg-primary-container/30 border border-primary-container rounded-lg p-4 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="bg-white p-2 rounded-full shadow-sm">
-<span class="material-symbols-outlined text-primary text-xl">payments</span>
-</div>
-<div>
-<p class="text-[10px] font-bold text-on-primary-container opacity-70 uppercase">Presupuesto</p>
-<h3 class="text-lg font-bold text-on-background">$2,450.00</h3>
-</div>
-</div>
-<span class="text-[9px] font-bold text-primary px-2 py-1 bg-white rounded-full uppercase">Esperando</span>
-</div>
-</div>
-<!-- Scrollable Messages Container -->
-<div class="chat-container flex-1 overflow-y-auto px-4 lg:px-12 py-8 space-y-8">
-<!-- Date Divider -->
-<div class="flex justify-center sticky top-0 z-10 py-4">
-<span class="bg-surface-container/80 backdrop-blur-md text-on-surface-variant text-[10px] font-bold px-5 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Hoy</span>
-</div>
-<!-- Client Message -->
-<div class="flex justify-start max-w-[90%] lg:max-w-[70%]">
-<div class="bg-primary-container/60 backdrop-blur-sm text-on-primary-container p-5 lg:p-6 rounded-lg rounded-bl-none shadow-sm border border-primary-container/30">
-<p class="font-body-md text-sm lg:text-base">Hola, he revisado el portafolio y me encanta el estilo. ¿Sería posible incluir una guía de estilo básica para redes sociales dentro del mismo presupuesto?</p>
-<div class="flex justify-between items-center mt-3 opacity-60">
-<span class="text-[10px] font-medium">10:42 AM</span>
-</div>
-</div>
-</div>
-<!-- Professional Message (Self) -->
-<div class="flex justify-end ml-auto max-w-[90%] lg:max-w-[70%]">
-<div class="bg-white border border-secondary-container/50 p-5 lg:p-6 rounded-lg rounded-br-none shadow-sm">
-<p class="font-body-md text-on-surface text-sm lg:text-base">¡Hola Elena! Me alegra mucho que te guste el trabajo. Agregar la guía de estilo para redes sociales es factible, pero requeriría ajustar un poco las horas de entrega. ¿Te parece si subimos el presupuesto un 15% para cubrirlo?</p>
-<div class="flex justify-end items-center mt-3 text-slate-400">
-<span class="text-[10px] font-medium">10:45 AM</span>
-<span class="material-symbols-outlined text-xs ml-1" style="font-variation-settings: 'FILL' 1;">done_all</span>
-</div>
-</div>
-</div>
-<!-- Negotiation Event Card -->
-<div class="flex justify-center my-6">
-<div class="bg-surface-container-low/50 border border-outline-variant/20 rounded-lg px-6 lg:px-10 py-4 text-center">
-<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1 opacity-60">Evento de Negociación</p>
-<p class="text-xs font-medium text-on-surface italic">Propuesta enviada: Identidad Visual + Guía Social Media</p>
-<div class="flex items-center justify-center gap-2 mt-2">
-<span class="w-8 h-[1px] bg-outline-variant/30"></span>
-<p class="text-base font-bold text-primary">$2,450.00 USD</p>
-<span class="w-8 h-[1px] bg-outline-variant/30"></span>
-</div>
-</div>
-</div>
-<!-- Client Message -->
-<div class="flex justify-start max-w-[90%] lg:max-w-[70%]">
-<div class="bg-primary-container/60 backdrop-blur-sm text-on-primary-container p-5 lg:p-6 rounded-lg rounded-bl-none shadow-sm border border-primary-container/30">
-<p class="font-body-md text-sm lg:text-base">Entiendo perfectamente. El 15% adicional me parece justo si incluimos también las plantillas para Instagram Stories. ¿Podemos cerrar el trato con esos términos?</p>
-<div class="flex justify-between items-center mt-3 opacity-60">
-<span class="text-[10px] font-medium">11:05 AM</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Action Bars Area -->
-<div class="sticky bottom-0 bg-gradient-to-t from-surface via-surface to-transparent pt-12 pb-6 px-4 lg:px-12 w-full z-20">
-<!-- Floating Negotiation Toolbar -->
-<div class="max-w-3xl mx-auto mb-4">
-<div class="bg-white/95 backdrop-blur-xl border border-primary-container/50 shadow-xl rounded-lg p-3 lg:p-4 flex items-center gap-3">
-<button class="flex-1 flex items-center justify-center gap-2 bg-secondary-container/60 text-on-secondary-container py-3 rounded-lg font-bold text-xs lg:text-sm hover:bg-secondary-container transition-all active:scale-95">
-<span class="material-symbols-outlined text-lg">edit</span>
-<span class="hidden sm:inline">AJUSTAR PRESUPUESTO</span>
-<span class="sm:hidden">AJUSTAR</span>
-</button>
-<button class="flex-1 flex items-center justify-center gap-2 bg-primary text-on-primary py-3 rounded-lg font-bold text-xs lg:text-sm hover:opacity-90 shadow-lg shadow-primary/20 transition-all active:scale-95">
-<span class="material-symbols-outlined text-lg">description</span>
-<span class="hidden sm:inline">ENVIAR TÉRMINOS</span>
-<span class="sm:hidden">ENVIAR</span>
-</button>
-<button class="w-12 h-12 flex items-center justify-center bg-surface-container rounded-lg text-primary hover:bg-primary-container transition-colors shrink-0">
-<span class="material-symbols-outlined">add</span>
-</button>
-</div>
-</div>
-<!-- Message Input Bar -->
-<div class="max-w-3xl mx-auto flex items-center gap-3 lg:gap-4">
-<div class="flex-1 bg-white rounded-full px-6 py-3 lg:py-4 flex items-center gap-3 border border-outline-variant/30 focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/5 shadow-sm transition-all">
-<input class="bg-transparent border-none focus:ring-0 w-full text-sm lg:text-base text-on-surface placeholder:text-slate-400" placeholder="Escribe un mensaje..." type="text"/>
-<button class="text-primary/60 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-2xl">mood</span>
-</button>
-</div>
-<button class="bg-secondary-container text-secondary w-12 h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center shadow-lg shadow-secondary-container/20 hover:scale-105 active:scale-95 transition-all shrink-0">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
-</button>
-</div>
-</div>
-</main>
-</div>
-</body></html>
+    <div class="flex h-screen flex-col lg:flex-row overflow-hidden">
+        <!-- Sidebar: Panel de Control de Contrato (30%) -->
+        <aside class="hidden lg:flex w-80 xl:w-96 flex-col bg-white border-r border-outline-variant/30 p-6 overflow-y-auto">
+            <div class="flex items-center gap-4 mb-8">
+                <button class="text-primary hover:bg-gray-100 rounded-full p-2 transition-colors" onclick="window.history.back()">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full overflow-hidden bg-primary-container ring-2 ring-primary/10">
+                        <img alt="Elena Rodriguez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOaqIQiuVhJseS3SQ5XjIOoQBb68yVPIoqkzZ4pFfgM9xTk1TmOwo3iw1qTVa132uKZngmPSUpRNA0-aNekMsP7yCNe0WYGFwfe4KBg1cVYjAh1rBYRVTjlBjUoNQClfnuf11xQdXs0Ni6eMDWjnBg-C1Wl3u7ISVcwiTiOj_xCZPIblHt5qTai9KniWnBW3GIZpMd7JDYwal5C_tNtq7xXTOCk0JqEBebntnAGNeBuUzkom_qcbrcG2Au9xu2qKIMrcURniDzAg"/>
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg text-on-surface">Elena Rodriguez</h2>
+                        <p class="text-[10px] text-blue-600 font-bold uppercase tracking-wider">Proyecto: Identidad Visual</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Tarjeta de Presupuesto Propuesto -->
+                <div class="p-6 bg-white rounded-2xl border border-primary-container shadow-sm">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="material-symbols-outlined text-primary text-xl">payments</span>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Presupuesto Propuesto</p>
+                    </div>
+                    <h3 class="text-3xl font-extrabold text-on-background">$2,448.00 <span class="text-sm font-medium text-gray-400">USD</span></h3>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-bold text-blue-800 px-3 py-1 bg-blue-100 rounded-full">EN NEGOCIACIÓN</span>
+                        <span class="text-[10px] text-gray-400 font-medium">hace 12 min</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 pb-2">DETALLES DEL CONTRATO</h4>
+                    
+                    <div class="p-4 bg-white rounded-lg border border-outline-variant/20 shadow-sm">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase">Servicio Principal</span>
+                        <p class="text-sm font-bold text-on-surface mt-1">Diseño de Logotipo & Identidad</p>
+                    </div>
+
+                    <div class="p-4 bg-white rounded-lg border border-outline-variant/20 shadow-sm">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase">Entregables Acordados</span>
+                        <ul class="text-[13px] text-on-surface-variant mt-3 space-y-2">
+                            <li class="flex items-center gap-3">
+                                <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                                3 Propuestas iniciales de logo
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                                Manual de marca completo (PDF)
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                                5 Assets para Social Media
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tarjeta de Total Acordado (Rosa) -->
+                    <div class="p-5 bg-[#FCE4EC]/60 rounded-2xl border border-[#F8BBD0]/30 shadow-sm">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[10px] text-[#C2185B] font-bold uppercase tracking-wider">Total Acordado</span>
+                            <span class="material-symbols-outlined text-[#F06292] text-sm">info</span>
+                        </div>
+                        <p class="text-2xl font-black text-[#AD1457]">$2,817.50 <span class="text-xs font-bold text-[#D81B60]/60 uppercase ml-1">USD</span></p>
+                        <span class="text-[10px] text-[#D81B60] italic font-medium">Incluye 15% ajuste solicitado por assets extra</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area (70%) -->
+        <main class="flex-1 flex flex-col relative bg-[#F8FAFC] overflow-hidden">
+            <!-- Mobile Header -->
+            <header class="lg:hidden flex items-center justify-between px-6 py-4 bg-white border-b border-outline-variant/20">
+                <div class="flex items-center gap-4">
+                    <button class="text-primary" onclick="window.history.back()"><span class="material-symbols-outlined">arrow_back</span></button>
+                    <div class="flex items-center gap-3">
+                        <h1 class="font-bold text-sm text-on-surface">Elena Rodriguez</h1>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Messages Container -->
+            <div id="chat-messages" class="chat-container flex-1 overflow-y-auto px-6 lg:px-16 py-8 space-y-8">
+                <div class="flex justify-center sticky top-0 z-10 py-4">
+                    <span class="bg-white/80 backdrop-blur-md text-gray-400 text-[10px] font-black px-5 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-sm border border-gray-50">Hoy</span>
+                </div>
+
+                <!-- Messages will be injected here -->
+            </div>
+
+            <!-- Action Bars Area -->
+            <div class="sticky bottom-0 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC] to-transparent pt-8 pb-6 px-4 lg:px-16 w-full z-20">
+                <!-- Floating Negotiation Toolbar -->
+                <div class="max-w-2xl mx-auto mb-4">
+                    <div class="bg-white/95 backdrop-blur-xl border border-gray-100 shadow-[0_15px_35px_rgba(0,0,0,0.06)] rounded-full p-2.5 flex items-center gap-3">
+                        <button class="flex-1 flex items-center justify-center gap-2 bg-[#FCE4EC] text-[#AD1457] py-3 rounded-full font-bold text-xs hover:bg-[#F8BBD0] transition-all">
+                            <span class="material-symbols-outlined text-sm">edit</span>
+                            <span>AJUSTAR PRESUPUESTO</span>
+                        </button>
+                        <button class="flex-[2] flex items-center justify-center gap-3 bg-slate-700 text-white py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg shadow-slate-200" onclick="sendTerms()">
+                            <span class="material-symbols-outlined text-sm">description</span>
+                            <span>Enviar Términos y Condiciones</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Message Input Bar -->
+                <div class="max-w-3xl mx-auto flex items-center gap-4">
+                    <!-- Added + button here as requested -->
+                    <button class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-100 transition-colors shadow-sm shrink-0">
+                        <span class="material-symbols-outlined text-2xl">add</span>
+                    </button>
+                    <div class="flex-1 relative">
+                        <input id="message-input" class="w-full bg-white border border-gray-100 rounded-full px-8 py-4 pr-16 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-blue-50/50 transition-all placeholder:text-gray-400 shadow-sm" placeholder="Escribe una contraoferta o mensaje..." type="text" onkeydown="if(event.key==='Enter') sendMessage()"/>
+                        <button class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500">
+                            <span class="material-symbols-outlined text-2xl">sentiment_satisfied</span>
+                        </button>
+                    </div>
+                    <button class="bg-[#FCE4EC] text-[#AD1457] w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-pink-100/50 hover:scale-105 active:scale-95 transition-all shrink-0" onclick="sendMessage()">
+                        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">send</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        let messages = [
+            { id: 1, sender: 'client', text: 'Hola Elena, he revisado los detalles. ¿Podemos ajustar el presupuesto para incluir los assets de Social Media?', time: '10:45 AM' },
+            { id: 2, sender: 'pro', text: '¡Hola! Claro, podemos incluir el paquete de 5 assets por un ajuste del 15% sobre el base.', time: '10:50 AM' },
+            { id: 3, sender: 'client', text: 'Entiendo. ¿Sería posible incluir también las plantillas editables para Instagram?', time: '11:05 AM' },
+            { id: 4, sender: 'pro', text: 'Sí, puedo incluirlas sin costo adicional si cerramos hoy mismo.', time: '11:10 AM' }
+        ];
+
+        function renderMessages() {
+            chatMessages.innerHTML = `
+                <div class="flex justify-center sticky top-0 z-10 py-4">
+                    <span class="bg-white/80 backdrop-blur-md text-gray-400 text-[10px] font-black px-5 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-sm border border-gray-50">Hoy</span>
+                </div>
+            `;
+            messages.forEach(msg => {
+                if (msg.type === 'event') {
+                    chatMessages.innerHTML += `
+                        <div class="flex justify-center my-10">
+                            <div class="bg-white/60 backdrop-blur-sm border border-gray-100 rounded-2xl px-10 py-6 text-center shadow-sm max-w-lg">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-2">EVENTO DE NEGOCIACIÓN</p>
+                                <p class="text-xs font-semibold text-gray-600 italic mb-4">${msg.text}</p>
+                                <div class="flex items-center justify-center gap-4">
+                                    <div class="h-[1px] w-12 bg-gray-100"></div>
+                                    <span class="text-xl font-black text-blue-600">$2,448.00 USD</span>
+                                    <div class="h-[1px] w-12 bg-gray-100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                const isPro = msg.sender === 'pro';
+                chatMessages.innerHTML += `
+                    <div class="flex ${isPro ? 'justify-end' : 'justify-start'} group message-item relative">
+                        <div class="max-w-[85%] lg:max-w-[70%] p-5 rounded-2xl shadow-sm relative ${isPro ? 'bg-white text-gray-800 rounded-br-none border border-[#FCE4EC]' : 'bg-[#E3F2FD]/80 text-gray-800 rounded-bl-none border border-[#BBDEFB]/30'}">
+                            <p class="text-sm lg:text-[15px] leading-relaxed font-medium ${msg.deleted ? 'opacity-40 italic' : ''}">${msg.text}</p>
+                            <div class="flex items-center gap-1 mt-3 opacity-40 text-[10px] font-bold ${isPro ? 'justify-end' : ''}">
+                                <span>${msg.time}</span>
+                                ${isPro ? '<span class="material-symbols-outlined text-[12px] text-blue-400">check_circle</span>' : ''}
+                            </div>
+                            
+                            <!-- Delete Menu -->
+                            <div class="message-menu absolute top-2 ${isPro ? '-left-10' : '-right-10'} flex flex-col gap-2">
+                                <button onclick="deleteMenu(${msg.id})" class="p-1.5 bg-white border border-gray-100 rounded-full text-gray-400 hover:text-red-500 shadow-sm transition-all">
+                                    <span class="material-symbols-outlined text-sm">close</span>
+                                </button>
+                            </div>
+
+                            <div id="menu-${msg.id}" class="hidden absolute top-10 ${isPro ? 'left-0' : 'right-0'} bg-white border border-gray-100 rounded-xl shadow-xl p-1 min-w-[140px] z-50">
+                                <button onclick="deleteMsg(${msg.id}, 'me')" class="w-full text-left px-3 py-2 text-[11px] font-bold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">Eliminar para mí</button>
+                                <button onclick="deleteMsg(${msg.id}, 'all')" class="w-full text-left px-3 py-2 text-[11px] font-bold text-red-500 hover:bg-red-50 rounded-lg transition-colors">Eliminar para todos</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            if (!input.value.trim()) return;
+            messages.push({
+                id: Date.now(),
+                sender: 'pro',
+                text: input.value,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            input.value = '';
+            renderMessages();
+        }
+
+        function sendTerms() {
+            messages.push({
+                id: Date.now(),
+                type: 'event',
+                text: 'Propuesta enviada: Identidad Visual + Guía Social Media',
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            renderMessages();
+        }
+
+        function deleteMenu(id) {
+            const menu = document.getElementById(`menu-${id}`);
+            const allMenus = document.querySelectorAll('[id^="menu-"]');
+            allMenus.forEach(m => { if(m.id !== `menu-${id}`) m.classList.add('hidden') });
+            menu.classList.toggle('hidden');
+        }
+
+        function deleteMsg(id, mode) {
+            if (mode === 'all') {
+                messages = messages.map(m => m.id === id ? { ...m, text: '🚫 Este mensaje fue eliminado', deleted: true } : m);
+            } else {
+                messages = messages.filter(m => m.id !== id);
+            }
+            renderMessages();
+        }
+
+        renderMessages();
+    </script>
+</body>
+</html>

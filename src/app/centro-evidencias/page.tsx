@@ -14,7 +14,9 @@ import {
   HelpCircle, 
   MessageCircle, 
   ArrowLeft, 
-  Bell
+  Bell,
+  Send,
+  X
 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -32,6 +34,24 @@ interface EvidenceFile {
 export default function EvidenceCenterPage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // Chat de soporte
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState('');
+  const [chatMessages, setChatMessages] = useState([
+    { from: 'agent', text: '¡Hola! Soy Alex del equipo de soporte técnico. ¿Tienes algún problema al subir tus archivos o evidencias?' }
+  ]);
+
+  const handleSendChat = () => {
+    if (!chatInput.trim()) return;
+    const userMsg = chatInput.trim();
+    setChatMessages(prev => [...prev, { from: 'user', text: userMsg }]);
+    setChatInput('');
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, { from: 'agent', text: '¡Gracias! Un agente especializado revisará tu caso en los próximos minutos. ¿Hay algo más en lo que pueda ayudarte?' }]);
+    }, 1200);
+  };
 
   // Perfil del usuario (sincronizado)
   const [userName, setUserName] = useState<string>("Usuario");
@@ -297,11 +317,11 @@ export default function EvidenceCenterPage() {
               </p>
 
               <button
-                onClick={() => router.push('/centro-seguridad')}
+                onClick={() => setIsChatOpen(true)}
                 className="flex items-center gap-3 text-sky-600 font-bold text-sm hover:gap-4 transition-all"
               >
                 <MessageCircle size={20} />
-                <span>Ir a Soporte y Seguridad</span>
+                <span>Abrir Chat de Soporte</span>
               </button>
             </motion.div>
 
@@ -309,12 +329,78 @@ export default function EvidenceCenterPage() {
         </div>
       </main>
 
-      {/* Botón flotante de soporte → navega al Centro de Seguridad */}
+      {/* Widget de Chat de Soporte Técnico */}
+      <AnimatePresence>
+        {isChatOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+            className="fixed bottom-24 right-6 w-[340px] bg-white rounded-[28px] shadow-2xl border border-slate-100 z-[100] overflow-hidden"
+          >
+            {/* Cabecera */}
+            <div className="bg-[#0d1c2e] px-5 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-sky-500 flex items-center justify-center font-black text-white text-xs">TL</div>
+                <div>
+                  <p className="font-bold text-sm text-white leading-tight">Soporte Técnico</p>
+                  <p className="text-[10px] text-sky-400 font-semibold">● En línea · Tool Link</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsChatOpen(false)}
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors text-white"
+              >
+                <X size={17} />
+              </button>
+            </div>
+
+            {/* Mensajes */}
+            <div className="h-[240px] bg-slate-50/70 px-4 py-4 overflow-y-auto flex flex-col gap-3">
+              {chatMessages.map((msg, i) => (
+                <div key={i} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`px-4 py-2.5 rounded-2xl text-sm font-medium max-w-[82%] leading-snug ${
+                    msg.from === 'user'
+                      ? 'bg-[#0d1c2e] text-white rounded-br-none'
+                      : 'bg-white text-slate-700 border border-slate-100 shadow-sm rounded-bl-none'
+                  }`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+              <div ref={chatEndRef} />
+            </div>
+
+            {/* Input */}
+            <div className="p-3 bg-white border-t border-slate-100">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSendChat()}
+                  placeholder="Escribe tu pregunta..."
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 pr-12 text-sm font-medium focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition-all"
+                />
+                <button
+                  onClick={handleSendChat}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#0d1c2e] text-white rounded-xl flex items-center justify-center hover:bg-slate-700 active:scale-90 transition-all"
+                >
+                  <Send size={15} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Botón flotante */}
       <button
-        onClick={() => router.push('/centro-seguridad')}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50"
+        onClick={() => setIsChatOpen(prev => !prev)}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[#0d1c2e] text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50"
       >
-        <MessageCircle size={24} />
+        {isChatOpen ? <X size={22} /> : <MessageCircle size={24} />}
       </button>
 
     </div>

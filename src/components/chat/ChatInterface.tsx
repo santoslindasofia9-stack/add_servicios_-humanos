@@ -442,7 +442,34 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
               </ul>
             </div>
           </motion.div>
-        </aside>
+        {/* Overlay de Generación de IA */}
+        <AnimatePresence>
+          {isGenerating && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-[100] bg-white/90 backdrop-blur-xl flex flex-col items-center justify-center p-8 text-center"
+            >
+              <div className="relative w-24 h-24 mb-8">
+                <div className="absolute inset-0 bg-[#E0F2FE] rounded-full animate-ping opacity-25"></div>
+                <div className="relative bg-white p-6 rounded-full shadow-2xl border border-sky-100 flex items-center justify-center">
+                  <div className="material-symbols-outlined text-4xl text-[#38bdf8] animate-spin">hub</div>
+                </div>
+              </div>
+              <h2 className="text-3xl font-black text-[#0d1c2e] mb-4">Generando Contrato Inteligente...</h2>
+              <p className="text-[#5e6f79] max-w-sm font-medium text-lg leading-relaxed">
+                Nuestra IA está transformando los acuerdos del chat en un contrato legal vinculante y seguro.
+              </p>
+              
+              <div className="mt-12 flex gap-4">
+                 <div className="w-3 h-3 bg-sky-400 rounded-full animate-bounce"></div>
+                 <div className="w-3 h-3 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                 <div className="w-3 h-3 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );

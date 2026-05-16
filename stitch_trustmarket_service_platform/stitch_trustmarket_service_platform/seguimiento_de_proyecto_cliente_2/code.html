@@ -1,348 +1,243 @@
 <!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                "secondary-container": "#f4dce4",
-                "error": "#ba1a1a",
-                "tertiary-container": "#efefef",
-                "surface-tint": "#50616b",
-                "on-tertiary-fixed": "#1a1c1c",
-                "primary-fixed-dim": "#b7c9d5",
-                "on-primary-fixed": "#0c1e26",
-                "inverse-surface": "#233144",
-                "on-primary-container": "#5e6f79",
-                "primary-fixed": "#d3e5f1",
-                "on-tertiary-container": "#6b6c6d",
-                "on-secondary-fixed": "#25181e",
-                "surface": "#f8f9ff",
-                "tertiary": "#5d5f5f",
-                "surface-bright": "#f8f9ff",
-                "secondary": "#6b5a60",
-                "on-primary": "#ffffff",
-                "surface-container-low": "#eff4ff",
-                "inverse-primary": "#b7c9d5",
-                "on-secondary-container": "#716066",
-                "on-background": "#0d1c2e",
-                "background": "#f8f9ff",
-                "tertiary-fixed-dim": "#c6c6c7",
-                "primary": "#50616b",
-                "surface-container-high": "#dce9ff",
-                "secondary-fixed": "#f4dce4",
-                "on-error-container": "#93000a",
-                "on-surface": "#0d1c2e",
-                "primary-container": "#e0f2fe",
-                "on-tertiary": "#ffffff",
-                "error-container": "#ffdad6",
-                "surface-container-lowest": "#ffffff",
-                "on-surface-variant": "#43474b",
-                "tertiary-fixed": "#e2e2e2",
-                "surface-dim": "#ccdbf3",
-                "surface-container": "#e6eeff",
-                "inverse-on-surface": "#eaf1ff",
-                "outline-variant": "#c3c7cb",
-                "surface-variant": "#d5e3fc",
-                "secondary-fixed-dim": "#d7c1c8",
-                "on-tertiary-fixed-variant": "#454747",
-                "surface-container-highest": "#d5e3fc",
-                "on-secondary-fixed-variant": "#524249",
-                "outline": "#73787b",
-                "on-primary-fixed-variant": "#384953",
-                "on-secondary": "#ffffff",
-                "on-error": "#ffffff"
-            },
-            "borderRadius": {
-                "DEFAULT": "1rem",
-                "lg": "1.5rem",
-                "xl": "2.25rem",
-                "full": "9999px"
-            },
-            "spacing": {
-                "container-max": "1280px",
-                "card-padding": "24px",
-                "section-gap": "80px",
-                "gutter": "32px",
-                "base": "8px"
-            },
-            "fontFamily": {
-                "sans": ["Plus Jakarta Sans", "sans-serif"]
-            },
-            "fontSize": {
-                "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Seguimiento de Proyecto - Tool Link</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@400,0,0,24&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        primary: '#0ea5e9',
+                        surface: '#f8fafc',
+                        pastelBlue: '#e0f2fe',
+                        pastelPink: '#fce7f3'
+                    }
+                }
             }
-          },
-        },
-      }
+        }
     </script>
-<style>
-        body {
-            background-color: #f8f9ff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #0d1c2e;
+    <style>
+        body { background-color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .radial-progress {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#0ea5e9 75%, #e2e8f0 0);
+            display: flex; align-items: center; justify-content: center;
         }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        .radial-progress::before {
+            content: "75%";
+            width: 68px; height: 68px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; color: #0f172a;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(224, 242, 254, 0.5);
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 24px; bottom: -24px; left: 15px;
+            width: 2px;
+            background-color: #e2e8f0;
+            z-index: 0;
         }
-        @media (max-width: 1024px) {
-            .mobile-nav-only { display: flex; }
-            .desktop-nav-only { display: none; }
-        }
-        @media (min-width: 1025px) {
-            .mobile-nav-only { display: none; }
-            .desktop-nav-only { display: flex; }
+        .timeline-line-blue::before {
+            background-color: #0ea5e9;
         }
     </style>
 </head>
-<body class="min-h-screen pb-24 lg:pb-0">
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-[0_2px_15px_rgba(224,242,254,0.3)] flex justify-between items-center px-4 md:px-8 py-4">
-<div class="flex items-center gap-4 lg:gap-8">
-<button class="hover:opacity-80 transition-opacity lg:hidden">
-<span class="material-symbols-outlined text-sky-400" data-icon="menu">menu</span>
-</button>
-<h1 class="text-xl font-bold text-sky-500 tracking-tight flex items-center gap-2">
-<span class="material-symbols-outlined hidden lg:block" data-icon="storefront">storefront</span>
-            Marketplace
-        </h1>
-<!-- Desktop Nav -->
-<nav class="hidden lg:flex items-center gap-6 ml-8">
-<a class="text-on-surface-variant font-medium hover:text-sky-500 transition-colors" href="#">Proyectos</a>
-<a class="text-on-surface-variant font-medium hover:text-sky-500 transition-colors text-sky-600" href="#">Pedidos</a>
-<a class="text-on-surface-variant font-medium hover:text-sky-500 transition-colors" href="#">Mensajes</a>
-<a class="text-on-surface-variant font-medium hover:text-sky-500 transition-colors" href="#">Catálogo</a>
-</nav>
-</div>
-<div class="flex items-center gap-4">
-<button class="hidden md:flex p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<div class="flex items-center gap-3 pl-4 border-l border-surface-container">
-<div class="text-right hidden md:block">
-<p class="text-sm font-bold text-on-background">Juan Pérez</p>
-<p class="text-xs text-on-surface-variant">Cliente Premium</p>
-</div>
-<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shadow-sm">
-<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlbTVUeRveDQzjEzWFlI82vCMB7LfD7IgQKjJHT9wHyqvvyBRALT4VTEQd3OqE56217m2Z3OlvY8BnxR2TFc9VSN_QGK5lxI09lLnmGi0x3SKuNFsY7SO3GYcYubmnGAkZ8USTOQ1soAQ6cOWBXAypjoY8WY4aXart9Oo-8mbfC9yMIhxgraqanHAoXdXb08o5AUf9I4G4XGBovmAmrTsYjQ_8dtnpFVIiHBmRVvAmg22AnGexs3af06t2W27Bih11Pz4GpWMhuA"/>
-</div>
-</div>
-</div>
-</header>
-<main class="max-w-[1280px] mx-auto px-4 md:px-8 pt-24 md:pt-28 pb-12">
-<!-- Hero Status Card -->
-<section class="w-full mb-8">
-<div class="glass-card p-6 md:p-8 rounded-lg shadow-[0_10px_40px_rgba(224,242,254,0.4)] flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-<div class="space-y-1">
-<div class="flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-<span class="font-label-caps text-sky-500">PROYECTO ACTIVO</span>
-</div>
-<h2 class="font-h2 text-on-background text-2xl md:text-3xl">Diseño de Interiores - Suite Nube</h2>
-<p class="font-body-md text-on-surface-variant">Siguiente hito: <span class="font-bold text-sky-600">Confirmación de Materiales Finales</span></p>
-</div>
-<div class="flex items-center gap-4 bg-white/50 backdrop-blur-sm px-6 py-4 rounded-lg border border-primary-container w-full md:w-auto">
-<div class="relative flex items-center justify-center shrink-0">
-<svg class="w-14 h-14 transform -rotate-90">
-<circle class="text-surface-container-high" cx="28" cy="28" fill="transparent" r="24" stroke="currentColor" stroke-width="4"></circle>
-<circle class="text-sky-400" cx="28" cy="28" fill="transparent" r="24" stroke="currentColor" stroke-dasharray="150" stroke-dashoffset="37.5" stroke-linecap="round" stroke-width="4"></circle>
-</svg>
-<span class="absolute font-label-caps text-sky-600 text-[10px]">75%</span>
-</div>
-<div class="flex flex-col">
-<span class="font-label-caps text-on-surface-variant text-[10px]">ESTADO ACTUAL</span>
-<span class="font-body-md font-bold text-sky-600">En Progreso</span>
-</div>
-</div>
-</div>
-</section>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-<!-- Main Content Area (Evidences) -->
-<div class="lg:col-span-8 space-y-8 order-2 lg:order-1">
-<div class="space-y-6">
-<div class="flex justify-between items-center px-1">
-<h3 class="font-h3 text-on-background">Evidencias del Proyecto</h3>
-<button class="text-sky-500 font-label-caps flex items-center gap-1 hover:bg-sky-50 px-3 py-1.5 rounded-full transition-colors">
-                        VER TODO <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
-</button>
-</div>
-<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
-<!-- Photo 1 -->
-<div class="group relative overflow-hidden rounded-lg aspect-square shadow-sm hover:shadow-xl transition-all duration-300">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4FOTwOXj0Bn17hYZPsFnwUkxembf7kZj7mz6i-Lo00cEHQoxTAtfMLjzAaCRJs4nAI_a-92zA4PiTaKptAxJ9yvMgaIWY4FZSLZcFpMC0Fty2BnI-IOBph3cgISfzhY9Va6Nk3pYS3KeiG-79bTqylJaHW36nzqMfdVRpp13DaUN1-2jMMB-smtWw-vWwb18Dj0QUUwLJPCp0QZCKHimCC8jaEh7GXY2X8Ix5qxdNpGXUz5keWiNx80UzpZ_k6bi9tiX5v4bXNg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<span class="text-white text-xs font-medium">Texturas de Tela</span>
-</div>
-</div>
-<!-- Photo 2 -->
-<div class="group relative overflow-hidden rounded-lg aspect-square shadow-sm hover:shadow-xl transition-all duration-300">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0f753g6tsUnzN0AuBYPa5Xk2uYhKbSNMzyIHtIS1zNeirNAaWRe8b2cSO3sRVjHjjTlQn_9-5k8FilfP_FUVCMDzwLzExPl40ASNaz-nDzxCygAlNtCrrhhXM-SefdvFzoMu0Lxt0XdVvxTMLDsz_otGvKsVyMiyERuL5xqKUEqaC93MBug07sBQDygqUVlcNRKb0IS1jsdLXS2jy5H6USkyzJQZcS2VICD6LEtrH8fWgk51P2sFiUzXHGBcW2TkORzxSjT51sw"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<span class="text-white text-xs font-medium">Muestrario de Materiales</span>
-</div>
-</div>
-<!-- Photo 3 -->
-<div class="group relative overflow-hidden rounded-lg aspect-square shadow-sm hover:shadow-xl transition-all duration-300">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqusogcOODmNHVAEsFLHE1--I5bat078gT3nX9ZfcQNlf1SXdV9S7xNlP_8ItSahfmhekZJiHMxKNxeN7vqR1kEVF1omOAd-Y2kbmzeGCZfhsIycMwkkmPZyiVbt1rvthhgUgsgNKZXXCjiimwWSIA_l9GTxP-OV20o_uMupdNquvF4tSoICz8pFsdZP_JnTBHQfO112eBwbr0HhYX_Uj-9JC_XW7gs1WSZQNnaZxMwPOQnPhUVjH36LChT1Cug1ED4uFS_tz-Sg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<span class="text-white text-xs font-medium">Plano de Planta V1</span>
-</div>
-</div>
-<!-- Photo 4 -->
-<div class="group relative overflow-hidden rounded-lg aspect-square shadow-sm hover:shadow-xl transition-all duration-300">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJtVKgV2O_TaNHI-7Yg_nDHfJctYLWRrqht26jlWJyi7TByj_QgD-d6sN6E9_csZDT3aZNdlVaJK6wqgkxJJ8jATL_kwefTogNk4xO5Clyt1zrD_Gxp8rs5oyXkIMagiTdnNHg56HYaE3AWoICs4tVyZOMe45D9ZR_Y1rovsIVVlVstFUQk5yrLt7sC7WEECcg2MxshVzbdROiBqHqV5t9us8NJpgIm3yZBl0LzKQyLkiERyWBAtF0veod35NZ__fn5ehm-w1Sig"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<span class="text-white text-xs font-medium">Concepto Lumínico</span>
-</div>
-</div>
-<!-- Photo 5 -->
-<div class="group relative overflow-hidden rounded-lg aspect-square shadow-sm hover:shadow-xl transition-all duration-300">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwhi3Z4lUsx2_a57g_7m6ml9oJTeSdN0yoanckcvvzJWpoBLNtjU2uFZxIzi0TmTd5z9NQM0mrbWssq_wCf5UkOqA11cMMIIeYiGipydBZX4YvhC836crtK4kp3WaGNibMTmcHPC9tSz9rVOIuCVCmSDl_WH0m_AW6F_UIxRnOLViEs0OxqG1XSN5IB321RXidLY8gs3Afas9hcyF_GM2DgMJISVX82nrf7xq7q1XFKGMTWiSB2d-UarB7bE8AGJTTC2ygU2UUNQ"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<span class="text-white text-xs font-medium">Área Social</span>
-</div>
-</div>
-<!-- Upload Placeholder -->
-<div class="border-2 border-dashed border-sky-200 rounded-lg aspect-square flex flex-col items-center justify-center gap-2 hover:bg-sky-50 transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-sky-300 text-3xl group-hover:scale-110 transition-transform" data-icon="add_a_photo">add_a_photo</span>
-<span class="font-label-caps text-sky-400">Añadir Nueva</span>
-</div>
-</div>
-</div>
-<!-- Chat Widget Area -->
-<div class="glass-card p-6 rounded-lg border border-pink-100 flex flex-col md:flex-row items-center gap-6">
-<div class="flex items-center gap-4 shrink-0 w-full md:w-auto">
-<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-secondary-container shadow-md">
-<img alt="Designer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrrVmoZa6u3f28QyS94fz7ylKUjSHg17OR5K8XVrpHvPpU0AlB6A3DYQBVz092_xyFOBun3YutTrAijB0hVwvC-7VJiUNZQK6lX0SONtKgFk5IzuXFDQfgDYzyjy6bC1oqmfvvql0XHfcbEyL32zZ1p6cY0J0bfiPE-tm42X-MFvTde63f7IH-xT3ijAjTxQW6RJ9gVx3-rP3V8ACglkvIMxbZtLG2OqeNuIl7O8bLmdtGMJxprrEKXM8ynP7tW73YH1KPXQ2X_g"/>
-</div>
-<div class="flex-1">
-<span class="font-body-md font-bold text-on-background">Diseñadora: Ana Valery</span>
-<p class="text-xs text-on-surface-variant">Último mensaje hoy, 10:45 AM</p>
-</div>
-</div>
-<div class="flex-1 space-y-4 w-full">
-<div class="bg-primary-container/20 p-4 rounded-xl rounded-tr-none md:rounded-tr-xl md:rounded-tl-none border border-primary-container/30">
-<p class="font-body-md text-on-primary-container italic">"Hola! He subido las muestras de materiales. Por favor, dime qué te parece la opción del mármol azulado..."</p>
-</div>
-<button class="w-full md:w-auto px-8 py-3 bg-secondary-container text-on-secondary-container rounded-full font-label-caps hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-sm">
-<span class="material-symbols-outlined text-sm" data-icon="chat_bubble">chat_bubble</span>
+<body class="bg-slate-50/50 text-slate-800 min-h-screen pb-32">
+
+    <!-- Navbar Superior Integrado -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <div class="font-black text-2xl text-slate-900 tracking-tighter flex items-center gap-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-xl">handyman</span>
+                    </div>
+                    Tool Link
+                </div>
+                <nav class="hidden md:flex items-center gap-8 font-semibold text-sm">
+                    <a href="#" class="text-blue-600 border-b-2 border-blue-600 py-7">Proyectos</a>
+                    <a href="#" class="text-slate-500 hover:text-slate-800 transition-colors">Pedidos</a>
+                    <a href="#" class="text-slate-500 hover:text-slate-800 transition-colors">Mensajes</a>
+                    <a href="#" class="text-slate-500 hover:text-slate-800 transition-colors">Catálogo</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-6">
+                <button class="w-10 h-10 rounded-full hover:bg-slate-50 flex items-center justify-center relative text-slate-500 transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-pink-500 rounded-full border-2 border-white"></span>
+                </button>
+                <div class="flex items-center gap-3 pl-6 border-l border-slate-100 cursor-pointer hover:bg-slate-50 p-2 rounded-xl transition-colors">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-bold text-slate-900">Juan Pérez</p>
+                        <p class="text-[10px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded-full inline-block mt-1">Cliente Premium</p>
+                    </div>
+                    <img src="https://ui-avatars.com/api/?name=Juan+Perez&background=0ea5e9&color=fff" alt="Juan Pérez" class="w-10 h-10 rounded-full ring-2 ring-slate-100 object-cover"/>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pt-8 pb-12">
+        <!-- Banner de Estado del Proyecto (Hero Card) -->
+        <section class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">PROYECTO ACTIVO</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Diseño de Interiores – Suite Nube</h1>
+                <p class="text-slate-500 font-medium">Siguiente hito: <span class="text-blue-600 font-bold">Confirmación de Materiales Finales</span></p>
+            </div>
+            
+            <div class="border border-slate-100 p-4 rounded-2xl flex items-center gap-6 bg-slate-50/50">
+                <div class="radial-progress"></div>
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">ESTADO ACTUAL</p>
+                    <p class="text-lg font-black text-slate-800">En Progreso</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dos Columnas -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- Columna Izquierda: Galería de Evidencias (65%) -->
+            <div class="w-full lg:w-[65%] flex flex-col relative pb-32">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-slate-900">Evidencias del Proyecto</h2>
+                    <a href="#" class="text-xs font-bold text-pink-500 uppercase tracking-widest hover:text-pink-600 transition-colors">VER TODO ›</a>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Image Cards -->
+                    <div class="aspect-square rounded-2xl overflow-hidden group relative cursor-pointer shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=400" alt="Evidencia 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                            <p class="text-white text-xs font-bold">Moodboard.pdf</p>
+                        </div>
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden group relative cursor-pointer shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=400" alt="Evidencia 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                            <p class="text-white text-xs font-bold">Planos_V1.png</p>
+                        </div>
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden group relative cursor-pointer shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=400" alt="Evidencia 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                            <p class="text-white text-xs font-bold">Render_Sala.jpg</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón para Añadir Evidencias -->
+                    <button class="aspect-square rounded-2xl border-2 border-dashed border-sky-300 bg-sky-50 flex flex-col items-center justify-center gap-3 hover:bg-sky-100 transition-colors text-sky-600 group">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-2xl">photo_camera</span>
+                        </div>
+                        <span class="font-bold text-sm">Añadir Nueva</span>
+                    </button>
+                </div>
+
+                <!-- Footer Flotante: Caja de Mensaje Rápido del Profesional -->
+                <div class="absolute bottom-0 left-0 w-full bg-white rounded-3xl p-5 shadow-[0_-10px_40px_rgb(0,0,0,0.05)] border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6 z-10">
+                    <div class="flex items-center gap-4 flex-1">
+                        <img src="https://ui-avatars.com/api/?name=Ana+Valery&background=fce7f3&color=ec4899" alt="Ana Valery" class="w-12 h-12 rounded-full ring-2 ring-pink-50"/>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <p class="text-xs font-bold text-slate-900">Diseñadora: Ana Valery</p>
+                                <span class="text-[10px] text-slate-400 font-medium">Hace 15 min</span>
+                            </div>
+                            <p class="text-sm text-slate-600 italic leading-relaxed">
+                                "Hola! He subido las muestras de materiales. Por favor, dime qué te parece la opción del mármol azulado..."
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='../chat_negociaci_n_profesional_1/code.html'" class="w-full sm:w-auto bg-pink-50 text-pink-600 hover:bg-pink-100 px-6 py-3.5 rounded-2xl font-bold text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 transition-colors whitespace-nowrap">
+                        <span class="material-symbols-outlined text-[18px]">chat</span>
                         RESPONDER EN EL CHAT
                     </button>
-</div>
-</div>
-</div>
-<!-- Sidebar (Progress Tracking) -->
-<aside class="lg:col-span-4 space-y-6 order-1 lg:order-2">
-<h3 class="font-h3 text-on-background px-2 flex items-center gap-2">
-<span class="material-symbols-outlined text-sky-500" data-icon="format_list_bulleted">format_list_bulleted</span>
-                Seguimiento
-            </h3>
-<div class="glass-card p-6 md:p-8 rounded-lg relative overflow-hidden min-h-[400px]">
-<!-- Progress Line -->
-<div class="absolute left-10 top-10 bottom-10 w-0.5 bg-tertiary-fixed/30"></div>
-<div class="absolute left-10 top-10 h-1/2 w-0.5 bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.5)]"></div>
-<!-- Checkpoints -->
-<div class="space-y-10 relative z-10">
-<!-- Completed -->
-<div class="flex items-start gap-6">
-<div class="w-8 h-8 rounded-full bg-sky-400 flex items-center justify-center shadow-lg shadow-sky-100 shrink-0">
-<span class="material-symbols-outlined text-white text-sm" data-icon="check">check</span>
-</div>
-<div class="flex flex-col">
-<span class="font-body-md font-bold text-on-background">Consulta Inicial</span>
-<span class="font-label-caps text-on-surface-variant text-[10px]">12 OCT, 2023</span>
-<p class="text-sm text-on-surface-variant mt-1 leading-tight">Definición de objetivos y paleta de colores celestial.</p>
-</div>
-</div>
-<!-- Completed -->
-<div class="flex items-start gap-6">
-<div class="w-8 h-8 rounded-full bg-sky-400 flex items-center justify-center shadow-lg shadow-sky-100 shrink-0">
-<span class="material-symbols-outlined text-white text-sm" data-icon="check">check</span>
-</div>
-<div class="flex flex-col">
-<span class="font-body-md font-bold text-on-background">Propuesta Concepto</span>
-<span class="font-label-caps text-on-surface-variant text-[10px]">15 OCT, 2023</span>
-<p class="text-sm text-on-surface-variant mt-1 leading-tight">Aprobación de los moodboards iniciales de diseño.</p>
-</div>
-</div>
-<!-- Active / In Progress -->
-<div class="flex items-start gap-6">
-<div class="w-8 h-8 rounded-full bg-white border-4 border-sky-400 flex items-center justify-center shadow-xl shadow-sky-200 shrink-0 ring-4 ring-sky-50">
-<div class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></div>
-</div>
-<div class="flex flex-col">
-<span class="font-body-md font-bold text-sky-600">Selección de Mobiliario</span>
-<span class="font-label-caps text-sky-400 text-[10px]">EN CURSO</span>
-<p class="text-sm text-on-surface-variant mt-1 leading-tight">Curaduría de piezas premium para el salón principal.</p>
-<button class="mt-4 px-4 py-2 bg-sky-50 text-sky-600 rounded-full font-label-caps text-[10px] hover:bg-sky-100 transition-colors self-start border border-sky-100">Ver Catálogo</button>
-</div>
-</div>
-<!-- Future -->
-<div class="flex items-start gap-6 opacity-40">
-<div class="w-8 h-8 rounded-full bg-white border-2 border-tertiary-fixed flex items-center justify-center shrink-0">
-<div class="w-2 h-2 rounded-full bg-tertiary-fixed"></div>
-</div>
-<div class="flex flex-col">
-<span class="font-body-md font-bold text-on-background">Renderizado Final</span>
-<span class="font-label-caps text-on-surface-variant text-[10px]">PENDIENTE</span>
-</div>
-</div>
-<!-- Future -->
-<div class="flex items-start gap-6 opacity-40">
-<div class="w-8 h-8 rounded-full bg-white border-2 border-tertiary-fixed flex items-center justify-center shrink-0">
-<div class="w-2 h-2 rounded-full bg-tertiary-fixed"></div>
-</div>
-<div class="flex flex-col">
-<span class="font-body-md font-bold text-on-background">Entrega de Obra</span>
-<span class="font-label-caps text-on-surface-variant text-[10px]">PENDIENTE</span>
-</div>
-</div>
-</div>
-</div>
-</aside>
-</div>
-</main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="lg:hidden fixed bottom-0 w-full h-20 bg-white/95 backdrop-blur-md shadow-[0_-10px_30px_rgba(224,242,254,0.3)] rounded-t-xl z-50 flex justify-around items-center px-4 pb-safe border-t border-sky-50">
-<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-sky-500 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="text-[10px] font-medium mt-1">Inicio</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-sky-500 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-<span class="text-[10px] font-medium mt-1">Explorar</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-sky-50 text-sky-600 rounded-full w-14 h-14 -mt-10 shadow-lg border-4 border-white" href="#">
-<span class="material-symbols-outlined" data-icon="local_mall">local_mall</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-sky-500 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
-<span class="text-[10px] font-medium mt-1">Chat</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-sky-500 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-<span class="text-[10px] font-medium mt-1">Perfil</span>
-</a>
-</nav>
-<!-- Floating Action Button Contextual -->
-<button class="fixed bottom-24 lg:bottom-10 right-6 w-14 h-14 bg-sky-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
-<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
-</button>
-</body></html>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Línea de Tiempo de Hitos (35%) -->
+            <div class="w-full lg:w-[35%] bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-fit border border-slate-50">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-600">
+                        <span class="material-symbols-outlined">checklist</span>
+                    </div>
+                    <h2 class="text-xl font-extrabold text-slate-900">Seguimiento</h2>
+                </div>
+
+                <div class="space-y-8 relative">
+                    <!-- Hito Completado 1 -->
+                    <div class="relative timeline-line timeline-line-blue pl-12">
+                        <div class="absolute left-0 top-1 w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center z-10 ring-4 ring-white">
+                            <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-sky-600 uppercase tracking-widest mb-1">12 OCT, 2023</p>
+                        <h4 class="font-bold text-slate-900 mb-1">Consulta Inicial</h4>
+                        <p class="text-sm text-slate-500">Definición de objetivos y paleta de colores celestial.</p>
+                    </div>
+
+                    <!-- Hito Completado 2 -->
+                    <div class="relative timeline-line timeline-line-blue pl-12">
+                        <div class="absolute left-0 top-1 w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center z-10 ring-4 ring-white">
+                            <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-sky-600 uppercase tracking-widest mb-1">15 OCT, 2023</p>
+                        <h4 class="font-bold text-slate-900 mb-1">Propuesta Concepto</h4>
+                        <p class="text-sm text-slate-500">Aprobación de los moodboards iniciales de diseño.</p>
+                    </div>
+
+                    <!-- Hito en Curso -->
+                    <div class="relative timeline-line pl-12">
+                        <div class="absolute left-0 top-1 w-8 h-8 bg-white border-2 border-sky-500 rounded-full flex items-center justify-center z-10 ring-4 ring-white">
+                            <div class="w-2.5 h-2.5 bg-sky-500 rounded-full"></div>
+                        </div>
+                        <p class="text-[10px] font-bold text-sky-600 uppercase tracking-widest bg-sky-50 px-2 py-0.5 rounded-full inline-block mb-2">EN CURSO</p>
+                        <h4 class="font-bold text-slate-900 mb-1 text-lg">Selección de Mobiliario</h4>
+                        <p class="text-sm text-slate-500 mb-4">Curaduría de piezas premium para el salón principal.</p>
+                        
+                        <button class="bg-sky-50 text-sky-600 font-bold text-[11px] uppercase tracking-widest px-5 py-2.5 rounded-xl hover:bg-sky-100 transition-colors inline-block">
+                            Centro de Evidencias
+                        </button>
+                    </div>
+
+                    <!-- Hito Pendiente 1 -->
+                    <div class="relative timeline-line pl-12 opacity-50">
+                        <div class="absolute left-0 top-1 w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center z-10 ring-4 ring-white"></div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">PENDIENTE</p>
+                        <h4 class="font-bold text-slate-600 mb-1">Renderizado Final</h4>
+                        <p class="text-sm text-slate-400">Modelado 3D fotorrealista del espacio completo.</p>
+                    </div>
+
+                    <!-- Hito Pendiente 2 -->
+                    <div class="relative pl-12 opacity-50">
+                        <div class="absolute left-0 top-1 w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center z-10 ring-4 ring-white"></div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">PENDIENTE</p>
+                        <h4 class="font-bold text-slate-600 mb-1">Entrega de Obra</h4>
+                        <p class="text-sm text-slate-400">Implementación física y revisión final.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Botón Flotante de Soporte Técnico -->
+    <button class="fixed bottom-6 right-6 w-14 h-14 bg-sky-500 hover:bg-sky-600 text-white rounded-full shadow-xl shadow-sky-500/30 flex items-center justify-center transform hover:scale-105 transition-all z-50">
+        <span class="material-symbols-outlined text-[28px]">support_agent</span>
+    </button>
+
+</body>
+</html>

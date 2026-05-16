@@ -40,22 +40,33 @@ function LoginContent() {
     try {
       if (mode === "register") {
         // — REGISTRO —
-        try {
-          await supabase.auth.signUp({
-            email: formData.email,
-            password: formData.password,
-            options: {
-              data: {
-                nombre_completo: formData.username,
-                telefono: formData.phone,
-                rol: role,
-              },
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              nombre_completo: formData.username,
+              telefono: formData.phone,
+              rol: role,
             },
-          });
-        } catch (e) {
-          console.log("Supabase error (ignored for prototype):", e);
+          },
+        });
+
+        if (signUpError) throw signUpError;
+
+        // Supabase puede requerir confirmación de correo.
+        // Si el usuario ya existe en la sesión, redirigimos directamente.
+        if (data.session) {
+          const displayName = formData.username || data.user?.email?.split("@")[0] || "Usuario";
+          localStorage.setItem("userRole", role);
+          localStorage.setItem("userName", displayName);
+          localStorage.setItem("isLoggedIn", "true");
+          window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+          return;
         }
 
+        // Si no hay sesión inmediata (correo por confirmar), igual dejamos pasar
+        // con datos locales para no bloquear al usuario durante desarrollo
         const displayName = formData.username || formData.email.split("@")[0] || "Usuario";
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", displayName);
@@ -64,25 +75,39 @@ function LoginContent() {
 
       } else {
         // — INICIO DE SESIÓN —
-        try {
-          await supabase.auth.signInWithPassword({
-            email: formData.email,
-            password: formData.password,
-          });
-        } catch (e) {
-          console.log("Supabase error (ignored for prototype):", e);
-        }
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
 
-        const displayName = formData.email.split("@")[0] || "Usuario";
+        if (signInError) throw signInError;
+
+        const displayName =
+          data.user?.user_metadata?.nombre_completo ||
+          data.user?.user_metadata?.full_name ||
+          formData.email.split("@")[0] ||
+          "Usuario";
+
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
+
         window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
       }
     } catch (err: any) {
       console.error("Auth error:", err);
-      // Fallback redirect for prototype
-      window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      const msg = err.message || "";
+
+      if (msg.includes("Email not confirmed")) {
+        setError("Tu correo aún no está verificado. Ve a Supabase → Authentication → Providers → Email → apaga 'Confirm email'.");
+      } else if (msg.includes("Invalid login credentials") || msg.includes("invalid_credentials")) {
+        setError("El correo o la contraseña son incorrectos. Verifica tus datos.");
+      } else if (msg.includes("User already registered")) {
+        setError("Ya existe una cuenta con este correo. Intenta iniciar sesión.");
+      } else {
+        setError(msg || "Ocurrió un error. Inténtalo de nuevo.");
+      }
+      setLoading(false);
     }
   };
 
@@ -95,25 +120,20 @@ function LoginContent() {
       localStorage.setItem("userRole", role);
       localStorage.setItem("isLoggedIn", "true");
 
-      try {
-        await supabase.auth.signInWithOAuth({
-          provider: "google",
-          options: {
-            redirectTo: `${window.location.origin}/home-cliente`,
-          },
-        });
-      } catch (e) {
-        console.log("Google Auth error (ignored for prototype):", e);
-      }
-      
-      // Fallback para prototipo: Redirigir manualmente a Home después de 1 segundo si falla
-      setTimeout(() => {
-        window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
-      }, 1000);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          // Google redirige directo a Home — la página detecta la sesión automáticamente
+          redirectTo: `${window.location.origin}/home-cliente`,
+        },
+      });
 
+      if (error) throw error;
+      // La página redirige a Google automáticamente
     } catch (err: any) {
       console.error("Google Auth failed:", err);
-      window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      setError(err.message || "Error al iniciar sesión con Google.");
+      setLoading(false);
     }
   };
 

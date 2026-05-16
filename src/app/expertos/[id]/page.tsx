@@ -206,7 +206,7 @@ export default async function ExpertProfile({
                 className="w-full h-full object-cover" 
               />
             </div>
-            <div className="absolute bottom-4 right-4 bg-[#f472b6] text-white p-2.5 rounded-full shadow-lg flex items-center justify-center">
+            <div className="absolute bottom-4 right-4 bg-[#f472b6] text-white p-2.5 rounded-full shadow-lg flex items-center justify-center border-4 border-white">
               <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
             </div>
           </div>
@@ -217,8 +217,8 @@ export default async function ExpertProfile({
                 <h2 className="text-[32px] md:text-[40px] font-bold text-[#0d1c2e] leading-tight tracking-tight">
                   {expert.nombre_completo}
                 </h2>
-                <span className="inline-flex px-3 py-1 bg-[#e0f2fe] text-[#50616b] text-[12px] font-bold tracking-wider rounded-full w-fit mx-auto md:mx-0 uppercase">
-                  Gold Member
+                <span className="inline-flex px-3 py-1 bg-[#fef2f2] text-[#be185d] text-[12px] font-bold tracking-wider rounded-full w-fit mx-auto md:mx-0 uppercase border border-pink-100">
+                  GOLD MEMBER
                 </span>
               </div>
               <p className="text-[16px] md:text-[18px] text-[#5e6f79] max-w-2xl leading-relaxed">
@@ -238,13 +238,16 @@ export default async function ExpertProfile({
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center md:justify-start">
-              <button className="px-8 py-3.5 bg-[#f4dce4] text-[#25181e] font-semibold rounded-full hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-sm">
+            <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center md:justify-start">
+              <button className="px-10 py-4 bg-[#fce4ec] text-[#880e4f] font-bold rounded-full hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-sm border border-pink-100">
                 Seguir Profesional
               </button>
-              <button className="px-8 py-3.5 bg-[#d5e3fc] text-[#43474b] font-semibold rounded-full hover:bg-[#ccdbf3] transition-colors">
+              <Link 
+                href={`/chat/${expert.id}`}
+                className="px-10 py-4 bg-[#e0f2fe] text-[#0369a1] font-bold rounded-full hover:bg-[#d1e9ff] hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-sm border border-sky-100 text-center"
+              >
                 Enviar Mensaje
-              </button>
+              </Link>
             </div>
           </div>
         </section>

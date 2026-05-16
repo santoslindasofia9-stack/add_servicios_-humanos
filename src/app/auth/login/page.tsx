@@ -16,6 +16,14 @@ function LoginContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Redirigir si ya está logueado (Prototipo Permisivo)
+  useEffect(() => {
+    const savedRole = localStorage.getItem("userRole");
+    if (savedRole) {
+      window.location.replace(savedRole === "client" ? "/home-cliente" : "/dashboard-pro");
+    }
+  }, []);
+
   // Update mode if query param changes
   useEffect(() => {
     const m = searchParams.get("mode");
@@ -63,11 +71,13 @@ function LoginContent() {
         });
       }
 
-      // Prototipo Permisivo: Forzar navegación independientemente del resultado del backend
+      // Prototipo Permisivo: Forzar navegación inmediata
       const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
       localStorage.setItem("userRole", role);
       localStorage.setItem("userName", displayName);
-      router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
+      
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      window.location.replace(targetPath);
 
     } catch (err: any) {
       console.warn("Supabase auth error ignored in prototype mode:", err);
@@ -75,27 +85,34 @@ function LoginContent() {
       const displayName = formData.username || formData.email.split('@')[0] || "Usuario";
       localStorage.setItem("userRole", role);
       localStorage.setItem("userName", displayName);
-      router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
+      
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      window.location.replace(targetPath);
     } finally {
       setLoading(false);
     }
-  };  const handleGoogleLogin = async () => {
+  };
+
+  const handleGoogleLogin = async () => {
     try {
       // Prototipo Permisivo: Pre-guardamos un nombre en caso de que la conexión OAuth falle
       localStorage.setItem("userRole", role);
       localStorage.setItem("userName", "Usuario Google");
 
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/home-cliente`,
+          redirectTo: `${window.location.origin}${targetPath}`,
         }
       });
       
       if (error) throw error;
     } catch (err: any) {
       console.warn("Google Auth failed or not configured, bypassing:", err);
-      router.push(role === "client" ? "/home-cliente" : "/dashboard-pro");
+      const targetPath = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      window.location.replace(targetPath);
     }
   };
 

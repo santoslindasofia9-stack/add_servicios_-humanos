@@ -425,16 +425,28 @@ export default function HomeCliente() {
             <h2 className="text-4xl md:text-[56px] font-extrabold text-[#0d1c2e] mb-6 max-w-3xl leading-tight tracking-tight">
               Ayuda experta para tu próximo gran proyecto.
             </h2>
-            <div className="relative w-full max-w-2xl mx-auto">
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push(`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`);
+              }}
+              className="relative w-full max-w-2xl mx-auto"
+            >
               <input 
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Busca expertos, servicios o ubicaciones..." 
-                className="w-full h-14 md:h-16 pl-14 pr-6 rounded-full border border-gray-200 bg-white shadow-sm focus:ring-4 focus:ring-[#E0F2FE] focus:border-[#0d1c2e] transition-all text-lg font-medium text-[#0d1c2e] placeholder:text-[#5e6f79]/60 outline-none"
+                className="w-full h-14 md:h-16 pl-14 pr-32 rounded-full border border-gray-200 bg-white shadow-sm focus:ring-4 focus:ring-[#E0F2FE] focus:border-[#0d1c2e] transition-all text-lg font-medium text-[#0d1c2e] placeholder:text-[#5e6f79]/60 outline-none"
               />
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#5e6f79]" size={24} />
-            </div>
+              <button 
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0d1c2e] text-white px-6 py-2.5 md:py-3 rounded-full font-bold text-sm hover:bg-[#233144] transition-all"
+              >
+                Buscar
+              </button>
+            </form>
           </section>
 
           {/* 3. Categories (Horizontal scroll) */}
@@ -446,7 +458,7 @@ export default function HomeCliente() {
                 return (
                   <div
                     key={cat.id}
-                    onClick={() => setActiveCategory(isActive ? null : cat.id)}
+                    onClick={() => router.push(`/resultados?categoria=${cat.id}`)}
                     className="flex-none flex flex-col items-center gap-3 cursor-pointer group min-w-[80px]"
                   >
                     <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[20px] flex items-center justify-center transition-all duration-300 ${isActive ? cat.color + ' shadow-md scale-105' : 'bg-white shadow-sm border border-gray-100 group-hover:' + cat.color}`}>
@@ -595,7 +607,10 @@ export default function HomeCliente() {
                 <p className="text-[#5e6f79] font-medium mb-8">
                   Encuentra los mejores servicios y profesionales directamente en tu vecindario con nuestro mapa interactivo local.
                 </p>
-                <button className="bg-[#FCE4EC] text-[#0d1c2e] px-10 py-4 rounded-full font-bold hover:bg-[#fbd1de] transition-all shadow-md w-full sm:w-auto">
+                <button
+                  onClick={() => router.push('/mapa-expertos')}
+                  className="bg-[#FCE4EC] text-[#0d1c2e] px-10 py-4 rounded-full font-bold hover:bg-[#fbd1de] transition-all shadow-md w-full sm:w-auto active:scale-95"
+                >
                   Abrir Mapa Interactivo
                 </button>
               </div>

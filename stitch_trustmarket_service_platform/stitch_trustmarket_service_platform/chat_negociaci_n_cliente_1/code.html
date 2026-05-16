@@ -56,12 +56,8 @@
 
             <!-- Bottom Area (NO PLUS ICON HERE) -->
             <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC] to-transparent pt-12">
-                <div class="max-w-4xl mx-auto flex items-center gap-4">
                     <div class="flex-1 relative">
                         <input id="message-input" type="text" class="w-full bg-white border border-gray-100 rounded-full px-8 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-50 shadow-sm" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMessage()"/>
-                        <button class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300">
-                            <span class="material-symbols-outlined text-2xl">sentiment_satisfied</span>
-                        </button>
                     </div>
                     <button class="bg-[#FCE4EC] text-[#AD1457] w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-pink-100/50 hover:scale-105 active:scale-95 transition-all" onclick="sendMessage()">
                         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">send</span>

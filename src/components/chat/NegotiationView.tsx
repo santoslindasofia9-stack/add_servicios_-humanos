@@ -7,10 +7,13 @@ import {
   Clock, 
   CheckCircle2, 
   FileText, 
-  Plus, 
+  ArrowLeft, 
+  Wallet, 
+  Clock, 
+  CheckCircle2, 
+  FileText, 
   Pencil, 
   Send, 
-  Smile,
   ChevronRight,
   ShieldCheck,
   MoreVertical,
@@ -215,9 +218,9 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               key={msg.id} 
-              className={`flex ${msg.sender === 'client' ? 'justify-start' : 'justify-end'}`}
+              className={`flex ${msg.sender === 'client' ? 'justify-start' : 'justify-end'} group`}
             >
-              <div className={`max-w-[80%] space-y-1 relative group`}>
+              <div className={`max-w-[80%] space-y-1 relative`}>
                 <div className={`px-5 py-3.5 rounded-2xl shadow-sm text-sm leading-relaxed ${
                   msg.sender === 'client' 
                     ? 'bg-[#E0F2FE]/60 border border-sky-100 text-[#0d1c2e] rounded-tl-none' 
@@ -229,6 +232,14 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
                   <span>{msg.time}</span>
                   {msg.sender === 'client' && <CheckCircle2 size={10} className="text-[#38bdf8]" />}
                 </div>
+
+                {/* Botón de eliminar */}
+                <button 
+                  onClick={() => setMessages(messages.filter(m => m.id !== msg.id))}
+                  className={`absolute top-0 ${msg.sender === 'client' ? '-right-10' : '-left-10'} opacity-0 group-hover:opacity-100 p-2 text-gray-300 hover:text-red-500 transition-all`}
+                >
+                  <Trash2 size={16} />
+                </button>
               </div>
             </motion.div>
           ))}
@@ -280,9 +291,6 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
               ENVIAR TÉRMINOS Y CONDICIONES
             </button>
 
-            <button className="w-12 h-12 bg-[#E0F2FE] hover:bg-[#bae6fd] text-[#0369a1] rounded-full flex items-center justify-center transition-all active:scale-95 shadow-inner">
-              <Plus size={24} strokeWidth={3} />
-            </button>
           </div>
         </div>
 
@@ -298,9 +306,6 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
                 placeholder="Escribe una contraoferta o mensaje..."
                 className="w-full bg-[#F8FAFC] border border-sky-100 rounded-full px-8 py-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#E0F2FE] transition-all placeholder:text-[#5e6f79]/50"
               />
-              <button className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
-                <Smile size={20} />
-              </button>
             </div>
             <button 
               onClick={handleSendMessage}

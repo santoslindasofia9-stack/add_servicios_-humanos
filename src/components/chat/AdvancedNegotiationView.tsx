@@ -6,7 +6,7 @@ import {
   ArrowLeft, 
   Wallet, 
   ChevronRight, 
-  Plus, 
+  MoreVertical, 
   Pencil, 
   FileText, 
   Smile, 
@@ -304,7 +304,7 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
                             onClick={() => setActiveMessageMenu(activeMessageMenu === msg.id ? null : msg.id)}
                             className="p-1.5 bg-white border border-gray-100 rounded-full text-gray-400 hover:text-gray-600 shadow-sm"
                           >
-                            <Plus className="w-3.5 h-3.5 rotate-45" />
+                            <MoreVertical className="w-3.5 h-3.5" />
                           </button>
                         </div>
 

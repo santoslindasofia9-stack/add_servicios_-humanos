@@ -340,9 +340,12 @@ export default async function ExpertProfile({
       </main>
 
       {/* Floating Action Button */}
-      <button className="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-16 h-16 bg-[#E0F2FE] text-[#0288D1] rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 z-[60]">
+      <Link 
+        href={`/chat/${expert.id}`}
+        className="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-16 h-16 bg-[#E0F2FE] text-[#0288D1] rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 z-[60]"
+      >
         <span className="material-symbols-outlined text-[32px]">chat</span>
-      </button>
+      </Link>
 
       {/* Global Bottom Nav for Mobile */}
       <BottomNav />

@@ -544,7 +544,7 @@ export default function HomeCliente() {
             {filteredProfessionals.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {filteredProfessionals.map((pro) => (
-                  <div key={pro.id} className="group bg-white rounded-[20px] p-4 border border-gray-100 hover:border-[#E0F2FE] hover:shadow-xl hover:shadow-[#0d1c2e]/5 transition-all duration-300 flex flex-col cursor-pointer" onClick={() => router.push(`/profesional/${pro.id}`)}>
+                  <div key={pro.id} className="group bg-white rounded-[20px] p-4 border border-gray-100 hover:border-[#E0F2FE] hover:shadow-xl hover:shadow-[#0d1c2e]/5 transition-all duration-300 flex flex-col cursor-pointer" onClick={() => router.push(`/expertos/${pro.id}`)}>
                     <div className="relative aspect-square rounded-[16px] overflow-hidden mb-5 bg-gray-50">
                       <Image 
                         src={pro.foto_perfil || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"} 

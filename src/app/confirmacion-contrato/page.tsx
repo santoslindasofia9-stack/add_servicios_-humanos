@@ -259,7 +259,10 @@ const ContractConfirmationPage = () => {
               >
                 Revisar
               </button>
-              <button className="flex-[2] px-4 py-4 bg-[#6b5a60] text-white font-bold rounded-full shadow-lg shadow-[#6b5a60]/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+              <button 
+                onClick={() => router.push('/seguimiento-proyecto')}
+                className="flex-[2] px-4 py-4 bg-[#6b5a60] text-white font-bold rounded-full shadow-lg shadow-[#6b5a60]/20 flex items-center justify-center gap-2 active:scale-95 transition-transform"
+              >
                 Firmar Contrato <PenTool size={18} />
               </button>
             </div>
@@ -286,7 +289,10 @@ const ContractConfirmationPage = () => {
               >
                 Revisar Términos
               </button>
-              <button className="px-14 py-5 bg-[#57534e] hover:bg-[#44403c] text-white font-bold rounded-full shadow-2xl shadow-[#57534e]/30 flex items-center gap-3 transform hover:-translate-y-1 transition-all text-lg">
+              <button 
+                onClick={() => router.push('/seguimiento-proyecto')}
+                className="px-14 py-5 bg-[#57534e] hover:bg-[#44403c] text-white font-bold rounded-full shadow-2xl shadow-[#57534e]/30 flex items-center gap-3 transform hover:-translate-y-1 transition-all text-lg"
+              >
                 Firmar Contrato Digitalmente
                 <PenTool size={22} />
               </button>

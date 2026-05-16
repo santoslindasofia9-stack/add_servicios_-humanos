@@ -1,248 +1,179 @@
 <!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "secondary-container": "#f4dce4",
-                    "error": "#ba1a1a",
-                    "tertiary-container": "#efefef",
-                    "surface-tint": "#50616b",
-                    "on-tertiary-fixed": "#1a1c1c",
-                    "primary-fixed-dim": "#b7c9d5",
-                    "on-primary-fixed": "#0c1e26",
-                    "inverse-surface": "#233144",
-                    "on-primary-container": "#5e6f79",
-                    "primary-fixed": "#d3e5f1",
-                    "on-tertiary-container": "#6b6c6d",
-                    "on-secondary-fixed": "#25181e",
-                    "surface": "#f8f9ff",
-                    "tertiary": "#5d5f5f",
-                    "surface-bright": "#f8f9ff",
-                    "secondary": "#6b5a60",
-                    "on-primary": "#ffffff",
-                    "surface-container-low": "#eff4ff",
-                    "inverse-primary": "#b7c9d5",
-                    "on-secondary-container": "#716066",
-                    "on-background": "#0d1c2e",
-                    "background": "#f8f9ff",
-                    "tertiary-fixed-dim": "#c6c6c7",
-                    "primary": "#50616b",
-                    "surface-container-high": "#dce9ff",
-                    "secondary-fixed": "#f4dce4",
-                    "on-error-container": "#93000a",
-                    "on-surface": "#0d1c2e",
-                    "primary-container": "#e0f2fe",
-                    "on-tertiary": "#ffffff",
-                    "error-container": "#ffdad6",
-                    "surface-container-lowest": "#ffffff",
-                    "on-surface-variant": "#43474b",
-                    "tertiary-fixed": "#e2e2e2",
-                    "surface-dim": "#ccdbf3",
-                    "surface-container": "#e6eeff",
-                    "inverse-on-surface": "#eaf1ff",
-                    "outline-variant": "#c3c7cb",
-                    "surface-variant": "#d5e3fc",
-                    "secondary-fixed-dim": "#d7c1c8",
-                    "on-tertiary-fixed-variant": "#454747",
-                    "surface-container-highest": "#d5e3fc",
-                    "on-secondary-fixed-variant": "#524249",
-                    "outline": "#73787b",
-                    "on-primary-fixed-variant": "#384953",
-                    "on-secondary": "#ffffff",
-                    "on-error": "#ffffff"
-            },
-            "borderRadius": {
-                    "DEFAULT": "1rem",
-                    "lg": "1.5rem", // 24px per request
-                    "xl": "3rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "container-max": "1280px",
-                    "card-padding": "24px",
-                    "section-gap": "80px",
-                    "gutter": "32px",
-                    "base": "8px"
-            },
-            "fontFamily": {
-              'sans': ['Plus Jakarta Sans', 'sans-serif'],
-            },
-            "fontSize": {
-                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#50616b",
+                        "primary-container": "#e0f2fe",
+                        "secondary-container": "#f4dce4",
+                        surface: "#f8f9ff"
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                        lg: "1.5rem",
+                        xl: "3rem"
+                    }
+                }
             }
-          },
-        },
-      }
+        }
     </script>
-<style>
+    <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9ff; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .glass-panel { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        .custom-shadow { box-shadow: 0 20px 40px rgba(224, 242, 254, 0.4); }
-        body { min-height: 100dvh; display: flex; flex-direction: column; }
+        .chat-container { height: calc(100vh - 180px); overflow-y: auto; padding-bottom: 100px; }
+        .message-menu { display: none; }
+        .message-item:hover .message-menu { display: flex; }
     </style>
 </head>
-<body class="bg-surface text-on-surface antialiased">
-<!-- Top Navigation -->
-<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md fixed top-0 w-full z-50 px-4 md:px-8 py-4 shadow-[0_2px_20px_rgba(224,242,254,0.3)]">
-<div class="max-w-container-max mx-auto flex justify-between items-center">
-<div class="flex items-center gap-4">
-<button class="hover:opacity-80 transition-opacity p-2">
-<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
-</button>
-<div class="flex items-center gap-3">
-<img alt="Expert profile" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6LCpSD1P0zwjsHV158KmSAoVKwdnAsXoWRFdIkjwUf0uoY3Dvsp659wXUBdZMhos5rDbQ2XjCPP3YdmwPt3EKtU_6_4qSrJ6pxi8QWjivar8OYg1QsbQDVs7TPao5d_gsKDprBPUPruBGqSyR4cR0q-qA95lt2yAch8cqgqloqs5Lsh0DglXRftIOK4TKhLSKQ4JuqT0bw7Rwhnor_O6WO5U2HZxENXvmX6cgKoaK7bCwB2Poog8FGoVsiYAjmgjRA_rUJZynCQ"/>
-<div>
-<h1 class="text-sky-500 font-bold tracking-tight text-lg">Marketplace</h1>
-<p class="text-[12px] text-slate-400 font-medium">Expert Professional • Online</p>
-</div>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<button class="hidden md:flex items-center gap-2 px-4 py-2 text-primary hover:bg-surface-container-low rounded-full transition-colors">
-<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
-<span class="text-body-md font-medium">Ayuda</span>
-</button>
-<span class="material-symbols-outlined text-slate-400 cursor-pointer p-2" data-icon="more_vert">more_vert</span>
-</div>
-</div>
-</header>
-<main class="flex-grow pt-24 pb-32 w-full">
-<div class="max-w-container-max mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-<!-- Left Sidebar / Offer Management (Desktop) -->
-<div class="lg:col-span-4 order-1 lg:order-2 sticky top-24">
-<div class="bg-white rounded-lg p-6 shadow-[0_20px_40px_rgba(224,242,254,0.4)] border border-primary-container">
-<div class="flex flex-col mb-6">
-<span class="text-label-caps text-on-surface-variant mb-1 uppercase tracking-widest">Oferta Actual</span>
-<span class="text-h1 text-primary font-bold">$1,250.00</span>
-<p class="text-[13px] text-slate-400 mt-2">Propuesta por el experto basada en soporte post-entrega de 2 semanas.</p>
-</div>
-<div class="flex flex-col gap-3">
-<button class="w-full py-3 rounded-full bg-[#FCE4EC] text-[#880E4F] font-bold shadow-sm hover:scale-[1.02] transition-transform text-body-md">
-                            Aceptar Propuesta
-                        </button>
-<button class="w-full py-3 rounded-full border-2 border-primary-container text-primary font-semibold hover:bg-primary-container transition-all text-body-md" onclick="window.location.href='../chat_negociaci_n_profesional_1/code.html'">
-                            Contraofertar
-                        </button>
-</div>
-<div class="mt-6 pt-6 border-t border-slate-50">
-<h4 class="text-label-caps text-on-surface-variant mb-4 uppercase">Detalles del Proyecto</h4>
-<ul class="space-y-3">
-<li class="flex items-center gap-3 text-body-md">
-<span class="material-symbols-outlined text-primary text-[20px]" data-icon="calendar_today">calendar_today</span>
-<span class="text-on-surface-variant">Duración: 4 semanas</span>
-</li>
-<li class="flex items-center gap-3 text-body-md">
-<span class="material-symbols-outlined text-primary text-[20px]" data-icon="verified_user">verified_user</span>
-<span class="text-on-surface-variant">Soporte incluido</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Chat Content Area -->
-<div class="lg:col-span-8 order-2 lg:order-1 flex flex-col gap-6">
-<!-- Date Separator -->
-<div class="flex justify-center my-4">
-<span class="bg-surface-container-low px-4 py-1 rounded-full text-label-caps text-on-surface-variant">HOY</span>
-</div>
-<!-- Chat Messages -->
-<div class="flex flex-col gap-6">
-<!-- Expert Message -->
-<div class="flex gap-3 max-w-[90%] md:max-w-[80%]">
-<img alt="Expert avatar" class="w-8 h-8 rounded-full self-end mb-1 shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5769t5vNl0dk4cd9m1GivBAhUcK99ujzW4Vc9TR_J5n0F1xKf6uS-GFCZz4DHIgIEp68UsSdFpl8EegEWRo5Srr7bNV9LvLIdLLjf2zetsu-akSZMjVwbancNcROR2kx2CYGNeXi-GY3i2_bnonHXnbRu0vIQsO2lpCZ9a-UjPhHYx7ekvGwi72EkwmGd3DjAQ6xbSY-tJaUjxL40k7tpyj_s63XuZWM3SnKgMiOyyilNFMQ1ZVGef0zUoFI2KhugEjXsZiXxuQ"/>
-<div class="bg-primary-container rounded-lg rounded-bl-none p-4 text-on-primary-container shadow-sm">
-<p class="text-body-md">Hola, he revisado los detalles de tu proyecto. El alcance parece claro, pero me gustaría ajustar la propuesta inicial para incluir el soporte post-entrega de 2 semanas.</p>
-<span class="text-[11px] opacity-60 mt-2 block font-medium">14:22</span>
-</div>
-</div>
-<!-- Client Message -->
-<div class="flex flex-row-reverse gap-3 max-w-[90%] md:max-w-[80%] ml-auto">
-<div class="bg-white border border-secondary-container rounded-lg rounded-br-none p-4 text-on-surface shadow-sm">
-<p class="text-body-md">Perfecto, el soporte adicional es muy importante para nosotros. ¿Cómo afectaría eso al presupuesto final que habíamos discutido?</p>
-<span class="text-[11px] text-slate-400 mt-2 block font-medium text-right">14:25</span>
-</div>
-</div>
-<!-- Expert Message with Attachment -->
-<div class="flex gap-3 max-w-[90%] md:max-w-[80%]">
-<img alt="Expert avatar" class="w-8 h-8 rounded-full self-end mb-1 shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa3A13kKFmrtFIBVP345EEhnnnZoBW_jM_boiXwVlNO2qN3DGLhp0ckULzdH9gWQhGiioMBTZ9kAL6nvkgxziVs_UjhAyyv0pdhxwWpf0kPot8Y0elSAAnZQht3W5qBgRqb65YqkJ0u1NIk2LC1HpS6VBemowfgICwUv4VqxVj6jmOqg7Jn-3cYGofrlUsE4-hogRDF5A-Hwu63YCFIeL805QBDbc_8jYq6RlmNc5eI-OfQSKen39jIZro24H-1UiDYV8urKvyWw"/>
-<div class="bg-primary-container rounded-lg rounded-bl-none p-4 text-on-primary-container shadow-sm">
-<p class="text-body-md">He actualizado la oferta formal con un incremento del 15% para cubrir esas horas adicionales. Puedes ver los detalles en el desglose adjunto.</p>
-<div class="mt-3 bg-white/40 p-4 rounded-lg flex items-center gap-3 border border-white/20 hover:bg-white/60 transition-colors cursor-pointer group">
-<div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
-</div>
-<div class="flex flex-col flex-1">
-<span class="text-[13px] font-bold group-hover:text-primary transition-colors">Propuesta_Actualizada.pdf</span>
-<span class="text-[11px]">2.4 MB • PDF</span>
-</div>
-<span class="material-symbols-outlined text-primary text-[20px]" data-icon="download">download</span>
-</div>
-<span class="text-[11px] opacity-60 mt-2 block font-medium">14:30</span>
-</div>
-</div>
-<!-- Client Message -->
-<div class="flex flex-row-reverse gap-3 max-w-[90%] md:max-w-[80%] ml-auto">
-<div class="bg-white border border-secondary-container rounded-lg rounded-br-none p-4 text-on-surface shadow-sm">
-<p class="text-body-md">Me parece razonable. Déjame consultarlo rápidamente con el equipo y te confirmo en unos minutos.</p>
-<div class="mt-1 flex justify-end">
-<span class="material-symbols-outlined text-primary text-[16px]" data-icon="done_all" style="font-variation-settings: 'FILL' 1;">done_all</span>
-</div>
-<span class="text-[11px] text-slate-400 mt-1 block font-medium text-right">14:31</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-<!-- Bottom Input Area -->
-<footer class="fixed bottom-0 w-full bg-white dark:bg-slate-900 shadow-[0_-10px_40px_rgba(224,242,254,0.4)] border-t border-sky-50 px-4 md:px-8 py-6 z-50">
-<div class="max-w-container-max mx-auto flex items-center gap-4">
-<button class="flex items-center justify-center text-slate-400 hover:text-primary transition-colors p-2 shrink-0">
-<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
-</button>
-<div class="flex-1 relative">
-<input class="w-full bg-surface border border-primary-container rounded-full px-6 py-3 text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Escribe un mensaje..." type="text"/>
-<button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined" data-icon="sentiment_satisfied">sentiment_satisfied</span>
-</button>
-</div>
-<button class="bg-[#FCE4EC] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-[#880E4F] shadow-sm hover:scale-105 transition-transform shrink-0">
-<span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
-</button>
-</div>
-</footer>
-<!-- Bottom Navigation Bar (Hidden on Mobile as per original request/logic, visible for desktop layout) -->
-<nav class="hidden md:flex fixed bottom-24 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-xl border border-primary-container rounded-full px-8 py-3 shadow-2xl items-center gap-8 z-50">
-<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary cursor-pointer transition-colors">
-<span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="font-medium text-[10px]">Home</span>
-</div>
-<div class="flex flex-col items-center justify-center bg-pink-50 text-[#880E4F] rounded-full px-4 py-1">
-<span class="material-symbols-outlined" data-icon="chat_bubble" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
-<span class="font-medium text-[10px]">Inbox</span>
-</div>
-<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary cursor-pointer transition-colors">
-<span class="material-symbols-outlined" data-icon="local_mall">local_mall</span>
-<span class="font-medium text-[10px]">Orders</span>
-</div>
-<div class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary cursor-pointer transition-colors">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-<span class="font-medium text-[10px]">Profile</span>
-</div>
-</nav>
-</body></html>
+<body class="text-slate-800 antialiased overflow-hidden">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md fixed top-0 w-full z-50 px-6 py-4 border-b border-sky-50 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-4">
+            <button class="hover:bg-gray-50 p-2 rounded-full transition-colors"><span class="material-symbols-outlined">arrow_back</span></button>
+            <div class="flex items-center gap-3">
+                <img class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6LCpSD1P0zwjsHV158KmSAoVKwdnAsXoWRFdIkjwUf0uoY3Dvsp659wXUBdZMhos5rDbQ2XjCPP3YdmwPt3EKtU_6_4qSrJ6pxi8QWjivar8OYg1QsbQDVs7TPao5d_gsKDprBPUPruBGqSyR4cR0q-qA95lt2yAch8cqgqloqs5Lsh0DglXRftIOK4TKhLSKQ4JuqT0bw7Rwhnor_O6WO5U2HZxENXvmX6cgKoaK7bCwB2Poog8FGoVsiYAjmgjRA_rUJZynCQ" alt="Sofia"/>
+                <div>
+                    <h1 class="font-bold text-slate-900">Sofia López</h1>
+                    <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> En línea
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="bg-[#FCE4EC] text-[#880E4F] px-5 py-2 rounded-full text-xs font-bold shadow-sm hover:scale-105 transition-all" onclick="window.location.href='../chat_negociaci_n_profesional_1/code.html'">Negociar</button>
+            <span class="material-symbols-outlined text-slate-400">more_vert</span>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Sidebar lateral (Desktop) -->
+        <aside class="fixed right-0 top-20 bottom-0 w-80 bg-white border-l border-sky-50 p-6 hidden lg:block overflow-y-auto">
+            <div class="bg-blue-50/30 rounded-2xl p-6 border border-blue-100/50 mb-6">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Oferta Actual</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2">$1,250.00</h2>
+                <div class="mt-6 flex flex-col gap-2">
+                    <button class="w-full py-3 bg-[#FCE4EC] text-[#880E4F] font-bold rounded-full text-sm">Aceptar Propuesta</button>
+                    <button class="w-full py-3 border border-blue-100 text-blue-600 font-bold rounded-full text-sm hover:bg-blue-50 transition-colors" onclick="window.location.href='../chat_negociaci_n_profesional_1/code.html'">Contraofertar</button>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Detalles del Proyecto</h3>
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <span class="material-symbols-outlined text-blue-400">calendar_month</span>
+                    <span>Entrega: 4 semanas</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <span class="material-symbols-outlined text-blue-400">verified_user</span>
+                    <span>Soporte incluido</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <div id="chat-messages" class="chat-container lg:mr-80 px-4 md:px-12 py-8 space-y-6">
+            <!-- Messages injected by JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 lg:mr-80 bg-white p-4 lg:p-6 border-t border-sky-50 shadow-lg">
+        <div class="max-w-4xl mx-auto flex items-center gap-4">
+            <button class="text-slate-400 hover:text-blue-500"><span class="material-symbols-outlined">add_circle</span></button>
+            <div class="flex-1 relative">
+                <input id="message-input" type="text" class="w-full bg-slate-50 border-none rounded-full px-6 py-3 text-sm focus:ring-2 focus:ring-blue-100" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMessage()"/>
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300"><span class="material-symbols-outlined">sentiment_satisfied</span></button>
+            </div>
+            <button class="bg-[#FCE4EC] text-[#880E4F] w-12 h-12 rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all" onclick="sendMessage()">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        const chatContainer = document.getElementById('chat-messages');
+        let messages = [
+            { id: 1, sender: 'expert', text: 'Hola, he revisado los detalles de tu proyecto. El alcance parece claro.', time: '14:22' },
+            { id: 2, sender: 'me', text: 'Perfecto, ¿cómo afectaría eso al presupuesto final?', time: '14:25' },
+            { id: 3, sender: 'expert', text: 'He actualizado la oferta con un incremento del 15% para cubrir las horas adicionales.', time: '14:30' },
+            { id: 4, sender: 'expert', text: '¿Te parece bien si incluimos también el soporte post-entrega?', time: '14:31' },
+            { id: 5, sender: 'me', text: 'Me parece razonable. Déjame consultarlo con el equipo.', time: '14:35' },
+            { id: 6, sender: 'expert', text: '¡Claro! No hay prisa. Estaré atento a tu confirmación.', time: '14:40' },
+            { id: 7, sender: 'me', text: 'Una duda más, ¿incluirías las fuentes originales en el entregable?', time: '14:45' },
+            { id: 8, sender: 'expert', text: 'Por supuesto, se entregan todos los archivos fuente (AI, PSD) y los manuales.', time: '14:46' },
+            { id: 9, sender: 'me', text: 'Genial. Creo que estamos listos para avanzar.', time: '14:50' },
+            { id: 10, sender: 'expert', text: 'Perfecto. Acabo de enviar la propuesta actualizada para tu revisión.', time: '14:52' }
+        ];
+
+        function renderMessages() {
+            chatContainer.innerHTML = '';
+            messages.forEach(msg => {
+                const isMe = msg.sender === 'me';
+                chatContainer.innerHTML += `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'} message-item relative group">
+                        <div class="max-w-[85%] lg:max-w-[70%] p-4 rounded-2xl shadow-sm border ${isMe ? 'bg-white border-[#FCE4EC] rounded-br-none' : 'bg-blue-50/50 border-blue-100 rounded-bl-none'}">
+                            <p class="text-[15px] leading-relaxed ${msg.deleted ? 'opacity-40 italic' : ''}">${msg.text}</p>
+                            <div class="flex items-center gap-1 mt-2 opacity-30 text-[10px] font-bold ${isMe ? 'justify-end' : ''}">
+                                <span>${msg.time}</span>
+                                ${isMe ? '<span class="material-symbols-outlined text-[12px] text-blue-400">done_all</span>' : ''}
+                            </div>
+                            
+                            <!-- Context Menu -->
+                            <div class="message-menu absolute top-0 ${isMe ? '-left-10' : '-right-10'} flex flex-col gap-2">
+                                <button onclick="toggleMenu(${msg.id})" class="p-1.5 bg-white border border-gray-100 rounded-full text-gray-300 hover:text-red-400 shadow-sm transition-all">
+                                    <span class="material-symbols-outlined text-sm">close</span>
+                                </button>
+                            </div>
+
+                            <div id="menu-${msg.id}" class="hidden absolute top-10 ${isMe ? 'right-0' : 'left-0'} bg-white border border-gray-100 rounded-xl shadow-xl p-1 min-w-[140px] z-50">
+                                <button onclick="deleteMsg(${msg.id}, 'me')" class="w-full text-left px-3 py-2 text-[11px] font-bold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">Eliminar para mí</button>
+                                <button onclick="deleteMsg(${msg.id}, 'all')" class="w-full text-left px-3 py-2 text-[11px] font-bold text-red-500 hover:bg-red-50 rounded-lg transition-colors">Eliminar para todos</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            if (!input.value.trim()) return;
+            messages.push({
+                id: Date.now(),
+                sender: 'me',
+                text: input.value,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            input.value = '';
+            renderMessages();
+        }
+
+        function toggleMenu(id) {
+            const menu = document.getElementById(`menu-${id}`);
+            const allMenus = document.querySelectorAll('[id^="menu-"]');
+            allMenus.forEach(m => { if(m.id !== `menu-${id}`) m.classList.add('hidden') });
+            menu.classList.toggle('hidden');
+        }
+
+        function deleteMsg(id, mode) {
+            if (mode === 'all') {
+                messages = messages.map(m => m.id === id ? { ...m, text: '🚫 Este mensaje fue eliminado', deleted: true } : m);
+            } else {
+                messages = messages.filter(m => m.id !== id);
+            }
+            renderMessages();
+        }
+
+        renderMessages();
+    </script>
+</body>
+</html>

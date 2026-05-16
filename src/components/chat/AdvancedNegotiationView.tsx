@@ -9,7 +9,6 @@ import {
   MoreVertical, 
   Pencil, 
   FileText, 
-  Smile, 
   Send,
   CheckCircle2,
   Info
@@ -378,11 +377,8 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder="Escribe una contraoferta o mensaje..."
-                className="w-full bg-[#F8FAFC] border border-gray-100 rounded-full px-8 py-4 pr-16 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-blue-50/50 focus:border-blue-100 transition-all placeholder:text-gray-400 shadow-inner"
+                className="w-full bg-[#F8FAFC] border border-gray-100 rounded-full px-8 py-4 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-blue-50/50 focus:border-blue-100 transition-all placeholder:text-gray-400 shadow-inner"
               />
-              <button className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors">
-                <Smile className="w-6 h-6" />
-              </button>
             </div>
             <button 
               onClick={handleSendMessage}

@@ -102,15 +102,6 @@ export default function EvidenceCenterPage() {
     }
   };
 
-  const handleSendChat = () => {
-    if (!chatInput.trim()) return;
-    setChatMessages(prev => [...prev, { from: 'user', text: chatInput }]);
-    setChatInput('');
-    setTimeout(() => {
-      setChatMessages(prev => [...prev, { from: 'agent', text: '¡Gracias por tu mensaje! Nuestro equipo técnico lo revisará en breve.' }]);
-    }, 1000);
-  };
-
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans pb-20">
       {/* Navbar Minimalista */}

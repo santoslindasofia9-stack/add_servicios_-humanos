@@ -44,6 +44,26 @@ const FALLBACK_EXPERTS = [
     id: "f8",
     nombre_completo: "Andrés Silva",
     foto_perfil: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f9",
+    nombre_completo: "Lucía Ortiz",
+    foto_perfil: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f10",
+    nombre_completo: "Roberto Sánchez",
+    foto_perfil: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f11",
+    nombre_completo: "Carolina Ruiz",
+    foto_perfil: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "f12",
+    nombre_completo: "Diego Castro",
+    foto_perfil: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"
   }
 ];
 

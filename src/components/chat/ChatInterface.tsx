@@ -43,6 +43,13 @@ interface ChatInterfaceProps {
   currentUser: any;
 }
 
+interface Attachment {
+  name: string;
+  size: string;
+  type: string;
+  url?: string;
+}
+
 export default function ChatInterface({ negotiationId, expertData, currentUser }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
@@ -53,6 +60,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     status: 'pending'
   });
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Filter for phone numbers and emails
   const filterContactInfo = (text: string) => {
@@ -159,6 +167,30 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
   const handleAcceptProposal = async () => {
     setOffer({ ...offer, status: 'accepted' });
     alert('¡Propuesta aceptada! Redirigiendo a la pasarela de pago Escrow...');
+  };
+  
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Simulate sending a file message
+    const newAttachment: Message = {
+      id: Math.random().toString(36).substr(2, 9),
+      sender_id: currentUser?.id,
+      text: `He enviado un archivo: ${file.name}`,
+      created_at: new Date().toISOString(),
+      is_expert: false,
+      attachment: {
+        name: file.name,
+        size: (file.size / 1024 / 1024).toFixed(1) + ' MB',
+        type: file.type.split('/')[1].toUpperCase()
+      }
+    };
+
+    setMessages(prev => [...prev, newAttachment]);
+    
+    // Clear input
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
   
   const handleDeleteMessage = (messageId: string, forEveryone: boolean) => {
@@ -286,8 +318,18 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
 
           {/* Input Area */}
           <div className="bg-white border-t border-sky-50 p-4 md:p-6">
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              onChange={handleFileChange} 
+              className="hidden" 
+              accept="image/*,.pdf,.doc,.docx"
+            />
             <div className="max-w-4xl mx-auto flex items-center gap-4">
-              <button className="text-[#5e6f79] hover:text-[#0369a1] transition-colors p-2">
+              <button 
+                onClick={() => fileInputRef.current?.click()}
+                className="text-[#5e6f79] hover:text-[#0369a1] transition-colors p-2"
+              >
                 <PlusCircle className="w-6 h-6" />
               </button>
               <div className="flex-1 relative">

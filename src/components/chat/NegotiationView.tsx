@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   ArrowLeft, 
   Wallet, 
@@ -23,6 +24,7 @@ interface NegotiationViewProps {
 }
 
 export default function NegotiationView({ expertData, negotiationId }: NegotiationViewProps) {
+  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [budget, setBudget] = useState(2450.00);
   const [totalAgreed, setTotalAgreed] = useState(2817.50);
@@ -279,7 +281,7 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
             </button>
             
             <button 
-              onClick={handleSendTerms}
+              onClick={() => router.push('/confirmacion-contrato')}
               className="flex-1 py-3.5 bg-slate-800 hover:bg-slate-900 text-white font-black text-xs rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 tracking-[0.1em]"
             >
               <FileText size={16} className="opacity-70" />

@@ -357,7 +357,7 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
             </button>
             
             <button 
-              onClick={handleSendTerms}
+              onClick={() => router.push('/confirmacion-contrato')}
               className="flex-[3] flex items-center justify-center gap-3 bg-slate-700 text-white h-12 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg shadow-slate-200 transition-all active:scale-95"
             >
               <FileText className="w-4 h-4" />

@@ -56,7 +56,7 @@ const FALLBACK_PROS = [
     categoria: "Hogar",
     distancia_km: 2.4,
     calificacion: 5.0,
-    foto_perfil: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400"
+    foto_perfil: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400"
   },
   {
     id: "f2",

@@ -12,7 +12,7 @@ const FALLBACK_EXPERTS = [
     categoria: "Hogar",
     calificacion: 5,
     tarifa: 85,
-    foto_perfil: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400"
+    foto_perfil: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400"
   },
   {
     id: "f2",
@@ -66,7 +66,7 @@ const FALLBACK_EXPERTS = [
     categoria: "Tech",
     calificacion: 4.9,
     tarifa: 110,
-    foto_perfil: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
+    foto_perfil: "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&q=80&w=400"
   },
   {
     id: "f8",

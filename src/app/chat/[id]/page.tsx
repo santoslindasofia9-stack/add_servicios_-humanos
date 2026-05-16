@@ -8,7 +8,7 @@ const FALLBACK_EXPERTS = [
   {
     id: "f1",
     nombre_completo: "Elena Rodríguez",
-    foto_perfil: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400"
+    foto_perfil: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400"
   },
   {
     id: "f2",
@@ -38,7 +38,7 @@ const FALLBACK_EXPERTS = [
   {
     id: "f7",
     nombre_completo: "Valeria Gómez",
-    foto_perfil: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
+    foto_perfil: "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&q=80&w=400"
   },
   {
     id: "f8",

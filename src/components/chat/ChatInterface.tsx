@@ -60,6 +60,9 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     status: 'pending'
   });
   const scrollRef = useRef<HTMLDivElement>(null);
+  
+  // Obtener el ID del experto de forma segura
+  const expertId = expertData?.id || negotiationId?.replace('neg_', '') || '';
 
   // Filter for phone numbers and emails
   const filterContactInfo = (text: string) => {
@@ -228,7 +231,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         </div>
         <div className="flex items-center gap-2">
           <Link 
-            href={`/chat/${expertData.id}/negociacion`}
+            href={`/chat/${expertId}/negociacion`}
             className="flex items-center gap-2 px-4 py-2 bg-[#FCE4EC] text-[#D81B60] hover:bg-[#fbd1de] rounded-full transition-all font-bold text-xs shadow-sm active:scale-95"
           >
             <Wallet className="w-4 h-4" />
@@ -407,7 +410,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
                 Aceptar Propuesta
               </button>
               <Link 
-                href={`/chat/${expertData.id}/negociacion`}
+                href={`/chat/${expertId}/negociacion`}
                 className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm flex items-center justify-center"
               >
                 Contraofertar

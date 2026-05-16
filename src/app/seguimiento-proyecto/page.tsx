@@ -39,7 +39,7 @@ export default function ProjectTrackingPage() {
     "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=400",
     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=400",
     "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=400",
-    "https://images.unsplash.com/photo-1615529182904-14819c35d55a?auto=format&fit=crop&q=80&w=400",
+    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=400",
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400",
   ]);
 
@@ -312,7 +312,10 @@ export default function ProjectTrackingPage() {
                     <span className="text-[9px] font-black bg-sky-100 text-sky-600 px-2 py-0.5 rounded uppercase tracking-wider">En Curso</span>
                   </div>
                   <p className="text-sm text-slate-600 leading-relaxed mb-4">Curaduría de piezas premium para el salón principal.</p>
-                  <button className="px-5 py-2.5 bg-sky-50 hover:bg-sky-100 text-sky-600 font-bold text-xs uppercase tracking-wider rounded-xl transition-colors border border-sky-100">
+                  <button 
+                    onClick={() => router.push('/centro-evidencias')}
+                    className="px-5 py-2.5 bg-sky-50 hover:bg-sky-100 text-sky-600 font-bold text-xs uppercase tracking-wider rounded-xl transition-colors border border-sky-100"
+                  >
                     Centro de Evidencias
                   </button>
                 </div>

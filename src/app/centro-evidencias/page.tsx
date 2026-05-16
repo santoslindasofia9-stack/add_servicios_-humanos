@@ -15,7 +15,9 @@ import {
   HelpCircle, 
   MessageCircle, 
   ArrowLeft, 
-  Bell
+  Bell,
+  Send,
+  X
 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -33,6 +35,11 @@ interface EvidenceFile {
 export default function EvidenceCenterPage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState('');
+  const [chatMessages, setChatMessages] = useState([
+    { from: 'agent', text: '¡Hola! Soy Alex del equipo de soporte. ¿Tienes algún problema al subir tus archivos?' }
+  ]);
 
   // Perfil del usuario (sincronizado)
   const [userName, setUserName] = useState<string>("Usuario");
@@ -81,6 +88,15 @@ export default function EvidenceCenterPage() {
       };
       setFiles(prev => [newFile, ...prev]);
     }
+  };
+
+  const handleSendChat = () => {
+    if (!chatInput.trim()) return;
+    setChatMessages(prev => [...prev, { from: 'user', text: chatInput }]);
+    setChatInput('');
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, { from: 'agent', text: '¡Gracias por tu mensaje! Nuestro equipo técnico lo revisará en breve.' }]);
+    }, 1000);
   };
 
   return (
@@ -297,6 +313,78 @@ export default function EvidenceCenterPage() {
           </div>
         </div>
       </main>
+
+      {/* Widget de Chat de Soporte Flotante */}
+      <AnimatePresence>
+        {isChatOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-6 right-6 w-[340px] bg-white rounded-[32px] shadow-2xl border border-slate-100 z-[100] overflow-hidden"
+          >
+            {/* Cabecera del chat */}
+            <div className="bg-slate-900 p-5 flex items-center justify-between text-white">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center font-black text-sm">TL</div>
+                <div>
+                  <p className="font-bold text-sm leading-none">Soporte Tool Link</p>
+                  <p className="text-[10px] text-sky-400 font-bold uppercase tracking-widest mt-1">● En línea ahora</p>
+                </div>
+              </div>
+              <button onClick={() => setIsChatOpen(false)} className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Mensajes */}
+            <div className="h-[260px] bg-slate-50 p-5 overflow-y-auto flex flex-col gap-3">
+              {chatMessages.map((msg, i) => (
+                <div key={i} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`px-4 py-3 rounded-2xl text-sm font-medium max-w-[80%] ${
+                    msg.from === 'user'
+                      ? 'bg-slate-900 text-white rounded-br-none'
+                      : 'bg-white text-slate-700 border border-slate-100 shadow-sm rounded-bl-none'
+                  }`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Input */}
+            <div className="p-4 bg-white border-t border-slate-100">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSendChat()}
+                  placeholder="Escribe tu mensaje..."
+                  className="w-full bg-slate-50 border-none rounded-2xl px-5 py-3.5 pr-14 text-sm font-medium focus:ring-2 focus:ring-sky-500 outline-none"
+                />
+                <button
+                  onClick={handleSendChat}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-slate-900 text-white rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors"
+                >
+                  <Send size={16} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Botón flotante para abrir/cerrar chat */}
+      {!isChatOpen && (
+        <button
+          onClick={() => setIsChatOpen(true)}
+          className="fixed bottom-6 right-6 w-14 h-14 bg-slate-900 text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50"
+        >
+          <MessageCircle size={24} />
+        </button>
+      )}
+
     </div>
   );
 }

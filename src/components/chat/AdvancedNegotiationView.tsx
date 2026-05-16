@@ -14,6 +14,7 @@ import {
   Info
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface Deliverable {
   id: string;
@@ -86,10 +87,6 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
     { id: '2', text: 'Manual de marca (PDF)' },
     { id: '3', text: '5 Assets para Social Media' }
   ];
-
-  const handleSendTerms = () => {
-    router.push('/confirmacion-contrato');
-  };
 
   const handleSendMessage = () => {
     if (!inputText.trim()) return;

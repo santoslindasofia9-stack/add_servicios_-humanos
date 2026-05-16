@@ -43,10 +43,6 @@ export default function NegotiationView({ expertData, negotiationId }: Negotiati
     }
   }, [messages, events]);
 
-  const handleSendTerms = () => {
-    router.push('/confirmacion-contrato');
-  };
-
   const handleSendMessage = () => {
     if (!inputText.trim()) return;
     const newMessage = {

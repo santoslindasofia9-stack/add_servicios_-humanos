@@ -442,6 +442,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
               </ul>
             </div>
           </motion.div>
+        </aside>
         {/* Overlay de Generación de IA */}
         <AnimatePresence>
           {isGenerating && (

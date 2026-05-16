@@ -91,7 +91,7 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
     setIsGenerating(true);
     // Simular procesamiento de IA para el contrato
     setTimeout(() => {
-      window.location.href = '/confirmacion-contrato';
+      router.push('/confirmacion-contrato');
     }, 2500);
   };
 

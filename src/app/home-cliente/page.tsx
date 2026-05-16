@@ -250,10 +250,10 @@ export default function HomeCliente() {
           </div>
           
           <nav className="hidden md:flex items-center gap-8">
-            <a className="text-[#0d1c2e] font-bold cursor-pointer" onClick={() => router.push('/home-cliente')}>Inicio</a>
-            <a className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors cursor-pointer">Explorar</a>
-            <a className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors cursor-pointer">Guardados</a>
-            <a className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors cursor-pointer">Mensajes</a>
+            <Link href="/home-cliente" className="text-[#0d1c2e] font-bold">Inicio</Link>
+            <Link href="/resultados" className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors">Explorar</Link>
+            <Link href="/resultados" className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors">Guardados</Link>
+            <Link href="/chat/f1" className="text-[#5e6f79] hover:text-[#0d1c2e] font-medium transition-colors">Mensajes</Link>
           </nav>
           
           <div className="flex items-center gap-2 md:gap-4 relative">
@@ -425,13 +425,7 @@ export default function HomeCliente() {
             <h2 className="text-4xl md:text-[56px] font-extrabold text-[#0d1c2e] mb-6 max-w-3xl leading-tight tracking-tight">
               Ayuda experta para tu próximo gran proyecto.
             </h2>
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                router.push(`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`);
-              }}
-              className="relative w-full max-w-2xl mx-auto"
-            >
+            <div className="relative w-full max-w-2xl mx-auto">
               <input 
                 type="text"
                 value={searchTerm}
@@ -439,14 +433,14 @@ export default function HomeCliente() {
                 placeholder="Busca expertos, servicios o ubicaciones..." 
                 className="w-full h-14 md:h-16 pl-14 pr-32 rounded-full border border-gray-200 bg-white shadow-sm focus:ring-4 focus:ring-[#E0F2FE] focus:border-[#0d1c2e] transition-all text-lg font-medium text-[#0d1c2e] placeholder:text-[#5e6f79]/60 outline-none"
               />
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#5e6f79]" size={24} />
-              <button 
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0d1c2e] text-white px-6 py-2.5 md:py-3 rounded-full font-bold text-sm hover:bg-[#233144] transition-all"
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#5e6f79] pointer-events-none" size={24} />
+              <Link 
+                href={`/resultados${searchTerm.trim() ? `?q=${encodeURIComponent(searchTerm)}` : ''}`}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0d1c2e] text-white px-6 py-2.5 md:py-3 rounded-full font-bold text-sm hover:bg-[#233144] transition-all flex items-center justify-center"
               >
                 Buscar
-              </button>
-            </form>
+              </Link>
+            </div>
           </section>
 
           {/* 3. Categories (Horizontal scroll) */}
@@ -456,9 +450,9 @@ export default function HomeCliente() {
                 const Icon = cat.icon;
                 const isActive = activeCategory === cat.id;
                 return (
-                  <div
+                  <Link
                     key={cat.id}
-                    onClick={() => router.push(`/resultados?categoria=${cat.id}`)}
+                    href={`/resultados?categoria=${cat.id}`}
                     className="flex-none flex flex-col items-center gap-3 cursor-pointer group min-w-[80px]"
                   >
                     <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[20px] flex items-center justify-center transition-all duration-300 ${isActive ? cat.color + ' shadow-md scale-105' : 'bg-white shadow-sm border border-gray-100 group-hover:' + cat.color}`}>
@@ -467,7 +461,7 @@ export default function HomeCliente() {
                     <span className={`text-sm font-bold ${isActive ? '#0d1c2e' : 'text-[#5e6f79]'}`}>
                       {cat.name}
                     </span>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -499,9 +493,12 @@ export default function HomeCliente() {
                       <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 max-w-xl leading-tight">
                         {ADS[currentAdIndex].title}
                       </h2>
-                      <button className="bg-white text-[#0d1c2e] px-8 py-3.5 rounded-full font-bold w-fit hover:bg-gray-100 transition-colors shadow-lg">
+                      <Link 
+                        href="/resultados"
+                        className="bg-white text-[#0d1c2e] px-8 py-3.5 rounded-full font-bold w-fit hover:bg-gray-100 transition-colors shadow-lg"
+                      >
                         Explorar Catálogo
-                      </button>
+                      </Link>
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -544,7 +541,11 @@ export default function HomeCliente() {
             {filteredProfessionals.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {filteredProfessionals.map((pro) => (
-                  <div key={pro.id} className="group bg-white rounded-[20px] p-4 border border-gray-100 hover:border-[#E0F2FE] hover:shadow-xl hover:shadow-[#0d1c2e]/5 transition-all duration-300 flex flex-col cursor-pointer" onClick={() => router.push(`/expertos/${pro.id}`)}>
+                  <Link 
+                    key={pro.id} 
+                    href={`/expertos/${pro.id}`}
+                    className="group bg-white rounded-[20px] p-4 border border-gray-100 hover:border-[#E0F2FE] hover:shadow-xl hover:shadow-[#0d1c2e]/5 transition-all duration-300 flex flex-col cursor-pointer"
+                  >
                     <div className="relative aspect-square rounded-[16px] overflow-hidden mb-5 bg-gray-50">
                       <Image 
                         src={pro.foto_perfil || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"} 
@@ -569,7 +570,7 @@ export default function HomeCliente() {
                     <button className="w-full py-3 rounded-full bg-[#f8f9ff] text-[#0d1c2e] font-bold group-hover:bg-[#0d1c2e] group-hover:text-white transition-colors border border-gray-100 group-hover:border-transparent">
                       Reservar Servicio
                     </button>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (

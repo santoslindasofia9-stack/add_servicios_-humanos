@@ -371,12 +371,6 @@ export default function AdvancedNegotiationView({ expertData }: AdvancedNegotiat
         <div className="bg-white border-t border-gray-50 p-4 lg:p-6 pb-8 lg:pb-10">
           <input type="file" id="advanced-attach" className="hidden" />
           <div className="max-w-4xl mx-auto flex items-center gap-4">
-            <label 
-              htmlFor="advanced-attach"
-              className="w-14 h-14 flex items-center justify-center bg-[#E1F5FE] text-blue-600 rounded-full hover:bg-blue-100 transition-colors shadow-sm cursor-pointer shrink-0"
-            >
-              <Plus className="w-6 h-6" />
-            </label>
             <div className="flex-1 relative">
               <input 
                 type="text"

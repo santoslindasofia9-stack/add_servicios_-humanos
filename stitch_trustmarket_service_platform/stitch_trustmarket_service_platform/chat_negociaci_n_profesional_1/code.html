@@ -61,18 +61,9 @@
                         <p class="text-[10px] text-gray-400 font-bold uppercase">Servicio</p>
                         <p class="text-sm font-bold text-slate-800 mt-1">Diseño de Logotipo & Identidad</p>
                     </div>
-                    <div class="p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-3">Entregables</p>
-                        <ul class="text-[13px] text-slate-600 space-y-2">
-                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-300 rounded-full"></span> 3 Propuestas iniciales</li>
-                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-300 rounded-full"></span> Manual de marca completo</li>
-                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-300 rounded-full"></span> 5 Assets para Social Media</li>
-                        </ul>
-                    </div>
                     <div class="p-5 bg-[#FCE4EC]/50 rounded-2xl border border-[#F8BBD0]/20">
                         <span class="text-[10px] text-[#C2185B] font-bold uppercase tracking-widest block mb-1">Total Acordado</span>
                         <p class="text-2xl font-black text-[#AD1457]">$2,817.50</p>
-                        <span class="text-[10px] text-[#D81B60] italic font-medium opacity-80 mt-1 block">Incluye 15% ajuste solicitado</span>
                     </div>
                 </div>
             </div>
@@ -86,7 +77,7 @@
 
             <!-- Bottom Area -->
             <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC] to-transparent pt-12">
-                <!-- Negotiation Toolbar (CLEAN: Absolutely NO icons here) -->
+                <!-- Negotiation Toolbar (NO ICONS HERE) -->
                 <div class="max-w-2xl mx-auto mb-6">
                     <div class="bg-white border border-gray-100 shadow-xl rounded-full p-2 flex items-center gap-2">
                         <button class="flex-1 bg-[#FCE4EC] text-[#AD1457] py-3 rounded-full font-bold text-xs hover:bg-[#F8BBD0] transition-all">AJUSTAR PRESUPUESTO</button>
@@ -94,12 +85,8 @@
                     </div>
                 </div>
 
-                <!-- Input Area (Style matched to original chat) -->
+                <!-- Input Area (NO PLUS ICON HERE) -->
                 <div class="max-w-4xl mx-auto flex items-center gap-4">
-                    <!-- Standard PlusCircle style: Gray icon, No blue background -->
-                    <button class="w-12 h-12 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors shrink-0">
-                        <span class="material-symbols-outlined text-3xl">add_circle</span>
-                    </button>
                     <div class="flex-1 relative">
                         <input id="message-input" type="text" class="w-full bg-white border border-gray-100 rounded-full px-8 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-50 shadow-sm" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMessage()"/>
                         <button class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300">
@@ -142,7 +129,7 @@
                 chatContainer.innerHTML += `
                     <div class="flex ${isPro ? 'justify-end' : 'justify-start'} group message-item relative">
                         <div class="max-w-[85%] lg:max-w-[70%] p-5 rounded-2xl shadow-sm border ${isPro ? 'bg-white text-gray-800 rounded-br-none border-[#FCE4EC]' : 'bg-[#E3F2FD]/80 text-gray-800 rounded-bl-none border-[#BBDEFB]/30'}">
-                            <p class="text-[15px] leading-relaxed ${msg.deleted ? 'opacity-40 italic' : ''}">${msg.text}</p>
+                            <p class="text-[15px] leading-relaxed">${msg.text}</p>
                             <div class="flex items-center gap-1 mt-3 opacity-40 text-[10px] font-bold ${isPro ? 'justify-end' : ''}">
                                 <span>${msg.time}</span>
                                 ${isPro ? '<span class="material-symbols-outlined text-[12px] text-blue-400">check_circle</span>' : ''}
@@ -161,7 +148,7 @@
         function sendMessage() {
             const input = document.getElementById('message-input');
             if (!input.value.trim()) return;
-            const newId = String(Date.now() + Math.random()); // Use String for consistency
+            const newId = String(Date.now() + Math.random());
             messages.push({ id: newId, sender: 'pro', text: input.value, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
             input.value = ''; 
             renderMessages();

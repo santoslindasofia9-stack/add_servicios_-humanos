@@ -22,6 +22,10 @@ export default function ProjectTrackingPage() {
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string>("CLIENTE PREMIUM");
 
+  // Estados del Profesional Actual
+  const [expertName, setExpertName] = useState<string>("Diseñadora: Ana Valery");
+  const [expertAvatar, setExpertAvatar] = useState<string>("https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100");
+
   // Estados de Notificaciones
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState([
@@ -49,6 +53,11 @@ export default function ProjectTrackingPage() {
     if (savedName) setUserName(savedName);
     if (savedAvatar) setUserAvatar(savedAvatar);
     if (savedRole) setUserRole(savedRole === 'client' ? 'CLIENTE PREMIUM' : savedRole.toUpperCase());
+
+    const savedExpertName = localStorage.getItem("currentExpertName");
+    const savedExpertAvatar = localStorage.getItem("currentExpertAvatar");
+    if (savedExpertName) setExpertName(savedExpertName);
+    if (savedExpertAvatar) setExpertAvatar(savedExpertAvatar);
   }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -336,18 +345,22 @@ export default function ProjectTrackingPage() {
       {/* Footer Flotante: Caja de Mensaje Rápido */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] bg-white/95 backdrop-blur-md border border-slate-200 rounded-3xl p-4 shadow-2xl flex items-center justify-between gap-4 z-40 transition-transform hover:-translate-y-1">
         <div className="flex items-center gap-4 flex-1">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border border-slate-100">
-            <Image 
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" 
-              alt="Avatar Profesional" 
-              fill
-              className="object-cover"
-            />
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+          <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border border-slate-100 bg-slate-100 flex items-center justify-center">
+            {expertAvatar ? (
+              <Image 
+                src={expertAvatar} 
+                alt="Avatar Profesional" 
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <span className="font-bold text-slate-400 text-lg uppercase">{expertName.charAt(0)}</span>
+            )}
+            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full z-10"></div>
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="font-bold text-slate-900 text-sm">Diseñadora: Ana Valery</span>
+              <span className="font-bold text-slate-900 text-sm">{expertName}</span>
               <span className="text-xs text-slate-400 font-medium">hace 5 min</span>
             </div>
             <p className="text-sm text-slate-600 italic line-clamp-1">

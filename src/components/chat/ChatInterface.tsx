@@ -82,6 +82,13 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
   };
 
   useEffect(() => {
+    if (expertData) {
+      localStorage.setItem('currentExpertName', expertData.nombre_completo || 'Profesional');
+      localStorage.setItem('currentExpertAvatar', expertData.foto_perfil || '');
+    }
+  }, [expertData]);
+
+  useEffect(() => {
     // Initial messages (mock or fetch)
     const initialMessages: Message[] = [
       {

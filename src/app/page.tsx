@@ -15,7 +15,11 @@ export default function SplashScreen() {
     const savedRole = localStorage.getItem("userRole");
 
     if (isLoggedIn && savedRole) {
-      const target = savedRole === "client" ? "/home-cliente" : "/dashboard-pro";
+      let target = "/home-cliente";
+      if (savedRole === "pro") {
+        const isVerified = localStorage.getItem("isProVerified") === "true";
+        target = isVerified ? "/dashboard-pro" : "/auth/verificacion-pro";
+      }
       router.replace(target);
       return;
     }

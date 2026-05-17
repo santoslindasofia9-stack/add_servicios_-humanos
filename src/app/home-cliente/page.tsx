@@ -134,6 +134,14 @@ export default function HomeCliente() {
         }
       }
 
+      // Redirección obligatoria para profesionales
+      const currentRole = localStorage.getItem("userRole");
+      if (currentRole === "pro") {
+        const isVerified = localStorage.getItem("isProVerified") === "true";
+        window.location.replace(isVerified ? "/dashboard-pro" : "/auth/verificacion-pro");
+        return;
+      }
+
       // 1. Get User — localStorage SIEMPRE tiene prioridad sobre Supabase
       // para respetar los cambios que el usuario haya guardado en su perfil.
       const savedName = typeof window !== 'undefined' ? localStorage.getItem("userName") : null;

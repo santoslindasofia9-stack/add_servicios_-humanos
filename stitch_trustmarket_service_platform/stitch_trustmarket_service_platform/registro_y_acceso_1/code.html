@@ -267,4 +267,57 @@
 <span class="text-[10px] font-medium">Profile</span>
 </div>
 </nav>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let selectedRole = 'client';
+        const clientBtn = document.querySelectorAll('button.group')[0];
+        const proBtn = document.querySelectorAll('button.group')[1];
+        
+        clientBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            selectedRole = 'client';
+            clientBtn.querySelector('div').classList.replace('bg-white', 'bg-sky-50');
+            clientBtn.querySelector('div').classList.add('border-sky-100/50');
+            clientBtn.querySelector('span.material-symbols-outlined').classList.replace('text-slate-400', 'text-sky-500');
+            
+            proBtn.querySelector('div').classList.replace('bg-sky-50', 'bg-white');
+            proBtn.querySelector('div').classList.remove('border-sky-100/50');
+            proBtn.querySelector('span.material-symbols-outlined').classList.replace('text-sky-500', 'text-slate-400');
+        });
+
+        proBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            selectedRole = 'pro';
+            proBtn.querySelector('div').classList.replace('bg-white', 'bg-sky-50');
+            proBtn.querySelector('div').classList.add('border-sky-100/50');
+            proBtn.querySelector('span.material-symbols-outlined').classList.replace('text-slate-400', 'text-sky-500');
+            
+            clientBtn.querySelector('div').classList.replace('bg-sky-50', 'bg-white');
+            clientBtn.querySelector('div').classList.remove('border-sky-100/50');
+            clientBtn.querySelector('span.material-symbols-outlined').classList.replace('text-sky-500', 'text-slate-400');
+        });
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (selectedRole === 'client') {
+                window.location.href = '../home_marketplace_de_confianza_2/code.html';
+            } else {
+                window.location.href = '../perfil_y_editor_de_servicios_2/code.html';
+            }
+        });
+        
+        const socialBtns = document.querySelectorAll('.flex.justify-center.gap-4 button');
+        socialBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (selectedRole === 'client') {
+                    window.location.href = '../home_marketplace_de_confianza_2/code.html';
+                } else {
+                    window.location.href = '../perfil_y_editor_de_servicios_2/code.html';
+                }
+            });
+        });
+    });
+</script>
 </body></html>

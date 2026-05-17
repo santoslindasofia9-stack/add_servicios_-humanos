@@ -124,8 +124,7 @@ function LoginContent() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          // Google redirige directo a Home — la página detecta la sesión automáticamente
-          redirectTo: `${window.location.origin}/home-cliente`,
+          redirectTo: role === "client" ? `${window.location.origin}/home-cliente` : `${window.location.origin}/auth/verificacion-pro`,
         },
       });
 

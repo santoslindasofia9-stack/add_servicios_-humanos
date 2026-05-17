@@ -1,233 +1,462 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Calificar Servicio - TrustMarket</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
+                    colors: {
+                        "primary-container": "#e0f2fe",
                         "secondary-container": "#f4dce4",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#efefef",
-                        "surface-tint": "#50616b",
-                        "on-tertiary-fixed": "#1a1c1c",
-                        "primary-fixed-dim": "#b7c9d5",
-                        "on-primary-fixed": "#0c1e26",
-                        "inverse-surface": "#233144",
-                        "on-primary-container": "#5e6f79",
-                        "primary-fixed": "#d3e5f1",
-                        "on-tertiary-container": "#6b6c6d",
-                        "on-secondary-fixed": "#25181e",
-                        "surface": "#f8f9ff",
-                        "tertiary": "#5d5f5f",
-                        "surface-bright": "#f8f9ff",
-                        "secondary": "#6b5a60",
-                        "on-primary": "#ffffff",
-                        "surface-container-low": "#eff4ff",
-                        "inverse-primary": "#b7c9d5",
-                        "on-secondary-container": "#716066",
                         "on-background": "#0d1c2e",
                         "background": "#f8f9ff",
-                        "tertiary-fixed-dim": "#c6c6c7",
-                        "primary": "#50616b",
-                        "surface-container-high": "#dce9ff",
-                        "secondary-fixed": "#f4dce4",
-                        "on-error-container": "#93000a",
+                        "surface": "#ffffff",
                         "on-surface": "#0d1c2e",
-                        "primary-container": "#e0f2fe",
-                        "on-tertiary": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "surface-container-lowest": "#ffffff",
                         "on-surface-variant": "#43474b",
-                        "tertiary-fixed": "#e2e2e2",
-                        "surface-dim": "#ccdbf3",
-                        "surface-container": "#e6eeff",
-                        "inverse-on-surface": "#eaf1ff",
-                        "outline-variant": "#c3c7cb",
-                        "surface-variant": "#d5e3fc",
-                        "secondary-fixed-dim": "#d7c1c8",
-                        "on-tertiary-fixed-variant": "#454747",
-                        "surface-container-highest": "#d5e3fc",
-                        "on-secondary-fixed-variant": "#524249",
                         "outline": "#73787b",
-                        "on-primary-fixed-variant": "#384953",
-                        "on-secondary": "#ffffff",
-                        "on-error": "#ffffff"
+                        "primary": "#0284c7", /* Beautiful sky blue primary */
+                        "secondary": "#db2777" /* Beautiful pink accent */
                     },
-                    "borderRadius": {
-                        "DEFAULT": "1.5rem", /* 24px per request */
-                        "lg": "1.5rem",
-                        "xl": "2.5rem",
+                    borderRadius: {
+                        "DEFAULT": "1.25rem",
+                        "lg": "1.75rem",
+                        "xl": "2.25rem",
                         "full": "9999px"
                     },
-                    "spacing": {
-                        "container-max": "1280px",
-                        "card-padding": "24px",
-                        "section-gap": "80px",
-                        "gutter": "32px",
-                        "base": "8px"
-                    },
-                    "fontFamily": {
-                        "sans": ["Plus Jakarta Sans", "sans-serif"]
-                    },
-                    "fontSize": {
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    fontFamily: {
+                        "sans": ["'Plus Jakarta Sans'", "sans-serif"]
                     }
                 }
             }
         }
     </script>
-<style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9ff; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .star-filled { font-variation-settings: 'FILL' 1; color: #FFD700; }
-        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(224, 242, 254, 0.5); }
-        .scale-102 { transform: scale(1.02); }
+    
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            transition: all 0.2s ease-in-out;
+        }
+        .star-active {
+            font-variation-settings: 'FILL' 1 !important;
+            color: #f59e0b !important;
+            transform: scale(1.15);
+        }
+        .star-hover {
+            font-variation-settings: 'FILL' 1 !important;
+            color: #fbbf24 !important;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(224, 242, 254, 0.5);
+        }
+        .custom-shadow {
+            box-shadow: 0 20px 50px rgba(2, 132, 199, 0.05), 0 5px 15px rgba(0, 0, 0, 0.02);
+        }
+        body {
+            background: radial-gradient(circle at 90% 10%, #e0f2fe 0%, #f8f9ff 60%);
+        }
+        /* Custom Confetti Animation */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #db2777;
+            border-radius: 2px;
+            animation: confetti-fall 3s linear infinite;
+            z-index: 100;
+        }
     </style>
 </head>
-<body class="bg-surface text-on-surface min-h-screen flex flex-col items-center">
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-[0_4px_30px_rgba(224,242,254,0.3)] flex justify-between items-center px-4 md:px-10 py-4 h-20">
-<div class="flex items-center gap-4">
-<button class="hover:opacity-80 transition-all text-sky-400 dark:text-sky-300 md:hidden">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-<h1 class="text-xl md:text-2xl font-bold text-sky-500 dark:text-sky-400 tracking-tight">Marketplace</h1>
-</div>
-<!-- Desktop Nav -->
-<nav class="hidden md:flex items-center gap-8 text-on-surface-variant font-medium">
-<a class="hover:text-primary transition-colors" href="#">Inicio</a>
-<a class="hover:text-primary transition-colors" href="#">Explorar</a>
-<a class="text-primary font-bold" href="#">Mis Compras</a>
-</nav>
-<div class="flex items-center gap-4">
-<button class="hidden md:flex items-center gap-2 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
-<span class="material-symbols-outlined text-xl" data-icon="chat_bubble">chat_bubble</span>
-<span class="text-sm">Mensajes</span>
-</button>
-<div class="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity border-2 border-primary-container cursor-pointer">
-<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA3c1g9Ip7IcE9UP_nubRYFHvrcaytwDfGkSdXQ96ngfLiN4gYGobLrUbzWRlz6K4NzNVPFSCgMdZGClMNESNWUBF_PJBXgJ2pSnQi_KMdCGU-7W5LRByC5hvMsyuctyTpXEDJWD5bcw-UCth5yM4v5Ar_0ubXSAewjHRYExHj-QGAnZeVZeTbqu2F_rU0eyNxARXTPgLbg75MsXMiwKL6BwXOcdFAEwDnxU3xQEnCW2GNmbcoJA8QymE8cQ-uc2zRIGx21SWMig"/>
-</div>
-</div>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-between overflow-x-hidden">
+
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-sky-100/50 flex justify-between items-center px-4 md:px-10 py-4 h-20 shadow-sm">
+    <div class="flex items-center gap-3">
+        <a href="../home_marketplace_de_confianza_2/code.html" class="flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110">verified_user</span>
+            <span class="text-xl font-extrabold text-on-background font-['Plus_Jakarta_Sans'] tracking-tight">TrustMarket</span>
+        </a>
+    </div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="../home_marketplace_de_confianza_2/code.html">Inicio</a>
+        <a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="../resultados_b_squeda_de_expertos_2/code.html">Buscar</a>
+        <a class="text-sm font-bold text-primary border-b-2 border-primary pb-1" href="../calificaci_n_del_servicio_2/code.html">Calificación</a>
+        <a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="../chat_negociaci_n_cliente_1/code.html">Mensajes</a>
+    </div>
+    <div class="flex items-center gap-4">
+        <button class="relative p-2 hover:bg-slate-100 rounded-full transition-all">
+            <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-pink-500 rounded-full"></span>
+        </button>
+        <a href="../perfil_mi_actividad_1/code.html" class="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-md hover:scale-105 transition-transform">
+            <img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA3c1g9Ip7IcE9UP_nubRYFHvrcaytwDfGkSdXQ96ngfLiN4gYGobLrUbzWRlz6K4NzNVPFSCgMdZGClMNESNWUBF_PJBXgJ2pSnQi_KMdCGU-7W5LRByC5hvMsyuctyTpXEDJWD5bcw-UCth5yM4v5Ar_0ubXSAewjHRYExHj-QGAnZeVZeTbqu2F_rU0eyNxARXTPgLbg75MsXMiwKL6BwXOcdFAEwDnxU3xQEnCW2GNmbcoJA8QymE8cQ-uc2zRIGx21SWMig"/>
+        </a>
+    </div>
 </header>
-<!-- Main Content Canvas -->
-<main class="flex-grow w-full max-w-screen-xl mt-20 pt-8 pb-32 md:pb-40 px-4 md:px-10 flex flex-col items-center">
-<!-- Header Section -->
-<section class="text-center mb-10 md:mb-16">
-<h2 class="font-h1 text-h2 md:text-h1 text-on-background mb-4">¿Cómo fue tu experiencia?</h2>
-<p class="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-2xl mx-auto px-4">Tu opinión nos ayuda a construir una comunidad más confiable y segura para todos.</p>
-</section>
-<!-- Responsive Grid for Desktop hierarchy -->
-<div class="w-full flex flex-col lg:flex-row gap-10 items-start justify-center">
-<!-- Left Column: Trust Info (Desktop Only Visual Enhancement) -->
-<aside class="hidden lg:flex flex-col gap-6 w-1/3">
-<div class="glass-card p-8 rounded-lg">
-<div class="flex items-center gap-4 mb-4 text-primary">
-<span class="material-symbols-outlined !text-4xl" data-icon="verified_user">verified_user</span>
-<h3 class="font-bold text-lg">Compra Segura</h3>
-</div>
-<p class="text-on-surface-variant text-body-md">Todas las reseñas son verificadas para garantizar que provienen de compradores reales. Tu privacidad está protegida.</p>
-</div>
-<div class="rounded-lg overflow-hidden h-64">
-<img alt="Community illustration" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADuBNQLS-AEB8DdR7RYPZolyuZ1ZS07vurqTqJDYM2SrP-i2nQZmzB5kQ3sokov4KR3vYH6udevZAxYEGEdyoZXi7-UgFHLnIw7q93HDWYo4Rapih7ol557qSBkTBn9jhdihOLrYBa7btBZq71fQfLntqGNPoCS8Ut3ZEaBC5is7tZfDIjq_AuKvzX0oZRwqkyulqRri5RpHydTDtoapWy5y2FUGwGVymR1UXiH1Sc8K7_1B3m7iF8GSj9AVCfyJU-cPWTtuHJsA"/>
-</div>
-</aside>
-<!-- Center/Right Column: Review Card -->
-<div class="w-full lg:flex-1 max-w-3xl glass-card rounded-lg p-6 md:p-10 shadow-[0_20px_50px_rgba(224,242,254,0.3)]">
-<!-- Star Rating Section -->
-<div class="flex flex-col items-center gap-4 mb-8 md:mb-12">
-<div class="flex gap-2 md:gap-4">
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[44px] md:!text-[56px] star-filled" data-icon="star">star</span>
-</button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[44px] md:!text-[56px] star-filled" data-icon="star">star</span>
-</button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[44px] md:!text-[56px] star-filled" data-icon="star">star</span>
-</button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[44px] md:!text-[56px] star-filled" data-icon="star">star</span>
-</button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[44px] md:!text-[56px] text-surface-container-highest" data-icon="star">star</span>
-</button>
-</div>
-<span class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant bg-surface-container-low px-4 py-1.5 rounded-full">CALIFICACIÓN EXCELENTE</span>
-</div>
-<!-- Comment Input -->
-<div class="mb-8">
-<label class="block font-h3 text-xl md:text-h3 text-on-surface mb-3 md:mb-4" for="review-comment">Cuéntanos más</label>
-<textarea class="w-full rounded-lg border-sky-50 bg-surface-container-lowest p-4 md:p-6 text-body-md font-body-md focus:ring-2 focus:ring-primary-container focus:border-primary outline-none transition-all placeholder:text-slate-400 resize-none" id="review-comment" placeholder="Escribe aquí tus comentarios sobre el servicio o producto..." rows="5"></textarea>
-</div>
-<!-- Image Upload -->
-<div class="mb-10">
-<p class="block font-medium text-on-surface mb-4">Fotos de tu experiencia</p>
-<div class="flex flex-wrap gap-4">
-<div class="w-20 h-20 md:w-24 md:h-24 rounded-lg border-2 border-dashed border-sky-100 flex flex-col items-center justify-center text-slate-400 hover:bg-sky-50 transition-colors cursor-pointer group">
-<span class="material-symbols-outlined transition-transform group-hover:scale-110" data-icon="add_a_photo">add_a_photo</span>
-<span class="text-[9px] md:text-[10px] font-bold mt-1 uppercase tracking-wider">Añadir Foto</span>
-</div>
-<!-- Mockup of uploaded image -->
-<div class="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden relative group shadow-sm">
-<img alt="Uploaded preview" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkDP-kL6lG7tJZ74jcQXr7DBWJZbAibnRQvniXX7PPE8kuZg2jAQ8cDkQOPW5DSB2q6y8B0PXB0WS4HcbOUu9YMO-XHXofkOQdkYWWnrL1j8IPzC0J-15KAdUKJaFiRFA8CThWSwgUNFrhVqWLCnwLOohVPhN9N7MUEW7Xk-Socvt477KStwWE48210jVFuKglecqP6YJ6nVECCqUdgxubIT56f91aTdldf8lnF--vEg6KqAVGCwFc9bzti3tH3jDykkPi34Oolg"/>
-<button class="absolute top-1 right-1 bg-white/90 rounded-full p-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shadow-sm">
-<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Action Button -->
-<div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-4 border-t border-sky-50">
-<div class="flex items-center gap-3 text-slate-400 text-sm">
-<span class="material-symbols-outlined !text-xl" data-icon="lock">lock</span>
-<span>Transacción Segura</span>
-</div>
-<button class="w-full md:w-auto bg-[#FCE4EC] text-on-secondary-container px-10 py-4 rounded-full font-bold text-lg hover:bg-pink-100 active:scale-95 transition-all shadow-sm">
-                        Publicar Reseña
+
+<!-- Main Container -->
+<main class="w-full max-w-7xl mx-auto px-4 md:px-8 mt-24 pt-6 pb-32 flex flex-col items-center">
+    
+    <!-- Title Section -->
+    <div class="text-center mb-8 max-w-2xl">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#0d1c2e] tracking-tight mb-3">¿Cómo calificarías el servicio?</h2>
+        <p class="text-slate-500 text-sm md:text-base leading-relaxed">Tu valoración es sumamente valiosa para mantener los más altos estándares de calidad y seguridad en nuestra comunidad.</p>
+    </div>
+
+    <!-- Asymmetric Layout Grid -->
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Sidebar: Professional Summary & Guarantee (4 Columns) -->
+        <div class="lg:col-span-5 flex flex-col gap-6 w-full">
+            
+            <!-- Professional Summary Card -->
+            <div class="glass-card p-6 rounded-lg custom-shadow flex flex-col items-center text-center">
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">SERVICIO CONTRATADO</span>
+                
+                <!-- Dyn Profile Pic -->
+                <div class="relative w-24 h-24 mb-4">
+                    <div class="absolute inset-0 bg-primary/20 rounded-full blur-xl"></div>
+                    <div class="relative z-10 w-full h-full rounded-full overflow-hidden border-4 border-white shadow-md">
+                        <img id="prof-image" alt="Professional Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr7PKkLTLkZtiZc6R7YN01A70SXNomxN6ykcs-mH7V-Et7rS5d8yUVZx3yoyrBqSMpxKTAkyrY2VbEGwTK22uFPObfQXfUYFY96AVlHZyh5uXL07hecOI0GHHGax9RsF3DbhyAX9WgawyfCvmK6MSsvVnY23Nxsl1SI_mEDl5mhVihCF1kWpizNBEyM4mD-hIX8Z3GrXPyjOy4CQi5BCaOfO87HR6pmsL6dDdrcsLoJpYeNHiokz6v-sJ2mzu72uQD0ToW9MT39g"/>
+                    </div>
+                </div>
+                
+                <h3 id="prof-name" class="text-lg font-bold text-on-surface">Alex Rivera</h3>
+                <span class="text-xs text-primary font-semibold bg-sky-50 px-3 py-1 rounded-full mt-1">Diseñador Web Senior</span>
+                
+                <div class="w-full border-t border-slate-100 my-4"></div>
+                
+                <div class="grid grid-cols-2 gap-4 w-full text-left">
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">FECHA</span>
+                        <p class="text-xs font-bold text-on-surface">24 May, 2026</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">TOTAL PAGADO</span>
+                        <p class="text-xs font-bold text-pink-600">$1,245.00 USD</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Indicator Card -->
+            <div class="bg-gradient-to-br from-sky-50/50 to-white p-6 rounded-lg border border-sky-100 flex gap-4 items-start shadow-sm">
+                <span class="material-symbols-outlined text-primary bg-white p-3 rounded-2xl shadow-sm text-2xl shrink-0">verified</span>
+                <div>
+                    <h4 class="text-sm font-bold text-on-surface">Reseña 100% Protegida</h4>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">Tu calificación está respaldada por transacciones reales de fideicomiso escrow, garantizando honestidad e imparcialidad.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Interactive Review Form (7 Columns) -->
+        <div class="lg:col-span-7 w-full glass-card p-6 md:p-10 rounded-lg custom-shadow">
+            
+            <!-- Step 1: Star Selection -->
+            <div class="flex flex-col items-center gap-3 mb-8">
+                <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest">TOCA PARA CALIFICAR</span>
+                
+                <div class="flex items-center gap-1 sm:gap-2" id="star-container">
+                    <button type="button" class="star-btn p-1 group active:scale-95 transition-transform" data-value="1">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-slate-200 hover:scale-110">star</span>
                     </button>
-</div>
-</div>
-</div>
-<!-- Asymmetric Decorative Element (Mobile Only version at bottom) -->
-<div class="mt-12 w-full lg:hidden flex flex-col gap-4">
-<div class="rounded-lg bg-primary-container/20 p-6">
-<p class="font-body-md text-on-primary-container italic text-center">"La confianza es el pilar de nuestra comunidad. Gracias por ser parte de ella."</p>
-</div>
-</div>
+                    <button type="button" class="star-btn p-1 group active:scale-95 transition-transform" data-value="2">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-slate-200 hover:scale-110">star</span>
+                    </button>
+                    <button type="button" class="star-btn p-1 group active:scale-95 transition-transform" data-value="3">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-slate-200 hover:scale-110">star</span>
+                    </button>
+                    <button type="button" class="star-btn p-1 group active:scale-95 transition-transform" data-value="4">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-slate-200 hover:scale-110">star</span>
+                    </button>
+                    <button type="button" class="star-btn p-1 group active:scale-95 transition-transform" data-value="5">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-slate-200 hover:scale-110">star</span>
+                    </button>
+                </div>
+                
+                <span id="rating-label" class="font-bold text-xs text-slate-400 bg-slate-100 px-4 py-1.5 rounded-full tracking-wider mt-1 uppercase">SELECCIONA LAS ESTRELLAS</span>
+            </div>
+
+            <!-- Step 2: Selectable Quick Tags -->
+            <div class="mb-6">
+                <label class="block font-bold text-sm text-[#0d1c2e] uppercase tracking-wider mb-3">¿Qué destacó de su trabajo?</label>
+                <div class="flex flex-wrap gap-2.5">
+                    <button type="button" class="chip-tag px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-xs font-semibold hover:bg-sky-50 hover:text-primary transition-all duration-200 select-none">
+                        Entrega a tiempo
+                    </button>
+                    <button type="button" class="chip-tag px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-xs font-semibold hover:bg-sky-50 hover:text-primary transition-all duration-200 select-none">
+                        Gran comunicación
+                    </button>
+                    <button type="button" class="chip-tag px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-xs font-semibold hover:bg-sky-50 hover:text-primary transition-all duration-200 select-none">
+                        Muy profesional
+                    </button>
+                    <button type="button" class="chip-tag px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-xs font-semibold hover:bg-sky-50 hover:text-primary transition-all duration-200 select-none">
+                        Calidad de código
+                    </button>
+                    <button type="button" class="chip-tag px-4 py-2 bg-slate-50 border border-slate-100 text-slate-600 rounded-full text-xs font-semibold hover:bg-sky-50 hover:text-primary transition-all duration-200 select-none">
+                        Soporte post-entrega
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Detailed Feedback Comment -->
+            <div class="mb-6">
+                <label class="block font-bold text-sm text-[#0d1c2e] uppercase tracking-wider mb-3" for="review-comment">Tu comentario detallado</label>
+                <textarea class="w-full rounded-lg border-sky-100/50 bg-slate-50/50 p-4 text-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400 resize-none font-medium text-on-surface" id="review-comment" placeholder="Describe aquí tu experiencia, la calidad del servicio entregado..." rows="4"></textarea>
+            </div>
+
+            <!-- Step 4: Photos Mock Upload -->
+            <div class="mb-8">
+                <span class="block font-bold text-sm text-[#0d1c2e] uppercase tracking-wider mb-3">Compartir fotos (Opcional)</span>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <button type="button" id="upload-btn" class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg border-2 border-dashed border-sky-100 hover:border-primary flex flex-col items-center justify-center text-slate-400 hover:text-primary hover:bg-sky-50/30 transition-all cursor-pointer group">
+                        <span class="material-symbols-outlined text-2xl group-hover:scale-110">add_a_photo</span>
+                        <span class="text-[9px] font-extrabold uppercase mt-1 tracking-wider">Añadir Foto</span>
+                    </button>
+                    
+                    <!-- Dynamic Preview Container -->
+                    <div id="photos-container" class="flex gap-3">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden relative group shadow-sm border border-slate-100">
+                            <img alt="Preview" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=300"/>
+                            <button type="button" onclick="this.parentElement.remove()" class="absolute top-1.5 right-1.5 bg-white/90 text-slate-500 hover:text-pink-600 rounded-full p-1 shadow-sm transition-all">
+                                <span class="material-symbols-outlined text-xs !font-bold">close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publicar Button -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center pt-5 border-t border-slate-100">
+                <div class="flex items-center gap-2 text-slate-400 text-xs font-semibold">
+                    <span class="material-symbols-outlined text-base">lock</span>
+                    <span>Envío seguro de opinión</span>
+                </div>
+                <button type="button" id="submit-review" class="w-full sm:w-auto bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#880e4f] font-bold px-10 py-4 rounded-full text-base transition-all active:scale-95 shadow-sm hover:scale-[1.01]">
+                    Publicar Reseña
+                </button>
+            </div>
+        </div>
+    </div>
 </main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden fixed bottom-0 w-full rounded-t-lg z-50 bg-white border-t border-sky-50 shadow-[0_-10px_40px_rgba(224,242,254,0.4)] flex justify-around items-center h-20 px-4 pb-safe">
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="../home_marketplace_de_confianza_2/code.html">
-<span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="text-[10px] font-medium">Inicio</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="../resultados_b_squeda_de_expertos_2/code.html">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-<span class="text-[10px] font-medium">Buscar</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-pink-50 text-pink-600 rounded-full px-4 py-1 scale-105 transition-all" href="../calificaci_n_del_servicio_2/code.html">
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-[10px] font-medium">Calificación</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="../chat_negociaci_n_cliente_1/code.html">
-<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
-<span class="text-[10px] font-medium">Mensajes</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="../perfil_mi_actividad_1/code.html">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-<span class="text-[10px] font-medium">Perfil</span>
-</a>
+
+<!-- Confetti/Success Modal Overlay -->
+<div id="success-modal" class="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <!-- Confetti Container -->
+    <div id="confetti-holder" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+    <div class="bg-white rounded-lg p-8 max-w-md w-full text-center shadow-xl border border-sky-100 relative z-10 scale-95 transition-all duration-300" id="modal-card">
+        <div class="w-20 h-20 bg-sky-50 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+            <div class="absolute inset-0 bg-sky-400 rounded-full blur-lg opacity-25 animate-pulse"></div>
+            <span class="material-symbols-outlined text-4xl text-sky-500 z-10" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        </div>
+        
+        <h3 class="text-2xl font-extrabold text-[#0d1c2e] tracking-tight mb-2">¡Reseña Publicada!</h3>
+        <p class="text-slate-500 text-sm leading-relaxed mb-6">Gracias por contribuir a la comunidad. Tu opinión ha sido publicada y el contrato se ha cerrado de manera definitiva.</p>
+        
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-left mb-6">
+            <div class="flex justify-between items-center text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <span>Puntos de Reputación</span>
+                <span class="text-sky-600 font-bold">+50 XP</span>
+            </div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-sky-400 to-sky-500 h-full rounded-full w-4/5 animate-pulse"></div>
+            </div>
+        </div>
+
+        <button type="button" id="close-modal-btn" class="w-full bg-primary text-white font-bold py-4 rounded-full shadow-md hover:bg-sky-600 active:scale-95 transition-all text-sm uppercase tracking-wider">
+            Volver a Inicio
+        </button>
+    </div>
+</div>
+
+<!-- Mobile Bottom Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 rounded-t-[24px] z-30 bg-white border-t border-sky-100 shadow-[0_-10px_40px_rgba(224,242,254,0.4)] flex justify-around items-center h-20 px-4 pb-safe">
+    <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary transition-colors" href="../home_marketplace_de_confianza_2/code.html">
+        <span class="material-symbols-outlined mb-0.5">home</span>
+        <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold">Inicio</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary transition-colors" href="../resultados_b_squeda_de_expertos_2/code.html">
+        <span class="material-symbols-outlined mb-0.5">search</span>
+        <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold">Buscar</span>
+    </a>
+    <a class="flex flex-col items-center justify-center bg-pink-50 text-pink-600 rounded-full px-5 py-1.5 scale-105 transition-all duration-300" href="../calificaci_n_del_servicio_2/code.html">
+        <span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold">Calificación</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary transition-colors" href="../chat_negociaci_n_cliente_1/code.html">
+        <span class="material-symbols-outlined mb-0.5">chat_bubble</span>
+        <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold">Mensajes</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-primary transition-colors" href="../perfil_mi_actividad_1/code.html">
+        <span class="material-symbols-outlined mb-0.5">person</span>
+        <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold">Perfil</span>
+    </a>
 </nav>
-</body></html>
+
+<script>
+    // --- 1. Dynamic Professional Info ---
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedName = localStorage.getItem("currentExpertName");
+        const savedImage = localStorage.getItem("currentExpertImage");
+        const savedRole = localStorage.getItem("currentExpertRole");
+        
+        if (savedName) document.getElementById("prof-name").textContent = savedName;
+        if (savedImage) document.getElementById("prof-image").src = savedImage;
+        
+        const roleEl = document.querySelector(".bg-sky-50");
+        if (savedRole && roleEl) roleEl.textContent = savedRole;
+    });
+
+    // --- 2. Interactive Star Rating ---
+    const starBtns = document.querySelectorAll(".star-btn");
+    const ratingLabel = document.getElementById("rating-label");
+    let selectedRating = 4; // Default to 4
+
+    const feedbackTexts = {
+        1: "Pésimo servicio",
+        2: "Regular / Aceptable",
+        3: "Buen servicio",
+        4: "Excelente calidad",
+        5: "¡Extraordinario!"
+    };
+
+    function updateStars(rating, isHover = false) {
+        starBtns.forEach(btn => {
+            const val = parseInt(btn.dataset.value);
+            const icon = btn.querySelector("span");
+            
+            icon.classList.remove("star-active", "star-hover");
+            
+            if (val <= rating) {
+                if (isHover) {
+                    icon.classList.add("star-hover");
+                } else {
+                    icon.classList.add("star-active");
+                }
+            }
+        });
+        
+        if (isHover && feedbackTexts[rating]) {
+            ratingLabel.textContent = feedbackTexts[rating];
+        } else if (!isHover && feedbackTexts[selectedRating]) {
+            ratingLabel.textContent = feedbackTexts[selectedRating];
+        }
+    }
+
+    // Initialize Default State
+    updateStars(selectedRating);
+
+    starBtns.forEach(btn => {
+        const val = parseInt(btn.dataset.value);
+        
+        btn.addEventListener("mouseenter", () => {
+            updateStars(val, true);
+        });
+        
+        btn.addEventListener("mouseleave", () => {
+            updateStars(selectedRating);
+        });
+        
+        btn.addEventListener("click", () => {
+            selectedRating = val;
+            updateStars(selectedRating);
+        });
+    });
+
+    // --- 3. Chip Selectors ---
+    const chips = document.querySelectorAll(".chip-tag");
+    chips.forEach(chip => {
+        chip.addEventListener("click", () => {
+            chip.classList.toggle("bg-slate-50");
+            chip.classList.toggle("border-slate-100");
+            chip.classList.toggle("text-slate-600");
+            
+            chip.classList.toggle("bg-sky-500");
+            chip.classList.toggle("border-sky-500");
+            chip.classList.toggle("text-white");
+        });
+    });
+
+    // --- 4. Dynamic Image Addition ---
+    const uploadBtn = document.getElementById("upload-btn");
+    const photosContainer = document.getElementById("photos-container");
+    const mockPhotos = [
+        "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=300",
+        "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&q=80&w=300"
+    ];
+    let mockPhotoIndex = 0;
+
+    uploadBtn.addEventListener("click", () => {
+        if (photosContainer.children.length >= 3) {
+            alert("Puedes subir un máximo de 3 imágenes para tu reseña.");
+            return;
+        }
+        
+        const newPhotoUrl = mockPhotos[mockPhotoIndex % mockPhotos.length];
+        mockPhotoIndex++;
+
+        const photoDiv = document.createElement("div");
+        photoDiv.className = "w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden relative group shadow-sm border border-slate-100 animate-pulse";
+        photoDiv.innerHTML = `
+            <img alt="Uploaded preview" class="w-full h-full object-cover" src="${newPhotoUrl}"/>
+            <button type="button" onclick="this.parentElement.remove()" class="absolute top-1.5 right-1.5 bg-white/90 text-slate-500 hover:text-pink-600 rounded-full p-1 shadow-sm transition-all">
+                <span class="material-symbols-outlined text-xs !font-bold">close</span>
+            </button>
+        `;
+        photosContainer.appendChild(photoDiv);
+        
+        setTimeout(() => {
+            photoDiv.classList.remove("animate-pulse");
+        }, 800);
+    });
+
+    // --- 5. Success Confetti Modal ---
+    const successModal = document.getElementById("success-modal");
+    const modalCard = document.getElementById("modal-card");
+    const submitBtn = document.getElementById("submit-review");
+    const closeModalBtn = document.getElementById("close-modal-btn");
+    const confettiHolder = document.getElementById("confetti-holder");
+
+    function createConfetti() {
+        confettiHolder.innerHTML = '';
+        const colors = ['#0284c7', '#db2777', '#f59e0b', '#10b981', '#6366f1'];
+        for (let i = 0; i < 40; i++) {
+            const piece = document.createElement('div');
+            piece.className = 'confetti-piece';
+            piece.style.left = Math.random() * 100 + '%';
+            piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.animationDelay = Math.random() * 1.5 + 's';
+            piece.style.animationDuration = 2 + Math.random() * 2 + 's';
+            confettiHolder.appendChild(piece);
+        }
+    }
+
+    submitBtn.addEventListener("click", () => {
+        // Trigger Modal Open
+        successModal.classList.remove("opacity-0", "pointer-events-none");
+        modalCard.classList.remove("scale-95");
+        createConfetti();
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+        // Redirect to Home
+        window.location.href = "../home_marketplace_de_confianza_2/code.html";
+    });
+</script>
+
+</body>
+</html>

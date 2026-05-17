@@ -39,41 +39,45 @@ const METHODS: {
     id: 'paypal',
     label: 'PayPal',
     color: '#003087',
-    bg: '#e8f0fe',
-    border: '#b8d0f5',
+    bg: '#f0f4ff',
+    border: '#c5d5f5',
     description: 'Paga con tu cuenta PayPal de forma segura.',
     icon: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none">
-        <text x="0" y="18" fontSize="13" fontWeight="bold" fill="#003087">Pay</text>
-        <text x="0" y="18" fontSize="13" fontWeight="bold" fill="#009cde" dx="22">Pal</text>
+      <svg viewBox="0 0 80 32" className="w-16 h-7">
+        <text x="2" y="26" fontSize="28" fontWeight="900" fill="#003087" fontFamily="Arial, sans-serif">P</text>
+        <text x="14" y="28" fontSize="26" fontWeight="900" fill="#009cde" fontFamily="Arial, sans-serif">P</text>
+        <text x="30" y="26" fontSize="20" fontWeight="700" fill="#003087" fontFamily="Arial, sans-serif">ayPal</text>
       </svg>
     ),
   },
   {
     id: 'nequi',
     label: 'Nequi',
-    color: '#6c00ea',
-    bg: '#f3e8ff',
-    border: '#d9b3ff',
+    color: '#1a0a2e',
+    bg: '#ffffff',
+    border: '#e0e0e0',
     description: 'Paga desde tu app Nequi en segundos.',
     icon: (
-      <svg viewBox="0 0 40 40" className="w-7 h-7">
-        <rect width="40" height="40" rx="10" fill="#6c00ea" />
-        <text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="13" fontWeight="bold">N</text>
+      /* Nequi: punto magenta + N oscura — estilo original de la marca */
+      <svg viewBox="0 0 56 56" className="w-10 h-10">
+        <rect x="4" y="5" width="14" height="14" rx="2.5" fill="#FF0090" />
+        <text x="5" y="54" fontSize="50" fontWeight="900" fill="#1a0a2e" fontFamily="'Arial Black', Arial, sans-serif">N</text>
       </svg>
     ),
   },
   {
     id: 'bancolombia',
     label: 'Bancolombia',
-    color: '#f5a800',
-    bg: '#fffbeb',
-    border: '#fde68a',
+    color: '#0a2240',
+    bg: '#fff8e1',
+    border: '#ffe082',
     description: 'Transfiere directamente desde Bancolombia.',
     icon: (
-      <svg viewBox="0 0 40 40" className="w-7 h-7">
-        <rect width="40" height="40" rx="10" fill="#f5a800" />
-        <text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="11" fontWeight="bold">BC</text>
+      <svg viewBox="0 0 56 56" className="w-10 h-10">
+        <rect width="56" height="56" rx="12" fill="#FFCC00" />
+        <text x="50%" y="54%" textAnchor="middle" dominantBaseline="middle"
+          fontSize="28" fontWeight="900" fill="#0a2240" fontFamily="'Arial Black', Arial, sans-serif">B</text>
+        <rect x="8" y="44" width="40" height="4" rx="2" fill="#0a2240" opacity="0.15" />
       </svg>
     ),
   },
@@ -82,12 +86,15 @@ const METHODS: {
     label: 'Daviplata',
     color: '#e0001b',
     bg: '#fff1f2',
-    border: '#fecdd3',
+    border: '#fca5a5',
     description: 'Paga con tu billetera Daviplata.',
     icon: (
-      <svg viewBox="0 0 40 40" className="w-7 h-7">
-        <rect width="40" height="40" rx="10" fill="#e0001b" />
-        <text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="11" fontWeight="bold">DP</text>
+      <svg viewBox="0 0 56 56" className="w-10 h-10">
+        <rect width="56" height="56" rx="12" fill="#E0001B" />
+        <text x="50%" y="42%" textAnchor="middle" dominantBaseline="middle"
+          fontSize="15" fontWeight="900" fill="white" fontFamily="Arial, sans-serif">Davi</text>
+        <text x="50%" y="68%" textAnchor="middle" dominantBaseline="middle"
+          fontSize="12" fontWeight="700" fill="white" fontFamily="Arial, sans-serif">plata</text>
       </svg>
     ),
   },
@@ -95,13 +102,15 @@ const METHODS: {
     id: 'pse',
     label: 'PSE',
     color: '#0d47a1',
-    bg: '#e3f2fd',
-    border: '#90caf9',
+    bg: '#e8f0fe',
+    border: '#93c5fd',
     description: 'Débito automático desde cualquier banco colombiano.',
     icon: (
-      <svg viewBox="0 0 40 40" className="w-7 h-7">
-        <rect width="40" height="40" rx="10" fill="#0d47a1" />
-        <text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12" fontWeight="bold">PSE</text>
+      <svg viewBox="0 0 56 56" className="w-10 h-10">
+        <rect width="56" height="56" rx="12" fill="#0D3F8F" />
+        <text x="50%" y="56%" textAnchor="middle" dominantBaseline="middle"
+          fontSize="22" fontWeight="900" fill="white" fontFamily="'Arial Black', Arial, sans-serif">PSE</text>
+        <rect x="10" y="44" width="36" height="3" rx="1.5" fill="#4fc3f7" />
       </svg>
     ),
   },

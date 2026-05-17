@@ -32,6 +32,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { supabase } from "@/lib/supabase";
+
 export default function DashboardPro() {
   const [nombre, setNombre] = useState("Profesional");
   const [especialidad, setEspecialidad] = useState("Desarrollo de Software");
@@ -85,6 +87,25 @@ export default function DashboardPro() {
     if (savedExp) setExperiencia(savedExp);
     if (savedLocation) setUbicacion(savedLocation);
     if (savedCertCount) setCertificadosCount(savedCertCount);
+
+    // Sync from Supabase session directly for bulletproof accuracy
+    const syncSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          const meta = session.user.user_metadata;
+          const regName = meta?.nombre_completo || meta?.full_name || session.user.email?.split("@")[0];
+          if (regName) {
+            setNombre(regName);
+            localStorage.setItem("userName", regName);
+            localStorage.setItem("proName", regName);
+          }
+        }
+      } catch (err) {
+        console.error("Error syncing session:", err);
+      }
+    };
+    syncSession();
     
     setLoading(false);
   }, []);

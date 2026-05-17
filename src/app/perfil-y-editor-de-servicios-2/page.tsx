@@ -36,6 +36,8 @@ import {
   Camera
 } from "lucide-react";
 
+import { supabase } from "@/lib/supabase";
+
 const PRESET_AVATARS = [
   { id: "avatar1", url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256&h=256", label: "Sofía" },
   { id: "avatar2", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256&h=256", label: "Carlos" },
@@ -208,6 +210,25 @@ export default function PerfilYEditorDeServicios() {
     setTarifa(savedTarifa);
     setUbicacion(savedUbicacion);
     setCertificadosCount(savedCertCount);
+
+    // Sync from Supabase session directly for bulletproof accuracy
+    const syncSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          const meta = session.user.user_metadata;
+          const regName = meta?.nombre_completo || meta?.full_name || session.user.email?.split("@")[0];
+          if (regName) {
+            setNombre(regName);
+            localStorage.setItem("userName", regName);
+            localStorage.setItem("proName", regName);
+          }
+        }
+      } catch (err) {
+        console.error("Error syncing session:", err);
+      }
+    };
+    syncSession();
 
     // Populate service list
     setServices([

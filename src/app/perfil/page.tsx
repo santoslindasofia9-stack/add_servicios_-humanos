@@ -317,7 +317,10 @@ export default function PerfilPage() {
             <button className="md:hidden text-[#5e6f79] p-2">
               <Menu size={24} />
             </button>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/home-cliente')}>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => {
+              localStorage.setItem("userRole", "client");
+              window.location.href = '/home-cliente';
+            }}>
               <div className="w-8 h-8 bg-[#0d1c2e] rounded-lg flex items-center justify-center">
                 <span className="material-symbols-outlined text-white text-xl">hub</span>
               </div>

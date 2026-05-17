@@ -81,6 +81,61 @@ export default function PerfilPage() {
   // Toast State
   const [toastMessage, setToastMessage] = useState<{ title: string; body: string } | null>(null);
 
+  // Geolocation and Reverse Geocoding via OpenStreetMap Nominatim API
+  const detectUserLocation = (isForModal = false) => {
+    if (typeof window === "undefined") return;
+    
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
+              {
+                headers: {
+                  "Accept-Language": "es"
+                }
+              }
+            );
+            if (res.ok) {
+              const data = await res.json();
+              const address = data.address;
+              const city = address.city || address.town || address.village || address.suburb || address.county || address.state || "Bucaramanga";
+              const country = address.country || "Colombia";
+              const formattedLocation = `${city}, ${country}`;
+              
+              if (isForModal) {
+                setEditLocation(formattedLocation);
+              } else {
+                setUserLocation(formattedLocation);
+                localStorage.setItem("userLocation", formattedLocation);
+              }
+              
+              triggerToast(
+                "Ubicación Detectada", 
+                `Hemos detectado tu ubicación actual: ${formattedLocation}`
+              );
+            }
+          } catch (err) {
+            console.error("Error reverse geocoding location:", err);
+            if (isForModal) {
+              alert("No se pudo obtener la ubicación. Por favor escríbela manualmente.");
+            }
+          }
+        },
+        (error) => {
+          console.warn("Geolocation permission error: ", error);
+          if (isForModal) {
+            alert("No pudimos acceder a tu ubicación actual. Revisa los permisos de tu navegador.");
+          }
+        }
+      );
+    } else if (isForModal) {
+      alert("La geolocalización no está soportada en tu navegador.");
+    }
+  };
+
   // Initialize and Seed Profile Data
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -94,8 +149,16 @@ export default function PerfilPage() {
       if (savedAvatar) setUserAvatar(savedAvatar);
       else localStorage.setItem("userAvatar", DEFAULT_AVATAR);
 
-      if (savedLocation) setUserLocation(savedLocation);
-      else localStorage.setItem("userLocation", "Ciudad de México (CDMX)");
+      if (savedLocation) {
+        setUserLocation(savedLocation);
+        // If it is the default location, try to geolocate to improve personalization
+        if (savedLocation === "Ciudad de México (CDMX)") {
+          detectUserLocation(false);
+        }
+      } else {
+        localStorage.setItem("userLocation", "Ciudad de México (CDMX)");
+        detectUserLocation(false);
+      }
     }
   }, []);
 
@@ -781,15 +844,25 @@ export default function PerfilPage() {
                   />
                 </div>
 
-                {/* Location field */}
+                {/* Location field with GPS Autodetect */}
                 <div>
-                  <label className="text-[10px] font-bold text-[#0d1c2e] uppercase tracking-wider ml-1">Ubicación / Ciudad</label>
+                  <div className="flex justify-between items-center ml-1">
+                    <label className="text-[10px] font-bold text-[#0d1c2e] uppercase tracking-wider">Ubicación / Ciudad</label>
+                    <button
+                      type="button"
+                      onClick={() => detectUserLocation(true)}
+                      className="text-[10px] text-[#0288D1] hover:text-[#0277bd] font-bold flex items-center gap-0.5 cursor-pointer transition-colors"
+                    >
+                      <MapPin size={10} />
+                      <span>Autodetectar GPS</span>
+                    </button>
+                  </div>
                   <input 
                     type="text" 
                     value={editLocation}
                     onChange={(e) => setEditLocation(e.target.value)}
                     className="w-full mt-1.5 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0288D1] focus:ring-2 focus:ring-[#E0F2FE] transition-all text-[#0d1c2e] font-medium"
-                    placeholder="Ej. CDMX, México"
+                    placeholder="Ej. Bucaramanga, Colombia"
                   />
                 </div>
 

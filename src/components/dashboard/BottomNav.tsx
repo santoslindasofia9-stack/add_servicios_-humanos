@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { icon: "home", label: "Inicio", href: "/home-cliente" },
   { icon: "search", label: "Buscar", href: "/resultados" },
-  { icon: "shopping_bag", label: "Pedidos", href: "/pedidos" },
-  { icon: "chat_bubble", label: "Mensajes", href: "/mensajes" },
+  { icon: "star", label: "Calificación", href: "/calificacion" },
+  { icon: "chat_bubble", label: "Mensajes", href: "/chat" },
   { icon: "person", label: "Perfil", href: "/perfil" },
 ];
 

@@ -131,6 +131,174 @@ const MOCK_JOBS: JobOffer[] = [
     lat: 7.121,
     lng: -73.131,
     status: "available"
+  },
+  {
+    id: "job4",
+    cliente_nombre: "Andrés Mora",
+    cliente_avatar: "",
+    cliente_calificacion: 4.6,
+    titulo_trabajo: "Diseño de Logo y Manual de Marca",
+    descripcion: "Startup de tecnología necesita identidad visual completa: logo, paleta de colores, tipografías y guía de estilo. Entrega en 7 días.",
+    terminos: "Escrow activo. 3 rondas de revisión incluidas.",
+    pago: "280",
+    distancia_km: 2.3,
+    lat: 7.132,
+    lng: -73.112,
+    status: "available"
+  },
+  {
+    id: "job5",
+    cliente_nombre: "Valentina Ríos",
+    cliente_avatar: "",
+    cliente_calificacion: 5.0,
+    titulo_trabajo: "Edición de Video Corporativo",
+    descripcion: "Necesito editar 3 videos corporativos (5-8 min c/u), con animaciones de texto, color grading profesional y música de fondo.",
+    terminos: "Pago total en escrow. Entrega en 10 días hábiles.",
+    pago: "550",
+    distancia_km: 0.6,
+    lat: 7.109,
+    lng: -73.135,
+    status: "available"
+  },
+  {
+    id: "job6",
+    cliente_nombre: "Luis Pardo",
+    cliente_avatar: "",
+    cliente_calificacion: 4.5,
+    titulo_trabajo: "Automatización con Python y Selenium",
+    descripcion: "Automatizar proceso de scraping y reporte diario de precios en 15 sitios de e-commerce usando Python.",
+    terminos: "Pago al entregar código funcional y documentado en GitHub.",
+    pago: "200",
+    distancia_km: 3.1,
+    lat: 7.140,
+    lng: -73.120,
+    status: "available"
+  },
+  {
+    id: "job7",
+    cliente_nombre: "Marcela Fuentes",
+    cliente_avatar: "",
+    cliente_calificacion: 4.8,
+    titulo_trabajo: "Community Manager (3 meses)",
+    descripcion: "Gestión de Instagram y TikTok para restaurante gourmet. Mínimo 15 publicaciones semanales, stories diarios, respuesta de comentarios.",
+    terminos: "Contrato mensual con pago quincernal en escrow.",
+    pago: "380",
+    distancia_km: 1.5,
+    lat: 7.113,
+    lng: -73.127,
+    status: "available"
+  },
+  {
+    id: "job8",
+    cliente_nombre: "Ricardo Soto",
+    cliente_avatar: "",
+    cliente_calificacion: 4.7,
+    titulo_trabajo: "Instalación Sistema de CCTV",
+    descripcion: "Instalación de 8 cámaras IP en local comercial de 2 pisos. Incluye DVR, cableado estructurado y configuración de acceso remoto.",
+    terminos: "Pago 50% inicio, 50% al finalizar instalación verificada.",
+    pago: "650",
+    distancia_km: 2.8,
+    lat: 7.128,
+    lng: -73.140,
+    status: "available"
+  },
+  {
+    id: "job9",
+    cliente_nombre: "Daniela Cruz",
+    cliente_avatar: "",
+    cliente_calificacion: 4.9,
+    titulo_trabajo: "Traducción de Manual Técnico (EN→ES)",
+    descripcion: "Traducción y adaptación de manual técnico de maquinaria industrial, 80 páginas, terminología especializada.",
+    terminos: "Precio por página. Escrow activado al inicio.",
+    pago: "160",
+    distancia_km: 0.4,
+    lat: 7.119,
+    lng: -73.109,
+    status: "available"
+  },
+  {
+    id: "job10",
+    cliente_nombre: "Felipe Torres",
+    cliente_avatar: "",
+    cliente_calificacion: 4.6,
+    titulo_trabajo: "Desarrollo de App Móvil en Flutter",
+    descripcion: "MVP de app de delivery local para Android e iOS. Módulos: catálogo, carrito, pagos con PayU y seguimiento en tiempo real.",
+    terminos: "Por sprints de 2 semanas. Pago por entrega aprobada.",
+    pago: "1200",
+    distancia_km: 4.0,
+    lat: 7.103,
+    lng: -73.145,
+    status: "available"
+  },
+  {
+    id: "job11",
+    cliente_nombre: "Gabriela Mendez",
+    cliente_avatar: "",
+    cliente_calificacion: 4.8,
+    titulo_trabajo: "Consultoría Financiera Startup",
+    descripcion: "Asesoría para modelo financiero, proyecciones a 3 años, pitch deck para inversionistas y estructura societaria.",
+    terminos: "Pago por sesión (3 sesiones). Garantía TrustMarket.",
+    pago: "420",
+    distancia_km: 1.7,
+    lat: 7.136,
+    lng: -73.105,
+    status: "available"
+  },
+  {
+    id: "job12",
+    cliente_nombre: "Camilo Herrera",
+    cliente_avatar: "",
+    cliente_calificacion: 4.5,
+    titulo_trabajo: "Clase Particular de Inglés B2",
+    descripcion: "10 clases de inglés de conversación avanzada (B2-C1) para ejecutivo. Enfoque en vocabulario de negocios y presentaciones.",
+    terminos: "Pago por paquete completo en escrow. Horario flexible.",
+    pago: "90",
+    distancia_km: 0.9,
+    lat: 7.124,
+    lng: -73.117,
+    status: "available"
+  },
+  {
+    id: "job13",
+    cliente_nombre: "Natalia Ospina",
+    cliente_avatar: "",
+    cliente_calificacion: 4.9,
+    titulo_trabajo: "Rediseño de Tienda WooCommerce",
+    descripcion: "Actualización de plantilla, optimización de velocidad, pasarela de pago con MercadoPago y configuración de envíos automáticos.",
+    terminos: "Anticipo 40% en escrow, resto al go-live.",
+    pago: "380",
+    distancia_km: 2.2,
+    lat: 7.107,
+    lng: -73.122,
+    status: "available"
+  },
+  {
+    id: "job14",
+    cliente_nombre: "Santiago Ruiz",
+    cliente_avatar: "",
+    cliente_calificacion: 4.7,
+    titulo_trabajo: "Fotografía de Producto eCommerce",
+    descripcion: "Sesión fotográfica para 40 productos de joyería artesanal. Fondo blanco, sombra suave, retoque profesional y formato webp optimizado.",
+    terminos: "Sesión en estudio. Pago 100% en escrow al confirmar trabajo.",
+    pago: "340",
+    distancia_km: 3.5,
+    lat: 7.096,
+    lng: -73.132,
+    status: "available"
+  },
+  {
+    id: "job15",
+    cliente_nombre: "Isabela Guerrero",
+    cliente_avatar: "",
+    cliente_calificacion: 4.8,
+    titulo_trabajo: "Montaje de Muebles y Rack de Oficina",
+    descripcion: "Armado e instalación de 8 escritorios modulares, 4 sillas ergonómicas y sistema de rack de servidores en oficina nueva.",
+    terminos: "Pago contra entrega verificada. Escrow TrustMarket activo.",
+    pago: "180",
+    distancia_km: 1.1,
+    lat: 7.117,
+    lng: -73.098,
+    status: "available"
   }
 ];
 
@@ -159,6 +327,10 @@ export default function MapaExpertos() {
   const [departamento, setDepartamento] = useState("Santander");
   const [ciudad, setCiudad] = useState("Bucaramanga");
   const [mapCenter, setMapCenter] = useState<{lat: number, lng: number} | null>(null);
+
+  // Jobs-mode location search
+  const [jobSearch, setJobSearch] = useState("");
+  const [jobSearchLoading, setJobSearchLoading] = useState(false);
 
   // Profile metadata
   const [profileName, setProfileName] = useState("Profesional");
@@ -228,26 +400,58 @@ export default function MapaExpertos() {
     handleMiUbicacion();
   }, [handleMiUbicacion]);
 
-  // ── Shift Job Offers relative to user's real GPS coordinates ────────────────
+  // ── Shift Job Offers relative to user/search coordinates ───────────────────
+  const rebaseJobs = useCallback((center: { lat: number; lng: number }) => {
+    const offsets = [
+      { dLat: 0.005, dLng: 0.005, dist: 0.8 },
+      { dLat: -0.004, dLng: -0.004, dist: 1.2 },
+      { dLat: 0.002, dLng: -0.007, dist: 1.9 },
+      { dLat: 0.009, dLng: 0.003, dist: 2.3 },
+      { dLat: -0.008, dLng: 0.006, dist: 0.6 },
+      { dLat: 0.006, dLng: -0.011, dist: 3.1 },
+      { dLat: -0.003, dLng: -0.009, dist: 1.5 },
+      { dLat: 0.012, dLng: 0.008, dist: 2.8 },
+      { dLat: -0.001, dLng: 0.011, dist: 0.4 },
+      { dLat: -0.014, dLng: -0.002, dist: 4.0 },
+      { dLat: 0.011, dLng: -0.005, dist: 1.7 },
+      { dLat: -0.006, dLng: 0.014, dist: 0.9 },
+      { dLat: 0.003, dLng: -0.015, dist: 2.2 },
+      { dLat: -0.016, dLng: -0.008, dist: 3.5 },
+      { dLat: 0.007, dLng: 0.016, dist: 1.1 },
+    ];
+    const updated = MOCK_JOBS.map((job, idx) => {
+      const off = offsets[idx] || { dLat: (Math.random() - 0.5) * 0.02, dLng: (Math.random() - 0.5) * 0.02, dist: 2.0 };
+      return { ...job, lat: center.lat + off.dLat, lng: center.lng + off.dLng, distancia_km: off.dist };
+    });
+    setJobs(updated);
+  }, []);
+
   useEffect(() => {
     if (userLocation) {
-      const updated = MOCK_JOBS.map((job, idx) => {
-        const offsets = [
-          { dLat: 0.005, dLng: 0.005, dist: 0.8 },
-          { dLat: -0.004, dLng: -0.004, dist: 1.2 },
-          { dLat: 0.002, dLng: -0.007, dist: 1.9 }
-        ];
-        const off = offsets[idx] || { dLat: 0, dLng: 0, dist: 1.0 };
-        return {
-          ...job,
-          lat: userLocation.lat + off.dLat,
-          lng: userLocation.lng + off.dLng,
-          distancia_km: off.dist
-        };
-      });
-      setJobs(updated);
+      rebaseJobs(userLocation);
     }
-  }, [userLocation]);
+  }, [userLocation, rebaseJobs]);
+
+  // ── Jobs-mode: geocode search query ────────────────────────────────────────
+  const handleJobSearch = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if (!jobSearch.trim()) return;
+    setJobSearchLoading(true);
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(jobSearch)}&limit=1`)
+      .then(res => res.json())
+      .then((data: Array<{ lat: string; lon: string; display_name: string }>) => {
+        if (data && data.length > 0) {
+          const newCenter = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+          setMapCenter(newCenter);
+          rebaseJobs(newCenter);
+          showToast(`✓ Mostrando ofertas cerca de: ${data[0].display_name.split(',').slice(0, 2).join(',')}`);
+        } else {
+          showToast("No se encontró esa ubicación. Intenta con otra ciudad.");
+        }
+      })
+      .catch(() => showToast("Error al buscar. Verifica tu conexión."))
+      .finally(() => setJobSearchLoading(false));
+  }, [jobSearch, rebaseJobs, showToast]);
 
   // ── Fetch experts from Supabase (for Experts mode) ──────────────────────────
   const fetchExperts = useCallback(async () => {
@@ -441,17 +645,46 @@ export default function MapaExpertos() {
             />
           )}
 
-          {/* Floating Live Indicator shown on Jobs mode */}
+          {/* Floating Live Indicator + search bar shown on Jobs mode */}
           {mode === "jobs" && (
-            <div className="absolute top-6 left-6 z-40 bg-white/95 backdrop-blur-md px-4.5 py-3 rounded-2xl border border-sky-100 shadow-lg flex items-center gap-3">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
-              </span>
-              <div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">EMPLEOS EN VIVO</span>
-                <span className="text-xs font-extrabold text-[#0d1c2e]">Monitoreando ofertas de trabajo...</span>
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 w-full max-w-md px-4">
+              {/* Live pill */}
+              <div className="flex justify-center mb-2">
+                <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl border border-sky-100 shadow-lg flex items-center gap-3">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                  </span>
+                  <div>
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">EMPLEOS EN VIVO</span>
+                    <span className="text-xs font-extrabold text-[#0d1c2e]">{jobs.filter(j => j.status === 'available').length} ofertas activas cerca de ti</span>
+                  </div>
+                </div>
               </div>
+
+              {/* Search bar */}
+              <form onSubmit={handleJobSearch} className="flex items-center gap-2 bg-white/95 backdrop-blur-md rounded-2xl border border-sky-100 shadow-xl px-4 py-3">
+                <span className="material-symbols-outlined text-[#D81B60] text-[20px] shrink-0">location_on</span>
+                <input
+                  type="text"
+                  value={jobSearch}
+                  onChange={e => setJobSearch(e.target.value)}
+                  placeholder="Buscar por ciudad o dirección…"
+                  className="flex-1 text-sm font-medium text-[#0d1c2e] placeholder:text-slate-400 bg-transparent focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={jobSearchLoading || !jobSearch.trim()}
+                  className="px-4 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold text-xs rounded-xl hover:brightness-105 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 shrink-0"
+                >
+                  {jobSearchLoading ? (
+                    <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <span className="material-symbols-outlined text-[16px] leading-none">search</span>
+                  )}
+                  Ir
+                </button>
+              </form>
             </div>
           )}
 

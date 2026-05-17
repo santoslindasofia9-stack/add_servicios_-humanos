@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion, Variants } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { 
   ArrowLeft, 
   CheckCircle2, 
@@ -13,13 +13,238 @@ import {
   Package, 
   PenTool,
   BadgeCheck,
-  ChevronRight
+  ChevronRight,
+  X,
+  Loader2,
+  Shield,
+  AlertCircle,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+type PayMethod = 'paypal' | 'nequi' | 'bancolombia' | 'daviplata' | 'pse';
+type PayState = 'idle' | 'processing' | 'success';
+
+const PSE_BANKS = [
+  'Banco de Bogotá', 'Bancolombia', 'Davivienda', 'BBVA Colombia',
+  'Banco de Occidente', 'Banco Popular', 'Colpatria', 'AV Villas',
+];
+
+const PAYMENT_METHODS: {
+  id: PayMethod; label: string; description: string;
+  bg: string; border: string; color: string;
+  icon: React.ReactNode;
+}[] = [
+  {
+    id: 'paypal', label: 'PayPal', description: 'Paga con tu cuenta PayPal de forma segura.',
+    bg: '#e8f0fe', border: '#b8d0f5', color: '#003087',
+    icon: <svg viewBox="0 0 50 20" className="w-12 h-5"><text x="0" y="15" fontSize="13" fontWeight="bold" fill="#003087">Pay</text><text x="24" y="15" fontSize="13" fontWeight="bold" fill="#009cde">Pal</text></svg>,
+  },
+  {
+    id: 'nequi', label: 'Nequi', description: 'Paga desde tu app Nequi en segundos.',
+    bg: '#f3e8ff', border: '#d9b3ff', color: '#6c00ea',
+    icon: <svg viewBox="0 0 40 40" className="w-8 h-8"><rect width="40" height="40" rx="10" fill="#6c00ea"/><text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="14" fontWeight="bold">N</text></svg>,
+  },
+  {
+    id: 'bancolombia', label: 'Bancolombia', description: 'Transfiere directamente desde Bancolombia.',
+    bg: '#fffbeb', border: '#fde68a', color: '#78350f',
+    icon: <svg viewBox="0 0 40 40" className="w-8 h-8"><rect width="40" height="40" rx="10" fill="#f5a800"/><text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="11" fontWeight="bold">BC</text></svg>,
+  },
+  {
+    id: 'daviplata', label: 'Daviplata', description: 'Paga con tu billetera Daviplata.',
+    bg: '#fff1f2', border: '#fecdd3', color: '#e0001b',
+    icon: <svg viewBox="0 0 40 40" className="w-8 h-8"><rect width="40" height="40" rx="10" fill="#e0001b"/><text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="11" fontWeight="bold">DP</text></svg>,
+  },
+  {
+    id: 'pse', label: 'PSE', description: 'Débito desde cualquier banco colombiano.',
+    bg: '#e3f2fd', border: '#90caf9', color: '#0d47a1',
+    icon: <svg viewBox="0 0 40 40" className="w-8 h-8"><rect width="40" height="40" rx="10" fill="#0d47a1"/><text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="11" fontWeight="bold">PSE</text></svg>,
+  },
+];
+
 const ContractConfirmationPage = () => {
   const router = useRouter();
+
+  // Payment modal state
+  const [isPayOpen, setIsPayOpen] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState<PayMethod | null>(null);
+  const [payState, setPayState] = useState<PayState>('idle');
+  const [ppEmail, setPpEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [pseBank, setPseBank] = useState('');
+  const [pseDoc, setPseDoc] = useState('');
+
+  const HALF = '$1,225.00';
+
+  const openPayModal = () => {
+    setSelectedMethod(null);
+    setPayState('idle');
+    setIsPayOpen(true);
+  };
+
+  const closePayModal = () => {
+    if (payState === 'processing') return;
+    setIsPayOpen(false);
+    setSelectedMethod(null);
+    setPayState('idle');
+    setPpEmail(''); setPhone(''); setPseBank(''); setPseDoc('');
+  };
+
+  const handlePay = () => {
+    setPayState('processing');
+    setTimeout(() => {
+      setPayState('success');
+    }, 2800);
+  };
+
+  const copyText = (t: string) => navigator.clipboard.writeText(t).catch(() => {});
+
+  const selectedConfig = PAYMENT_METHODS.find(m => m.id === selectedMethod);
+
+  const renderPayBody = () => {
+    if (payState === 'success') {
+      return (
+        <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
+          className="flex flex-col items-center py-10 px-6 gap-4 text-center"
+        >
+          <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
+            <CheckCircle2 className="text-green-500" size={44} />
+          </div>
+          <h3 className="text-2xl font-extrabold text-[#0d1c2e]">¡Pago Exitoso!</h3>
+          <p className="text-[#43474b] text-sm leading-relaxed max-w-xs">
+            La primera mitad ha sido procesada. Tu contrato ahora está activo y el profesional ha sido notificado.
+          </p>
+          <div className="bg-green-50 border border-green-100 rounded-2xl p-4 w-full">
+            <p className="text-xs text-green-700 font-semibold uppercase tracking-wider mb-1">Anticipo pagado</p>
+            <p className="text-2xl font-black text-green-600">{HALF}</p>
+          </div>
+          <button
+            onClick={() => { setIsPayOpen(false); router.push('/seguimiento-proyecto'); }}
+            className="mt-2 w-full py-4 bg-[#0d1c2e] text-white font-bold rounded-2xl hover:bg-slate-800 transition-all active:scale-95"
+          >
+            Ir al Seguimiento del Proyecto →
+          </button>
+        </motion.div>
+      );
+    }
+    if (payState === 'processing') {
+      return (
+        <div className="flex flex-col items-center py-14 gap-4 text-center">
+          <Loader2 className="animate-spin text-sky-500" size={48} />
+          <p className="text-[#0d1c2e] font-bold text-lg">Procesando pago...</p>
+          <p className="text-[#43474b] text-sm">Por favor espera, no cierres esta ventana.</p>
+        </div>
+      );
+    }
+    if (!selectedMethod) {
+      return (
+        <div className="px-6 pb-6 space-y-3">
+          <p className="text-sm text-[#43474b] font-medium mb-4">Selecciona tu método de pago para el anticipo de <strong className="text-[#0d1c2e]">{HALF}</strong>.</p>
+          {PAYMENT_METHODS.map(m => (
+            <button key={m.id} onClick={() => setSelectedMethod(m.id)}
+              className="w-full flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:shadow-md hover:border-slate-200 transition-all text-left"
+            >
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: m.bg, border: `1.5px solid ${m.border}` }}>{m.icon}</div>
+              <div className="flex-1">
+                <p className="font-bold text-[#0d1c2e]">{m.label}</p>
+                <p className="text-xs text-[#73787b] font-medium mt-0.5">{m.description}</p>
+              </div>
+              <ChevronRight size={18} className="text-slate-300 shrink-0" />
+            </button>
+          ))}
+        </div>
+      );
+    }
+    if (selectedMethod === 'paypal') return (
+      <div className="space-y-4 px-6 pb-6">
+        <button onClick={() => setSelectedMethod(null)} className="flex items-center gap-1 text-xs text-[#50616b] font-bold mb-2 hover:underline"><ArrowLeft size={14}/> Volver</button>
+        <p className="text-sm text-[#43474b]">Ingresa tu correo PayPal para autorizar <strong>{HALF}</strong>.</p>
+        <input type="email" value={ppEmail} onChange={e => setPpEmail(e.target.value)} placeholder="tucorreo@paypal.com"
+          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none transition-all" />
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 flex items-center gap-2">
+          <Shield size={14} className="text-blue-500 shrink-0"/>
+          <p className="text-xs text-blue-700 font-medium">Protegido por PayPal Buyer Protection</p>
+        </div>
+        <button onClick={handlePay} disabled={!ppEmail.includes('@')}
+          className="w-full py-4 bg-[#003087] text-white font-bold rounded-2xl hover:bg-[#002266] transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed">
+          Pagar con PayPal · {HALF}
+        </button>
+      </div>
+    );
+    if (selectedMethod === 'nequi') return (
+      <div className="space-y-4 px-6 pb-6">
+        <button onClick={() => setSelectedMethod(null)} className="flex items-center gap-1 text-xs text-[#50616b] font-bold mb-2 hover:underline"><ArrowLeft size={14}/> Volver</button>
+        <p className="text-sm text-[#43474b]">Ingresa tu celular Nequi. Recibirás una notificación push para confirmar <strong>{HALF}</strong>.</p>
+        <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,'').slice(0,10))} placeholder="3XX XXX XXXX"
+          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-purple-400 outline-none transition-all" />
+        <div className="bg-purple-50 border border-purple-100 rounded-xl p-3 flex items-center gap-2">
+          <AlertCircle size={14} className="text-purple-500 shrink-0"/>
+          <p className="text-xs text-purple-700 font-medium">Confirma en tu app Nequi cuando recibas la notificación.</p>
+        </div>
+        <button onClick={handlePay} disabled={phone.length < 10} style={{ background: '#6c00ea' }}
+          className="w-full py-4 text-white font-bold rounded-2xl transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed">
+          Enviar solicitud · {HALF}
+        </button>
+      </div>
+    );
+    if (selectedMethod === 'bancolombia') {
+      const ref = 'BC-TM-89231-A';
+      return (
+        <div className="space-y-4 px-6 pb-6">
+          <button onClick={() => setSelectedMethod(null)} className="flex items-center gap-1 text-xs text-[#50616b] font-bold mb-2 hover:underline"><ArrowLeft size={14}/> Volver</button>
+          <p className="text-sm text-[#43474b]">Transfiere <strong>{HALF}</strong> a la siguiente cuenta.</p>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 space-y-3">
+            {[{l:'Cuenta de ahorros',v:'420-123456-78'},{l:'NIT',v:'900.123.456-7'},{l:'Referencia',v:ref}].map(i=>(
+              <div key={i.l} className="flex justify-between items-center">
+                <div><p className="text-[10px] font-bold text-yellow-600 uppercase tracking-wider">{i.l}</p><p className="text-sm font-bold text-[#0d1c2e]">{i.v}</p></div>
+                <button onClick={() => copyText(i.v)} className="p-2 hover:bg-yellow-100 rounded-lg"><Copy size={13} className="text-yellow-600"/></button>
+              </div>
+            ))}
+          </div>
+          <button onClick={handlePay} style={{ background: '#f5a800' }}
+            className="w-full py-4 font-bold rounded-2xl transition-all active:scale-95 text-[#0d1c2e] flex items-center justify-center gap-2">
+            <ExternalLink size={16}/> Confirmar transferencia · {HALF}
+          </button>
+        </div>
+      );
+    }
+    if (selectedMethod === 'daviplata') return (
+      <div className="space-y-4 px-6 pb-6">
+        <button onClick={() => setSelectedMethod(null)} className="flex items-center gap-1 text-xs text-[#50616b] font-bold mb-2 hover:underline"><ArrowLeft size={14}/> Volver</button>
+        <p className="text-sm text-[#43474b]">Ingresa tu celular Daviplata para pagar <strong>{HALF}</strong>.</p>
+        <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,'').slice(0,10))} placeholder="3XX XXX XXXX"
+          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-400 outline-none transition-all" />
+        <div className="bg-red-50 border border-red-100 rounded-xl p-3 flex items-center gap-2">
+          <AlertCircle size={14} className="text-red-500 shrink-0"/>
+          <p className="text-xs text-red-700 font-medium">Recibirás un código de confirmación en tu celular.</p>
+        </div>
+        <button onClick={handlePay} disabled={phone.length < 10}
+          className="w-full py-4 bg-[#e0001b] text-white font-bold rounded-2xl hover:bg-[#b5001a] transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed">
+          Pagar con Daviplata · {HALF}
+        </button>
+      </div>
+    );
+    if (selectedMethod === 'pse') return (
+      <div className="space-y-4 px-6 pb-6">
+        <button onClick={() => setSelectedMethod(null)} className="flex items-center gap-1 text-xs text-[#50616b] font-bold mb-2 hover:underline"><ArrowLeft size={14}/> Volver</button>
+        <p className="text-sm text-[#43474b]">Paga <strong>{HALF}</strong> mediante débito bancario (PSE).</p>
+        <select value={pseBank} onChange={e => setPseBank(e.target.value)}
+          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 outline-none bg-white transition-all">
+          <option value="">Selecciona tu banco</option>
+          {PSE_BANKS.map(b => <option key={b} value={b}>{b}</option>)}
+        </select>
+        <input type="text" value={pseDoc} onChange={e => setPseDoc(e.target.value.replace(/\D/g,'').slice(0,12))} placeholder="Número de cédula"
+          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 outline-none transition-all" />
+        <button onClick={handlePay} disabled={!pseBank || pseDoc.length < 6}
+          className="w-full py-4 bg-[#0d47a1] text-white font-bold rounded-2xl hover:bg-[#093578] transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed">
+          Pagar con PSE · {HALF}
+        </button>
+      </div>
+    );
+    return null;
+  };
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -336,7 +561,7 @@ const ContractConfirmationPage = () => {
                 Revisar
               </button>
               <button 
-                onClick={() => router.push('/seguimiento-proyecto')}
+                onClick={openPayModal}
                 className="flex-[2] px-4 py-4 bg-[#6b5a60] text-white font-bold rounded-full shadow-lg shadow-[#6b5a60]/20 flex items-center justify-center gap-2 active:scale-95 transition-transform"
               >
                 Firmar Contrato <PenTool size={18} />
@@ -366,7 +591,7 @@ const ContractConfirmationPage = () => {
                 Revisar Términos
               </button>
               <button 
-                onClick={() => router.push('/seguimiento-proyecto')}
+                onClick={openPayModal}
                 className="px-14 py-5 bg-[#57534e] hover:bg-[#44403c] text-white font-bold rounded-full shadow-2xl shadow-[#57534e]/30 flex items-center gap-3 transform hover:-translate-y-1 transition-all text-lg"
               >
                 Firmar Contrato Digitalmente
@@ -376,6 +601,48 @@ const ContractConfirmationPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Payment Modal */}
+      <AnimatePresence>
+        {isPayOpen && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={closePayModal}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[200]"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 60, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 60, scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+              className="fixed bottom-0 left-0 right-0 md:inset-0 md:flex md:items-center md:justify-center z-[201] pointer-events-none"
+            >
+              <div className="bg-white rounded-t-3xl md:rounded-3xl w-full md:max-w-md pointer-events-auto shadow-2xl overflow-hidden">
+                {/* Modal header */}
+                {payState !== 'success' && payState !== 'processing' && (
+                  <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-slate-50">
+                    <div className="flex items-center gap-3">
+                      {selectedConfig ? (
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: selectedConfig.bg }}>{selectedConfig.icon}</div>
+                      ) : (
+                        <div className="w-10 h-10 rounded-xl bg-[#FCE4EC] flex items-center justify-center"><Wallet size={20} className="text-[#880e4f]" /></div>
+                      )}
+                      <div>
+                        <p className="font-extrabold text-[#0d1c2e] text-base">{selectedConfig ? selectedConfig.label : 'Pago del Anticipo'}</p>
+                        <p className="text-xs text-[#73787b] font-medium">Primera mitad · {HALF}</p>
+                      </div>
+                    </div>
+                    <button onClick={closePayModal} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
+                      <X size={18} className="text-[#73787b]" />
+                    </button>
+                  </div>
+                )}
+                <div className="pt-4">{renderPayBody()}</div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <style jsx>{`
         .ethereal-gradient {

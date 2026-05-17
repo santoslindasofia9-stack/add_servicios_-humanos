@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,6 +46,41 @@ const SUGGESTED_CHIPS = [
   "Comprometido con la excelencia y satisfacción total."
 ];
 
+// Expanded Specialties: Added 16 new ones (total 23 options)
+const PROFESSIONS_LIST = [
+  "Desarrollo de Software & Web",
+  "Diseño UX/UI & Dirección de Arte",
+  "Electricidad & Redes Eléctricas",
+  "Plomería, Calefacción & Gasfitería",
+  "Arquitectura & Diseño de Interiores",
+  "Consultor de Finanzas & Legal",
+  "Soporte Técnico de TI",
+  "Marketing Digital & SEO Specialist",
+  "Redactor de Contenido & Copywriter",
+  "Community Manager & Redes Sociales",
+  "Profesor Particular & Tutor Académico",
+  "Fotógrafo & Videógrafo Profesional",
+  "Traductor & Intérprete Bilingüe",
+  "Entrenador Personal & Coach de Bienestar",
+  "Diseñador de Modas & Asesor de Imagen",
+  "Asistente Virtual & Administración",
+  "Psicólogo & Terapeuta Online",
+  "Nutricionista & Dietista Certificado",
+  "Jardinero & Paisajista Residencial",
+  "Técnico de Aire Acondicionado & Refrigeración",
+  "Pintor & Decorador de Interiores",
+  "Carpintero & Ebanista Profesional",
+  "Otro (Escribir especialidad personalizada)"
+];
+
+// Vulgar / Inappropriate words policy filter
+const BANNED_WORDS = [
+  "pendejo", "pendeja", "mierda", "cabron", "cabrona", "puta", "puto", "hijo de puta", 
+  "marica", "maricon", "culero", "culera", "pingo", "verga", "ass", "bitch", "bastardo", 
+  "chupa", "gonorrea", "hp", "idiota", "estupido", "estupida", "pene", "vagina", "anal",
+  "cbron", "putita", "mrd", "asshole", "fuck"
+];
+
 interface Certificate {
   id: string;
   titulo: string;
@@ -62,14 +97,24 @@ export default function VerificacionPro() {
   const [auditLogs, setAuditLogs] = useState<string[]>([]);
   const [auditStep, setAuditStep] = useState(0);
 
+  // File inputs references for direct preview click triggers
+  const cvInputRef = useRef<HTMLInputElement>(null);
+  const idInputRef = useRef<HTMLInputElement>(null);
+
   // Form states
   const [nombre, setNombre] = useState("");
   const [avatar, setAvatar] = useState(PRESET_AVATARS[0].url);
-  const [especialidad, setEspecialidad] = useState("Desarrollo de Software");
+  const [especialidad, setEspecialidad] = useState("Desarrollo de Software & Web");
+  const [customEspecialidad, setCustomEspecialidad] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [experiencia, setExperiencia] = useState("3");
   const [tarifa, setTarifa] = useState("35");
   
+  // Security checks states
+  const [nombreError, setNombreError] = useState<string | null>(null);
+  const [descripcionError, setDescripcionError] = useState<string | null>(null);
+  const [customEspecialidadError, setCustomEspecialidadError] = useState<string | null>(null);
+
   // File upload simulation states
   const [cvFile, setCvFile] = useState<string | null>(null);
   const [cvUploading, setCvUploading] = useState(false);
@@ -96,6 +141,45 @@ export default function VerificacionPro() {
       setNombre(savedName);
     }
   }, []);
+
+  // Content security policy checker
+  const hasInappropriateWords = (text: string): boolean => {
+    const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return BANNED_WORDS.some(word => {
+      const regex = new RegExp(`\\b${word}\\b|${word}`, "i");
+      return regex.test(cleanText);
+    });
+  };
+
+  // Real-time validation checks
+  useEffect(() => {
+    if (nombre.trim() && hasInappropriateWords(nombre)) {
+      setNombreError("Política de Seguridad: Se ha detectado un término inapropiado. Por favor, utiliza tu nombre real.");
+    } else {
+      setNombreError(null);
+    }
+  }, [nombre]);
+
+  useEffect(() => {
+    if (descripcion.trim() && hasInappropriateWords(descripcion)) {
+      setDescripcionError("Política de Seguridad: Tu biografía contiene términos no aptos para un perfil profesional.");
+    } else {
+      setDescripcionError(null);
+    }
+  }, [descripcion]);
+
+  useEffect(() => {
+    if (customEspecialidad.trim() && hasInappropriateWords(customEspecialidad)) {
+      setCustomEspecialidadError("Política de Seguridad: El término de tu profesión personalizada no está permitido.");
+    } else {
+      setCustomEspecialidadError(null);
+    }
+  }, [customEspecialidad]);
+
+  // Combined customized specialty
+  const displayedEspecialidad = especialidad === "Otro (Escribir especialidad personalizada)"
+    ? (customEspecialidad || "Especialidad Personalizada")
+    : especialidad;
 
   // Description suggestion handler
   const addChipToDescription = (chip: string) => {
@@ -214,7 +298,7 @@ export default function VerificacionPro() {
         setTimeout(() => {
           // Guardar estado verificado en localStorage
           localStorage.setItem("isProVerified", "true");
-          localStorage.setItem("proSpecialty", especialidad);
+          localStorage.setItem("proSpecialty", displayedEspecialidad);
           localStorage.setItem("proAvatar", avatar);
           localStorage.setItem("proDescription", descripcion);
           localStorage.setItem("proTarifa", tarifa);
@@ -227,6 +311,9 @@ export default function VerificacionPro() {
       }
     }, 600);
   };
+
+  // Check if step 1 has any validation error to block progress
+  const hasStep1Errors = !!(nombreError || descripcionError || customEspecialidadError || !nombre.trim() || !descripcion.trim() || (especialidad === "Otro (Escribir especialidad personalizada)" && !customEspecialidad.trim()));
 
   return (
     <main className="relative min-h-screen w-full bg-[#f8f9ff] font-plus-jakarta overflow-hidden pb-12">
@@ -293,11 +380,11 @@ export default function VerificacionPro() {
               </div>
               
               <div className="space-y-1">
-                <h3 className="text-xl font-bold text-[#0d1c2e] leading-none">
-                  {nombre || "Tu nombre aquí"}
+                <h3 className={`text-xl font-bold leading-none transition-colors ${nombreError ? "text-red-500" : "text-[#0d1c2e]"}`}>
+                  {nombreError ? "Nombre Inapropiado" : (nombre || "Tu nombre aquí")}
                 </h3>
-                <p className="text-sm font-semibold text-sky-600">
-                  {especialidad || "Especialidad"}
+                <p className={`text-sm font-semibold transition-colors ${customEspecialidadError ? "text-red-500" : "text-sky-600"}`}>
+                  {customEspecialidadError ? "Especialidad Inapropiada" : displayedEspecialidad}
                 </p>
                 <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
                   <div className="flex items-center text-amber-400">
@@ -331,25 +418,50 @@ export default function VerificacionPro() {
             {/* Bio Description Preview */}
             <div className="space-y-2 mb-6">
               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sobre Mí</h4>
-              <p className="text-sm text-[#5e6f79] font-medium leading-relaxed italic bg-white/50 p-3 rounded-2xl border border-slate-50 min-h-[60px]">
-                {descripcion || '"Escribe algo sobre tu trayectoria profesional y lo que ofreces a tus clientes en el formulario de la derecha..."'}
+              <p className={`text-sm font-medium leading-relaxed italic bg-white/50 p-3 rounded-2xl border min-h-[60px] transition-colors ${descripcionError ? "text-red-500 bg-red-50/30 border-red-100" : "text-[#5e6f79] border-slate-50"}`}>
+                {descripcionError ? `"${descripcionError}"` : (descripcion || '"Escribe algo sobre tu trayectoria profesional y lo que ofreces a tus clientes en el formulario de la derecha..."')}
               </p>
             </div>
 
-            {/* Document Badges */}
+            {/* Document Badges (Dynamic Clickable Uploaders) */}
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Documentación Verificada</h4>
+              <div className="flex items-center justify-between">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Documentación Verificada</h4>
+                <span className="text-[9px] font-bold text-sky-500 animate-pulse">¡Haz clic para subir rápido!</span>
+              </div>
+              
               <div className="grid grid-cols-3 gap-2">
-                <div className={`p-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${cvFile ? "bg-emerald-50/50 border-emerald-200 text-emerald-800" : "bg-slate-50 border-slate-100 text-slate-400"}`}>
-                  <FileText size={16} className={cvFile ? "text-emerald-600" : "text-slate-400"} />
+                {/* 1. Clickable CV Badge */}
+                <button
+                  type="button"
+                  onClick={() => cvInputRef.current?.click()}
+                  className={`p-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all cursor-pointer hover:scale-105 active:scale-95 group focus:outline-none ${
+                    cvFile 
+                      ? "bg-emerald-50/70 border-emerald-300 text-emerald-800 hover:bg-emerald-100/70" 
+                      : "bg-slate-50 border-slate-100 text-slate-400 hover:border-pink-200 hover:bg-pink-50/30"
+                  }`}
+                >
+                  <FileText size={16} className={`transition-transform group-hover:scale-110 ${cvFile ? "text-emerald-600" : "text-slate-400"}`} />
                   <span className="text-[9px] font-bold mt-1">Hoja de Vida</span>
-                  <span className="text-[8px] font-semibold mt-0.5">{cvFile ? "✓ Cargado" : "Pendiente"}</span>
-                </div>
-                <div className={`p-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${idFile ? "bg-emerald-50/50 border-emerald-200 text-emerald-800" : "bg-slate-50 border-slate-100 text-slate-400"}`}>
-                  <Shield size={16} className={idFile ? "text-emerald-600" : "text-slate-400"} />
+                  <span className="text-[8px] font-semibold mt-0.5">{cvFile ? "✓ Cargado" : "Clic para Subir"}</span>
+                </button>
+
+                {/* 2. Clickable ID Badge */}
+                <button
+                  type="button"
+                  onClick={() => idInputRef.current?.click()}
+                  className={`p-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all cursor-pointer hover:scale-105 active:scale-95 group focus:outline-none ${
+                    idFile 
+                      ? "bg-emerald-50/70 border-emerald-300 text-emerald-800 hover:bg-emerald-100/70" 
+                      : "bg-slate-50 border-slate-100 text-slate-400 hover:border-sky-200 hover:bg-sky-50/30"
+                  }`}
+                >
+                  <Shield size={16} className={`transition-transform group-hover:scale-110 ${idFile ? "text-emerald-600" : "text-slate-400"}`} />
                   <span className="text-[9px] font-bold mt-1">Identidad Oficial</span>
-                  <span className="text-[8px] font-semibold mt-0.5">{idFile ? "✓ Escaneado" : "Pendiente"}</span>
-                </div>
+                  <span className="text-[8px] font-semibold mt-0.5">{idFile ? "✓ Escaneado" : "Clic para Subir"}</span>
+                </button>
+
+                {/* 3. Certificates Badge */}
                 <div className={`p-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${certificados.length > 0 ? "bg-emerald-50/50 border-emerald-200 text-emerald-800" : "bg-slate-50 border-slate-100 text-slate-400"}`}>
                   <Award size={16} className={certificados.length > 0 ? "text-emerald-600" : "text-slate-400"} />
                   <span className="text-[9px] font-bold mt-1">Certificados</span>
@@ -392,7 +504,7 @@ export default function VerificacionPro() {
               <button
                 key={s}
                 onClick={() => s < step && setStep(s)}
-                disabled={s >= step}
+                disabled={s >= step || (s > 1 && hasStep1Errors)}
                 className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all ${
                   step === s
                     ? "bg-[#FCE4EC] border-[#fcd7e5] text-[#0d1c2e] scale-110 shadow-md"
@@ -435,19 +547,45 @@ export default function VerificacionPro() {
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-6"
                 >
-                  {/* Name field */}
+                  {/* Name field with real-time Security Policy Badges */}
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-[#0d1c2e]">Nombre Completo del Profesional</label>
+                    <div className="flex justify-between items-center">
+                      <label className="text-sm font-bold text-[#0d1c2e]">Nombre Completo del Profesional</label>
+                      <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Shield size={10} className="text-sky-500" />
+                        Seguridad Activa
+                      </span>
+                    </div>
+
                     <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                      <User className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${nombreError ? "text-red-500 animate-bounce" : "text-slate-400"}`} size={18} />
                       <input
                         type="text"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
                         placeholder="Ingresa tu nombre completo"
-                        className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30 transition-all font-medium text-[#0d1c2e]"
+                        className={`w-full pl-12 pr-4 py-3.5 bg-slate-50 border rounded-2xl focus:outline-none focus:bg-white transition-all font-medium text-[#0d1c2e] ${
+                          nombreError 
+                            ? "border-red-300 focus:border-red-400 focus:ring-4 focus:ring-red-100/50 text-red-700 bg-red-50/10" 
+                            : "border-slate-100 focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30"
+                        }`}
                       />
                     </div>
+
+                    {/* Animated validation alert message */}
+                    <AnimatePresence>
+                      {nombreError && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          className="flex gap-2 text-xs font-bold text-red-600 bg-red-50 border border-red-100 p-3 rounded-xl items-start"
+                        >
+                          <AlertTriangle className="shrink-0 mt-0.5 text-red-500" size={14} />
+                          <span>{nombreError}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Profile Picture / Quick Presets Selector */}
@@ -494,28 +632,58 @@ export default function VerificacionPro() {
                     </div>
                   </div>
 
-                  {/* Profession Selection */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-[#0d1c2e]">Especialidad Profesional</label>
-                    <div className="relative">
-                      <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                      <select
-                        value={especialidad}
-                        onChange={(e) => setEspecialidad(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30 transition-all font-semibold text-[#0d1c2e] appearance-none"
-                      >
-                        <option value="Desarrollo de Software">Desarrollo de Software & Web</option>
-                        <option value="Diseño UX/UI & Gráfico">Diseño UX/UI & Dirección de Arte</option>
-                        <option value="Servicio Eléctrico Residencial">Electricidad & Redes Eléctricas</option>
-                        <option value="Plomería y Gasfitería">Plomería, Calefacción & Gasfitería</option>
-                        <option value="Arquitectura y Diseño Interior">Arquitectura & Diseño de Interiores</option>
-                        <option value="Consultoría Financiera & Legal">Consultor de Finanzas & Legal</option>
-                        <option value="Soporte Técnico Informático">Soporte Técnico de TI</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                        ▼
+                  {/* Profession Selection (Dynamic + Custom Write-In Option) */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-[#0d1c2e]">Especialidad Profesional</label>
+                      <div className="relative">
+                        <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                        <select
+                          value={especialidad}
+                          onChange={(e) => setEspecialidad(e.target.value)}
+                          className="w-full pl-12 pr-10 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30 transition-all font-semibold text-[#0d1c2e] appearance-none cursor-pointer"
+                        >
+                          {PROFESSIONS_LIST.map((prof, idx) => (
+                            <option key={idx} value={prof}>{prof}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                          ▼
+                        </div>
                       </div>
                     </div>
+
+                    {/* Custom Profession Write-In Field with Framer Motion */}
+                    <AnimatePresence>
+                      {especialidad === "Otro (Escribir especialidad personalizada)" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="space-y-2 overflow-hidden"
+                        >
+                          <label className="text-xs font-bold text-slate-500 ml-1">Escribe tu profesión personalizada</label>
+                          <input
+                            type="text"
+                            value={customEspecialidad}
+                            onChange={(e) => setCustomEspecialidad(e.target.value)}
+                            placeholder="Ej. Entrenador de Caninos, Chef a Domicilio, Jardinero Paisajista..."
+                            className={`w-full px-4 py-3 bg-slate-50 border rounded-2xl focus:outline-none focus:bg-white transition-all font-medium text-[#0d1c2e] ${
+                              customEspecialidadError
+                                ? "border-red-300 focus:border-red-400 focus:ring-4 focus:ring-red-100/50 text-red-700 bg-red-50/10"
+                                : "border-slate-100 focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30"
+                            }`}
+                          />
+                          {customEspecialidadError && (
+                            <div className="flex gap-2 text-xs font-semibold text-red-600 bg-red-50 border border-red-100 p-2.5 rounded-xl items-center">
+                              <AlertTriangle className="shrink-0 text-red-500" size={14} />
+                              <span>{customEspecialidadError}</span>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Experience & Rate Grid */}
@@ -555,9 +723,20 @@ export default function VerificacionPro() {
                       value={descripcion}
                       onChange={(e) => setDescripcion(e.target.value)}
                       placeholder="Ej. Ofrezco servicios avanzados de diseño y desarrollo web. Especializado en Next.js, con enfoque en velocidad y diseño premium..."
-                      className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30 transition-all font-medium text-[#0d1c2e] text-sm leading-relaxed"
+                      className={`w-full p-4 bg-slate-50 border rounded-2xl focus:outline-none focus:bg-white transition-all font-medium text-[#0d1c2e] text-sm leading-relaxed ${
+                        descripcionError
+                          ? "border-red-300 focus:border-red-400 focus:ring-4 focus:ring-red-100/50 text-red-700 bg-red-50/10"
+                          : "border-slate-100 focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30"
+                      }`}
                     />
                     
+                    {descripcionError && (
+                      <div className="flex gap-2 text-xs font-semibold text-red-600 bg-red-50 border border-red-100 p-2.5 rounded-xl items-center">
+                        <AlertTriangle className="shrink-0 text-red-500" size={14} />
+                        <span>{descripcionError}</span>
+                      </div>
+                    )}
+
                     {/* Suggestion helper chips */}
                     <div className="space-y-1.5">
                       <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Sugerencias rápidas para tu bio:</span>
@@ -594,6 +773,7 @@ export default function VerificacionPro() {
                     
                     <div className="relative border-2 border-dashed border-slate-200 hover:border-[#FCE4EC] rounded-2xl p-6 bg-slate-50/50 flex flex-col items-center justify-center text-center transition-all">
                       <input 
+                        ref={cvInputRef}
                         type="file" 
                         accept=".pdf,.doc,.docx" 
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -609,10 +789,11 @@ export default function VerificacionPro() {
                           <span className="text-xs font-bold text-slate-500">Cargando {cvProgress}%</span>
                         </div>
                       ) : cvFile ? (
-                        <div className="space-y-2">
+                        <div className="space-y-2 relative z-10">
                           <CheckCircle2 className="mx-auto text-emerald-500" size={36} />
                           <p className="text-sm font-bold text-[#0d1c2e]">{cvFile}</p>
                           <button 
+                            type="button"
                             onClick={() => setCvFile(null)} 
                             className="text-xs font-bold text-red-500 hover:underline"
                           >
@@ -636,6 +817,7 @@ export default function VerificacionPro() {
                     
                     <div className="relative border-2 border-dashed border-slate-200 hover:border-sky-300 rounded-2xl p-6 bg-slate-50/50 flex flex-col items-center justify-center text-center transition-all overflow-hidden">
                       <input 
+                        ref={idInputRef}
                         type="file" 
                         accept="image/*,.pdf" 
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -651,12 +833,13 @@ export default function VerificacionPro() {
                           <span className="text-xs font-bold text-slate-500">Escaneando {idProgress}%</span>
                         </div>
                       ) : idFile ? (
-                        <div className="space-y-2">
+                        <div className="space-y-2 relative z-10">
                           <Shield className="mx-auto text-emerald-500 fill-emerald-100" size={36} />
                           <p className="text-sm font-bold text-[#0d1c2e]">Identidad Oficial Capturada</p>
                           <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">✓ Encriptado Seguro AES-256</span>
                           <p className="text-xs text-slate-400 mt-1">{idFile}</p>
                           <button 
+                            type="button"
                             onClick={() => setIdFile(null)} 
                             className="text-xs font-bold text-red-500 hover:underline block mx-auto"
                           >
@@ -736,6 +919,7 @@ export default function VerificacionPro() {
                               </span>
                             )}
                             <button
+                              type="button"
                               onClick={() => removeCertificate(cert.id)}
                               className="text-slate-300 hover:text-red-500 transition-colors"
                             >
@@ -768,7 +952,7 @@ export default function VerificacionPro() {
                       </div>
                       <div>
                         <span className="block text-slate-400 text-[10px] uppercase">Especialidad Principal</span>
-                        <span className="text-[#0d1c2e] font-bold text-sky-600">{especialidad}</span>
+                        <span className="text-[#0d1c2e] font-bold text-sky-600">{displayedEspecialidad}</span>
                       </div>
                       <div>
                         <span className="block text-slate-400 text-[10px] uppercase">Años de Práctica</span>
@@ -875,7 +1059,7 @@ export default function VerificacionPro() {
               <button
                 type="button"
                 onClick={() => setStep(prev => prev + 1)}
-                disabled={step === 1 && (!nombre || !descripcion)}
+                disabled={step === 1 && hasStep1Errors}
                 className="group bg-[#0d1c2e] hover:bg-[#1a2c3a] text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2 disabled:opacity-45 disabled:cursor-not-allowed"
               >
                 Siguiente Paso

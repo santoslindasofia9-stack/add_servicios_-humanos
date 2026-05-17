@@ -424,7 +424,7 @@ export default function InboxPage() {
 
           {/* Agenda */}
           <a 
-            href="/seguimiento-proyecto" 
+            href="/agenda" 
             className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-[24px]">calendar_today</span>

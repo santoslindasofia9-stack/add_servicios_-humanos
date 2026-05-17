@@ -715,7 +715,7 @@ export default function PerfilYEditorDeServicios() {
 
           {/* Agenda */}
           <a 
-            href="/seguimiento-proyecto" 
+            href="/agenda" 
             className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95"
           >
             <span className="material-symbols-outlined text-[22px]">calendar_today</span>

@@ -19,7 +19,8 @@ import {
   Bell, 
   Info,
   Menu,
-  Briefcase
+  Briefcase,
+  RefreshCw
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/dashboard/BottomNav";
@@ -64,6 +65,7 @@ export default function PerfilPage() {
   const [userAvatar, setUserAvatar] = useState<string>(DEFAULT_AVATAR);
   const [userLocation, setUserLocation] = useState<string>("Ciudad de México (CDMX)");
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+  const [locationShared, setLocationShared] = useState<boolean>(false);
   
   // Form Edit States
   const [editName, setEditName] = useState<string>("");
@@ -110,6 +112,8 @@ export default function PerfilPage() {
               } else {
                 setUserLocation(formattedLocation);
                 localStorage.setItem("userLocation", formattedLocation);
+                localStorage.setItem("locationShared", "true");
+                setLocationShared(true);
               }
               
               triggerToast(
@@ -142,6 +146,7 @@ export default function PerfilPage() {
       const savedName = localStorage.getItem("userName");
       const savedAvatar = localStorage.getItem("userAvatar");
       const savedLocation = localStorage.getItem("userLocation");
+      const savedShared = localStorage.getItem("locationShared");
 
       if (savedName) setUserName(savedName);
       else localStorage.setItem("userName", "Mariana Rodríguez");
@@ -149,15 +154,21 @@ export default function PerfilPage() {
       if (savedAvatar) setUserAvatar(savedAvatar);
       else localStorage.setItem("userAvatar", DEFAULT_AVATAR);
 
+      if (savedShared === "true") {
+        setLocationShared(true);
+      }
+
       if (savedLocation) {
         setUserLocation(savedLocation);
-        // If it is the default location, try to geolocate to improve personalization
-        if (savedLocation === "Ciudad de México (CDMX)") {
+        // If it is the default location AND the user already accepted geolocation, auto-detect
+        if (savedLocation === "Ciudad de México (CDMX)" && savedShared === "true") {
           detectUserLocation(false);
         }
       } else {
         localStorage.setItem("userLocation", "Ciudad de México (CDMX)");
-        detectUserLocation(false);
+        if (savedShared === "true") {
+          detectUserLocation(false);
+        }
       }
     }
   }, []);
@@ -312,11 +323,52 @@ export default function PerfilPage() {
             </div>
           </div>
           
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/home-cliente" className="text-[#5e6f79] hover:text-[#0d1c2e] font-semibold transition-colors">Inicio</Link>
-            <Link href="/resultados" className="text-[#5e6f79] hover:text-[#0d1c2e] font-semibold transition-colors">Buscar</Link>
-            <Link href="/chat" className="text-[#5e6f79] hover:text-[#0d1c2e] font-semibold transition-colors">Mensajes</Link>
-          </nav>
+          {/* Header Location Prompt Widget (Replaces Desktop Navigation) */}
+          {!locationShared ? (
+            <div className="hidden md:flex items-center gap-4 bg-[#f0f9ff] border border-sky-100 px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(2,136,209,0.04)] transition-all duration-300">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                </span>
+                <span className="text-xs font-semibold text-[#0d1c2e] tracking-tight">¿Deseas compartir tu ubicación actual para tu perfil?</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    detectUserLocation(false);
+                  }}
+                  className="px-3 py-1 bg-[#0288D1] hover:bg-[#0277bd] text-white text-xs font-bold rounded-full transition-all active:scale-95 shadow-sm"
+                >
+                  Aceptar
+                </button>
+                <button
+                  onClick={() => {
+                    localStorage.setItem("locationShared", "denied");
+                    setLocationShared(true);
+                  }}
+                  className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-[#5e6f79] text-xs font-bold rounded-full transition-all"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center gap-3 bg-slate-50 border border-slate-100 px-4 py-1.5 rounded-full transition-all duration-300 hover:bg-slate-100/70">
+              <MapPin size={14} className="text-sky-500 shrink-0" />
+              <div className="flex flex-col text-left">
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none">Ubicación GPS</span>
+                <span className="text-xs font-extrabold text-[#0d1c2e] leading-tight line-clamp-1 max-w-[160px]">{userLocation}</span>
+              </div>
+              <button
+                onClick={() => detectUserLocation(false)}
+                className="ml-2 p-1.5 bg-white hover:bg-sky-50 text-[#0288D1] rounded-full border border-slate-100 transition-all active:scale-95 flex items-center justify-center shadow-sm"
+                title="Actualizar Ubicación automáticamente"
+              >
+                <RefreshCw size={10} className="text-[#0288D1]" />
+              </button>
+            </div>
+          )}
           
           <div className="flex items-center gap-4">
             <div className="relative p-2 hover:bg-slate-100 rounded-full transition-all cursor-pointer hidden md:block">

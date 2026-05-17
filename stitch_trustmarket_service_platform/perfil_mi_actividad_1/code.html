@@ -102,12 +102,34 @@
 </button>
 <h1 class="text-xl font-bold text-primary font-['Plus_Jakarta_Sans'] tracking-tight">Marketplace</h1>
 </div>
-<!-- Desktop Search Simulation -->
-<div class="hidden md:flex flex-1 max-w-md mx-8">
-<div class="relative w-full">
-<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-xl" data-icon="search">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Buscar profesionales..." type="text"/>
+<!-- Geolocation Prompt & Updater Widget (Replaces Desktop Search) -->
+<div id="location-header-widget" class="hidden md:flex items-center gap-4 bg-[#f0f9ff] border border-sky-100 px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(2,136,209,0.04)] transition-all duration-300">
+    <div class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+        </span>
+        <span class="text-xs font-semibold text-[#0d1c2e] tracking-tight">¿Deseas compartir tu ubicación actual para tu perfil?</span>
+    </div>
+    <div class="flex gap-2">
+        <button id="accept-location-btn" class="px-3 py-1 bg-[#0288D1] hover:bg-[#0277bd] text-white text-xs font-bold rounded-full transition-all active:scale-95 shadow-sm">
+            Aceptar
+        </button>
+        <button id="deny-location-btn" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-[#5e6f79] text-xs font-bold rounded-full transition-all">
+            No
+        </button>
+    </div>
 </div>
+
+<div id="location-status-widget" class="hidden items-center gap-3 bg-surface-container-low border border-slate-100 px-4 py-1.5 rounded-full transition-all duration-300 hover:bg-surface-container">
+    <span class="material-symbols-outlined text-sky-500 text-lg">location_on</span>
+    <div class="flex flex-col text-left">
+        <span class="text-[9px] font-bold text-outline uppercase tracking-wider leading-none">Ubicación GPS</span>
+        <span id="header-location-name" class="text-xs font-extrabold text-[#0d1c2e] leading-tight line-clamp-1 max-w-[160px]">CDMX</span>
+    </div>
+    <button id="sync-location-btn" class="ml-2 p-1.5 bg-white hover:bg-sky-50 text-[#0288D1] rounded-full border border-slate-100 transition-all active:scale-95 flex items-center justify-center shadow-sm" title="Actualizar Ubicación automáticamente">
+        <span class="material-symbols-outlined text-xs font-bold block" style="font-variation-settings: 'opsz' 12">sync</span>
+    </button>
 </div>
 <div class="flex items-center gap-4">
 <button id="notifications-header-btn" class="hidden md:flex p-2 hover:bg-surface-container rounded-full relative cursor-pointer">
@@ -411,43 +433,114 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const locationElement = document.getElementById("user-location-info");
-        
+        const locationHeaderWidget = document.getElementById("location-header-widget");
+        const locationStatusWidget = document.getElementById("location-status-widget");
+        const headerLocationName = document.getElementById("header-location-name");
+        const acceptLocationBtn = document.getElementById("accept-location-btn");
+        const denyLocationBtn = document.getElementById("deny-location-btn");
+        const syncLocationBtn = document.getElementById("sync-location-btn");
+
+        // Helper to update location UI
+        const updateLocationUI = (location) => {
+            if (locationElement) {
+                locationElement.innerHTML = `Miembro desde Enero 2023 • ${location}`;
+            }
+            if (headerLocationName) {
+                headerLocationName.innerText = location;
+            }
+        };
+
         // Try to read previously stored location from localStorage
-        const savedLocation = localStorage.getItem("userLocation");
-        if (savedLocation) {
-            locationElement.innerHTML = `Miembro desde Enero 2023 • ${savedLocation}`;
-        }
-        
-        // Dynamic GPS location detection
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    try {
-                        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`, {
-                            headers: {
-                                "Accept-Language": "es"
+        const savedLocation = localStorage.getItem("userLocation") || "Ciudad de México (CDMX)";
+        const savedShared = localStorage.getItem("locationShared");
+
+        updateLocationUI(savedLocation);
+
+        const requestGPSLocation = () => {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        try {
+                            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`, {
+                                headers: {
+                                    "Accept-Language": "es"
+                                }
+                            });
+                            if (res.ok) {
+                                const data = await res.json();
+                                const address = data.address;
+                                const city = address.city || address.town || address.village || address.suburb || address.county || address.state || "Bucaramanga";
+                                const country = address.country || "Colombia";
+                                const formattedLocation = `${city}, ${country}`;
+                                
+                                // Save to localStorage for synchronization
+                                localStorage.setItem("userLocation", formattedLocation);
+                                localStorage.setItem("locationShared", "true");
+                                
+                                updateLocationUI(formattedLocation);
+                                
+                                // Switch widgets
+                                if (locationHeaderWidget) locationHeaderWidget.classList.add("hidden");
+                                if (locationStatusWidget) {
+                                    locationStatusWidget.classList.remove("hidden");
+                                    locationStatusWidget.classList.add("flex");
+                                }
                             }
-                        });
-                        if (res.ok) {
-                            const data = await res.json();
-                            const address = data.address;
-                            const city = address.city || address.town || address.village || address.suburb || address.county || address.state || "Bucaramanga";
-                            const country = address.country || "Colombia";
-                            const formattedLocation = `${city}, ${country}`;
-                            
-                            // Save to localStorage for synchronization
-                            localStorage.setItem("userLocation", formattedLocation);
-                            locationElement.innerHTML = `Miembro desde Enero 2023 • ${formattedLocation}`;
+                        } catch (err) {
+                            console.error("Error geocoding location:", err);
                         }
-                    } catch (err) {
-                        console.error("Error geocoding location:", err);
+                    },
+                    (error) => {
+                        console.warn("Geolocation permission error or denied:", error);
                     }
-                },
-                (error) => {
-                    console.warn("Geolocation permission error or denied:", error);
+                );
+            }
+        };
+
+        if (savedShared === "true") {
+            if (locationHeaderWidget) locationHeaderWidget.classList.add("hidden");
+            if (locationStatusWidget) {
+                locationStatusWidget.classList.remove("hidden");
+                locationStatusWidget.classList.add("flex");
+            }
+            requestGPSLocation();
+        } else if (savedShared === "denied") {
+            if (locationHeaderWidget) locationHeaderWidget.classList.add("hidden");
+            if (locationStatusWidget) {
+                locationStatusWidget.classList.remove("hidden");
+                locationStatusWidget.classList.add("flex");
+            }
+        } else {
+            // Show prompt
+            if (locationHeaderWidget) {
+                locationHeaderWidget.classList.remove("hidden");
+                locationHeaderWidget.classList.add("flex");
+            }
+            if (locationStatusWidget) locationStatusWidget.classList.add("hidden");
+        }
+
+        if (acceptLocationBtn) {
+            acceptLocationBtn.addEventListener("click", () => {
+                requestGPSLocation();
+            });
+        }
+
+        if (denyLocationBtn) {
+            denyLocationBtn.addEventListener("click", () => {
+                localStorage.setItem("locationShared", "denied");
+                if (locationHeaderWidget) locationHeaderWidget.classList.add("hidden");
+                if (locationStatusWidget) {
+                    locationStatusWidget.classList.remove("hidden");
+                    locationStatusWidget.classList.add("flex");
                 }
-            );
+            });
+        }
+
+        if (syncLocationBtn) {
+            syncLocationBtn.addEventListener("click", () => {
+                requestGPSLocation();
+            });
         }
 
         // Drawer Elements and Event Listeners

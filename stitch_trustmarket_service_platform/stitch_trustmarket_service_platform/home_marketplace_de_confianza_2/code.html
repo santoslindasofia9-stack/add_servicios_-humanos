@@ -418,6 +418,14 @@
             searchBtn.addEventListener("click", executeSearch);
         }
         if (searchInput) {
+            // Redirección instantánea al escribir cualquier carácter
+            searchInput.addEventListener("input", () => {
+                const query = searchInput.value.trim();
+                if (query.length > 0) {
+                    localStorage.setItem("lastSearchQuery", query);
+                    window.location.href = "../resultados_b_squeda_de_expertos_2/code.html";
+                }
+            });
             searchInput.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") {
                     executeSearch();

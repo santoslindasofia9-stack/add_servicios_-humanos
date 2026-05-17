@@ -164,15 +164,21 @@ export default async function ResultadosBusqueda({
   // If fallback is used, simulate filtering for demo purposes
   if (displayedExperts === FALLBACK_EXPERTS) {
     if (query) {
-      displayedExperts = displayedExperts.filter(e => 
+      const filtered = displayedExperts.filter(e => 
         e.nombre_completo.toLowerCase().includes(query.toLowerCase()) || 
         e.titulo_profesional.toLowerCase().includes(query.toLowerCase())
       );
+      if (filtered.length > 0) {
+        displayedExperts = filtered;
+      }
     }
     if (categoria) {
-      displayedExperts = displayedExperts.filter(e => 
+      const filtered = displayedExperts.filter(e => 
         e.categoria.toLowerCase() === categoria.toLowerCase()
       );
+      if (filtered.length > 0) {
+        displayedExperts = filtered;
+      }
     }
   }
 

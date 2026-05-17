@@ -159,6 +159,69 @@ export default function LiberacionFondosPage() {
     }, 2800);
   };
 
+  const downloadReceiptPDF = () => {
+    const docContent = `%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 3 0 R ] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [ 0 0 595 842 ] /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 320 >>
+stream
+BT
+/F1 20 Tf
+50 750 Td
+(TRUSTMARKET - RECIBO DE PAGO FINAL) Tj
+/F1 12 Tf
+0 -40 Td
+(Referencia de Pago: #MP-8829-XQ) Tj
+0 -20 Td
+(Estado: EXITOSO) Tj
+0 -20 Td
+(Monto Liberado: $2,250.00 USD) Tj
+0 -20 Td
+(Profesional Beneficiario: Expert Professional) Tj
+0 -20 Td
+(Servicio: Diseno de Identidad Visual Premium) Tj
+0 -20 Td
+(Fecha de Pago: 24 de Mayo, 2026) Tj
+0 -30 Td
+(Este documento es un comprobante de transaccion emitida de forma segura por TrustMarket.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000068 00000 n 
+0000000130 00000 n 
+0000000257 00000 n 
+0000000329 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+700
+%%EOF`;
+
+    const blob = new Blob([docContent], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Recibo_Pago_TrustMarket_2250.pdf';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   const copied = (text: string) => {
     navigator.clipboard.writeText(text).catch(() => {});
   };
@@ -185,12 +248,20 @@ export default function LiberacionFondosPage() {
             <p className="text-xs text-green-700 font-semibold uppercase tracking-wider mb-1">Monto liberado</p>
             <p className="text-2xl font-black text-green-600">{TOTAL}</p>
           </div>
-          <button
-            onClick={() => router.push('/confirmacion-pago-final')}
-            className="mt-4 w-full py-4 bg-[#0d1c2e] text-white font-bold rounded-2xl hover:bg-slate-800 transition-all active:scale-95"
-          >
-            Ver Recibo de Pago
-          </button>
+          <div className="space-y-3 w-full mt-4">
+            <button
+              onClick={downloadReceiptPDF}
+              className="w-full py-4 bg-[#0d1c2e] hover:bg-slate-800 text-white font-bold rounded-2xl transition-all active:scale-95 text-sm flex items-center justify-center gap-2"
+            >
+              Ver Recibo de Pago
+            </button>
+            <button
+              onClick={() => router.push('/confirmacion-pago-final')}
+              className="w-full py-4 bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold rounded-2xl transition-all active:scale-95 text-sm"
+            >
+              Siguiente
+            </button>
+          </div>
         </motion.div>
       );
     }

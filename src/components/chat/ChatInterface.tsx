@@ -542,20 +542,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
               </p>
             </div>
 
-            <div className="space-y-4">
-              <button 
-                onClick={handleAcceptProposal}
-                className="w-full py-4 rounded-full bg-[#fce4ec] text-[#880e4f] font-bold shadow-sm hover:scale-[1.02] active:scale-95 transition-all text-sm border border-pink-100"
-              >
-                Aceptar Propuesta
-              </button>
-              <button 
-                onClick={() => router.push(`/chat/${expertId}/contraoferta`)}
-                className="w-full py-4 rounded-full border-2 border-[#e0f2fe] text-[#0369a1] font-bold hover:bg-sky-50 transition-all text-sm flex items-center justify-center"
-              >
-                Contraofertar
-              </button>
-            </div>
+
 
             <div className="mt-10 pt-8 border-t border-sky-50">
               <h4 className="text-[12px] font-bold tracking-[0.2em] text-[#5e6f79] mb-6 uppercase">Detalles del Proyecto</h4>

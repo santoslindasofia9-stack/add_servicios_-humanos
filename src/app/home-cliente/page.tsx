@@ -418,12 +418,19 @@ export default function HomeCliente() {
                           className="w-full mt-1 px-4 py-3 bg-[#f8f9ff] border border-gray-200 rounded-xl focus:outline-none focus:border-[#FCE4EC] focus:ring-2 focus:ring-[#FCE4EC] transition-all text-[#0d1c2e] font-medium"
                         />
                       </div>
-                      
                       <button 
                         onClick={handleSaveProfile}
                         className="w-full py-3 bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#0d1c2e] font-bold rounded-xl transition-all shadow-sm"
                       >
                         Guardar Cambios
+                      </button>
+
+                      <button 
+                        onClick={() => router.push('/perfil')}
+                        className="w-full py-3 bg-slate-100 hover:bg-[#E0F2FE] hover:text-[#0288D1] text-[#0d1c2e] font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5"
+                      >
+                        <span className="material-symbols-outlined text-sm">person</span>
+                        <span>Ver Perfil y Actividad</span>
                       </button>
 
                       <div className="border-t border-gray-100 pt-4 mt-2">

@@ -105,7 +105,11 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background min-h-screen flex flex-col">
+<body class="bg-background text-on-background min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Background Accent Orbs from onboarding_pago_protegido_2 -->
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-primary-container rounded-full mix-blend-multiply filter blur-[80px] opacity-40 pointer-events-none"></div>
+<div class="absolute top-1/2 -left-20 w-96 h-96 bg-secondary-container rounded-full mix-blend-multiply filter blur-[100px] opacity-30 pointer-events-none"></div>
+
 <!-- Top Navigation -->
 <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-sky-50/50 dark:border-sky-900/30">
 <div class="max-w-[1440px] mx-auto flex justify-between items-center px-4 md:px-8 py-4 w-full">
@@ -168,11 +172,11 @@
 </div>
 </div>
 <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
-<button class="flex-1 bg-[#FCE4EC] text-on-secondary-fixed-variant hover:opacity-90 active:scale-95 transition-all duration-300 py-4 rounded-full font-bold text-base shadow-[0_10px_25px_rgba(252,228,236,0.3)] flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-xl">shopping_bag</span>
-                            Ver Pedidos
+<button onclick="window.location.href='../calificaci_n_del_servicio_1/code.html'" class="flex-1 bg-[#FCE4EC] text-[#880e4f] hover:bg-[#fbd1de] active:scale-95 transition-all duration-300 py-4 rounded-full font-bold text-base shadow-[0_10px_25px_rgba(252,228,236,0.2)] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+                            Calificar
                         </button>
-<button class="flex-1 bg-white/40 border border-white/60 text-on-primary-container hover:bg-white/60 transition-all duration-300 py-4 rounded-full font-semibold text-base flex items-center justify-center gap-2">
+<button onclick="downloadReceiptPDF()" class="flex-1 bg-white/40 border border-white/60 text-on-primary-container hover:bg-white/60 active:scale-95 transition-all duration-300 py-4 rounded-full font-semibold text-base flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-xl">download</span>
                             Comprobante
                         </button>
@@ -235,4 +239,65 @@
 <span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium">Mensajes</span>
 </a>
 </nav>
+
+<script>
+  function downloadReceiptPDF() {
+    const docContent = `%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 3 0 R ] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [ 0 0 595 842 ] /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 320 >>
+stream
+BT
+/F1 20 Tf
+50 750 Td
+(TRUSTMARKET - RECIBO DE PAGO FINAL) Tj
+/F1 12 Tf
+0 -40 Td
+(Referencia de Transaccion: #TRX-99281-CONF) Tj
+0 -20 Td
+(Estado: EXITOSO) Tj
+0 -20 Td
+(Monto Liberado: $1,250.00 USD) Tj
+0 -20 Td
+(Servicio: Consultoria Estrategica Web) Tj
+0 -20 Td
+(Fecha de Pago: 24 de Mayo, 2024) Tj
+0 -30 Td
+(Este documento es un comprobante de transaccion emitida de forma de pago seguro por TrustMarket.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000068 00000 n 
+0000000130 00000 n 
+0000000257 00000 n 
+0000000329 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+700
+%%EOF`;
+
+    const blob = new Blob([docContent], { type: 'application/pdf' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Comprobante_Pago_TrustMarket_TRX99281.pdf';
+    link.click();
+  }
+</script>
 </body></html>

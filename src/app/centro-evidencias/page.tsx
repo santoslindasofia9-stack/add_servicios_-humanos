@@ -280,8 +280,12 @@ export default function EvidenceCenterPage() {
                 </div>
               </div>
 
-              <button className="w-full py-4 bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#880e4f] font-bold rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
-                Enviar para Revisión
+              <button
+                onClick={() => router.push('/liberacion-fondos')}
+                className="w-full py-4 bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#880e4f] font-bold rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              >
+                <span>Confirmar Pagos</span>
+                <ChevronRight size={18} />
               </button>
             </motion.div>
 

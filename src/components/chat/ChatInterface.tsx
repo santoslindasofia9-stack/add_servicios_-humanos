@@ -21,7 +21,9 @@ import {
   ShoppingBag,
   User,
   Trash2,
-  Wallet
+  Wallet,
+  Search,
+  Star
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -522,24 +524,28 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
           </div>
 
           {/* Integrated Navigation Bar - Moved to Bottom of Chat Area to prevent interference */}
-          <div className="bg-white border-t border-sky-50 px-8 py-3 flex items-center justify-between shadow-[0_-4px_12px_rgba(0,0,0,0.02)]">
-            <Link href="/home-cliente" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+          <div className="bg-white border-t border-sky-50 px-6 py-3 flex items-center justify-between shadow-[0_-4px_12px_rgba(0,0,0,0.02)]">
+            <Link href="/home-cliente" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors cursor-pointer">
               <Home className="w-5 h-5" />
               <span className="text-[10px] font-bold">Home</span>
             </Link>
-            <div className="flex flex-col items-center gap-1 text-[#880e4f] relative">
+            <Link href="/resultados" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors cursor-pointer">
+              <Search className="w-5 h-5" />
+              <span className="text-[10px] font-bold">Search</span>
+            </Link>
+            <Link href="/calificacion" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors cursor-pointer">
+              <Star className="w-5 h-5" />
+              <span className="text-[10px] font-bold">Calificaciones</span>
+            </Link>
+            <Link href="/chat" className="flex flex-col items-center gap-1 text-[#880e4f] relative cursor-pointer">
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-500 rounded-full border-2 border-white"></div>
               <Inbox className="w-5 h-5 fill-pink-50" />
               <span className="text-[10px] font-bold">Inbox</span>
-            </div>
-            <button className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
-              <ShoppingBag className="w-5 h-5" />
-              <span className="text-[10px] font-bold">Pedidos</span>
-            </button>
-            <button className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors">
+            </Link>
+            <Link href="/perfil" className="flex flex-col items-center gap-1 text-[#5e6f79] hover:text-[#0d1c2e] transition-colors cursor-pointer">
               <User className="w-5 h-5" />
-              <span className="text-[10px] font-bold">Perfil</span>
-            </button>
+              <span className="text-[10px] font-bold">Profile</span>
+            </Link>
           </div>
         </div>
 

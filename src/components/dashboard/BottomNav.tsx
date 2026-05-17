@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { icon: "home", label: "Inicio", href: "/home-cliente" },
-  { icon: "search", label: "Buscar", href: "/resultados" },
-  { icon: "star", label: "Calificación", href: "/calificacion" },
-  { icon: "chat_bubble", label: "Mensajes", href: "/chat" },
-  { icon: "person", label: "Perfil", href: "/perfil" },
+  { icon: "home", label: "Home", href: "/home-cliente" },
+  { icon: "search", label: "Search", href: "/resultados" },
+  { icon: "star", label: "Calificaciones", href: "/calificacion" },
+  { icon: "chat_bubble", label: "Inbox", href: "/chat" },
+  { icon: "person", label: "Profile", href: "/perfil" },
 ];
 
 export default function BottomNav({ onMessagesClick }: { onMessagesClick?: (e: React.MouseEvent) => void }) {
@@ -19,7 +19,7 @@ export default function BottomNav({ onMessagesClick }: { onMessagesClick?: (e: R
       {navItems.map((item) => {
         // Simple active check
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-        const isMessages = item.label === "Mensajes";
+        const isMessages = item.label === "Mensajes" || item.label === "Inbox";
 
         return (
           <Link

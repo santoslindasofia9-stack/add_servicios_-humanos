@@ -308,6 +308,8 @@ export default function VerificacionPro() {
         setTimeout(() => {
           // Guardar estado verificado en localStorage
           localStorage.setItem("isProVerified", "true");
+          localStorage.setItem("proName", nombre);
+          localStorage.setItem("userName", nombre);
           localStorage.setItem("proSpecialty", displayedEspecialidad);
           localStorage.setItem("proAvatar", avatar);
           localStorage.setItem("proDescription", descripcion);

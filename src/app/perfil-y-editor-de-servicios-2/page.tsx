@@ -407,15 +407,6 @@ export default function PerfilYEditorDeServicios() {
           </div>
           
           <div className="flex items-center gap-6">
-            <nav className="hidden md:flex items-center gap-6">
-              <a className="text-sm font-extrabold text-pink-500 hover:scale-105 transition-transform" href="#">Perfil</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-sky-500 transition-colors" href="/dashboard-pro">Dashboard</a>
-              <a className="text-sm font-semibold text-slate-500 hover:text-sky-500 transition-colors flex items-center gap-1.5" href="/chat">
-                Mensajes
-                <span className="w-2 h-2 rounded-full bg-pink-500 inline-block animate-ping" />
-              </a>
-            </nav>
-
             <div className="flex items-center gap-3 bg-sky-50/50 pl-4 pr-1 py-1 rounded-full border border-sky-100/60 shadow-inner">
               <span className="text-sm font-bold text-slate-700 hidden lg:block">{nombre}</span>
               <div className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-md cursor-pointer relative hover:scale-105 transition-transform" onClick={handleOpenProfileModal}>

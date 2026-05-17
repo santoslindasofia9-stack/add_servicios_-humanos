@@ -120,67 +120,68 @@
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Tu opinión nos ayuda a construir una comunidad más confiable y segura para todos.</p>
 </section>
 <!-- Review Card -->
-<div class="w-full max-w-3xl glass-card rounded-lg p-card-padding shadow-[0_40px_80px_rgba(224,242,254,0.25)]">
+<div class="w-full max-w-3xl glass-card rounded-[2rem] p-card-padding shadow-[0_40px_80px_rgba(224,242,254,0.25)] relative overflow-hidden">
 <!-- Star Rating Section -->
 <div class="flex flex-col items-center gap-6 mb-12">
-<div class="flex gap-4">
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[56px] star-filled" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<div class="flex gap-4" id="star-container">
+<button onclick="setRating(1)" onmouseover="hoverStars(1)" onmouseout="resetStars()" class="scale-105 transition-all duration-300 group">
+<span class="material-symbols-outlined !text-[56px] text-slate-200 star-item" data-index="1" data-icon="star">star</span>
 </button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[56px] star-filled" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<button onclick="setRating(2)" onmouseover="hoverStars(2)" onmouseout="resetStars()" class="scale-105 transition-all duration-300 group">
+<span class="material-symbols-outlined !text-[56px] text-slate-200 star-item" data-index="2" data-icon="star">star</span>
 </button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[56px] star-filled" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<button onclick="setRating(3)" onmouseover="hoverStars(3)" onmouseout="resetStars()" class="scale-105 transition-all duration-300 group">
+<span class="material-symbols-outlined !text-[56px] text-slate-200 star-item" data-index="3" data-icon="star">star</span>
 </button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[56px] star-filled" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<button onclick="setRating(4)" onmouseover="hoverStars(4)" onmouseout="resetStars()" class="scale-105 transition-all duration-300 group">
+<span class="material-symbols-outlined !text-[56px] text-slate-200 star-item" data-index="4" data-icon="star">star</span>
 </button>
-<button class="scale-105 transition-all duration-300 group">
-<span class="material-symbols-outlined !text-[56px] text-surface-container-high" data-icon="star">star</span>
+<button onclick="setRating(5)" onmouseover="hoverStars(5)" onmouseout="resetStars()" class="scale-105 transition-all duration-300 group">
+<span class="material-symbols-outlined !text-[56px] text-slate-200 star-item" data-index="5" data-icon="star">star</span>
 </button>
 </div>
-<span class="font-label-caps text-label-caps text-on-surface-variant">CALIFICACIÓN EXCELENTE</span>
+<span id="rating-label" class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Selecciona tu calificación</span>
 </div>
 <!-- Comment Input -->
 <div class="mb-10">
 <label class="block font-h3 text-h3 text-on-surface mb-4" for="review-comment">Cuéntanos más</label>
-<textarea class="w-full rounded-xl border-sky-50 bg-surface-container-lowest p-6 text-body-md font-body-md focus:ring-2 focus:ring-primary-container focus:border-primary outline-none transition-all placeholder:text-slate-400" id="review-comment" placeholder="Escribe aquí tus comentarios sobre el servicio o producto..." rows="6"></textarea>
+<textarea class="w-full rounded-2xl border border-sky-100 bg-surface-container-lowest p-6 text-body-md font-body-md focus:ring-2 focus:ring-primary-container focus:border-primary outline-none transition-all placeholder:text-slate-400" id="review-comment" placeholder="Escribe aquí tus comentarios sobre el servicio o producto..." rows="6"></textarea>
 </div>
-<!-- Image Upload Placeholder -->
-<div class="mb-10 flex flex-wrap gap-4">
-<div class="w-24 h-24 rounded-lg border-2 border-dashed border-sky-100 flex flex-col items-center justify-center text-slate-400 hover:bg-sky-50 transition-colors cursor-pointer">
-<span class="material-symbols-outlined" data-icon="add_a_photo">add_a_photo</span>
-<span class="text-[10px] font-bold mt-1">AÑADIR FOTO</span>
-</div>
-<!-- Mockup of uploaded image -->
-<div class="w-24 h-24 rounded-lg overflow-hidden relative group">
-<img alt="Uploaded preview" class="w-full h-full object-cover" data-alt="A high-quality minimalist product shot of a sleek modern watch placed on a clean white surface. The lighting is soft and diffused, creating a serene and premium feel. The background is a soft pastel sky blue, maintaining the ethereal trust brand aesthetic. The composition is clean with ample whitespace around the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkDP-kL6lG7tJZ74jcQXr7DBWJZbAibnRQvniXX7PPE8kuZg2jAQ8cDkQOPW5DSB2q6y8B0PXB0WS4HcbOUu9YMO-XHXofkOQdkYWWnrL1j8IPzC0J-15KAdUKJaFiRFA8CThWSwgUNFrhVqWLCnwLOohVPhN9N7MUEW7Xk-Socvt477KStwWE48210jVFuKglecqP6YJ6nVECCqUdgxubIT56f91aTdldf8lnF--vEg6KqAVGCwFc9bzti3tH3jDykkPi34Oolg"/>
-<button class="absolute top-1 right-1 bg-white/80 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<span class="material-symbols-outlined text-xs" data-icon="close">close</span>
-</button>
-</div>
+<!-- Image Upload Section -->
+<div class="mb-10">
+  <label class="block font-h3 text-h3 text-on-surface mb-4">Adjuntar fotos o archivos</label>
+  <div class="flex flex-wrap gap-4" id="upload-gallery">
+    <!-- Trigger Button -->
+    <div onclick="triggerFileSelect()" class="w-24 h-24 rounded-2xl border-2 border-dashed border-sky-200 bg-sky-50/20 hover:bg-sky-50 flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 transition-all cursor-pointer shadow-sm">
+      <span class="material-symbols-outlined !text-3xl" data-icon="add_a_photo">add_a_photo</span>
+      <span class="text-[9px] font-black mt-1">AÑADIR FOTO</span>
+    </div>
+    
+    <!-- Hidden native file input -->
+    <input type="file" id="file-uploader" accept="image/*" multiple class="hidden" onchange="handleFileSelect(event)">
+  </div>
 </div>
 <!-- Action Button -->
 <div class="flex justify-center">
-<button class="bg-[#FCE4EC] text-on-secondary-container px-12 py-4 rounded-full font-h3 text-h3 hover:opacity-90 scale-102 transition-all shadow-sm">
+<button onclick="submitReview()" class="bg-[#FCE4EC] text-[#880e4f] px-12 py-4 rounded-full font-bold text-lg hover:bg-[#fbd1de] hover:scale-[1.01] active:scale-[0.98] transition-all shadow-sm">
                     Publicar Reseña
                 </button>
 </div>
 </div>
+
 <!-- Asymmetric Decorative Element -->
 <div class="mt-section-gap w-full flex justify-between items-center gap-gutter">
-<div class="w-1/3 h-48 rounded-lg bg-primary-container/20 flex items-center justify-center p-8">
+<div class="w-1/3 h-48 rounded-2xl bg-primary-container/20 flex items-center justify-center p-8">
 <p class="font-body-md text-body-md text-on-primary-container italic text-center">"La confianza es el pilar de nuestra comunidad. Gracias por ser parte de ella."</p>
 </div>
-<div class="w-2/3 h-48 rounded-lg overflow-hidden">
-<img alt="Community illustration" class="w-full h-full object-cover" data-alt="A group of diverse professionals collaborating in a bright, modern, airy workspace with large windows and plenty of indoor plants. The atmosphere is optimistic and calm, with soft morning light filtering through the glass. The color palette is dominated by whites, light woods, and soft sky blue accents, perfectly illustrating a sense of community trust and safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADuBNQLS-AEB8DdR7RYPZolyuZ1ZS07vurqTqJDYM2SrP-i2nQZmzB5kQ3sokov4KR3vYH6udevZAxYEGEdyoZXi7-UgFHLnIw7q93HDWYo4Rapih7ol557qSBkTBn9jhdihOLrYBa7btBZq71fQfLntqGNPoCS8Ut3ZEaBC5is7tZfDIjq_AuKvzX0oZRwqkyulqRri5RpHydTDtoapWy5y2FUGwGVymR1UXiH1Sc8K7_1B3m7iF8GSj9AVCfyJU-cPWTtuHJsA"/>
+<div class="w-2/3 h-48 rounded-2xl overflow-hidden">
+<img alt="Community illustration" class="w-full h-full object-cover" data-alt="A group of diverse professionals collaborating in a bright, modern, airy workspace with large windows and plenty of indoor plants. The atmosphere is optimistic and calm, with soft morning light filtering through the glass. The color palette is dominated by whites, light woods, and soft sky blue accents, perfectly illustrating a sense of community trust and safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADuBNQLS-AEB8DdR7RYPZolyuZ1ZS07vurqTqJDYM2SrP-i2nQZmzB5kQ3sokov4KR3vYH6udevZAxYEGEdyoZXi7-UgFHLnIw7q93HDWYo4Rapih7ol557qSBkTBn9jhdihOLrYBa7btBZq71fQfLntqGNPoCS8Ut3ZEaBC5is7tZfDIjq_AuKvzX0oZRwqkyulqRri5RpHydTDtoapWy5y2FUGwGVymR1UXiH1Sc8K7_1B3m7iF8GSj9AVCfyJU-cPWTtuHJsA">
 </div>
 </div>
 </main>
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 w-full rounded-t-[24px] z-50 bg-white dark:bg-slate-900 border-t border-sky-50 dark:border-slate-800 shadow-[0_-10px_40px_rgba(224,242,254,0.4)] dark:shadow-none flex justify-around items-center h-20 px-4 pb-safe">
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-pink-400 transition-colors" href="../home_marketplace_de_confianza_2/code.html">
 <span class="material-symbols-outlined" data-icon="home">home</span>
 <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium">Home</span>
 </a>
@@ -201,4 +202,140 @@
 <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium">Profile</span>
 </a>
 </nav>
+
+<!-- Ethereal Success Modal Overlay -->
+<div id="success-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-[2.5rem] p-8 md:p-12 w-full max-w-md text-center shadow-2xl flex flex-col items-center transform transition-all scale-95 duration-300">
+    <div class="w-20 h-20 bg-green-50 border border-green-100 rounded-full flex items-center justify-center mb-6">
+      <span class="material-symbols-outlined text-green-500 text-4xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    </div>
+    <h3 class="text-2xl font-black text-slate-900 mb-2">¡Reseña Publicada!</h3>
+    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+      Gracias por tu reseña. Tu opinión es fundamental para mantener el ecosistema de confianza en TrustMarket.
+    </p>
+    <div class="flex items-center gap-2 text-xs text-sky-500 font-bold uppercase tracking-wider">
+      <div class="w-4 h-4 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+      <span>Redirigiendo al inicio...</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentRating = 4; // Default standard setup
+  let hoverRatingIndex = 0;
+  const ratingTexts = {
+    1: "MUY MALA",
+    2: "INSATISFACTORIA",
+    3: "ACEPTABLE",
+    4: "MUY BUENA",
+    5: "CALIFICACIÓN EXCELENTE"
+  };
+
+  let uploadedImages = [
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuAkDP-kL6lG7tJZ74jcQXr7DBWJZbAibnRQvniXX7PPE8kuZg2jAQ8cDkQOPW5DSB2q6y8B0PXB0WS4HcbOUu9YMO-XHXofkOQdkYWWnrL1j8IPzC0J-15KAdUKJaFiRFA8CThWSwgUNFrhVqWLCnwLOohVPhN9N7MUEW7Xk-Socvt477KStwWE48210jVFuKglecqP6YJ6nVECCqUdgxubIT56f91aTdldf8lnF--vEg6KqAVGCwFc9bzti3tH3jDykkPi34Oolg"
+  ];
+
+  function renderStars() {
+    const stars = document.querySelectorAll('.star-item');
+    const score = hoverRatingIndex || currentRating;
+    stars.forEach(star => {
+      const idx = parseInt(star.getAttribute('data-index'));
+      if (idx <= score) {
+        star.classList.remove('text-slate-200');
+        star.classList.add('star-filled');
+        star.style.fontVariationSettings = "'FILL' 1";
+        star.style.color = "#FFD700";
+      } else {
+        star.classList.remove('star-filled');
+        star.classList.add('text-slate-200');
+        star.style.fontVariationSettings = "'FILL' 0";
+        star.style.color = "#E2E8F0";
+      }
+    });
+
+    const label = document.getElementById('rating-label');
+    if (ratingTexts[score]) {
+      label.textContent = ratingTexts[score];
+    } else {
+      label.textContent = "SELECCIONA TU CALIFICACIÓN";
+    }
+  }
+
+  function setRating(rating) {
+    currentRating = rating;
+    renderStars();
+  }
+
+  function hoverStars(rating) {
+    hoverRatingIndex = rating;
+    renderStars();
+  }
+
+  function resetStars() {
+    hoverRatingIndex = 0;
+    renderStars();
+  }
+
+  // File Upload Handlers
+  function triggerFileSelect() {
+    document.getElementById('file-uploader').click();
+  }
+
+  function handleFileSelect(event) {
+    const files = event.target.files;
+    if (!files) return;
+    
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedImages.push(e.target.result);
+        renderGallery();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function deletePhoto(index) {
+    uploadedImages.splice(index, 1);
+    renderGallery();
+  }
+
+  function renderGallery() {
+    const gallery = document.getElementById('upload-gallery');
+    
+    // Save trigger button
+    const trigger = gallery.querySelector('.cursor-pointer');
+    gallery.innerHTML = '';
+    gallery.appendChild(trigger);
+
+    uploadedImages.forEach((imgSrc, index) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'w-24 h-24 rounded-2xl overflow-hidden relative group border border-slate-100 shadow-sm transition-all duration-300';
+      wrapper.innerHTML = `
+        <img src="${imgSrc}" alt="Preview" class="w-full h-full object-cover">
+        <button onclick="deletePhoto(${index})" class="absolute top-1 right-1 bg-white/90 hover:bg-white text-slate-700 rounded-full p-1 shadow-sm transition-opacity flex items-center justify-center">
+          <span class="material-symbols-outlined !text-xs">close</span>
+        </button>
+      `;
+      gallery.appendChild(wrapper);
+    });
+  }
+
+  function submitReview() {
+    const overlay = document.getElementById('success-overlay');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+
+    setTimeout(() => {
+      window.location.href = '../home_marketplace_de_confianza_2/code.html';
+    }, 2500);
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    renderStars();
+    renderGallery();
+  });
+</script>
 </body></html>

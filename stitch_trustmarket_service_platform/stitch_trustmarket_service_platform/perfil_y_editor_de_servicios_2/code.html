@@ -117,10 +117,26 @@
 <a class="text-sm font-medium text-slate-500 hover:text-sky-500" href="#">Dashboard</a>
 <a class="text-sm font-medium text-slate-500 hover:text-sky-500" href="#">Mensajes</a>
 </nav>
+<div class="relative" id="header-dropdown-wrapper">
 <div id="header-profile-container" class="flex items-center gap-3 bg-sky-50/50 pl-4 pr-1 py-1 rounded-full border border-sky-100 cursor-pointer hover:bg-sky-100/50 transition-colors">
 <span id="header-name" class="text-sm font-medium text-slate-600 hidden lg:block">Javier Mendoza</span>
 <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-sm">
 <img id="header-avatar" class="w-full h-full object-cover" data-alt="Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmfBnsdlfSHpJumhZe9jIdz3PVBHd3x8sJqP_2I3HfFgDJZPtDfzDYdWQYHzTlTxTcsPPJYZ0bP9goQnueMyXbUwC-sc4ApAvH08mhRBw_RG93xj8Ri8nCw-jVxC7wov7eVzopVvq0sv_q69iWhCRpVm7ElQNa8B4HK6pX-cdbEoGrkLyYVTJzn9p3vD3cEVA5Rbv2bNSZmOJmYxjCq_SuT80bigyA_sKDbbptQtlX2OyatuuT3aE7QOsIUbvlmB7U69PQqSNcvw"/>
+</div>
+</div>
+<!-- Dropdown Menu -->
+<div id="profile-dropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-sky-100 opacity-0 pointer-events-none transform -translate-y-2 transition-all duration-200 z-50">
+<div class="p-2 flex flex-col gap-1">
+<button id="dropdown-edit-profile" class="w-full flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-sky-50 hover:text-sky-600 rounded-lg transition-colors text-left">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+Editar Perfil
+</button>
+<div class="h-px bg-sky-50 my-1 mx-2"></div>
+<a href="../registro_y_acceso_1/code.html" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-rose-500 hover:bg-rose-50 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+Cerrar Sesión
+</a>
+</div>
 </div>
 </div>
 </div>
@@ -461,6 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatarTrigger = document.getElementById('avatar-container-trigger');
     const nameEditBtn = document.getElementById('edit-profile-name-btn');
     const headerProfileContainer = document.getElementById('header-profile-container');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    const dropdownEditProfile = document.getElementById('dropdown-edit-profile');
     const closeModalBtn = document.getElementById('close-modal-btn');
     const cancelModalBtn = document.getElementById('cancel-modal-btn');
     const saveModalBtn = document.getElementById('save-modal-btn');
@@ -558,7 +576,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openFab) openFab.addEventListener('click', openModal);
     if (avatarTrigger) avatarTrigger.addEventListener('click', openModal);
     if (nameEditBtn) nameEditBtn.addEventListener('click', openModal);
-    if (headerProfileContainer) headerProfileContainer.addEventListener('click', openModal);
+    
+    // Header dropdown toggle
+    if (headerProfileContainer) {
+        headerProfileContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('opacity-0');
+            profileDropdown.classList.toggle('pointer-events-none');
+            profileDropdown.classList.toggle('-translate-y-2');
+        });
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (profileDropdown && !profileDropdown.contains(e.target) && !headerProfileContainer.contains(e.target)) {
+            profileDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+        }
+    });
+
+    if (dropdownEditProfile) {
+        dropdownEditProfile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+            openModal();
+        });
+    }
     
     // Close listeners
     closeModalBtn.addEventListener('click', closeModal);

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { icon: "home", label: "Home", href: "/home-cliente" },
@@ -13,6 +14,12 @@ const navItems = [
 
 export default function BottomNav({ onMessagesClick }: { onMessagesClick?: (e: React.MouseEvent) => void }) {
   const pathname = usePathname();
+  const [currentExpertId, setCurrentExpertId] = useState<string>("f1");
+
+  useEffect(() => {
+    const savedId = localStorage.getItem("currentExpertId") || "f1";
+    setCurrentExpertId(savedId);
+  }, [pathname]);
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-sky-50 shadow-[0_-10px_40px_rgba(224,242,254,0.4)] h-[76px] px-2 flex justify-around items-center z-[500]">
@@ -20,11 +27,12 @@ export default function BottomNav({ onMessagesClick }: { onMessagesClick?: (e: R
         // Simple active check
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/') || (pathname === '/mapa-expertos' && item.label === 'Search');
         const isMessages = item.label === "Mensajes" || item.label === "Inbox";
+        const targetHref = isMessages ? (onMessagesClick ? "#" : `/chat/${currentExpertId}`) : item.href;
 
         return (
           <Link
             key={item.label}
-            href={isMessages && onMessagesClick ? "#" : item.href}
+            href={targetHref}
             onClick={(e) => {
               if (isMessages && onMessagesClick) {
                 e.preventDefault();

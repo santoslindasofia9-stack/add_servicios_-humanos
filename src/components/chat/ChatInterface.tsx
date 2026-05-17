@@ -122,12 +122,14 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
   };
 
   useEffect(() => {
+    if (expertId) {
+      localStorage.setItem('currentExpertId', expertId);
+    }
     if (expertData) {
-      localStorage.setItem('currentExpertId', (expertData.id as string) || 'e1');
       localStorage.setItem('currentExpertName', (expertData.nombre_completo as string) || 'Profesional');
       localStorage.setItem('currentExpertAvatar', (expertData.foto_perfil as string) || '');
     }
-  }, [expertData]);
+  }, [expertId, expertData]);
 
   useEffect(() => {
     // Initial messages (mock or fetch)

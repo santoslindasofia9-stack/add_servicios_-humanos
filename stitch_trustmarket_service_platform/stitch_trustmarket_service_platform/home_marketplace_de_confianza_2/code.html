@@ -131,9 +131,9 @@
 <button class="p-2 text-on-surface-variant hidden md:block">
 <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
 </button>
-<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container-high cursor-pointer">
-<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young man with a friendly expression. The lighting is soft and ethereal, set against a blurred minimalist studio background. The overall aesthetic is clean and modern, following a light-mode color palette of soft whites and sky blues. He has well-groomed hair and is wearing a high-quality, neutral-toned linen shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCLu45Nw-xWdQ5F7qDCTPytA668m55RZwFjsu0pUJ_U4LSa2JHwygwGGmQgoSDz7HFbkpF9RpzRBdO5WCNJ7ya8iTctwyvZ4Ux1nKNh0C07k43gbfGNyG0bgRRKpHMt2h24Mjy2kqt4mgKwyqn5uhZEd80anECA16gqauAxeLczHMcJ4xyFDKRChU7b6CuTa3ZEhtGzqN5XvG0tu_6SHqc7UWac4AsoTjVb-46bPY0TvTvDNPZu49gNLIXwOmHsLHABkMap0Uz5w"/>
-</div>
+<a href="../perfil_mi_actividad_1/code.html" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container-high cursor-pointer hover:scale-105 transition-transform duration-200 block shrink-0" title="Ver Perfil y Actividad">
+<img id="desktop-profile-pic" alt="User profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young man with a friendly expression. The lighting is soft and ethereal, set against a blurred minimalist studio background. The overall aesthetic is clean and modern, following a light-mode color palette of soft whites and sky blues. He has well-groomed hair and is wearing a high-quality, neutral-toned linen shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg"/>
+</a>
 </div>
 </div>
 </header>
@@ -381,4 +381,20 @@
 </div>
 </div>
 </footer>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const defaultProfile = {
+            name: "Mariana Rodríguez",
+            location: "CDMX",
+            photo: "https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg"
+        };
+        const savedProfile = JSON.parse(localStorage.getItem("currentUserProfile") || JSON.stringify(defaultProfile));
+        
+        // Sincronizar foto de perfil del header
+        const desktopPic = document.getElementById("desktop-profile-pic");
+        if (desktopPic) {
+            desktopPic.src = savedProfile.photo;
+        }
+    });
+</script>
 </body></html>

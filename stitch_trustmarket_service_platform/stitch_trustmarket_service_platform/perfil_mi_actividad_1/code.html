@@ -114,9 +114,9 @@
 <span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
 <span class="absolute top-2 right-2 w-2 h-2 bg-pink-500 rounded-full"></span>
 </button>
-<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shrink-0">
-<img alt="User profile" data-alt="A professional close-up portrait of a middle-aged man." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJAsg4gdY9qlhp5DYWHa2Tff3i6gTQ2kSfDU8-NhMSyXhr_JIee3mxQ8x8LiiCDSMwUuqWVw41OXq5WjkncGiGuc2BCuAyVPZ8g_FOKk6J40l8rK63yzDdtKIn02dlj7TJZYgKbE-HLimjufdHyTdg0Kv0wB-ETZ7AwFhMjIsB6nFp0hX5MNhPI0kvRdZbZ8R4fj4KtV_5wyTXu1gD8PqPqa0HQ7qg6oT3eodWOZ0wjgd3AYEErRmGo2BSWD37Oimq7FWhnzKgrA"/>
-</div>
+<a href="../perfil_mi_actividad_1/code.html" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shrink-0 block hover:scale-105 transition-transform duration-200" title="Mi Perfil">
+<img id="header-profile-img" alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg"/>
+</a>
 </div>
 </header>
 <main class="max-w-[1400px] mx-auto px-6 pt-24 lg:pt-28 pb-12">
@@ -125,147 +125,685 @@
 <aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-28 h-fit">
 <div class="bg-white rounded-24 p-8 shadow-sm border border-surface-container-high flex flex-col items-center text-center">
 <div class="relative mb-6">
-<div class="w-32 h-32 md:w-40 md:h-40 rounded-full p-1.5 bg-gradient-to-tr from-primary-container to-secondary-container">
-<img alt="Client profile photo" class="w-full h-full rounded-full object-cover border-4 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg"/>
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full p-1.5 bg-gradient-to-tr from-primary-container to-secondary-container relative group">
+<img id="profile-img-left" alt="Client profile photo" class="w-full h-full rounded-full object-cover border-4 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg"/>
+<button id="camera-overlay-btn" class="absolute inset-1.5 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-white" title="Cambiar Foto de Perfil">
+    <span class="material-symbols-outlined text-2xl">photo_camera</span>
+</button>
 </div>
 <div class="absolute bottom-2 right-2 bg-white shadow-md p-1.5 rounded-full border border-surface-container">
 <span class="material-symbols-outlined text-sky-500 text-lg" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
 </div>
 </div>
-<h2 class="text-2xl font-bold text-on-background mb-1">Mariana Rodríguez</h2>
-<p class="text-on-surface-variant text-sm mb-6">Miembro desde Enero 2023 • CDMX</p>
+<h2 id="profile-name-left" class="text-2xl font-bold text-on-background mb-1">Mariana Rodríguez</h2>
+<p class="text-on-surface-variant text-sm mb-6">Miembro desde Enero 2023 • <span id="profile-location-left">CDMX</span></p>
 <div class="grid grid-cols-2 gap-3 w-full">
-<div class="bg-surface-container-low p-4 rounded-24 border border-primary-container/20">
+<div class="bg-surface-container-low p-4 rounded-24 border border-primary-container/20 hover:scale-102 transition-transform duration-200 cursor-pointer">
 <p class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Contratos</p>
 <p class="text-xl font-bold text-on-background">24</p>
 </div>
-<div class="bg-surface-container-low p-4 rounded-24 border border-primary-container/20">
+<div class="bg-surface-container-low p-4 rounded-24 border border-primary-container/20 hover:scale-102 transition-transform duration-200 cursor-pointer">
 <p class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Calificación</p>
 <p class="text-xl font-bold text-on-background">4.9/5</p>
 </div>
 </div>
-<button class="mt-8 w-full py-3 px-6 bg-primary text-white rounded-full font-semibold hover:bg-opacity-90 transition-all">
+<button id="edit-profile-btn" class="mt-8 w-full py-3 px-6 bg-primary text-white rounded-full font-semibold hover:bg-opacity-90 transition-all hover:shadow-md hover:scale-[1.01] active:scale-95 duration-200">
                         Editar Perfil
                     </button>
 </div>
 </aside>
 <!-- Right Column: Activity / History -->
+<!-- Right Column: Activity / History with Interactive Tabs -->
 <section class="lg:col-span-8 xl:col-span-9">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-<h3 class="text-2xl font-bold text-on-background">Historial de Contratos</h3>
-<div class="flex gap-2">
-<button class="flex items-center gap-2 px-4 py-2 bg-white border border-surface-container-high rounded-full text-sm font-medium hover:bg-surface transition-colors">
-<span class="material-symbols-outlined text-xl" data-icon="filter_list">filter_list</span>
-                            Filtrar
-                        </button>
-<button class="flex items-center gap-2 px-4 py-2 bg-white border border-surface-container-high rounded-full text-sm font-medium hover:bg-surface transition-colors">
-<span class="material-symbols-outlined text-xl" data-icon="sort">sort</span>
-                            Ordenar
-                        </button>
+<div class="flex flex-col gap-6 mb-8">
+    <!-- Premium Interactive Tab Bar -->
+    <div class="flex border-b border-surface-container-high gap-2 md:gap-8 overflow-x-auto no-scrollbar">
+        <button id="tab-contratos" class="tab-btn pb-4 px-2 font-bold text-lg border-b-2 border-primary text-primary transition-all whitespace-nowrap flex items-center gap-2 outline-none">
+            <span class="material-symbols-outlined text-xl">folder_shared</span>
+            Trabajos Contratados
+        </button>
+        <button id="tab-reseñas" class="tab-btn pb-4 px-2 font-semibold text-lg border-b-2 border-transparent text-outline hover:text-primary transition-all whitespace-nowrap flex items-center gap-2 outline-none">
+            <span class="material-symbols-outlined text-xl">reviews</span>
+            Nuestras Reseñas
+        </button>
+        <button id="tab-escrow" class="tab-btn pb-4 px-2 font-semibold text-lg border-b-2 border-transparent text-outline hover:text-primary transition-all whitespace-nowrap flex items-center gap-2 outline-none">
+            <span class="material-symbols-outlined text-xl">verified_user</span>
+            Garantías y Escrow
+        </button>
+    </div>
 </div>
+
+<!-- Tab 1: Historial de Contratos -->
+<div id="content-contratos" class="space-y-4">
+    <!-- Card 1 -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Carlos Mendoza" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-bold text-lg text-on-background group-hover:text-primary transition-colors">Carlos Mendoza</h4>
+                        <p class="text-on-surface-variant text-sm">Diseño de Interiores • 14 de Nov, 2023</p>
+                    </div>
+                    <p class="text-xl font-bold text-primary">$450.00</p>
+                </div>
+                <div class="mt-4 flex items-center gap-3">
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Completado
+                    </span>
+                    <button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline btn-detalles" data-pro="Carlos Mendoza" data-category="Diseño de Interiores" data-date="14 de Nov, 2023" data-amount="$450.00" data-img="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg" data-desc="Servicio premium de renderizado en 3D y distribución de mobiliario para sala de estar de 45m². Se entregaron planos técnicos y carta de color recomendada.">Ver detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Elena Varas" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-bold text-lg text-on-background group-hover:text-primary transition-colors">Elena Varas</h4>
+                        <p class="text-on-surface-variant text-sm">Consultoría de Negocios • 02 de Oct, 2023</p>
+                    </div>
+                    <p class="text-xl font-bold text-primary">$820.00</p>
+                </div>
+                <div class="mt-4 flex items-center gap-3">
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Completado
+                    </span>
+                    <button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline btn-detalles" data-pro="Elena Varas" data-category="Consultoría de Negocios" data-date="02 de Oct, 2023" data-amount="$820.00" data-img="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q" data-desc="Auditoría financiera y consultoría estratégica de expansión comercial para ecommerce de moda local. Incluye análisis de embudo de ventas y proyecciones presupuestarias a 12 meses.">Ver detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Roberto Sánchez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaB0pHqFtfXILqLbDfWCrSVVQ87Ob-0lfgrZfGjCPWfJC2R1cF_PBJcLNpxRk9_Xg81KwZbdhbdqM5ShsazjdnKhPg0je0oaAqdWDrMl0OmyutJ21EQ1-WFqkEWp4Eonzlv66A5aJElEI9wPhypaCh6W5nGoDksmY7_LaiE00PS6dGZXFR8SQAjz4cqYr34LTf6kvZtbTTk9UuNvOJGO38DEkDcvU2NLEUsHrlPkfVvolMeuYO5vjFrY1MEJr3VsGYU38rCjeI2A"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-bold text-lg text-on-background group-hover:text-primary transition-colors">Roberto Sánchez</h4>
+                        <p class="text-on-surface-variant text-sm">Fotografía Profesional • 20 de Sep, 2023</p>
+                    </div>
+                    <p class="text-xl font-bold text-primary">$310.00</p>
+                </div>
+                <div class="mt-4 flex items-center gap-3">
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Completado
+                    </span>
+                    <button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline btn-detalles" data-pro="Roberto Sánchez" data-category="Fotografía Profesional" data-date="20 de Sep, 2023" data-amount="$310.00" data-img="https://lh3.googleusercontent.com/aida-public/AB6AXuCaB0pHqFtfXILqLbDfWCrSVVQ87Ob-0lfgrZfGjCPWfJC2R1cF_PBJcLNpxRk9_Xg81KwZbdhbdqM5ShsazjdnKhPg0je0oaAqdWDrMl0OmyutJ21EQ1-WFqkEWp4Eonzlv66A5aJElEI9wPhypaCh6W5nGoDksmY7_LaiE00PS6dGZXFR8SQAjz4cqYr34LTf6kvZtbTTk9UuNvOJGO38DEkDcvU2NLEUsHrlPkfVvolMeuYO5vjFrY1MEJr3VsGYU38rCjeI2A" data-desc="Sesión fotográfica corporativa en exteriores para el equipo de dirección comercial. Se entregaron 35 imágenes retocadas en alta definición y con derechos de distribución comercial ilimitados.">Ver detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="bg-white/60 rounded-24 p-6 shadow-sm border border-transparent opacity-85 hover:border-primary-container/30 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Sofía Castillo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMZ0z2nHRWPXkI7ayd-zx-ABZfwWbtXXJwCqmBSj6BQj46nbw8Z17sAHLYBwxmfzkwM5J1qAaFzBLa_-qzpf7apaQS7a4ByfoScXQyB432r46X5KaLsvK9XcEMt_25lCcrbB_qUe8z2XVuYn1YYOYQBrCqdB-_YTMHraTuBWhJD_vEJYZcNacwff-RmDMyran1ipnknJO_QqHnjJaiBdzVeEe5HN6hzUFTvV8gtDjPLRjFVH4phvDqimSW46U_SUY655C73XYgOw"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-bold text-lg text-on-background">Sofía Castillo</h4>
+                        <p class="text-on-surface-variant text-sm">Desarrollo Web • 15 de Ago, 2023</p>
+                    </div>
+                    <p class="text-xl font-bold text-primary">$1,200.00</p>
+                </div>
+                <div class="mt-4 flex items-center gap-3">
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Completado
+                    </span>
+                    <button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline btn-detalles" data-pro="Sofía Castillo" data-category="Desarrollo Web" data-date="15 de Ago, 2023" data-amount="$1,200.00" data-img="https://lh3.googleusercontent.com/aida-public/AB6AXuAMZ0z2nHRWPXkI7ayd-zx-ABZfwWbtXXJwCqmBSj6BQj46nbw8Z17sAHLYBwxmfzkwM5J1qAaFzBLa_-qzpf7apaQS7a4ByfoScXQyB432r46X5KaLsvK9XcEMt_25lCcrbB_qUe8z2XVuYn1YYOYQBrCqdB-_YTMHraTuBWhJD_vEJYZcNacwff-RmDMyran1ipnknJO_QqHnjJaiBdzVeEe5HN6hzUFTvV8gtDjPLRjFVH4phvDqimSW46U_SUY655C73XYgOw" data-desc="Maquetación responsive de página de aterrizaje (landing page) en TailwindCSS y react components interactivos. Incluye optimización SEO y conexión con formulario de base de datos externa.">Ver detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-12 flex justify-center">
+        <button class="px-10 py-4 bg-white text-primary border-2 border-primary-container rounded-full font-bold shadow-sm hover:bg-surface hover:scale-102 transition-all duration-200 active:scale-95">
+            Ver historial completo
+        </button>
+    </div>
 </div>
-<div class="space-y-4">
-<!-- Card 1 -->
-<div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all group">
-<div class="flex flex-col sm:flex-row sm:items-center gap-6">
-<div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
-<img alt="Carlos Mendoza" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg"/>
+
+<!-- Tab 2: Nuestras Reseñas (Reviews written by user) -->
+<div id="content-reseñas" class="space-y-4 hidden">
+    <!-- Review 1 -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Carlos Mendoza" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <h4 class="font-bold text-on-background group-hover:text-primary transition-colors">Reseña para Carlos Mendoza</h4>
+                        <p class="text-on-surface-variant text-xs">Diseño de Interiores • Contratado en Nov, 2023</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">grade</span>
+                        <span>5.0</span>
+                    </div>
+                </div>
+                <p class="text-on-surface-variant text-sm mt-3 leading-relaxed bg-surface-container-lowest/50 p-4 rounded-xl border border-surface-container-high">
+                    "Excelente trabajo. Carlos capturó perfectamente lo que queríamos para el diseño de la sala de estar. El render en 3D fue de gran ayuda para visualizar el espacio final. Muy recomendable y profesional en todo momento."
+                </p>
+                <div class="mt-4 flex items-center justify-between text-xs text-outline">
+                    <span>Publicado el 20 de Nov, 2023</span>
+                    <span class="text-primary font-bold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verificada por Escrow
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Review 2 -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Elena Varas" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <h4 class="font-bold text-on-background group-hover:text-primary transition-colors">Reseña para Elena Varas</h4>
+                        <p class="text-on-surface-variant text-xs">Consultoría de Negocios • Contratado en Oct, 2023</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">grade</span>
+                        <span>5.0</span>
+                    </div>
+                </div>
+                <p class="text-on-surface-variant text-sm mt-3 leading-relaxed bg-surface-container-lowest/50 p-4 rounded-xl border border-surface-container-high">
+                    "Elena nos ayudó de manera increíble a organizar nuestras finanzas y planificar el crecimiento de nuestro ecommerce. Su experiencia comercial es evidente y sus plantillas de Excel nos han ahorrado horas de trabajo administrativo de manera sobresaliente."
+                </p>
+                <div class="mt-4 flex items-center justify-between text-xs text-outline">
+                    <span>Publicado el 05 de Oct, 2023</span>
+                    <span class="text-primary font-bold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verificada por Escrow
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Review 3 -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all duration-300 group">
+        <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-surface-container-high shadow-sm">
+                <img alt="Roberto Sánchez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaB0pHqFtfXILqLbDfWCrSVVQ87Ob-0lfgrZfGjCPWfJC2R1cF_PBJcLNpxRk9_Xg81KwZbdhbdqM5ShsazjdnKhPg0je0oaAqdWDrMl0OmyutJ21EQ1-WFqkEWp4Eonzlv66A5aJElEI9wPhypaCh6W5nGoDksmY7_LaiE00PS6dGZXFR8SQAjz4cqYr34LTf6kvZtbTTk9UuNvOJGO38DEkDcvU2NLEUsHrlPkfVvolMeuYO5vjFrY1MEJr3VsGYU38rCjeI2A"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <h4 class="font-bold text-on-background group-hover:text-primary transition-colors">Reseña para Roberto Sánchez</h4>
+                        <p class="text-on-surface-variant text-xs">Fotografía Profesional • Contratado en Sep, 2023</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-amber-500 text-sm" style="font-variation-settings: 'FILL' 1;">grade</span>
+                        <span>4.8</span>
+                    </div>
+                </div>
+                <p class="text-on-surface-variant text-sm mt-3 leading-relaxed bg-surface-container-lowest/50 p-4 rounded-xl border border-surface-container-high">
+                    "Las fotos del evento corporativo quedaron espectaculares y capturaron momentos muy espontáneos. El único detalle fue que la entrega final se retrasó un par de días de la fecha acordada, pero valió completamente la pena por la calidad visual final."
+                </p>
+                <div class="mt-4 flex items-center justify-between text-xs text-outline">
+                    <span>Publicado el 25 de Sep, 2023</span>
+                    <span class="text-primary font-bold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verificada por Escrow
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<div>
-<h4 class="font-bold text-lg text-on-background group-hover:text-primary transition-colors">Carlos Mendoza</h4>
-<p class="text-on-surface-variant text-sm">Diseño de Interiores • 14 de Nov, 2023</p>
+
+<!-- Tab 3: Garantías y Escrow (Escrow Deposits Active) -->
+<div id="content-escrow" class="space-y-4 hidden">
+    <!-- Active Escrow Card -->
+    <div class="bg-gradient-to-tr from-primary-container/20 to-secondary-container/10 rounded-24 p-6 shadow-sm border-2 border-primary-container/30 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center border border-primary-container shadow-sm">
+                    <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">lock</span>
+                </div>
+                <div>
+                    <span class="text-[10px] bg-sky-100 text-sky-700 font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full">Transacción Protegida</span>
+                    <h4 class="font-bold text-xl text-on-background mt-1.5">Desarrollo Web Full-Stack</h4>
+                    <p class="text-on-surface-variant text-xs">Profesional contratado: Alex Martínez • Creado el 17 de May, 2026</p>
+                </div>
+            </div>
+            <div class="text-left md:text-right">
+                <p class="text-2xl font-black text-primary">$1,224.00</p>
+                <p class="text-outline text-xs">Comisión Escrow Incluida (2%)</p>
+            </div>
+        </div>
+        
+        <!-- Premium Progress Bar -->
+        <div class="space-y-3 mb-6 bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-primary-container/10">
+            <div class="flex justify-between text-xs font-bold text-on-surface-variant">
+                <span class="text-emerald-600 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>Depósito</span>
+                <span class="text-primary flex items-center gap-1 animate-pulse"><span class="material-symbols-outlined text-[14px]">work</span>En Desarrollo</span>
+                <span class="text-slate-400">Liberación</span>
+            </div>
+            <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden flex">
+                <div class="w-1/3 bg-emerald-500 h-full"></div>
+                <div class="w-1/3 bg-sky-500 h-full animate-pulse"></div>
+                <div class="w-1/3 bg-slate-200 h-full"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-on-surface-variant">
+                <span>Fondos validados y retenidos</span>
+                <span class="font-bold text-sky-600">Fase actual: El profesional está trabajando</span>
+                <span>Pendiente de tu aprobación</span>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+            <a href="../dep_sito_en_garant_a_escrow_2/code.html" class="flex-1 min-w-[150px] py-3.5 bg-white text-primary border border-primary-container rounded-full font-bold text-center text-sm shadow-sm hover:bg-surface hover:shadow-md transition-all duration-200">
+                Ver Detalles de Garantía
+            </a>
+            <button id="liberar-fondos-btn" class="flex-1 min-w-[150px] py-3.5 bg-primary text-white rounded-full font-bold text-sm shadow-md hover:bg-opacity-95 hover:shadow-lg hover:scale-[1.01] transition-all duration-200 active:scale-95">
+                Liberar Fondos (Autorizar Pago)
+            </button>
+        </div>
+    </div>
+
+    <!-- Security Info Box -->
+    <div class="bg-white rounded-24 p-6 shadow-sm border border-surface-container-high flex gap-4">
+        <span class="material-symbols-outlined text-primary text-3xl shrink-0" style="font-variation-settings: 'FILL' 1;">shield</span>
+        <div>
+            <h5 class="font-bold text-on-background mb-1">¿Cómo funciona el depósito en garantía (Escrow)?</h5>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+                Tus pagos se mantienen seguros en un fideicomiso neutral de Marketplace. Los fondos no se liberarán al profesional hasta que verifiques y apruebes el trabajo entregado. Si hay algún inconveniente, puedes abrir una disputa de manera segura con nuestro soporte.
+            </p>
+            <a href="#" class="inline-block mt-3 text-xs text-primary font-bold hover:underline">Leer más sobre la Garantía Escrow</a>
+        </div>
+    </div>
 </div>
-<p class="text-xl font-bold text-primary">$450.00</p>
+
+<!-- Reusable Contract Details Modal -->
+<div id="contract-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-24 p-8 w-full max-w-xl mx-4 shadow-2xl border border-surface-container-high transform scale-95 transition-transform duration-300 relative flex flex-col gap-6 max-h-[85vh] overflow-y-auto">
+        <button id="close-contract-btn" class="absolute top-4 right-4 p-2 hover:bg-surface-container rounded-full transition-all">
+            <span class="material-symbols-outlined text-on-surface-variant">close</span>
+        </button>
+        
+        <div class="flex items-center gap-4 border-b border-surface-container-high pb-4">
+            <div class="w-14 h-14 rounded-2xl overflow-hidden border border-surface-container-high shrink-0">
+                <img id="c-modal-img" class="w-full h-full object-cover" src="" alt="Professional">
+            </div>
+            <div>
+                <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Servicio Completado</span>
+                <h4 id="c-modal-pro" class="text-xl font-bold text-on-background mt-1"></h4>
+                <p id="c-modal-meta" class="text-xs text-on-surface-variant"></p>
+            </div>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <h5 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Descripción del Trabajo Entregado</h5>
+                <p id="c-modal-desc" class="text-sm text-on-surface-variant leading-relaxed bg-surface-container-low p-4 rounded-xl"></p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-surface-container-low p-4 rounded-xl border border-primary-container/10">
+                    <span class="text-xs font-semibold text-outline block">Monto Total</span>
+                    <span id="c-modal-amount" class="text-xl font-bold text-primary"></span>
+                </div>
+                <div class="bg-surface-container-low p-4 rounded-xl border border-primary-container/10">
+                    <span class="text-xs font-semibold text-outline block">Método de Custodia</span>
+                    <span class="text-sm font-bold text-on-background flex items-center gap-1 mt-1">
+                        <span class="material-symbols-outlined text-sky-500 text-base" style="font-variation-settings: 'FILL' 1;">shield</span> Escrow Protegido
+                    </span>
+                </div>
+            </div>
+
+            <div class="border-t border-surface-container-high pt-4">
+                <h5 class="text-xs font-bold text-outline uppercase tracking-wider mb-2">Términos Legales & Firma Digital</h5>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-[11px] text-slate-500 leading-relaxed font-mono space-y-1">
+                    <p>CONTRATO: ID-TR-827492-CS</p>
+                    <p>CONTRATANTE: Mariana Rodríguez (HUE-92847)</p>
+                    <p>ESTADO: Depósito Liberado satisfactoriamente tras verificación.</p>
+                    <p class="mt-2 text-primary font-bold">FIRMADO DIGITALMENTE Y VALIDADO EN ESCROW</p>
+                </div>
+            </div>
+        </div>
+        
+        <button id="ok-contract-btn" class="w-full py-3 bg-primary text-white font-bold rounded-full hover:bg-opacity-95 transition-all shadow-md active:scale-95">
+            Cerrar Detalles
+        </button>
+    </div>
 </div>
-<div class="mt-4 flex items-center gap-3">
-<span class="px-3 py-1 bg-primary-container/40 text-primary text-[11px] font-bold rounded-full flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                                        Completado
-                                    </span>
-<button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline">Ver detalles</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all group">
-<div class="flex flex-col sm:flex-row sm:items-center gap-6">
-<div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
-<img alt="Elena Varas" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q"/>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<div>
-<h4 class="font-bold text-lg text-on-background group-hover:text-primary transition-colors">Elena Varas</h4>
-<p class="text-on-surface-variant text-sm">Consultoría de Negocios • 02 de Oct, 2023</p>
-</div>
-<p class="text-xl font-bold text-primary">$820.00</p>
-</div>
-<div class="mt-4 flex items-center gap-3">
-<span class="px-3 py-1 bg-primary-container/40 text-primary text-[11px] font-bold rounded-full flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                        Completado
-                                    </span>
-<button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline">Ver detalles</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="bg-white rounded-24 p-6 shadow-sm border border-transparent hover:border-primary-container/50 transition-all group">
-<div class="flex flex-col sm:flex-row sm:items-center gap-6">
-<div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
-<img alt="Roberto Sánchez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaB0pHqFtfXILqLbDfWCrSVVQ87Ob-0lfgrZfGjCPWfJC2R1cF_PBJcLNpxRk9_Xg81KwZbdhbdqM5ShsazjdnKhPg0je0oaAqdWDrMl0OmyutJ21EQ1-WFqkEWp4Eonzlv66A5aJElEI9wPhypaCh6W5nGoDksmY7_LaiE00PS6dGZXFR8SQAjz4cqYr34LTf6kvZtbTTk9UuNvOJGO38DEkDcvU2NLEUsHrlPkfVvolMeuYO5vjFrY1MEJr3VsGYU38rCjeI2A"/>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<div>
-<h4 class="font-bold text-lg text-on-background group-hover:text-primary transition-colors">Roberto Sánchez</h4>
-<p class="text-on-surface-variant text-sm">Fotografía Profesional • 20 de Sep, 2023</p>
-</div>
-<p class="text-xl font-bold text-primary">$310.00</p>
-</div>
-<div class="mt-4 flex items-center gap-3">
-<span class="px-3 py-1 bg-primary-container/40 text-primary text-[11px] font-bold rounded-full flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                        Completado
-                                    </span>
-<button class="text-xs text-outline font-semibold hover:text-primary underline-offset-4 hover:underline">Ver detalles</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 4 (Low opacity as per original design) -->
-<div class="bg-white/60 rounded-24 p-6 shadow-sm border border-transparent opacity-80 group">
-<div class="flex flex-col sm:flex-row sm:items-center gap-6">
-<div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
-<img alt="Sofía Castillo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMZ0z2nHRWPXkI7ayd-zx-ABZfwWbtXXJwCqmBSj6BQj46nbw8Z17sAHLYBwxmfzkwM5J1qAaFzBLa_-qzpf7apaQS7a4ByfoScXQyB432r46X5KaLsvK9XcEMt_25lCcrbB_qUe8z2XVuYn1YYOYQBrCqdB-_YTMHraTuBWhJD_vEJYZcNacwff-RmDMyran1ipnknJO_QqHnjJaiBdzVeEe5HN6hzUFTvV8gtDjPLRjFVH4phvDqimSW46U_SUY655C73XYgOw"/>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<div>
-<h4 class="font-bold text-lg text-on-background">Sofía Castillo</h4>
-<p class="text-on-surface-variant text-sm">Desarrollo Web • 15 de Ago, 2023</p>
-</div>
-<p class="text-xl font-bold text-primary">$1,200.00</p>
-</div>
-<div class="mt-4 flex items-center gap-3">
-<span class="px-3 py-1 bg-primary-container/40 text-primary text-[11px] font-bold rounded-full flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                        Completado
-                                    </span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-12 flex justify-center">
-<button class="px-10 py-4 bg-white text-primary border-2 border-primary-container rounded-full font-bold shadow-sm hover:bg-surface transition-all active:scale-95">
-                        Ver historial completo
+
+<!-- Edit Profile Modal -->
+<div id="edit-profile-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-24 p-8 w-full max-w-lg mx-4 shadow-2xl border border-surface-container-high transform scale-95 transition-transform duration-300 relative flex flex-col gap-6">
+        <button id="close-edit-btn" class="absolute top-4 right-4 p-2 hover:bg-surface-container rounded-full transition-all">
+            <span class="material-symbols-outlined text-on-surface-variant">close</span>
+        </button>
+        <h3 class="text-2xl font-bold text-on-background">Editar Mi Perfil</h3>
+        
+        <form id="edit-profile-form" class="space-y-6">
+            <!-- Avatar Section -->
+            <div class="flex flex-col items-center gap-3">
+                <div class="relative group cursor-pointer">
+                    <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-primary-container p-1 bg-white relative">
+                        <img id="modal-preview-img" class="w-full h-full rounded-full object-cover" src="" alt="Preview">
+                        <div class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span class="material-symbols-outlined text-white text-xl">photo_camera</span>
+                        </div>
+                    </div>
+                    <label for="avatar-file-input" class="absolute inset-0 cursor-pointer rounded-full"></label>
+                </div>
+                <span class="text-xs text-on-surface-variant font-medium">Haz clic en la foto para subir imagen o selecciona un preset:</span>
+                <input type="file" id="avatar-file-input" class="hidden" accept="image/*">
+                
+                <!-- Avatar Presets -->
+                <div class="flex gap-3.5 mt-1 flex-wrap justify-center">
+                    <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-primary focus:border-primary active:scale-95 transition-all shadow-sm shrink-0" data-src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg" title="Mariana (Por Defecto)">
+                        <img class="w-full h-full object-cover pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg" alt="Preset 1">
                     </button>
+                    <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-primary focus:border-primary active:scale-95 transition-all shadow-sm shrink-0" data-src="https://lh3.googleusercontent.com/aida-public/AB6AXuAypFBkM9AtYSigB7iYGlo5nXo4dJu87rUSBcmD7T9MkYc5Y-aYzGGxy9xQdEkAZZzaxmcFbX8Qptz1gJpWuQ3ZcdCDYIxZFO0L4Y8OjClRasdpWuURhmHES1qn1qraArGPZ7pv7dnAiy4wF30UaS1w60KqNaGWRK38OrpbySk6OVSJBARVOSaJRhXUFL1mJ7wDBKaZm36ylyrSDy6_qECNYak6233PNHibWpx7OfCmuNPnJr3BdveXt6RkVEmbFCD4qXk-fm4Dhw" title="Diseñadora Sarah">
+                        <img class="w-full h-full object-cover pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAypFBkM9AtYSigB7iYGlo5nXo4dJu87rUSBcmD7T9MkYc5Y-aYzGGxy9xQdEkAZZzaxmcFbX8Qptz1gJpWuQ3ZcdCDYIxZFO0L4Y8OjClRasdpWuURhmHES1qn1qraArGPZ7pv7dnAiy4wF30UaS1w60KqNaGWRK38OrpbySk6OVSJBARVOSaJRhXUFL1mJ7wDBKaZm36ylyrSDy6_qECNYak6233PNHibWpx7OfCmuNPnJr3BdveXt6RkVEmbFCD4qXk-fm4Dhw" alt="Preset 2">
+                    </button>
+                    <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-primary focus:border-primary active:scale-95 transition-all shadow-sm shrink-0" data-src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGvPRmo7kP8RIM5dNZWCW9T7AKNkZCyMgzJJ38cC1NN60ocgVlELjnZitEJkxxbIhG5p8fgrm5sLh_PHGk57TmhC9TN9ctzUpKJqCW_Tw1VAVMqEvaiB7cjG66qFG1MPJ18f67pmfR5HNWbIlUaNv-TyqZ0p2V7Uz_MGNCdP1-5FXNC-z4i1KDD-CvaKrMTEPnx2NH7OCYglbIwq759riB2Wg_VgSQnQ5JU6cbbPopAwd-74IAvHssQgEdv5qNBbzub18gc28fTw" title="Creadora Elena">
+                        <img class="w-full h-full object-cover pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGvPRmo7kP8RIM5dNZWCW9T7AKNkZCyMgzJJ38cC1NN60ocgVlELjnZitEJkxxbIhG5p8fgrm5sLh_PHGk57TmhC9TN9ctzUpKJqCW_Tw1VAVMqEvaiB7cjG66qFG1MPJ18f67pmfR5HNWbIlUaNv-TyqZ0p2V7Uz_MGNCdP1-5FXNC-z4i1KDD-CvaKrMTEPnx2NH7OCYglbIwq759riB2Wg_VgSQnQ5JU6cbbPopAwd-74IAvHssQgEdv5qNBbzub18gc28fTw" alt="Preset 3">
+                    </button>
+                    <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-primary focus:border-primary active:scale-95 transition-all shadow-sm shrink-0" data-src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCLu45Nw-xWdQ5F7qDCTPytA668m55RZwFjsu0pUJ_U4LSa2JHwygwGGmQgoSDz7HFbkpF9RpzRBdO5WCNJ7ya8iTctwyvZ4Ux1nKNh0C07k43gbfGNyG0bgRRKpHMt2h24Mjy2kqt4mgKwyqn5uhZEd80anECA16gqauAxeLczHMcJ4xyFDKRChU7b6CuTa3ZEhtGzqN5XvG0tu_6SHqc7UWac4AsoTjVb-46bPY0TvTvDNPZu49gNLIXwOmHsLHABkMap0Uz5w" title="Consultor David">
+                        <img class="w-full h-full object-cover pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCLu45Nw-xWdQ5F7qDCTPytA668m55RZwFjsu0pUJ_U4LSa2JHwygwGGmQgoSDz7HFbkpF9RpzRBdO5WCNJ7ya8iTctwyvZ4Ux1nKNh0C07k43gbfGNyG0bgRRKpHMt2h24Mjy2kqt4mgKwyqn5uhZEd80anECA16gqauAxeLczHMcJ4xyFDKRChU7b6CuTa3ZEhtGzqN5XvG0tu_6SHqc7UWac4AsoTjVb-46bPY0TvTvDNPZu49gNLIXwOmHsLHABkMap0Uz5w" alt="Preset 4">
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Form Fields -->
+            <div class="space-y-4">
+                <div class="space-y-1">
+                    <label for="edit-name-input" class="text-xs font-bold uppercase tracking-wider text-on-surface-variant block">Nombre Completo</label>
+                    <input type="text" id="edit-name-input" class="w-full h-12 px-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" placeholder="Escribe tu nombre">
+                </div>
+                
+                <div class="space-y-1">
+                    <label for="edit-location-input" class="text-xs font-bold uppercase tracking-wider text-on-surface-variant block">Ubicación (Ciudad / Código País)</label>
+                    <input type="text" id="edit-location-input" class="w-full h-12 px-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" placeholder="CDMX o Ciudad, País">
+                </div>
+            </div>
+            
+            <div class="flex gap-3 pt-2">
+                <button type="button" id="cancel-edit-btn" class="flex-1 py-3 bg-surface-container-high text-on-surface-variant font-bold rounded-full hover:bg-surface-dim transition-all active:scale-95">
+                    Cancelar
+                </button>
+                <button type="submit" class="flex-1 py-3 bg-primary text-white font-bold rounded-full hover:bg-opacity-95 hover:shadow-lg transition-all active:scale-95">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<!-- Toast Success Notification -->
+<div id="profile-toast" class="fixed bottom-24 right-6 z-[110] translate-y-10 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white rounded-2xl p-4 pr-6 flex items-center gap-3 shadow-xl max-w-sm border border-slate-800">
+        <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-white text-lg">check</span>
+        </div>
+        <div>
+            <p class="text-sm font-bold text-white" id="toast-title">¡Perfil Actualizado!</p>
+            <p class="text-xs text-slate-400" id="toast-body">Los cambios se guardaron y se sincronizaron con la plataforma.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Premium Interactive JavaScript Engine -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. Definición del perfil por defecto e inicialización ---
+        const defaultProfile = {
+            name: "Mariana Rodríguez",
+            location: "CDMX",
+            photo: "https://lh3.googleusercontent.com/aida-public/AB6AXuDw-ZTCrIPqnjF5sFLMvL4wpBrJUFCX1TOgGK8ITvhzCBb0Vc8cACs0EksoF88cxj10bvpUSYSzwE6C2sNzfAhvFwjlA9sEKfgLY2CcoTQ_rgVdbWYefpu5BUMd3nuM0881x9QKUJjs2pz9Kudga6_lCIvXqAgZ5WkCCf18CXFXE1vXTmw2NXLFtDybgdxpOXMCVfZerpafcg-jugKCv1sEvtgehLB_hPmzgza6sKAlVRBu19gZU8rlcAGwBBWoNuNmtUw33Ruopg"
+        };
+        
+        let currentProfile = JSON.parse(localStorage.getItem("currentUserProfile") || JSON.stringify(defaultProfile));
+        
+        // Elementos del perfil en el DOM
+        const headerImg = document.getElementById("header-profile-img");
+        const leftImg = document.getElementById("profile-img-left");
+        const leftName = document.getElementById("profile-name-left");
+        const leftLocation = document.getElementById("profile-location-left");
+        
+        // Aplicar datos cargados
+        function applyProfileData() {
+            if (headerImg) headerImg.src = currentProfile.photo;
+            if (leftImg) leftImg.src = currentProfile.photo;
+            if (leftName) leftName.textContent = currentProfile.name;
+            if (leftLocation) leftLocation.textContent = currentProfile.location;
+        }
+        applyProfileData();
+
+        // --- 2. Lógica del Sistema de Modales ---
+        // Abrir modal con animación de entrada
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            // Esperar reflow
+            setTimeout(() => {
+                modal.classList.remove("opacity-0");
+                modal.querySelector(".transform").classList.remove("scale-95");
+                modal.querySelector(".transform").classList.add("scale-100");
+            }, 10);
+        }
+
+        // Cerrar modal con animación de salida
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            modal.classList.add("opacity-0");
+            modal.querySelector(".transform").classList.remove("scale-100");
+            modal.querySelector(".transform").classList.add("scale-95");
+            setTimeout(() => {
+                modal.classList.remove("flex");
+                modal.classList.add("hidden");
+            }, 300);
+        }
+
+        // --- 3. Lógica del Modal Editar Perfil ---
+        const editProfileBtn = document.getElementById("edit-profile-btn");
+        const cameraOverlayBtn = document.getElementById("camera-overlay-btn");
+        const editProfileModal = document.getElementById("edit-profile-modal");
+        const closeEditBtn = document.getElementById("close-edit-btn");
+        const cancelEditBtn = document.getElementById("cancel-edit-btn");
+        const editForm = document.getElementById("edit-profile-form");
+        
+        const editNameInput = document.getElementById("edit-name-input");
+        const editLocationInput = document.getElementById("edit-location-input");
+        const modalPreviewImg = document.getElementById("modal-preview-img");
+        const fileInput = document.getElementById("avatar-file-input");
+        
+        let pendingPhoto = currentProfile.photo;
+
+        function initEditModal() {
+            editNameInput.value = currentProfile.name;
+            editLocationInput.value = currentProfile.location;
+            modalPreviewImg.src = currentProfile.photo;
+            pendingPhoto = currentProfile.photo;
+            openModal("edit-profile-modal");
+        }
+
+        if (editProfileBtn) editProfileBtn.addEventListener("click", initEditModal);
+        if (cameraOverlayBtn) cameraOverlayBtn.addEventListener("click", initEditModal);
+        if (closeEditBtn) closeEditBtn.addEventListener("click", () => closeModal("edit-profile-modal"));
+        if (cancelEditBtn) cancelEditBtn.addEventListener("click", () => closeModal("edit-profile-modal"));
+
+        // Manejar subida de archivos (Base64 Reader)
+        if (fileInput) {
+            fileInput.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        pendingPhoto = event.target.result;
+                        modalPreviewImg.src = pendingPhoto;
+                        showToast("Foto Procesada", "La imagen se ha cargado localmente con éxito.");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Manejar presets
+        const presetBtns = document.querySelectorAll(".preset-avatar-btn");
+        presetBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const src = btn.getAttribute("data-src");
+                pendingPhoto = src;
+                modalPreviewImg.src = src;
+                
+                // Animación de feedback para el botón presionado
+                btn.classList.add("ring-2", "ring-primary", "scale-95");
+                setTimeout(() => btn.classList.remove("scale-95"), 100);
+                presetBtns.forEach(b => {
+                    if (b !== btn) b.classList.remove("ring-2", "ring-primary");
+                });
+            });
+        });
+
+        // Guardar Formulario
+        if (editForm) {
+            editForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                currentProfile.name = editNameInput.value.trim() || defaultProfile.name;
+                currentProfile.location = editLocationInput.value.trim() || defaultProfile.location;
+                currentProfile.photo = pendingPhoto;
+
+                localStorage.setItem("currentUserProfile", JSON.stringify(currentProfile));
+                applyProfileData();
+                closeModal("edit-profile-modal");
+                showToast("¡Perfil Actualizado!", "Los cambios se guardaron y se sincronizaron con el Marketplace.");
+            });
+        }
+
+        // --- 4. Sistema de Feedback Premium (Toasts) ---
+        const toast = document.getElementById("profile-toast");
+        const toastTitle = document.getElementById("toast-title");
+        const toastBody = document.getElementById("toast-body");
+        let toastTimeout;
+
+        function showToast(title, body) {
+            if (!toast) return;
+            clearTimeout(toastTimeout);
+            toastTitle.textContent = title;
+            toastBody.textContent = body;
+            
+            toast.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+            toast.classList.add("opacity-100", "translate-y-0");
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove("opacity-100", "translate-y-0");
+                toast.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+            }, 4000);
+        }
+
+        // --- 5. Lógica del Panel de Pestañas (Tab Controller) ---
+        const tabBtns = document.querySelectorAll(".tab-btn");
+        const tabContratos = document.getElementById("content-contratos");
+        const tabReseñas = document.getElementById("content-reseñas");
+        const tabEscrow = document.getElementById("content-escrow");
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Remover clase activa de todos los botones
+                tabBtns.forEach(b => {
+                    b.classList.remove("border-primary", "text-primary", "font-bold");
+                    b.classList.add("border-transparent", "text-outline", "font-semibold");
+                });
+                
+                // Añadir clase activa al botón actual
+                btn.classList.add("border-primary", "text-primary", "font-bold");
+                btn.classList.remove("border-transparent", "text-outline", "font-semibold");
+
+                // Esconder todos los contenidos
+                tabContratos.classList.add("hidden");
+                tabReseñas.classList.add("hidden");
+                tabEscrow.classList.add("hidden");
+
+                // Mostrar el correcto
+                const id = btn.id;
+                if (id === "tab-contratos") {
+                    tabContratos.classList.remove("hidden");
+                } else if (id === "tab-reseñas") {
+                    tabReseñas.classList.remove("hidden");
+                } else if (id === "tab-escrow") {
+                    tabEscrow.classList.remove("hidden");
+                }
+            });
+        });
+
+        // --- 6. Lógica del Modal Detalle de Contratos ---
+        const contractModal = document.getElementById("contract-modal");
+        const closeContractBtn = document.getElementById("close-contract-btn");
+        const okContractBtn = document.getElementById("ok-contract-btn");
+        
+        const cModalImg = document.getElementById("c-modal-img");
+        const cModalPro = document.getElementById("c-modal-pro");
+        const cModalMeta = document.getElementById("c-modal-meta");
+        const cModalDesc = document.getElementById("c-modal-desc");
+        const cModalAmount = document.getElementById("c-modal-amount");
+
+        const detalleBtns = document.querySelectorAll(".btn-detalles");
+        detalleBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const pro = btn.getAttribute("data-pro");
+                const category = btn.getAttribute("data-category");
+                const date = btn.getAttribute("data-date");
+                const amount = btn.getAttribute("data-amount");
+                const img = btn.getAttribute("data-img");
+                const desc = btn.getAttribute("data-desc");
+
+                if (cModalImg) cModalImg.src = img;
+                if (cModalPro) cModalPro.textContent = pro;
+                if (cModalMeta) cModalMeta.textContent = `${category} • Habilitado el ${date}`;
+                if (cModalDesc) cModalDesc.textContent = desc;
+                if (cModalAmount) cModalAmount.textContent = amount;
+
+                openModal("contract-modal");
+            });
+        });
+
+        if (closeContractBtn) closeContractBtn.addEventListener("click", () => closeModal("contract-modal"));
+        if (okContractBtn) okContractBtn.addEventListener("click", () => closeModal("contract-modal"));
+
+        // Lógica de liberación de fondos segura
+        const liberarBtn = document.getElementById("liberar-fondos-btn");
+        if (liberarBtn) {
+            liberarBtn.addEventListener("click", () => {
+                liberarBtn.disabled = true;
+                liberarBtn.textContent = "Liberando fondos...";
+                liberarBtn.classList.add("bg-opacity-50");
+                
+                setTimeout(() => {
+                    showToast("Pago Autorizado", "El saldo de $1,224.00 ha sido transferido de forma segura a Alex Martínez.");
+                    liberarBtn.textContent = "Fondos Liberados";
+                    liberarBtn.className = "flex-1 min-w-[150px] py-3.5 bg-emerald-100 text-emerald-700 rounded-full font-bold text-sm shadow-sm cursor-default";
+                }, 1500);
+            });
+        }
+    });
+</script>
 </section>
 </div>
 </main>

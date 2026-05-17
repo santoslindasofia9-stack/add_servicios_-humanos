@@ -33,7 +33,8 @@ import {
   Map,
   Compass,
   Loader2,
-  Camera
+  Camera,
+  LogOut
 } from "lucide-react";
 
 import { supabase } from "@/lib/supabase";
@@ -91,6 +92,7 @@ export default function PerfilYEditorDeServicios() {
   const [showEditServiceModal, setShowEditServiceModal] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [showSkillsModal, setShowSkillsModal] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   // Form states for profile edit modal
   const [editNombre, setEditNombre] = useState("");
@@ -428,11 +430,48 @@ export default function PerfilYEditorDeServicios() {
           </div>
           
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3 bg-sky-50/50 pl-4 pr-1 py-1 rounded-full border border-sky-100/60 shadow-inner">
-              <span className="text-sm font-bold text-slate-700 hidden lg:block">{nombre}</span>
-              <div className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-md cursor-pointer relative hover:scale-105 transition-transform" onClick={handleOpenProfileModal}>
-                <img className="w-full h-full object-cover" alt="Profile" src={avatar} />
+            <div className="relative">
+              <div 
+                className="flex items-center gap-3 bg-sky-50/50 pl-4 pr-1 py-1 rounded-full border border-sky-100/60 shadow-inner cursor-pointer hover:bg-sky-100/50 transition-colors"
+                onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+              >
+                <span className="text-sm font-bold text-slate-700 hidden lg:block">{nombre}</span>
+                <div className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-md relative hover:scale-105 transition-transform">
+                  <img className="w-full h-full object-cover" alt="Profile" src={avatar} />
+                </div>
               </div>
+              
+              <AnimatePresence>
+                {showProfileDropdown && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute right-0 top-full mt-2 w-52 bg-white rounded-xl shadow-xl border border-slate-100 z-50 overflow-hidden"
+                  >
+                    <div className="p-2 flex flex-col gap-1">
+                      <button 
+                        onClick={() => {
+                          setShowProfileDropdown(false);
+                          handleOpenProfileModal();
+                        }}
+                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-600 rounded-lg transition-colors text-left"
+                      >
+                        <Edit2 size={16} />
+                        Editar Perfil
+                      </button>
+                      <div className="h-px bg-slate-100 my-1 mx-2"></div>
+                      <a 
+                        href="/auth/login"
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                      >
+                        <LogOut size={16} />
+                        Cerrar Sesión
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

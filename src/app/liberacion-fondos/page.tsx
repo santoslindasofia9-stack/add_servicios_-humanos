@@ -517,6 +517,16 @@ export default function LiberacionFondosPage() {
             </div>
           ))}
         </div>
+
+        {/* Back to Contract Details */}
+        <div className="flex flex-col items-center pt-2">
+          <button 
+            onClick={() => router.push('/confirmacion-contrato')}
+            className="text-slate-400 hover:text-slate-600 transition-colors font-semibold text-sm hover:underline"
+          >
+            Revisar detalles nuevamente
+          </button>
+        </div>
       </main>
 
       {/* Payment Modal */}

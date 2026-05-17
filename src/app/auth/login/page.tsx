@@ -121,17 +121,8 @@ function LoginContent() {
       localStorage.setItem("userRole", role);
       localStorage.setItem("isLoggedIn", "true");
 
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          queryParams: {
-            prompt: 'select_account',
-          },
-        },
-      });
-
-      if (error) throw error;
+      // Redirect to the simulated Google account selection screen
+      window.location.href = "/auth/google";
       // La página redirige a Google automáticamente
     } catch (err: any) {
       console.error("Google Auth failed:", err);

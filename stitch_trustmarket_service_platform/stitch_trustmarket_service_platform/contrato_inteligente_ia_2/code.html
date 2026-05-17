@@ -199,6 +199,75 @@
 </ul>
 </div>
 </div>
+<!-- Payment Structure Section -->
+<div class="bg-white rounded-[2rem] p-6 md:p-10 border border-surface-container-high/50 mb-8 md:mb-12 desktop-shadow">
+  <!-- Header -->
+  <div class="flex items-center gap-4 mb-8">
+    <div class="w-12 h-12 rounded-2xl bg-secondary-container/40 flex items-center justify-center">
+      <span class="material-symbols-outlined text-secondary text-3xl">payments</span>
+    </div>
+    <div>
+      <h3 class="text-2xl md:text-3xl font-bold text-on-background">Estructura de Pago</h3>
+      <p class="text-on-surface-variant text-sm mt-0.5">Según lo acordado entre cliente y profesional</p>
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div class="celestial-gradient rounded-2xl p-5 md:p-6 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-primary-fixed/30">
+    <div>
+      <p class="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Costo Total Acordado</p>
+      <p class="text-4xl md:text-5xl font-extrabold text-on-background tracking-tight">
+        $2,450.00 <span class="text-base font-semibold text-outline tracking-normal">USD</span>
+      </p>
+    </div>
+    <div class="bg-white/70 rounded-xl px-4 py-2.5 border border-primary-container/40 text-center">
+      <p class="text-[10px] font-black text-primary uppercase tracking-widest">Modalidad</p>
+      <p class="text-sm font-bold text-on-background mt-0.5">Pago en 2 partes</p>
+    </div>
+  </div>
+
+  <!-- Two steps -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+    <!-- Step 1 -->
+    <div class="relative bg-primary-container/20 rounded-2xl p-5 border border-primary-fixed-dim/40 overflow-hidden">
+      <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black">1</div>
+      <p class="text-[10px] font-black text-primary uppercase tracking-widest mb-2">Al iniciar el contrato</p>
+      <p class="text-3xl font-extrabold text-primary tracking-tight">
+        $1,225.00 <span class="text-sm font-semibold text-outline">USD</span>
+      </p>
+      <p class="text-xs text-on-surface-variant font-medium mt-2 leading-relaxed">
+        Se cobra la primera mitad al momento de firmar. Estos fondos quedan retenidos en garantía (escrow) hasta la entrega.
+      </p>
+      <div class="mt-3 flex items-center gap-1.5 text-primary">
+        <span class="material-symbols-outlined text-base">lock</span>
+        <span class="text-[10px] font-bold uppercase tracking-wide">Retenido en garantía</span>
+      </div>
+    </div>
+    <!-- Step 2 -->
+    <div class="relative bg-secondary-container/20 rounded-2xl p-5 border border-secondary-fixed-dim/40 overflow-hidden">
+      <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white text-xs font-black">2</div>
+      <p class="text-[10px] font-black text-secondary uppercase tracking-widest mb-2">Al entregar el servicio</p>
+      <p class="text-3xl font-extrabold text-secondary tracking-tight">
+        $1,225.00 <span class="text-sm font-semibold text-outline">USD</span>
+      </p>
+      <p class="text-xs text-on-surface-variant font-medium mt-2 leading-relaxed">
+        La segunda mitad se libera al profesional únicamente cuando el cliente confirma que el trabajo fue entregado satisfactoriamente.
+      </p>
+      <div class="mt-3 flex items-center gap-1.5 text-secondary">
+        <span class="material-symbols-outlined text-base">check_circle</span>
+        <span class="text-[10px] font-bold uppercase tracking-wide">Liberado al confirmar entrega</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info banner -->
+  <div class="bg-[#fffbeb] border border-[#fde68a]/60 rounded-2xl p-4 flex items-start gap-3">
+    <div class="w-8 h-8 rounded-xl bg-[#fde68a]/50 flex items-center justify-center shrink-0 text-base mt-0.5">🔒</div>
+    <p class="text-sm text-[#78350f] leading-relaxed font-medium">
+      <strong>¿Por qué pagos en dos partes?</strong> Este sistema protege tanto al cliente como al profesional. El cliente sabe que no perderá su dinero si el trabajo no se entrega, y el profesional recibe un anticipo seguro antes de comenzar.
+    </p>
+  </div>
+</div>
 <!-- Detailed Terms -->
 <div class="bg-white rounded-[2.5rem] p-6 md:p-12 border border-surface-container-high/50 mb-12 desktop-shadow">
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">

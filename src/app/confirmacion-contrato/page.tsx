@@ -175,6 +175,82 @@ const ContractConfirmationPage = () => {
             </motion.div>
           </div>
 
+          {/* Payment Structure Section */}
+          <motion.div
+            variants={itemVariants}
+            className="bg-white rounded-[2rem] p-6 md:p-10 border border-[#dce9ff]/50 shadow-sm"
+          >
+            {/* Header */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-12 rounded-2xl bg-[#FCE4EC]/60 flex items-center justify-center text-[#880e4f]">
+                <Wallet size={26} />
+              </div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#0d1c2e]">Estructura de Pago</h3>
+                <p className="text-[#43474b] text-sm mt-0.5">Según lo acordado entre cliente y profesional</p>
+              </div>
+            </div>
+
+            {/* Total agreed amount */}
+            <div className="bg-gradient-to-br from-[#e0f2fe]/60 to-[#fce4ec]/40 rounded-2xl p-5 md:p-6 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-[#dce9ff]/60">
+              <div>
+                <p className="text-[10px] font-black text-[#50616b] uppercase tracking-widest mb-1">Costo Total Acordado</p>
+                <p className="text-4xl md:text-5xl font-extrabold text-[#0d1c2e] tracking-tight">
+                  $2,450.00 <span className="text-base font-semibold text-[#73787b] tracking-normal">USD</span>
+                </p>
+              </div>
+              <div className="bg-white/80 rounded-xl px-4 py-2.5 border border-[#dce9ff]/50 text-center shadow-sm">
+                <p className="text-[10px] font-black text-[#50616b] uppercase tracking-widest">Modalidad</p>
+                <p className="text-sm font-bold text-[#0d1c2e] mt-0.5">Pago en 2 partes</p>
+              </div>
+            </div>
+
+            {/* Two-step payment cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              {/* Step 1 */}
+              <div className="relative bg-[#e0f2fe]/30 rounded-2xl p-5 border border-[#b7c9d5]/40 overflow-hidden">
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#50616b] flex items-center justify-center text-white text-xs font-black shadow-sm">1</div>
+                <p className="text-[10px] font-black text-[#50616b] uppercase tracking-widest mb-2">Al iniciar el contrato</p>
+                <p className="text-3xl font-extrabold text-[#50616b] tracking-tight">
+                  $1,225.00 <span className="text-sm font-semibold text-[#73787b]">USD</span>
+                </p>
+                <p className="text-xs text-[#43474b] font-medium mt-2 leading-relaxed">
+                  Se cobra la primera mitad al momento de firmar. Estos fondos quedan retenidos en garantía (escrow) hasta la entrega.
+                </p>
+                <div className="mt-3 flex items-center gap-1.5 text-[#50616b]">
+                  <Lock size={12} />
+                  <span className="text-[10px] font-bold uppercase tracking-wide">Retenido en garantía</span>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="relative bg-[#fce4ec]/30 rounded-2xl p-5 border border-[#d7c1c8]/40 overflow-hidden">
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#6b5a60] flex items-center justify-center text-white text-xs font-black shadow-sm">2</div>
+                <p className="text-[10px] font-black text-[#6b5a60] uppercase tracking-widest mb-2">Al entregar el servicio</p>
+                <p className="text-3xl font-extrabold text-[#6b5a60] tracking-tight">
+                  $1,225.00 <span className="text-sm font-semibold text-[#73787b]">USD</span>
+                </p>
+                <p className="text-xs text-[#43474b] font-medium mt-2 leading-relaxed">
+                  La segunda mitad se libera al profesional únicamente cuando el cliente confirma que el trabajo fue entregado satisfactoriamente.
+                </p>
+                <div className="mt-3 flex items-center gap-1.5 text-[#6b5a60]">
+                  <CheckCircle2 size={12} />
+                  <span className="text-[10px] font-bold uppercase tracking-wide">Liberado al confirmar entrega</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Info banner */}
+            <div className="bg-[#fffbeb] border border-[#fde68a]/60 rounded-2xl p-4 flex items-start gap-3">
+              <div className="w-8 h-8 rounded-xl bg-[#fde68a]/60 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-base">🔒</span>
+              </div>
+              <p className="text-sm text-[#78350f] leading-relaxed font-medium">
+                <strong>¿Por qué pagos en dos partes?</strong> Este sistema protege tanto al cliente como al profesional. El cliente sabe que no perderá su dinero si el trabajo no se entrega, y el profesional recibe un anticipo seguro antes de comenzar.
+              </p>
+            </div>
+          </motion.div>
+
           {/* Compliance Clauses */}
           <motion.div 
             variants={itemVariants}

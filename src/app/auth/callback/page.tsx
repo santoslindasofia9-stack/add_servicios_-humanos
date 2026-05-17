@@ -14,6 +14,7 @@ export default function AuthCallback() {
         const code = urlParams.get("code");
         const errorParam = urlParams.get("error");
         const errorDescription = urlParams.get("error_description");
+        const roleFromUrl = urlParams.get("role");
 
         // Si Google devolvió un error
         if (errorParam) {
@@ -22,7 +23,7 @@ export default function AuthCallback() {
           return;
         }
 
-        const pendingRole = localStorage.getItem("userRole") || "client";
+        const pendingRole = roleFromUrl || localStorage.getItem("userRole") || "client";
 
         if (code) {
           // Intercambiar el código por una sesión (PKCE flow)

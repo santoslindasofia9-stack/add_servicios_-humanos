@@ -110,7 +110,7 @@
 </div>
 </div>
 <div class="flex items-center gap-4">
-<button class="hidden md:flex p-2 hover:bg-surface-container rounded-full relative">
+<button id="notifications-header-btn" class="hidden md:flex p-2 hover:bg-surface-container rounded-full relative cursor-pointer">
 <span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
 <span class="absolute top-2 right-2 w-2 h-2 bg-pink-500 rounded-full"></span>
 </button>
@@ -283,15 +283,131 @@
 <span class="material-symbols-outlined" data-icon="assignment">assignment</span>
 <span class="text-[10px] font-bold">Pedidos</span>
 </a>
-<a class="flex flex-col items-center justify-center text-outline px-4 py-1 hover:text-primary transition-colors" href="#">
+<a id="messages-nav-btn" class="flex flex-col items-center justify-center text-outline px-4 py-1 hover:text-primary transition-colors cursor-pointer" href="javascript:void(0)">
 <span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
-<span class="text-[10px] font-bold">Inbox</span>
+<span class="text-[10px] font-bold">Mensajes</span>
 </a>
 <a class="flex flex-col items-center justify-center text-primary bg-primary-container/40 rounded-full px-5 py-1.5 transition-all" href="#">
 <span class="material-symbols-outlined" data-icon="person" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
 <span class="text-[10px] font-bold">Perfil</span>
 </a>
 </nav>
+
+<!-- Sliding Messages & Notifications Drawer -->
+<div id="drawer-overlay" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[100] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<div id="messages-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[101] transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-surface-container-high flex justify-between items-center bg-surface-container-low">
+        <div>
+            <h4 class="font-extrabold text-xl text-on-background tracking-tight">Centro de Actividad</h4>
+            <p class="text-xs text-outline font-semibold mt-0.5">Mensajes y notificaciones recientes</p>
+        </div>
+        <button id="close-drawer-btn" class="p-2 hover:bg-surface-container rounded-full transition-colors flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary">close</span>
+        </button>
+    </div>
+
+    <!-- Drawer Tabs -->
+    <div class="px-6 py-3 border-b border-surface-container-high flex gap-2">
+        <button id="tab-messages-btn" class="flex-1 py-2 text-center rounded-full text-xs font-bold transition-all bg-primary-container text-primary cursor-pointer">
+            Mensajes (1)
+        </button>
+        <button id="tab-notifications-btn" class="flex-1 py-2 text-center rounded-full text-xs font-bold transition-all text-outline hover:text-on-background cursor-pointer">
+            Notificaciones (3)
+        </button>
+    </div>
+
+    <!-- Drawer Content Panel -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-4">
+        <!-- Messages Content -->
+        <div id="panel-messages" class="space-y-4">
+            <!-- Msg 1 -->
+            <div class="p-4 rounded-24 bg-surface-container-low border border-primary-container/20 flex gap-3 hover:bg-surface transition-colors cursor-pointer relative">
+                <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr7PKkLTLkZtiZc6R7YN01A70SXNomxN6ykcs-mH7V-Et7rS5d8yUVZx3yoyrBqSMpxKTAkyrY2VbEGwTK22uFPObfQXfUYFY96AVlHZyh5uXL07hecOI0GHHGax9RsF3DbhyAX9WgawyfCvmK6MSsvVnY23Nxsl1SI_mEDl5mhVihCF1kWpizNBEyM4mD-hIX8Z3GrXPyjOy4CQi5BCaOfO87HR6pmsL6dDdrcsLoJpYeNHiokz6v-sJ2mzu72uQD0ToW9MT39g" alt="Alex" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-center mb-0.5">
+                        <span class="font-bold text-sm text-on-background">Alex Martínez</span>
+                        <span class="text-[10px] text-primary font-bold">2 min</span>
+                    </div>
+                    <p class="text-xs text-outline line-clamp-2 font-medium">¡Hola Mariana! He subido los entregables de la Fase 1. Quedo atento a tu revisión...</p>
+                </div>
+                <!-- Unread dot -->
+                <span class="absolute top-4 right-4 w-2 h-2 bg-pink-500 rounded-full"></span>
+            </div>
+
+            <!-- Msg 2 -->
+            <div class="p-4 rounded-24 bg-white border border-surface-container flex gap-3 hover:bg-surface transition-colors cursor-pointer">
+                <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q" alt="Elena" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-center mb-0.5">
+                        <span class="font-bold text-sm text-on-background">Elena Varas</span>
+                        <span class="text-[10px] text-outline font-medium">1 h</span>
+                    </div>
+                    <p class="text-xs text-outline line-clamp-2 font-medium">Perfecto, ya recibí el comprobante del depósito de garantía. Mañana iniciamos con el análisis.</p>
+                </div>
+            </div>
+
+            <!-- Msg 3 -->
+            <div class="p-4 rounded-24 bg-white border border-surface-container flex gap-3 hover:bg-surface transition-colors cursor-pointer">
+                <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg" alt="Carlos" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-center mb-0.5">
+                        <span class="font-bold text-sm text-on-background">Carlos Mendoza</span>
+                        <span class="text-[10px] text-outline font-medium">1 d</span>
+                    </div>
+                    <p class="text-xs text-outline line-clamp-2 font-medium">¡Muchas gracias por la excelente reseña, Mariana! Fue un placer remodelar tu espacio.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Content (Hidden by default) -->
+        <div id="panel-notifications" class="space-y-4 hidden">
+            <!-- Notif 1 -->
+            <div class="p-4 rounded-24 bg-emerald-50 border border-emerald-100 flex gap-3">
+                <span class="material-symbols-outlined text-emerald-500 shrink-0 mt-0.5">lock_open</span>
+                <div>
+                    <h5 class="font-bold text-sm text-emerald-900 leading-tight">Garantía Escrow Retenida</h5>
+                    <p class="text-xs text-emerald-700 mt-1 font-medium leading-relaxed">
+                        El depósito de $1,224.00 ha sido resguardado de forma segura en fideicomiso para el proyecto de Alex Martínez.
+                    </p>
+                    <span class="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block mt-2">5 MINUTOS</span>
+                </div>
+            </div>
+
+            <!-- Notif 2 -->
+            <div class="p-4 rounded-24 bg-sky-50 border border-sky-100 flex gap-3">
+                <span class="material-symbols-outlined text-sky-500 shrink-0 mt-0.5">cloud_upload</span>
+                <div>
+                    <h5 class="font-bold text-sm text-sky-900 leading-tight">Entregables Recibidos</h5>
+                    <p class="text-xs text-sky-700 mt-1 font-medium leading-relaxed">
+                        Alex Martínez ha subido los archivos fuente y documentación técnica de la Fase 1 a la sala de evidencias.
+                    </p>
+                    <span class="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mt-2">2 HORAS</span>
+                </div>
+            </div>
+
+            <!-- Notif 3 -->
+            <div class="p-4 rounded-24 bg-[#fff0f5] border border-pink-100 flex gap-3">
+                <span class="material-symbols-outlined text-pink-500 shrink-0 mt-0.5">star</span>
+                <div>
+                    <h5 class="font-bold text-sm text-pink-900 leading-tight">Nueva Calificación</h5>
+                    <p class="text-xs text-pink-700 mt-1 font-medium leading-relaxed">
+                        Carlos Mendoza te ha calificado con 5 estrellas por tu excelente comunicación y puntualidad en el pago.
+                    </p>
+                    <span class="text-[9px] text-pink-600 font-bold uppercase tracking-wider block mt-2">1 DÍA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const locationElement = document.getElementById("user-location-info");
@@ -332,6 +448,76 @@
                     console.warn("Geolocation permission error or denied:", error);
                 }
             );
+        }
+
+        // Drawer Elements and Event Listeners
+        const drawerOverlay = document.getElementById("drawer-overlay");
+        const messagesDrawer = document.getElementById("messages-drawer");
+        const closeDrawerBtn = document.getElementById("close-drawer-btn");
+        const messagesNavBtn = document.getElementById("messages-nav-btn");
+        const notificationsHeaderBtn = document.getElementById("notifications-header-btn");
+        
+        const tabMessagesBtn = document.getElementById("tab-messages-btn");
+        const tabNotificationsBtn = document.getElementById("tab-notifications-btn");
+        const panelMessages = document.getElementById("panel-messages");
+        const panelNotifications = document.getElementById("panel-notifications");
+
+        // Helper to open drawer
+        const openDrawer = (activeTab = "messages") => {
+            drawerOverlay.classList.remove("opacity-0", "pointer-events-none");
+            drawerOverlay.classList.add("opacity-100", "pointer-events-auto");
+            messagesDrawer.classList.remove("translate-x-full");
+            messagesDrawer.classList.add("translate-x-0");
+            
+            // Switch tabs accordingly
+            if (activeTab === "messages") {
+                switchTab("messages");
+            } else {
+                switchTab("notifications");
+            }
+        };
+
+        // Helper to close drawer
+        const closeDrawer = () => {
+            drawerOverlay.classList.remove("opacity-100", "pointer-events-auto");
+            drawerOverlay.classList.add("opacity-0", "pointer-events-none");
+            messagesDrawer.classList.remove("translate-x-0");
+            messagesDrawer.classList.add("translate-x-full");
+        };
+
+        // Helper to switch tabs
+        const switchTab = (tab) => {
+            if (tab === "messages") {
+                tabMessagesBtn.className = "flex-1 py-2 text-center rounded-full text-xs font-bold transition-all bg-primary-container text-primary cursor-pointer";
+                tabNotificationsBtn.className = "flex-1 py-2 text-center rounded-full text-xs font-bold transition-all text-outline hover:text-on-background cursor-pointer";
+                panelMessages.classList.remove("hidden");
+                panelNotifications.classList.add("hidden");
+            } else {
+                tabNotificationsBtn.className = "flex-1 py-2 text-center rounded-full text-xs font-bold transition-all bg-primary-container text-primary cursor-pointer";
+                tabMessagesBtn.className = "flex-1 py-2 text-center rounded-full text-xs font-bold transition-all text-outline hover:text-on-background cursor-pointer";
+                panelNotifications.classList.remove("hidden");
+                panelMessages.classList.add("hidden");
+            }
+        };
+
+        // Event listeners
+        if (messagesNavBtn) {
+            messagesNavBtn.addEventListener("click", () => openDrawer("messages"));
+        }
+        if (notificationsHeaderBtn) {
+            notificationsHeaderBtn.addEventListener("click", () => openDrawer("notifications"));
+        }
+        if (closeDrawerBtn) {
+            closeDrawerBtn.addEventListener("click", closeDrawer);
+        }
+        if (drawerOverlay) {
+            drawerOverlay.addEventListener("click", closeDrawer);
+        }
+        if (tabMessagesBtn) {
+            tabMessagesBtn.addEventListener("click", () => switchTab("messages"));
+        }
+        if (tabNotificationsBtn) {
+            tabNotificationsBtn.addEventListener("click", () => switchTab("notifications"));
         }
     });
 </script>

@@ -22,7 +22,7 @@ export default function AuthCallback() {
           return;
         }
 
-        const pendingRole = localStorage.getItem("pendingRole") || "client";
+        const pendingRole = localStorage.getItem("userRole") || "client";
 
         if (code) {
           // Intercambiar el código por una sesión (PKCE flow)
@@ -90,7 +90,7 @@ export default function AuthCallback() {
       localStorage.removeItem("pendingRole");
 
       setStatus("¡Sesión iniciada! Redirigiendo a Home...");
-      const target = role === "client" ? "/home-cliente" : "/dashboard-pro";
+      const target = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
 
       // Pequeño delay para mostrar el mensaje de éxito
       setTimeout(() => {

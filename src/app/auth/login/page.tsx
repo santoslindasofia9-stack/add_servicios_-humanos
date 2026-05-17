@@ -124,7 +124,7 @@ function LoginContent() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: role === "client" ? `${window.location.origin}/home-cliente` : `${window.location.origin}/auth/verificacion-pro`,
+          redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
 

@@ -668,7 +668,7 @@ export default function PerfilPage() {
                   {/* Actions buttons */}
                   <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-100">
                     <button 
-                      onClick={() => router.push("/chat")}
+                      onClick={() => router.push("/chat/f2")}
                       className="flex-1 min-w-[150px] py-3.5 border border-slate-200 hover:bg-slate-50 text-[#0d1c2e] rounded-full font-bold text-sm shadow-sm transition-all"
                     >
                       Hablar con Alex
@@ -1017,7 +1017,7 @@ export default function PerfilPage() {
                   <div 
                     onClick={() => {
                       setIsDrawerOpen(false);
-                      router.push("/chat");
+                      router.push("/chat/f2");
                     }}
                     className="p-4 rounded-[2rem] bg-sky-50/40 border border-sky-100/50 flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer relative"
                   >
@@ -1042,7 +1042,7 @@ export default function PerfilPage() {
                   <div 
                     onClick={() => {
                       setIsDrawerOpen(false);
-                      router.push("/chat");
+                      router.push("/chat/f1");
                     }}
                     className="p-4 rounded-[2rem] bg-white border border-[#e6eeff] flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
                   >
@@ -1066,7 +1066,7 @@ export default function PerfilPage() {
                   <div 
                     onClick={() => {
                       setIsDrawerOpen(false);
-                      router.push("/chat");
+                      router.push("/chat/f10");
                     }}
                     className="p-4 rounded-[2rem] bg-white border border-[#e6eeff] flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
                   >

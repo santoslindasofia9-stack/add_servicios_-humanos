@@ -115,7 +115,7 @@ export default function CalificacionPage() {
         <div className="hidden md:flex items-center gap-8">
           <button onClick={() => router.push('/home-cliente')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Inicio</button>
           <button onClick={() => router.push('/resultados')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Buscar</button>
-          <button onClick={() => router.push('/chat')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Mensajes</button>
+          <button onClick={() => router.push('/chat/f1')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Mensajes</button>
         </div>
         <div className="flex items-center gap-4">
           <div className="relative p-2 hover:bg-slate-100 rounded-full transition-all cursor-pointer">

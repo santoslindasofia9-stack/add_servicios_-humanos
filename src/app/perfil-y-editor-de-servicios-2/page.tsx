@@ -124,10 +124,15 @@ export default function PerfilYEditorDeServicios() {
   const [newSkillIcon, setNewSkillIcon] = useState("code");
 
   // GPS State variables
+  const [showGpsPrompt, setShowGpsPrompt] = useState(false);
   const [gpsLoading, setGpsLoading] = useState(false);
   const [gpsStatus, setGpsStatus] = useState<"idle" | "loading" | "success" | "estimated">("idle");
 
   const handleGPS = () => {
+    setShowGpsPrompt(true);
+  };
+
+  const executeActualGPS = () => {
     setGpsLoading(true);
     setGpsStatus("loading");
 
@@ -786,6 +791,50 @@ export default function PerfilYEditorDeServicios() {
       {/* ========================================= MODALS PANEL ========================================= */}
       
       <AnimatePresence>
+        
+        {/* 0. GPS PERMISSION DIALOG MODAL */}
+        {showGpsPrompt && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[600] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-white rounded-[28px] p-6 max-w-sm w-full shadow-2xl border border-sky-100 text-center space-y-6"
+            >
+              <div className="w-16 h-16 bg-[#E0F2FE] rounded-full flex items-center justify-center mx-auto text-[#0288D1] shadow-inner">
+                <MapPin size={32} className="animate-bounce" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-lg font-black text-[#0d1c2e]">Permiso de Ubicación</h3>
+                <p className="text-xs text-[#5e6f79] font-medium leading-relaxed">
+                  TrustMarket Live desea acceder a tu ubicación satelital en tiempo real para mostrar tu disponibilidad exacta a clientes cercanos.
+                </p>
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => setShowGpsPrompt(false)}
+                  className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-[#5e6f79] rounded-2xl font-bold text-xs transition-all"
+                >
+                  Bloquear
+                </button>
+                <button
+                  onClick={() => {
+                    setShowGpsPrompt(false);
+                    executeActualGPS();
+                  }}
+                  className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 text-white rounded-2xl font-black text-xs shadow-lg shadow-pink-500/25 transition-all"
+                >
+                  Permitir GPS
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
         
         {/* 1. EDIT PROFILE SIDEBAR MODAL */}
         {showProfileModal && (

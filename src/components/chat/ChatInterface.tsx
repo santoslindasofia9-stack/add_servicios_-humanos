@@ -83,6 +83,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
 
   useEffect(() => {
     if (expertData) {
+      localStorage.setItem('currentExpertId', expertData.id || 'e1');
       localStorage.setItem('currentExpertName', expertData.nombre_completo || 'Profesional');
       localStorage.setItem('currentExpertAvatar', expertData.foto_perfil || '');
     }
@@ -118,6 +119,20 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         }
       }
     ];
+
+    // Check if navigated from project tracking page
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('msg') === 'true' || localStorage.getItem('pendingTrackingMsg') === 'true') {
+      initialMessages.push({
+        id: 'tracking-msg',
+        sender_id: 'expert_id',
+        text: 'Hola! He subido las muestras de materiales. Por favor, dime qué te parece la opción del mármol azulado...',
+        created_at: new Date(Date.now() - 300000).toISOString(), // 5 mins ago
+        is_expert: true
+      });
+      localStorage.removeItem('pendingTrackingMsg');
+    }
+
     setMessages(initialMessages);
 
     // Supabase Realtime Subscription

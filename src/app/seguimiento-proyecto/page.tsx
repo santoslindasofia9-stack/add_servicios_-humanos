@@ -23,6 +23,7 @@ export default function ProjectTrackingPage() {
   const [userRole, setUserRole] = useState<string>("CLIENTE PREMIUM");
 
   // Estados del Profesional Actual
+  const [expertId, setExpertId] = useState<string>("e1");
   const [expertName, setExpertName] = useState<string>("Diseñadora: Ana Valery");
   const [expertAvatar, setExpertAvatar] = useState<string>("https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100");
 
@@ -54,8 +55,10 @@ export default function ProjectTrackingPage() {
     if (savedAvatar) setUserAvatar(savedAvatar);
     if (savedRole) setUserRole(savedRole === 'client' ? 'CLIENTE PREMIUM' : savedRole.toUpperCase());
 
+    const savedExpertId = localStorage.getItem("currentExpertId");
     const savedExpertName = localStorage.getItem("currentExpertName");
     const savedExpertAvatar = localStorage.getItem("currentExpertAvatar");
+    if (savedExpertId) setExpertId(savedExpertId);
     if (savedExpertName) setExpertName(savedExpertName);
     if (savedExpertAvatar) setExpertAvatar(savedExpertAvatar);
   }, []);
@@ -372,7 +375,10 @@ export default function ProjectTrackingPage() {
           </div>
         </div>
         <button 
-          onClick={() => router.push('/chat/cliente')}
+          onClick={() => {
+            localStorage.setItem('pendingTrackingMsg', 'true');
+            router.push(`/chat/${expertId}?msg=true`);
+          }}
           className="shrink-0 px-6 py-3 bg-pink-50 hover:bg-pink-100 text-pink-600 font-bold rounded-2xl transition-colors flex items-center gap-2 text-sm border border-pink-100"
         >
           <MessageCircle size={18} />

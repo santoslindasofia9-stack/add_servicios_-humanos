@@ -69,12 +69,6 @@
 
     <script>
         const chatContainer = document.getElementById('chat-messages');
-
-        // Read params from URL (passed from seguimiento de proyecto)
-        const urlParams = new URLSearchParams(window.location.search);
-        const fromTracking = urlParams.get('fromTracking') === '1';
-        const incomingMsg = urlParams.get('msg') ? decodeURIComponent(urlParams.get('msg')) : null;
-
         let messages = [
             { id: 1, sender: 'expert', text: 'Hola, he revisado los detalles de tu proyecto. El alcance parece claro.', time: '14:22' },
             { id: 2, sender: 'me', text: 'Perfecto, ¿cómo afectaría eso al presupuesto final?', time: '14:25' },
@@ -90,37 +84,13 @@
             { id: 12, sender: 'expert', text: '¡De nada! Cualquier otra duda me dices.', time: '14:56' }
         ];
 
-        // If we came from seguimiento and have a message, append it as the latest expert message
-        if (fromTracking && incomingMsg) {
-            const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            messages.push({ id: 'tracking-msg', sender: 'expert', text: incomingMsg, time: now, highlight: true });
-        }
-
         function renderMessages() {
-            // Date separator
             chatContainer.innerHTML = '<div class="flex justify-center sticky top-0 z-10 py-4"><span class="bg-white/80 backdrop-blur-md text-gray-400 text-[10px] font-black px-5 py-1.5 rounded-full uppercase tracking-widest shadow-sm border border-gray-50">Hoy</span></div>';
-
-            // If came from tracking, show a context banner at top
-            if (fromTracking && incomingMsg) {
-                chatContainer.innerHTML += `
-                    <div class="mx-auto max-w-[90%] bg-pink-50 border border-pink-100 rounded-2xl px-5 py-3 mb-4 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-pink-400 text-lg mt-0.5">info</span>
-                        <div>
-                            <p class="text-[10px] font-black text-pink-500 uppercase tracking-widest mb-0.5">Desde Seguimiento de Proyecto</p>
-                            <p class="text-xs text-slate-600 font-medium">Sofía López te dejó un nuevo mensaje. Puedes responderle directamente aquí.</p>
-                        </div>
-                    </div>`;
-            }
-
             messages.forEach(msg => {
                 const isMe = msg.sender === 'me';
-                const highlightClass = msg.highlight
-                    ? 'ring-2 ring-pink-300 ring-offset-2 shadow-pink-100'
-                    : '';
                 chatContainer.innerHTML += `
                     <div class="flex ${isMe ? 'justify-end' : 'justify-start'} group message-item relative">
-                        <div class="max-w-[85%] lg:max-w-[70%] p-5 rounded-2xl shadow-sm border ${highlightClass} ${isMe ? 'bg-white text-gray-800 rounded-br-none border-[#FCE4EC]' : 'bg-blue-50/30 text-gray-800 rounded-bl-none border-blue-100'}">
-                            ${msg.highlight ? '<p class="text-[9px] font-black text-pink-500 uppercase tracking-widest mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">notifications_active</span> Nuevo mensaje desde Seguimiento</p>' : ''}
+                        <div class="max-w-[85%] lg:max-w-[70%] p-5 rounded-2xl shadow-sm border ${isMe ? 'bg-white text-gray-800 rounded-br-none border-[#FCE4EC]' : 'bg-blue-50/30 text-gray-800 rounded-bl-none border-blue-100'}">
                             <p class="text-[15px] leading-relaxed">${msg.text}</p>
                             <div class="flex items-center gap-1 mt-3 opacity-30 text-[10px] font-bold ${isMe ? 'justify-end' : ''}">
                                 <span>${msg.time}</span>
@@ -142,7 +112,7 @@
             if (!input.value.trim()) return;
             const newId = String(Date.now() + Math.random());
             messages.push({ id: newId, sender: 'me', text: input.value, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-            input.value = '';
+            input.value = ''; 
             renderMessages();
         }
 
@@ -151,15 +121,18 @@
             renderMessages();
         }
 
-        renderMessages();
-
-        // Auto-focus the input if coming from tracking
-        if (fromTracking) {
-            setTimeout(() => {
-                const input = document.getElementById('message-input');
-                if (input) { input.focus(); input.placeholder = 'Responde a Sofía...'; }
-            }, 300);
+        // Check if navigated from project tracking page
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('msg') === 'true') {
+            messages.push({
+                id: 'tracking-msg',
+                sender: 'expert',
+                text: 'Hola! He subido las muestras de materiales. Por favor, dime qué te parece la opción del mármol azulado...',
+                time: '14:58'
+            });
         }
+
+        renderMessages();
     </script>
 </body>
 </html>

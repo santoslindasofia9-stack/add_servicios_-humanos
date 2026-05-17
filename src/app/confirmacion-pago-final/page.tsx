@@ -231,7 +231,10 @@ startxref
 
             {/* Volver a Home */}
             <button
-              onClick={() => router.push('/home-cliente')}
+              onClick={() => {
+                localStorage.setItem("userRole", "client");
+                window.location.href = '/home-cliente';
+              }}
               className="w-full text-center text-slate-400 hover:text-slate-600 transition-colors font-bold text-xs py-2 uppercase tracking-widest mt-2"
             >
               Volver a Home

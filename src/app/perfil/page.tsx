@@ -1134,7 +1134,7 @@ export default function PerfilPage() {
       </AnimatePresence>
 
       {/* 5. Mobile bottom nav bar */}
-      <BottomNav onMessagesClick={() => { setIsDrawerOpen(true); setDrawerTab("messages"); }} />
+      <BottomNav />
     </div>
   );
 }

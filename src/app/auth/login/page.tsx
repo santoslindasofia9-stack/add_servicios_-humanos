@@ -121,8 +121,17 @@ function LoginContent() {
       localStorage.setItem("userRole", role);
       localStorage.setItem("isLoggedIn", "true");
 
-      // Redirect to the simulated Google account selection screen
-      window.location.href = "/auth/google";
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `https://trustmarke-qjy2.vercel.app/auth/callback`,
+          queryParams: {
+            prompt: 'select_account',
+          },
+        },
+      });
+
+      if (error) throw error;
       // La página redirige a Google automáticamente
     } catch (err: any) {
       console.error("Google Auth failed:", err);

@@ -952,181 +952,181 @@ export default function PerfilPage() {
       {/* Sliding Messages & Notifications Drawer */}
       <AnimatePresence>
         {isDrawerOpen && (
-          <>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsDrawerOpen(false)}
-              className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[999] pointer-events-auto"
-            />
+          <motion.div
+            key="drawer-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsDrawerOpen(false)}
+            className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[999] pointer-events-auto"
+          />
+        )}
+        
+        {isDrawerOpen && (
+          <motion.div
+            key="drawer-body"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[1000] flex flex-col pointer-events-auto"
+          >
+            {/* Drawer Header */}
+            <div className="p-6 border-b border-[#e6eeff] flex justify-between items-center bg-[#f8f9ff]">
+              <div>
+                <h4 className="font-extrabold text-xl text-[#0d1c2e] tracking-tight">Centro de Actividad</h4>
+                <p className="text-xs text-[#5e6f79] font-semibold mt-0.5">Mensajes y notificaciones recientes</p>
+              </div>
+              <button
+                onClick={() => setIsDrawerOpen(false)}
+                className="p-2 hover:bg-slate-100 rounded-full transition-colors flex items-center justify-center text-[#5e6f79]"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
-            {/* Drawer Body */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[1000] flex flex-col pointer-events-auto"
-            >
-              {/* Drawer Header */}
-              <div className="p-6 border-b border-[#e6eeff] flex justify-between items-center bg-[#f8f9ff]">
-                <div>
-                  <h4 className="font-extrabold text-xl text-[#0d1c2e] tracking-tight">Centro de Actividad</h4>
-                  <p className="text-xs text-[#5e6f79] font-semibold mt-0.5">Mensajes y notificaciones recientes</p>
+            {/* Drawer Tabs */}
+            <div className="px-6 py-3 border-b border-[#e6eeff] flex gap-2">
+              <button
+                onClick={() => setDrawerTab("messages")}
+                className={`flex-1 py-2 text-center rounded-full text-xs font-bold transition-all ${
+                  drawerTab === "messages"
+                    ? "bg-[#E0F2FE] text-[#0288D1]"
+                    : "text-[#5e6f79] hover:text-[#0d1c2e]"
+                }`}
+              >
+                Mensajes (1)
+              </button>
+              <button
+                onClick={() => setDrawerTab("notifications")}
+                className={`flex-1 py-2 text-center rounded-full text-xs font-bold transition-all ${
+                  drawerTab === "notifications"
+                    ? "bg-[#FCE4EC] text-[#D81B60]"
+                    : "text-[#5e6f79] hover:text-[#0d1c2e]"
+                }`}
+              >
+                Notificaciones (3)
+              </button>
+            </div>
+
+            {/* Drawer Content Panel */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {drawerTab === "messages" ? (
+                <div className="space-y-4">
+                  {/* Msg 1 */}
+                  <div 
+                    onClick={() => {
+                      setIsDrawerOpen(false);
+                      router.push("/chat");
+                    }}
+                    className="p-4 rounded-[2rem] bg-sky-50/40 border border-sky-100/50 flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer relative"
+                  >
+                    <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr7PKkLTLkZtiZc6R7YN01A70SXNomxN6ykcs-mH7V-Et7rS5d8yUVZx3yoyrBqSMpxKTAkyrY2VbEGwTK22uFPObfQXfUYFY96AVlHZyh5uXL07hecOI0GHHGax9RsF3DbhyAX9WgawyfCvmK6MSsvVnY23Nxsl1SI_mEDl5mhVihCF1kWpizNBEyM4mD-hIX8Z3GrXPyjOy4CQi5BCaOfO87HR6pmsL6dDdrcsLoJpYeNHiokz6v-sJ2mzu72uQD0ToW9MT39g"
+                        alt="Alex"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-center mb-0.5">
+                        <span className="font-bold text-sm text-[#0d1c2e]">Alex Martínez</span>
+                        <span className="text-[10px] text-[#0288D1] font-bold">2 min</span>
+                      </div>
+                      <p className="text-xs text-[#5e6f79] line-clamp-2 font-medium">¡Hola Mariana! He subido los entregables de la Fase 1. Quedo atento a tu revisión...</p>
+                    </div>
+                    <span className="absolute top-4 right-4 w-2 h-2 bg-pink-500 rounded-full"></span>
+                  </div>
+
+                  {/* Msg 2 */}
+                  <div 
+                    onClick={() => {
+                      setIsDrawerOpen(false);
+                      router.push("/chat");
+                    }}
+                    className="p-4 rounded-[2rem] bg-white border border-[#e6eeff] flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
+                  >
+                    <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q"
+                        alt="Elena"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-center mb-0.5">
+                        <span className="font-bold text-sm text-[#0d1c2e]">Elena Varas</span>
+                        <span className="text-[10px] text-[#5e6f79] font-medium">1 h</span>
+                      </div>
+                      <p className="text-xs text-[#5e6f79] line-clamp-2 font-medium">Perfecto, ya recibí el comprobante del depósito de garantía. Mañana iniciamos con el análisis.</p>
+                    </div>
+                  </div>
+
+                  {/* Msg 3 */}
+                  <div 
+                    onClick={() => {
+                      setIsDrawerOpen(false);
+                      router.push("/chat");
+                    }}
+                    className="p-4 rounded-[2rem] bg-white border border-[#e6eeff] flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
+                  >
+                    <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg"
+                        alt="Carlos"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-center mb-0.5">
+                        <span className="font-bold text-sm text-[#0d1c2e]">Carlos Mendoza</span>
+                        <span className="text-[10px] text-[#5e6f79] font-medium">1 d</span>
+                      </div>
+                      <p className="text-xs text-[#5e6f79] line-clamp-2 font-medium">¡Muchas gracias por la excelente reseña, Mariana! Fue un placer remodelar tu espacio.</p>
+                    </div>
+                  </div>
                 </div>
-                <button
-                  onClick={() => setIsDrawerOpen(false)}
-                  className="p-2 hover:bg-slate-100 rounded-full transition-colors flex items-center justify-center text-[#5e6f79]"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              {/* Drawer Tabs */}
-              <div className="px-6 py-3 border-b border-[#e6eeff] flex gap-2">
-                <button
-                  onClick={() => setDrawerTab("messages")}
-                  className={`flex-1 py-2 text-center rounded-full text-xs font-bold transition-all ${
-                    drawerTab === "messages"
-                      ? "bg-[#E0F2FE] text-[#0288D1]"
-                      : "text-[#5e6f79] hover:text-[#0d1c2e]"
-                  }`}
-                >
-                  Mensajes (1)
-                </button>
-                <button
-                  onClick={() => setDrawerTab("notifications")}
-                  className={`flex-1 py-2 text-center rounded-full text-xs font-bold transition-all ${
-                    drawerTab === "notifications"
-                      ? "bg-[#FCE4EC] text-[#D81B60]"
-                      : "text-[#5e6f79] hover:text-[#0d1c2e]"
-                  }`}
-                >
-                  Notificaciones (3)
-                </button>
-              </div>
-
-              {/* Drawer Content Panel */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                {drawerTab === "messages" ? (
-                  <div className="space-y-4">
-                    {/* Msg 1 */}
-                    <div 
-                      onClick={() => {
-                        setIsDrawerOpen(false);
-                        router.push("/chat");
-                      }}
-                      className="p-4 rounded-[2rem] bg-sky-50/40 border border-sky-100/50 flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer relative"
-                    >
-                      <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
-                        <img
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr7PKkLTLkZtiZc6R7YN01A70SXNomxN6ykcs-mH7V-Et7rS5d8yUVZx3yoyrBqSMpxKTAkyrY2VbEGwTK22uFPObfQXfUYFY96AVlHZyh5uXL07hecOI0GHHGax9RsF3DbhyAX9WgawyfCvmK6MSsvVnY23Nxsl1SI_mEDl5mhVihCF1kWpizNBEyM4mD-hIX8Z3GrXPyjOy4CQi5BCaOfO87HR6pmsL6dDdrcsLoJpYeNHiokz6v-sJ2mzu72uQD0ToW9MT39g"
-                          alt="Alex"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-center mb-0.5">
-                          <span className="font-bold text-sm text-[#0d1c2e]">Alex Martínez</span>
-                          <span className="text-[10px] text-[#0288D1] font-bold">2 min</span>
-                        </div>
-                        <p className="text-xs text-[#5e6f79] line-clamp-2 font-medium">¡Hola Mariana! He subido los entregables de la Fase 1. Quedo atento a tu revisión...</p>
-                      </div>
-                      <span className="absolute top-4 right-4 w-2 h-2 bg-pink-500 rounded-full"></span>
-                    </div>
-
-                    {/* Msg 2 */}
-                    <div 
-                      onClick={() => {
-                        setIsDrawerOpen(false);
-                        router.push("/chat");
-                      }}
-                      className="p-4 rounded-[2rem] bg-white border border-[#e6eeff] flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
-                    >
-                      <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
-                        <img
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWc_kFd0aemAFl39YK6A86WDQZy9EtY8k_kFwtYsbWZ1-6CjnBpIbAFWF1AM9ck39dCop7Gx73h9-BMcjHkseZNl2e5n-Sxjuhco-zmrwEBqHlyQ7mVNc8bx-t9xZ-XYy1wld7BikSYng8qybJcwiG-NKYgRA01V9O9ZmfTqyJdSDqBBYzpL1nX-w1hcBHwcywCWQ_Ssfyo2FZ8i4OxHoxNDY20FtUWLfr8DdkgJhLSgZoaVVRDbR84AAJ38WvAsjVpwlXSYxW0Q"
-                          alt="Elena"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-center mb-0.5">
-                          <span className="font-bold text-sm text-[#0d1c2e]">Elena Varas</span>
-                          <span className="text-[10px] text-[#5e6f79] font-medium">1 h</span>
-                        </div>
-                        <p className="text-xs text-[#5e6f79] line-clamp-2 font-medium">Perfecto, ya recibí el comprobante del depósito de garantía. Mañana iniciamos con el análisis.</p>
-                      </div>
-                    </div>
-
-                    {/* Msg 3 */}
-                    <div 
-                      onClick={() => {
-                        setIsDrawerOpen(false);
-                        router.push("/chat");
-                      }}
-                      className="p-4 rounded-[2rem] bg-white border border-[#e6eeff] flex gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
-                    >
-                      <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-inner">
-                        <img
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfMkE0eIjiorpTX7KHrhhNVU5H8sfQ91m-dTGBkgScoChIpAdGqqpGqdOA2RA0zzp-r9S1Bf18i9sHg1DyFmGqFksmDeb9Q1R5aohsKkGi5-iedYVECItlTDvBs08zyOfFyWQU2xD52GIxwo9UMSkuyIdtJcux8Ifklbj-fWCB1QMgHCv-MEzegoUUbuAPiV29v3IArh25MXHCfkA9gvU6zPqRgZoW54o1_sA2utOEobe1PQEMh09AsXfWu4rUIcDiNWJBQg0Mg"
-                          alt="Carlos"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-center mb-0.5">
-                          <span className="font-bold text-sm text-[#0d1c2e]">Carlos Mendoza</span>
-                          <span className="text-[10px] text-[#5e6f79] font-medium">1 d</span>
-                        </div>
-                        <p className="text-xs text-[#5e6f79] line-clamp-2 font-medium">¡Muchas gracias por la excelente reseña, Mariana! Fue un placer remodelar tu espacio.</p>
-                      </div>
+              ) : (
+                <div className="space-y-4">
+                  {/* Notif 1 */}
+                  <div className="p-4 rounded-[2rem] bg-emerald-50/70 border border-emerald-100 flex gap-3">
+                    <Unlock className="text-emerald-500 shrink-0 mt-0.5 animate-pulse" size={16} />
+                    <div>
+                      <h5 className="font-bold text-sm text-emerald-900 leading-tight">Garantía Escrow Retenida</h5>
+                      <p className="text-xs text-emerald-700 mt-1 font-medium leading-relaxed">
+                        El depósito de $1,224.00 ha sido resguardado de forma segura en fideicomiso para el proyecto de Alex Martínez.
+                      </p>
+                      <span className="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block mt-2">5 MINUTOS</span>
                     </div>
                   </div>
-                ) : (
-                  <div className="space-y-4">
-                    {/* Notif 1 */}
-                    <div className="p-4 rounded-[2rem] bg-emerald-50/70 border border-emerald-100 flex gap-3">
-                      <Unlock className="text-emerald-500 shrink-0 mt-0.5 animate-pulse" size={16} />
-                      <div>
-                        <h5 className="font-bold text-sm text-emerald-900 leading-tight">Garantía Escrow Retenida</h5>
-                        <p className="text-xs text-emerald-700 mt-1 font-medium leading-relaxed">
-                          El depósito de $1,224.00 ha sido resguardado de forma segura en fideicomiso para el proyecto de Alex Martínez.
-                        </p>
-                        <span className="text-[9px] text-emerald-600 font-bold uppercase tracking-wider block mt-2">5 MINUTOS</span>
-                      </div>
-                    </div>
 
-                    {/* Notif 2 */}
-                    <div className="p-4 rounded-[2rem] bg-sky-50/70 border border-sky-100 flex gap-3">
-                      <FileText className="text-sky-500 shrink-0 mt-0.5" size={16} />
-                      <div>
-                        <h5 className="font-bold text-sm text-sky-900 leading-tight">Entregables Recibidos</h5>
-                        <p className="text-xs text-sky-700 mt-1 font-medium leading-relaxed">
-                          Alex Martínez ha subido los archivos fuente y documentación técnica de la Fase 1 a la sala de evidencias.
-                        </p>
-                        <span className="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mt-2">2 HORAS</span>
-                      </div>
-                    </div>
-
-                    {/* Notif 3 */}
-                    <div className="p-4 rounded-[2rem] bg-pink-50/50 border border-pink-100 flex gap-3">
-                      <Star className="text-pink-500 fill-pink-500 shrink-0 mt-0.5" size={16} />
-                      <div>
-                        <h5 className="font-bold text-sm text-pink-900 leading-tight">Nueva Calificación</h5>
-                        <p className="text-xs text-pink-700 mt-1 font-medium leading-relaxed">
-                          Carlos Mendoza te ha calificado con 5 estrellas por tu excelente comunicación y puntualidad en el pago.
-                        </p>
-                        <span className="text-[9px] text-pink-600 font-bold uppercase tracking-wider block mt-2">1 DÍA</span>
-                      </div>
+                  {/* Notif 2 */}
+                  <div className="p-4 rounded-[2rem] bg-sky-50/70 border border-sky-100 flex gap-3">
+                    <FileText className="text-sky-500 shrink-0 mt-0.5" size={16} />
+                    <div>
+                      <h5 className="font-bold text-sm text-sky-900 leading-tight">Entregables Recibidos</h5>
+                      <p className="text-xs text-sky-700 mt-1 font-medium leading-relaxed">
+                        Alex Martínez ha subido los archivos fuente y documentación técnica de la Fase 1 a la sala de evidencias.
+                      </p>
+                      <span className="text-[9px] text-sky-600 font-bold uppercase tracking-wider block mt-2">2 HORAS</span>
                     </div>
                   </div>
-                )}
-              </div>
-            </motion.div>
-          </>
+
+                  {/* Notif 3 */}
+                  <div className="p-4 rounded-[2rem] bg-pink-50/50 border border-pink-100 flex gap-3">
+                    <Star className="text-pink-500 fill-pink-500 shrink-0 mt-0.5" size={16} />
+                    <div>
+                      <h5 className="font-bold text-sm text-pink-900 leading-tight">Nueva Calificación</h5>
+                      <p className="text-xs text-pink-700 mt-1 font-medium leading-relaxed">
+                        Carlos Mendoza te ha calificado con 5 estrellas por tu excelente comunicación y puntualidad en el pago.
+                      </p>
+                      <span className="text-[9px] text-pink-600 font-bold uppercase tracking-wider block mt-2">1 DÍA</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 

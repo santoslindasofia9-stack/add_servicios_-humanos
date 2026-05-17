@@ -136,7 +136,7 @@ function LoginContent() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?role=${role}`,
+          redirectTo: `https://trustmarke-qjy2.vercel.app/auth/callback?role=${role}`,
           queryParams: {
             prompt: 'select_account',
           },

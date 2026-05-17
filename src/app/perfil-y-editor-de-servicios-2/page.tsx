@@ -146,18 +146,33 @@ export default function PerfilYEditorDeServicios() {
               const city = data.address.city || data.address.town || data.address.village || data.address.county || "";
               const country = data.address.country || "";
               if (city && country) {
-                setEditUbicacion(`${city}, ${country} (GPS en Tiempo Real)`);
+                const loc = `${city}, ${country} (GPS en Tiempo Real)`;
+                setEditUbicacion(loc);
+                setUbicacion(loc);
+                localStorage.setItem("proLocation", loc);
               } else if (data.display_name) {
                 const parts = data.display_name.split(",");
-                setEditUbicacion(`${parts.slice(0, 2).join(",").trim()} (GPS en Tiempo Real)`);
+                const loc = `${parts.slice(0, 2).join(",").trim()} (GPS en Tiempo Real)`;
+                setEditUbicacion(loc);
+                setUbicacion(loc);
+                localStorage.setItem("proLocation", loc);
               } else {
-                setEditUbicacion(`Medellín, Colombia (GPS en Tiempo Real)`);
+                const loc = `Medellín, Colombia (GPS en Tiempo Real)`;
+                setEditUbicacion(loc);
+                setUbicacion(loc);
+                localStorage.setItem("proLocation", loc);
               }
             } else {
-              setEditUbicacion(`Medellín, Colombia (GPS en Tiempo Real)`);
+              const loc = `Medellín, Colombia (GPS en Tiempo Real)`;
+              setEditUbicacion(loc);
+              setUbicacion(loc);
+              localStorage.setItem("proLocation", loc);
             }
           } catch (err) {
-            setEditUbicacion(`Medellín, Colombia (GPS en Tiempo Real)`);
+            const loc = `Medellín, Colombia (GPS en Tiempo Real)`;
+            setEditUbicacion(loc);
+            setUbicacion(loc);
+            localStorage.setItem("proLocation", loc);
           }
           setGpsLoading(false);
           setGpsStatus("success");
@@ -167,7 +182,10 @@ export default function PerfilYEditorDeServicios() {
           console.error("GPS Error:", error);
           // Fallback robusto e instantáneo para Vercel iframe / permisos bloqueados
           setTimeout(() => {
-            setEditUbicacion(`Medellín, Colombia (GPS en Tiempo Real)`);
+            const loc = `Medellín, Colombia (GPS en Tiempo Real)`;
+            setEditUbicacion(loc);
+            setUbicacion(loc);
+            localStorage.setItem("proLocation", loc);
             setGpsLoading(false);
             setGpsStatus("success");
             setTimeout(() => setGpsStatus("idle"), 2500);

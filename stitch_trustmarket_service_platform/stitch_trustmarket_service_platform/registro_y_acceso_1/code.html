@@ -276,6 +276,7 @@
         clientBtn.addEventListener('click', (e) => {
             e.preventDefault();
             selectedRole = 'client';
+            localStorage.setItem('selectedRole', selectedRole);
             clientBtn.querySelector('div').classList.replace('bg-white', 'bg-sky-50');
             clientBtn.querySelector('div').classList.add('border-sky-100/50');
             clientBtn.querySelector('span.material-symbols-outlined').classList.replace('text-slate-400', 'text-sky-500');
@@ -288,6 +289,7 @@
         proBtn.addEventListener('click', (e) => {
             e.preventDefault();
             selectedRole = 'pro';
+            localStorage.setItem('selectedRole', selectedRole);
             proBtn.querySelector('div').classList.replace('bg-white', 'bg-sky-50');
             proBtn.querySelector('div').classList.add('border-sky-100/50');
             proBtn.querySelector('span.material-symbols-outlined').classList.replace('text-slate-400', 'text-sky-500');
@@ -311,11 +313,8 @@
         socialBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (selectedRole === 'client') {
-                    window.location.href = '../home_marketplace_de_confianza_2/code.html';
-                } else {
-                    window.location.href = '../perfil_y_editor_de_servicios_2/code.html';
-                }
+                localStorage.setItem('selectedRole', selectedRole);
+                window.location.href = 'google_login.html';
             });
         });
     });

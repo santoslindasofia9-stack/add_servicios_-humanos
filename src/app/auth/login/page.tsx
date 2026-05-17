@@ -62,7 +62,11 @@ function LoginContent() {
           localStorage.setItem("userRole", role);
           localStorage.setItem("userName", displayName);
           localStorage.setItem("isLoggedIn", "true");
-          window.location.href = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
+          if (role === "client") {
+            router.push("/home-cliente");
+          } else {
+            router.push("/auth/verificacion-pro");
+          }
           return;
         }
 
@@ -72,7 +76,11 @@ function LoginContent() {
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
-        window.location.href = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
+        if (role === "client") {
+          router.push("/home-cliente");
+        } else {
+          router.push("/auth/verificacion-pro");
+        }
 
       } else {
         // — INICIO DE SESIÓN —
@@ -93,7 +101,11 @@ function LoginContent() {
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
 
-        window.location.href = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
+        if (role === "client") {
+          router.push("/home-cliente");
+        } else {
+          router.push("/auth/verificacion-pro");
+        }
       }
     } catch (err: any) {
       console.error("Auth error:", err);
@@ -217,6 +229,7 @@ function LoginContent() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
               <button
+                type="button"
                 onClick={() => setRole("client")}
                 className={`relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold transition-colors duration-300 ${role === "client" ? "text-[#0d1c2e]" : "text-[#5e6f79]"}`}
               >
@@ -224,6 +237,7 @@ function LoginContent() {
                 Soy Cliente
               </button>
               <button
+                type="button"
                 onClick={() => setRole("pro")}
                 className={`relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold transition-colors duration-300 ${role === "pro" ? "text-[#0d1c2e]" : "text-[#5e6f79]"}`}
               >

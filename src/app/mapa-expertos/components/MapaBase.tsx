@@ -30,13 +30,39 @@ interface Expert {
   lng?: number;
 }
 
+interface JobOffer {
+  id: string;
+  cliente_nombre: string;
+  cliente_avatar?: string;
+  cliente_calificacion: number;
+  titulo_trabajo: string;
+  descripcion: string;
+  terminos: string;
+  pago: string;
+  distancia_km: number;
+  lat: number;
+  lng: number;
+  status: "available" | "accepted" | "declined";
+}
+
 interface MapaBaseProps {
-  experts: Expert[];
-  selectedId: string | null;
-  onSelectExpert: (id: string | null) => void;
-  onVerPerfil: (id: string) => void;
+  // Common Props
   userLocation: { lat: number; lng: number } | null;
   mapCenter?: { lat: number; lng: number } | null;
+  
+  // Experts mode props (Client)
+  experts?: Expert[];
+  selectedId?: string | null;
+  onSelectExpert?: (id: string | null) => void;
+  onVerPerfil?: (id: string) => void;
+
+  // Jobs mode props (Professional)
+  mode?: "experts" | "jobs";
+  jobs?: JobOffer[];
+  selectedJobId?: string | null;
+  onSelectJob?: (id: string | null) => void;
+  onAcceptJob?: (id: string) => void;
+  onDeclineJob?: (id: string) => void;
 }
 
 export default function MapaBase(props: MapaBaseProps) {

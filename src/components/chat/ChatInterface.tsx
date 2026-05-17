@@ -54,19 +54,48 @@ interface Attachment {
 
 export default function ChatInterface({ negotiationId, expertData, currentUser }: ChatInterfaceProps) {
   const router = useRouter();
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputText, setInputText] = useState('');
-  const [offer, setOffer] = useState({
-    amount: 1250.00,
-    description: 'Propuesta por el experto basada en soporte post-entrega de 2 semanas.',
-    duration: '4 semanas',
-    status: 'pending'
-  });
-  const [isGenerating, setIsGenerating] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
   
   // Obtener el ID del experto de forma segura
   const expertId = expertData?.id || negotiationId?.replace('neg_', '') || '';
+
+  const getInitialOffer = () => {
+    if (expertId === "job1") {
+      return {
+        amount: 450.00,
+        description: 'Desarrollo de Landing Page Responsive - Figma a Next.js con SEO.',
+        duration: '5 días',
+        status: 'pending'
+      };
+    }
+    if (expertId === "job2") {
+      return {
+        amount: 120.00,
+        description: 'Asistencia Técnica Express en AWS - Configurar Autoescalado y balanceador.',
+        duration: '24 horas',
+        status: 'pending'
+      };
+    }
+    if (expertId === "job3") {
+      return {
+        amount: 320.00,
+        description: 'Optimización SEO y Performance - Lighthouse +95 en WordPress.',
+        duration: '3 días',
+        status: 'pending'
+      };
+    }
+    return {
+      amount: 1250.00,
+      description: 'Propuesta por el experto basada en soporte post-entrega de 2 semanas.',
+      duration: '4 semanas',
+      status: 'pending'
+    };
+  };
+
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState('');
+  const [offer, setOffer] = useState(getInitialOffer);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // Filter for phone numbers and emails
   const filterContactInfo = (text: string) => {
@@ -91,34 +120,120 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
 
   useEffect(() => {
     // Initial messages (mock or fetch)
-    const initialMessages: Message[] = [
-      {
-        id: '1',
-        sender_id: 'expert_id',
-        text: 'Hola, he revisado los detalles de tu proyecto. El alcance parece claro, pero me gustaría ajustar la propuesta inicial para incluir el soporte post-entrega de 2 semanas.',
-        created_at: new Date(Date.now() - 3600000).toISOString(),
-        is_expert: true
-      },
-      {
-        id: '2',
-        sender_id: currentUser?.id,
-        text: 'Perfecto, el soporte adicional es muy importante para nosotros. ¿Cómo afectaría eso al presupuesto final que habíamos discutido?',
-        created_at: new Date(Date.now() - 3000000).toISOString(),
-        is_expert: false
-      },
-      {
-        id: '3',
-        sender_id: 'expert_id',
-        text: 'He actualizado la oferta formal con un incremento del 15% para cubrir esas horas adicionales. Puedes ver los detalles en el desglose adjunto.',
-        created_at: new Date(Date.now() - 2400000).toISOString(),
-        is_expert: true,
-        attachment: {
-          name: 'Propuesta_Actualizada.pdf',
-          size: '2.4 MB',
-          type: 'PDF'
+    let initialMessages: Message[] = [];
+
+    if (expertId === "job1") {
+      initialMessages = [
+        {
+          id: '1',
+          sender_id: 'expert_id',
+          text: '¡Hola! He aceptado el trabajo de "Desarrollo de Landing Page Responsive" en el mapa. ¿Cómo estás? Me gustaría saber si el diseño de Figma ya está 100% definido para comenzar a programar.',
+          created_at: new Date(Date.now() - 3600000).toISOString(),
+          is_expert: true
+        },
+        {
+          id: '2',
+          sender_id: currentUser?.id,
+          text: '¡Hola! Excelente, gracias por aceptar. Sí, el Figma está totalmente listo. El presupuesto acordado es de 450 USD. ¿Podemos incluir la integración básica de SEO en ese valor?',
+          created_at: new Date(Date.now() - 3000000).toISOString(),
+          is_expert: false
+        },
+        {
+          id: '3',
+          sender_id: 'expert_id',
+          text: '¡Claro que sí! Podemos incluir la optimización básica de SEO (Meta tags, Open Graph y optimización de imágenes) sin costo adicional para cerrar el trato de una vez.',
+          created_at: new Date(Date.now() - 2400000).toISOString(),
+          is_expert: true
         }
-      }
-    ];
+      ];
+    } else if (expertId === "job2") {
+      initialMessages = [
+        {
+          id: '1',
+          sender_id: 'expert_id',
+          text: 'Hola, gracias por tomar mi oferta express para AWS. Necesito configurar el escalamiento automático (ASG) y balanceador para soportar una campaña de email que enviaremos mañana.',
+          created_at: new Date(Date.now() - 3600000).toISOString(),
+          is_expert: true
+        },
+        {
+          id: '2',
+          sender_id: currentUser?.id,
+          text: 'Hola Carlos. Entendido, la urgencia está clara. He aceptado la oferta por 120 USD. ¿Tienes acceso a la consola de AWS para crear el rol de IAM o prefieres darme acceso directo?',
+          created_at: new Date(Date.now() - 3000000).toISOString(),
+          is_expert: false
+        },
+        {
+          id: '3',
+          sender_id: 'expert_id',
+          text: 'Prefiero crearte un usuario IAM con permisos restringidos a EC2, ASG y Route53. Te comparto el archivo de credenciales de inmediato.',
+          created_at: new Date(Date.now() - 2400000).toISOString(),
+          is_expert: true,
+          attachment: {
+            name: 'AWS_Restricted_Credentials.csv',
+            size: '1.2 KB',
+            type: 'CSV'
+          }
+        }
+      ];
+    } else if (expertId === "job3") {
+      initialMessages = [
+        {
+          id: '1',
+          sender_id: 'expert_id',
+          text: '¡Hola! He visto que aceptaste la oferta para la Optimización SEO de mi blog en WordPress. ¿Cómo ves el objetivo de +95 en Lighthouse? ¿Es viable?',
+          created_at: new Date(Date.now() - 3600000).toISOString(),
+          is_expert: true
+        },
+        {
+          id: '2',
+          sender_id: currentUser?.id,
+          text: 'Hola Sofía. Sí, es totalmente viable mediante compresión de imágenes, minificación de CSS/JS y configuración avanzada de caché. Con un presupuesto de 320 USD me comprometo a cumplir esa meta.',
+          created_at: new Date(Date.now() - 3000000).toISOString(),
+          is_expert: false
+        },
+        {
+          id: '3',
+          sender_id: 'expert_id',
+          text: 'Excelente. Me parece un trato justo. Te adjunto el reporte actual de performance que saqué hoy para que lo uses como punto de partida.',
+          created_at: new Date(Date.now() - 2400000).toISOString(),
+          is_expert: true,
+          attachment: {
+            name: 'Lighthouse_Audit_Initial.pdf',
+            size: '3.1 MB',
+            type: 'PDF'
+          }
+        }
+      ];
+    } else {
+      initialMessages = [
+        {
+          id: '1',
+          sender_id: 'expert_id',
+          text: 'Hola, he revisado los detalles de tu proyecto. El alcance parece claro, pero me gustaría ajustar la propuesta inicial para incluir el soporte post-entrega de 2 semanas.',
+          created_at: new Date(Date.now() - 3600000).toISOString(),
+          is_expert: true
+        },
+        {
+          id: '2',
+          sender_id: currentUser?.id,
+          text: 'Perfecto, el soporte adicional es muy importante para nosotros. ¿Cómo afectaría eso al presupuesto final que habíamos discutido?',
+          created_at: new Date(Date.now() - 3000000).toISOString(),
+          is_expert: false
+        },
+        {
+          id: '3',
+          sender_id: 'expert_id',
+          text: 'He actualizado la oferta formal con un incremento del 15% para cubrir esas horas adicionales. Puedes ver los detalles en el desglose adjunto.',
+          created_at: new Date(Date.now() - 2400000).toISOString(),
+          is_expert: true,
+          attachment: {
+            name: 'Propuesta_Actualizada.pdf',
+            size: '2.4 MB',
+            type: 'PDF'
+          }
+        }
+      ];
+    }
 
     // Check if navigated from project tracking page
     const urlParams = new URLSearchParams(window.location.search);

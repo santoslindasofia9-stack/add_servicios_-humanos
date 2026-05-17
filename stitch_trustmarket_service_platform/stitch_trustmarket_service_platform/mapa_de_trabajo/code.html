@@ -16,58 +16,6 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        .dark .glass-card {
-            background: rgba(15, 23, 42, 0.8);
-            border-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Active pin styling */
-        .pin-active #pin-core-1, .pin-active #pin-core-2, .pin-active #pin-core-3 {
-            transform: scale(1.2) translateY(-4px);
-            background-color: #f4dce4 !important;
-            color: #ec4899 !important;
-            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
-            border-color: #fce4ec !important;
-        }
-
-        /* Sparkle floating animations */
-        @keyframes float-sparkle {
-            0% {
-                transform: translate(0, 0) scale(0);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--x), var(--y)) scale(1.2);
-                opacity: 0;
-            }
-        }
-        .sparkle {
-            position: absolute;
-            pointer-events: none;
-            width: 10px;
-            height: 10px;
-            border-radius: 9999px;
-            z-index: 100;
-            animation: float-sparkle 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        /* Card transition animation */
-        .card-change {
-            animation: card-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes card-appear {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, 20px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, 0) scale(1);
-            }
-        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -165,9 +113,9 @@
 <span class="material-symbols-outlined" data-icon="menu">menu</span>
 </button>
 <h1 class="text-xl font-bold text-sky-500 dark:text-sky-300 font-['Plus_Jakarta_Sans'] font-semibold tracking-tight">Gestión de Confianza</h1>
-<a href="../perfil_y_editor_de_servicios_2/code.html" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shadow-sm hover:scale-105 active:scale-95 transition-transform block">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shadow-sm">
 <img alt="Professional profile picture" class="w-full h-full object-cover" data-alt="A professional high-resolution headshot of a confident female entrepreneur in her late 30s. She is smiling warmly against a soft-focus office background that breathes a modern, clean light-mode aesthetic. The lighting is diffused and natural, highlighting her professional demeanor and serene personality. The overall color palette is dominated by airy whites and subtle sky blue accents, perfectly reflecting a boutique-inspired trust-based environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnO-lrL4cQ4BgYOYTpgBFijL7WdNkBCGsm_XTft0c3TfEvfh68BJs3MvpmD-itXoyobVZ85XqQU48c7oiy8URRTPQWTOOgYN2p_D8o-iW9dJSESr8IqiZb_v1Y317fLutXBZb25hXUlwz9qaRme8qmPwHvQzq0n18gagyKqkWmju9w_gjIqYZni3VSx2dTDBNhHtl0bztCl72q_T_093TMOERGvLfj9Ufh3HXWBMA5E1Jpd5IUjjlhLe6rbzOpW7BzYDjv5WuhQg"/>
-</a>
+</div>
 </div>
 </header>
 <!-- Main Map Canvas -->
@@ -181,419 +129,96 @@
 <!-- Interaction Layer: Map Pins -->
 <div class="absolute inset-0">
 <!-- Current Position Pin (Sky Blue) -->
-<div class="absolute top-[48%] left-[49%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-20">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group cursor-pointer">
 <div class="relative flex items-center justify-center">
 <div class="absolute w-12 h-12 bg-sky-400/20 rounded-full animate-ping"></div>
-<div class="relative w-9 h-9 bg-sky-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+<div class="relative w-8 h-8 bg-sky-400 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
 <span class="material-symbols-outlined text-white text-[18px]" data-icon="navigation" style="font-variation-settings: 'FILL' 1;">navigation</span>
 </div>
 </div>
 </div>
-
-<!-- Client Pin 1 (Elena Rodríguez) -->
-<div id="pin-1" onclick="selectOffer(1)" class="absolute top-[35%] left-[42%] group cursor-pointer transition-all duration-300 z-10">
-<div class="flex flex-col items-center relative">
-<div id="pin-core-1" class="w-9 h-9 bg-white text-pink-400 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-<span id="pin-icon-1" class="material-symbols-outlined text-[16px]" data-icon="palette" style="font-variation-settings: 'FILL' 1;">palette</span>
-</div>
-<!-- Small status checkmark badge -->
-<div id="pin-check-1" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-sm opacity-0 scale-50 transition-all duration-300">
-<span class="material-symbols-outlined text-white text-[10px] font-black">check</span>
-</div>
-<!-- Tooltip hover -->
-<div class="absolute bottom-full mb-2 bg-slate-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm pointer-events-none">
-Elena Rodríguez
+<!-- Client Pin 1 (Soft Pink) -->
+<div class="absolute top-[35%] left-[42%] group cursor-pointer">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 bg-secondary-fixed text-pink-400 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-[16px]" data-icon="person_pin_circle" style="font-variation-settings: 'FILL' 1;">person_pin_circle</span>
 </div>
 </div>
 </div>
-
-<!-- Client Pin 2 (Valeria Santos) -->
-<div id="pin-2" onclick="selectOffer(2)" class="absolute top-[60%] left-[58%] group cursor-pointer transition-all duration-300 z-10">
-<div class="flex flex-col items-center relative">
-<div id="pin-core-2" class="w-9 h-9 bg-white text-pink-400 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-<span id="pin-icon-2" class="material-symbols-outlined text-[16px]" data-icon="home_work" style="font-variation-settings: 'FILL' 1;">home_work</span>
-</div>
-<!-- Small status checkmark badge -->
-<div id="pin-check-2" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-sm opacity-0 scale-50 transition-all duration-300">
-<span class="material-symbols-outlined text-white text-[10px] font-black">check</span>
-</div>
-<!-- Tooltip hover -->
-<div class="absolute bottom-full mb-2 bg-slate-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm pointer-events-none">
-Valeria Santos
+<!-- Client Pin 2 (Soft Pink) -->
+<div class="absolute top-[60%] left-[58%] group cursor-pointer">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 bg-secondary-fixed text-pink-400 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-[16px]" data-icon="person_pin_circle" style="font-variation-settings: 'FILL' 1;">person_pin_circle</span>
 </div>
 </div>
 </div>
-
-<!-- Client Pin 3 (Lucía Fernández) -->
-<div id="pin-3" onclick="selectOffer(3)" class="absolute top-[25%] left-[65%] group cursor-pointer transition-all duration-300 z-10">
-<div class="flex flex-col items-center relative">
-<div id="pin-core-3" class="w-9 h-9 bg-white text-pink-400 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-<span id="pin-icon-3" class="material-symbols-outlined text-[16px]" data-icon="terminal" style="font-variation-settings: 'FILL' 1;">terminal</span>
-</div>
-<!-- Small status checkmark badge -->
-<div id="pin-check-3" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-sm opacity-0 scale-50 transition-all duration-300">
-<span class="material-symbols-outlined text-white text-[10px] font-black">check</span>
-</div>
-<!-- Tooltip hover -->
-<div class="absolute bottom-full mb-2 bg-slate-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm pointer-events-none">
-Lucía Fernández
+<!-- Client Pin 3 (Soft Pink) -->
+<div class="absolute top-[25%] left-[65%] group cursor-pointer">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 bg-secondary-fixed text-pink-400 rounded-full border-4 border-white shadow-md flex items-center justify-center transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-[16px]" data-icon="person_pin_circle" style="font-variation-settings: 'FILL' 1;">person_pin_circle</span>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-
-<!-- Dynamic Floating Service Card -->
-<div id="floating-card" class="absolute bottom-32 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-md z-40 transition-all duration-300">
-    <!-- Rendered dynamically by Javascript -->
+<!-- Floating Service Card -->
+<div class="absolute bottom-32 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-md z-40">
+<div class="bg-surface-container-lowest rounded-lg p-card-padding shadow-[0_20px_60px_rgba(224,242,254,0.3)] border border-sky-50/50">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 bg-secondary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-pink-400 text-[32px]" data-icon="schedule">schedule</span>
 </div>
-
-<!-- Toast Alert Notification -->
-<div id="toast-alert" class="fixed top-20 left-1/2 -translate-x-1/2 z-[110] px-5 py-3 rounded-full bg-white/95 backdrop-blur-md shadow-xl border border-sky-100 text-slate-800 text-sm font-semibold flex items-center gap-2.5 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
-    <div id="toast-icon-container" class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white">
-        <span id="toast-icon" class="material-symbols-outlined text-base font-bold">check</span>
-    </div>
-    <span id="toast-text">¡Mensaje enviado con éxito!</span>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-on-secondary-fixed-variant opacity-60 mb-1 uppercase tracking-widest">Próximo Servicio</p>
+<h3 class="font-h3 text-on-surface">Lucía Fernández</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-[12px] font-bold">1.2 km</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-sky-400 text-sm" data-icon="location_on">location_on</span>
+<p class="text-body-md text-on-surface-variant text-[14px]">Calle de Serrano, 45, Madrid</p>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-sky-50 flex gap-3">
+<button class="flex-1 bg-sky-50 text-sky-600 font-bold py-3 rounded-full hover:bg-sky-100 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="directions">directions</span>
+                        Ruta
+                    </button>
+<button onclick="window.location.href='../chat_de_negociaci_n_pro/code.html'" class="flex-1 bg-pink-50/50 text-pink-400 font-bold py-3 rounded-full hover:bg-pink-100 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                        Mensaje
+                    </button>
+</div>
+</div>
 </div>
 </main>
-
 <!-- BottomNavBar Component -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-3 pb-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-sky-50/30 dark:border-sky-900/20 shadow-[0_-10px_40px_rgba(224,242,254,0.1)] rounded-t-[32px] z-50">
-<a href="../perfil_y_editor_de_servicios_2/code.html" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 cubic-bezier(0.34,1.56,0.64,1) hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
 <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
 <span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium">Perfil</span>
-</a>
-<a href="../panel_de_progreso_2/code.html" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 cubic-bezier(0.34,1.56,0.64,1) hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
 <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
 <span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium">Dashboard</span>
-</a>
-<a href="#" class="flex flex-col items-center justify-center text-pink-400 dark:text-pink-300 font-bold bg-pink-50/50 dark:bg-pink-900/20 rounded-full px-4 py-1 transition-all duration-300 cursor-pointer">
+</div>
+<div class="flex flex-col items-center justify-center text-pink-400 dark:text-pink-300 font-bold bg-pink-50/50 dark:bg-pink-900/20 rounded-full px-4 py-1 transition-all duration-300 cubic-bezier(0.34,1.56,0.64,1) cursor-pointer">
 <span class="material-symbols-outlined" data-icon="map" style="font-variation-settings: 'FILL' 1;">map</span>
 <span class="font-['Plus_Jakarta_Sans'] text-[11px] font-bold">Mapa</span>
-</a>
-<a href="../agenda_laboral_2/code.html" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 cubic-bezier(0.34,1.56,0.64,1) hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
 <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
 <span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium">Agenda</span>
-</a>
-<a href="../chat_de_negociaci_n_pro/code.html" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer relative">
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 transition-all duration-300 cubic-bezier(0.34,1.56,0.64,1) hover:text-pink-300 dark:hover:text-pink-200 cursor-pointer">
 <span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
 <span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium">Mensajes</span>
-<div class="absolute top-1 right-3 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
-</a>
+</div>
 </nav>
-
-<!-- Job Offers Logic -->
-<script>
-    // Database of beautiful client offers on the map
-    const offers = [
-        {
-            id: 1,
-            clientName: "Elena Rodríguez",
-            clientAvatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256",
-            serviceName: "Diseño de Logotipo & Identidad",
-            address: "Calle de Serrano, 45, Madrid",
-            distance: "1.2 km",
-            budget: "$2,448.00 USD",
-            icon: "palette",
-            chatUrl: "../chat_negociaci_n_profesional_1/code.html"
-        },
-        {
-            id: 2,
-            clientName: "Valeria Santos",
-            clientAvatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOaqIQiuVhJseS3SQ5XjIOoQBb68yVPIoqkzZ4pFfgM9xTk1TmOwo3iw1qTVa132uKZngmPSUpRNA0-aNekMsP7yCNe0WYGFwfe4KBg1cVYjAh1rBYRVTjlBjUoNQClfnuf11xQdXs0Ni6eMDWjnBg-C1Wl3u7ISVcwiTiOj_xCZPIblHt5qTai9KniWnBW3GIZpMd7JDYwal5C_tNtq7xXTOCk0JqEBebntnAGNeBuUzkom_qcbrcG2Au9xu2qKIMrcURniDzAg",
-            serviceName: "Diseño de Interiores & Planos",
-            address: "Avenida de América, 18, Madrid",
-            distance: "2.5 km",
-            budget: "$3,500.00 USD",
-            icon: "home_work",
-            chatUrl: "../chat_de_negociaci_n_pro/code.html"
-        },
-        {
-            id: 3,
-            clientName: "Lucía Fernández",
-            clientAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256",
-            serviceName: "Consultoría de Desarrollo Web",
-            address: "Paseo de la Castellana, 102, Madrid",
-            distance: "0.8 km",
-            budget: "$1,800.00 USD",
-            icon: "terminal",
-            chatUrl: "../chat_negociaci_n_profesional_1/code.html"
-        }
-    ];
-
-    let selectedOfferId = 1;
-    let acceptedJobs = {};
-
-    // Load states on boot
-    function loadState() {
-        const storedAccepted = localStorage.getItem('trustmarket_accepted_jobs');
-        if (storedAccepted) {
-            acceptedJobs = JSON.parse(storedAccepted);
-        }
-        
-        // Update pin badges based on stored acceptance
-        offers.forEach(offer => {
-            updatePinBadge(offer.id);
-        });
-    }
-
-    // Save states to localStorage
-    function saveState() {
-        localStorage.setItem('trustmarket_accepted_jobs', JSON.stringify(acceptedJobs));
-    }
-
-    // Update checkmark badge on a map pin
-    function updatePinBadge(id) {
-        const badge = document.getElementById(`pin-check-${id}`);
-        const core = document.getElementById(`pin-core-${id}`);
-        
-        if (badge) {
-            if (acceptedJobs[id]) {
-                badge.classList.remove('opacity-0', 'scale-50');
-                badge.classList.add('opacity-100', 'scale-100');
-                if (core) {
-                    core.classList.add('pin-accepted');
-                    core.classList.remove('text-pink-400');
-                    core.classList.add('text-emerald-500');
-                }
-            } else {
-                badge.classList.add('opacity-0', 'scale-50');
-                badge.classList.remove('opacity-100', 'scale-100');
-                if (core) {
-                    core.classList.remove('pin-accepted');
-                    core.classList.add('text-pink-400');
-                    core.classList.remove('text-emerald-500');
-                }
-            }
-        }
-    }
-
-    // Show toast alerts in style
-    function showToast(text, isError = false) {
-        const toast = document.getElementById('toast-alert');
-        const toastText = document.getElementById('toast-text');
-        const iconContainer = document.getElementById('toast-icon-container');
-        const icon = document.getElementById('toast-icon');
-
-        toastText.textContent = text;
-        if (isError) {
-            iconContainer.className = "w-6 h-6 rounded-full bg-rose-500 flex items-center justify-center text-white";
-            icon.textContent = "error";
-        } else {
-            iconContainer.className = "w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white";
-            icon.textContent = "check";
-        }
-
-        toast.classList.remove('-translate-y-24', 'opacity-0', 'pointer-events-none');
-        toast.classList.add('translate-y-0', 'opacity-100');
-
-        setTimeout(() => {
-            toast.classList.remove('translate-y-0', 'opacity-100');
-            toast.classList.add('-translate-y-24', 'opacity-0', 'pointer-events-none');
-        }, 4000);
-    }
-
-    // Confetti explosion animation for accept button
-    function explodeConfetti(e) {
-        const rect = e.target.getBoundingClientRect();
-        const xCenter = rect.left + rect.width / 2;
-        const yCenter = rect.top + rect.height / 2;
-        
-        const colors = ['#ec4899', '#f472b6', '#10b981', '#34d399', '#3b82f6', '#fbbf24'];
-        
-        for (let i = 0; i < 30; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Random destinations
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 40 + Math.random() * 90;
-            const x = Math.cos(angle) * distance;
-            const y = Math.sin(angle) * distance;
-            
-            sparkle.style.setProperty('--x', `${x}px`);
-            sparkle.style.setProperty('--y', `${y}px`);
-            
-            // Position at center of button click
-            sparkle.style.left = `${xCenter + window.scrollX - 5}px`;
-            sparkle.style.top = `${yCenter + window.scrollY - 5}px`;
-            
-            document.body.appendChild(sparkle);
-            
-            // Clean up
-            setTimeout(() => {
-                sparkle.remove();
-            }, 800);
-        }
-    }
-
-    // Accept Job action
-    function acceptJob(id, event) {
-        if (event) {
-            explodeConfetti(event);
-        }
-        
-        acceptedJobs[id] = true;
-        saveState();
-        updatePinBadge(id);
-        
-        const offer = offers.find(o => o.id === id);
-        
-        // Show celebration feedback
-        showToast(`¡Trabajo de ${offer.clientName} aceptado con éxito!`);
-        
-        // Re-render card with updated actions
-        setTimeout(() => {
-            renderCard(id);
-        }, 150);
-    }
-
-    // Select offer and update UI
-    function selectOffer(id) {
-        selectedOfferId = id;
-        
-        // Manage active classes on pins
-        offers.forEach(offer => {
-            const pin = document.getElementById(`pin-${offer.id}`);
-            if (pin) {
-                if (offer.id === id) {
-                    pin.classList.add('pin-active');
-                    pin.style.zIndex = "30";
-                } else {
-                    pin.classList.remove('pin-active');
-                    pin.style.zIndex = "10";
-                }
-            }
-        });
-
-        renderCard(id);
-    }
-
-    // Render card based on state
-    function renderCard(id) {
-        const offer = offers.find(o => o.id === id);
-        if (!offer) return;
-
-        const isAccepted = acceptedJobs[id] || false;
-        const cardContainer = document.getElementById('floating-card');
-        
-        // Re-apply appearance animation
-        cardContainer.classList.remove('card-change');
-        void cardContainer.offsetWidth; // Trigger reflow
-        cardContainer.classList.add('card-change');
-
-        let actionButtons = "";
-        let badgeHtml = "";
-
-        if (isAccepted) {
-            badgeHtml = `
-                <span class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 border border-emerald-100 animate-pulse">
-                    <span class="material-symbols-outlined text-[12px] font-black">check_circle</span>
-                    Trabajo Aceptado
-                </span>
-            `;
-            actionButtons = `
-                <button onclick="showRoute(${offer.id})" class="flex-1 bg-sky-50 text-sky-600 font-bold py-3 rounded-full hover:bg-sky-100 transition-all flex items-center justify-center gap-2 active:scale-95 border border-sky-100/50">
-                    <span class="material-symbols-outlined text-[18px]" data-icon="directions">directions</span>
-                    Ruta
-                </button>
-                <button onclick="goToChat(${offer.id})" class="flex-[1.5] bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold py-3 rounded-full hover:from-pink-600 hover:to-pink-700 transition-all flex items-center justify-center gap-2 active:scale-95 shadow-md shadow-pink-100">
-                    <span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
-                    Chatear (Presupuesto)
-                </button>
-            `;
-        } else {
-            badgeHtml = `
-                <span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 border border-pink-100/30">
-                    Oferta Disponible
-                </span>
-            `;
-            actionButtons = `
-                <button onclick="goToChat(${offer.id})" class="flex-1 bg-pink-50/50 text-pink-400 font-bold py-3 rounded-full hover:bg-pink-100 transition-all flex items-center justify-center gap-2 active:scale-95 border border-pink-100/40">
-                    <span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
-                    Mensaje / Discutir
-                </button>
-                <button onclick="acceptJob(${offer.id}, event)" class="flex-[1.5] bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold py-3 rounded-full hover:from-emerald-600 hover:to-emerald-700 transition-all flex items-center justify-center gap-2 active:scale-95 shadow-md shadow-emerald-100">
-                    <span class="material-symbols-outlined text-[18px]" data-icon="handshake">handshake</span>
-                    Aceptar Trabajo
-                </button>
-            `;
-        }
-
-        cardContainer.innerHTML = `
-            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-[0_20px_50px_rgba(15,23,42,0.12)] border border-slate-100 dark:border-slate-800/80">
-                <div class="flex items-center gap-4">
-                    <!-- Client Avatar with styled frame -->
-                    <div class="relative">
-                        <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-pink-100 dark:border-slate-800 shadow-sm">
-                            <img alt="${offer.clientName}" class="w-full h-full object-cover" src="${offer.clientAvatar}"/>
-                        </div>
-                        <div class="absolute -bottom-1.5 -right-1.5 w-6 h-6 bg-pink-50 dark:bg-pink-900/40 text-pink-500 dark:text-pink-300 rounded-full flex items-center justify-center shadow-sm border border-white dark:border-slate-900">
-                            <span class="material-symbols-outlined text-[14px] font-bold" data-icon="${offer.icon}">${offer.icon}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start gap-2">
-                            <div class="min-w-0">
-                                <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base truncate">${offer.clientName}</h3>
-                                <p class="text-xs font-semibold text-slate-400 dark:text-slate-500 truncate mt-0.5">${offer.serviceName}</p>
-                            </div>
-                            <span class="bg-sky-50 dark:bg-slate-800 text-sky-600 dark:text-sky-300 px-2.5 py-1 rounded-full text-[11px] font-bold shrink-0">${offer.distance}</span>
-                        </div>
-                        
-                        <div class="flex items-center gap-4 mt-2">
-                            <div class="flex items-center gap-1 text-slate-400 dark:text-slate-500">
-                                <span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-                                <span class="text-xs truncate max-w-[140px]">${offer.address.split(',')[0]}</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-pink-500 font-bold text-xs bg-pink-50/50 dark:bg-pink-950/20 px-2 py-0.5 rounded-md">
-                                <span class="material-symbols-outlined text-xs">payments</span>
-                                <span>${offer.budget}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                    ${badgeHtml}
-                    <div class="text-[11px] text-slate-400 dark:text-slate-500 font-semibold flex items-center gap-1">
-                        <span class="material-symbols-outlined text-xs">shield</span> Confianza Protegida
-                    </div>
-                </div>
-                
-                <div class="mt-4 flex gap-3">
-                    ${actionButtons}
-                </div>
-            </div>
-        `;
-    }
-
-    // Go to the customized budget discussion chat
-    function goToChat(id) {
-        const offer = offers.find(o => o.id === id);
-        if (offer) {
-            showToast(`Conectando con ${offer.clientName} en chat de negociación segura...`);
-            setTimeout(() => {
-                window.location.href = offer.chatUrl;
-            }, 600);
-        }
-    }
-
-    // Route visual notification
-    function showRoute(id) {
-        const offer = offers.find(o => o.id === id);
-        if (offer) {
-            showToast(`Calculando ruta más rápida hacia la ubicación de ${offer.clientName}...`);
-        }
-    }
-
-    // Boot execution
-    document.addEventListener('DOMContentLoaded', () => {
-        loadState();
-        selectOffer(selectedOfferId);
-    });
-</script>
 </body></html>

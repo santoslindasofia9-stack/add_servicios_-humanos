@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useRouter } from "next/navigation";
 import { 
   Plus, 
   Minus, 
@@ -15,7 +16,8 @@ import {
   FileText, 
   AlertCircle,
   MapPin,
-  CheckCircle2
+  CheckCircle2,
+  MessageSquare
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import MiniCard from "./MiniCard";
@@ -142,6 +144,7 @@ export default function LeafletMap({
   onAcceptJob = () => {},
   onDeclineJob = () => {},
 }: LeafletMapProps) {
+  const router = useRouter();
   
   // Accept animation local states
   const [acceptingId, setAcceptingId] = useState<string | null>(null);
@@ -374,12 +377,19 @@ export default function LeafletMap({
                 </p>
               </div>
             ) : acceptSuccessId === selectedJob.id ? (
-              <div className="flex flex-col items-center justify-center py-8 text-center animate-fadeIn">
+              <div className="flex flex-col items-center justify-center py-6 text-center animate-fadeIn">
                 <div className="w-16 h-16 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center mb-4 text-emerald-500 animate-bounce">
                   <CheckCircle2 size={36} className="fill-emerald-50" />
                 </div>
                 <h4 className="text-base font-extrabold text-emerald-700">¡Contrato Activado con Éxito!</h4>
-                <p className="text-xs text-slate-500 font-semibold mt-1">El trabajo ha sido añadido a tu Agenda.</p>
+                <p className="text-xs text-slate-500 font-semibold mt-1 mb-4">El trabajo ha sido añadido a tu Agenda.</p>
+                <button
+                  onClick={() => router.push(`/chat/${selectedJob.id}`)}
+                  className="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-100 flex items-center gap-1.5 justify-center"
+                >
+                  <MessageSquare size={14} />
+                  Chat de Negociación
+                </button>
               </div>
             ) : (
               <div>
@@ -436,6 +446,13 @@ export default function LeafletMap({
                   </div>
 
                   <div className="flex gap-2 flex-1 justify-end">
+                    <button 
+                      onClick={() => router.push(`/chat/${selectedJob.id}`)}
+                      className="p-2.5 bg-pink-50 hover:bg-pink-100 text-[#D81B60] font-bold rounded-xl text-xs transition-colors flex items-center justify-center shadow-sm"
+                      title="Mensaje para negociar presupuesto"
+                    >
+                      <MessageSquare size={16} />
+                    </button>
                     <button 
                       onClick={() => onDeclineJob(selectedJob.id)}
                       className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-[#0d1c2e] font-bold rounded-xl text-xs transition-colors"

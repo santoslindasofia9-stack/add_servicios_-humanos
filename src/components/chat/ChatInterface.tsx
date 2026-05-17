@@ -39,10 +39,14 @@ interface Message {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface ChatInterfaceProps {
+  expertId: string;
   negotiationId: string;
-  expertData: any;
-  currentUser: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expertData?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  currentUser?: any;
 }
 
 interface Attachment {
@@ -52,11 +56,11 @@ interface Attachment {
   url?: string;
 }
 
-export default function ChatInterface({ negotiationId, expertData, currentUser }: ChatInterfaceProps) {
+export default function ChatInterface({ expertId: propExpertId, negotiationId, expertData, currentUser }: ChatInterfaceProps) {
   const router = useRouter();
   
   // Obtener el ID del experto de forma segura
-  const expertId = expertData?.id || negotiationId?.replace('neg_', '') || '';
+  const expertId = propExpertId || (expertData?.id as string) || negotiationId?.replace('neg_', '') || '';
 
   const getInitialOffer = () => {
     if (expertId === "job1") {
@@ -112,9 +116,9 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
 
   useEffect(() => {
     if (expertData) {
-      localStorage.setItem('currentExpertId', expertData.id || 'e1');
-      localStorage.setItem('currentExpertName', expertData.nombre_completo || 'Profesional');
-      localStorage.setItem('currentExpertAvatar', expertData.foto_perfil || '');
+      localStorage.setItem('currentExpertId', (expertData.id as string) || 'e1');
+      localStorage.setItem('currentExpertName', (expertData.nombre_completo as string) || 'Profesional');
+      localStorage.setItem('currentExpertAvatar', (expertData.foto_perfil as string) || '');
     }
   }, [expertData]);
 
@@ -133,7 +137,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         },
         {
           id: '2',
-          sender_id: currentUser?.id,
+          sender_id: (currentUser?.id as string),
           text: '¡Hola! Excelente, gracias por aceptar. Sí, el Figma está totalmente listo. El presupuesto acordado es de 450 USD. ¿Podemos incluir la integración básica de SEO en ese valor?',
           created_at: new Date(Date.now() - 3000000).toISOString(),
           is_expert: false
@@ -157,7 +161,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         },
         {
           id: '2',
-          sender_id: currentUser?.id,
+          sender_id: (currentUser?.id as string),
           text: 'Hola Carlos. Entendido, la urgencia está clara. He aceptado la oferta por 120 USD. ¿Tienes acceso a la consola de AWS para crear el rol de IAM o prefieres darme acceso directo?',
           created_at: new Date(Date.now() - 3000000).toISOString(),
           is_expert: false
@@ -186,7 +190,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         },
         {
           id: '2',
-          sender_id: currentUser?.id,
+          sender_id: (currentUser?.id as string),
           text: 'Hola Sofía. Sí, es totalmente viable mediante compresión de imágenes, minificación de CSS/JS y configuración avanzada de caché. Con un presupuesto de 320 USD me comprometo a cumplir esa meta.',
           created_at: new Date(Date.now() - 3000000).toISOString(),
           is_expert: false
@@ -215,7 +219,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         },
         {
           id: '2',
-          sender_id: currentUser?.id,
+          sender_id: (currentUser?.id as string),
           text: 'Perfecto, el soporte adicional es muy importante para nosotros. ¿Cómo afectaría eso al presupuesto final que habíamos discutido?',
           created_at: new Date(Date.now() - 3000000).toISOString(),
           is_expert: false
@@ -259,7 +263,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
         table: 'mensajes_chat',
         filter: `id_negociacion=eq.${negotiationId}`
       }, (payload) => {
-        const newMessage = payload.new as any;
+        const newMessage = payload.new as Record<string, any>;
         setMessages((prev) => [...prev, {
           id: newMessage.id,
           sender_id: newMessage.id_emisor,
@@ -288,7 +292,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     
     const newMessage: Message = {
       id: Math.random().toString(36).substr(2, 9),
-      sender_id: currentUser?.id,
+      sender_id: (currentUser?.id as string),
       text: filteredText,
       created_at: new Date().toISOString(),
       is_expert: false
@@ -296,20 +300,14 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
 
     setMessages([...messages, newMessage]);
     setInputText('');
-
-    // In a real scenario, we would insert into Supabase
-    /*
-    await supabase.from('mensajes_chat').insert({
-      id_negociacion: negotiationId,
-      id_emisor: currentUser?.id,
-      texto: filteredText
-    });
-    */
   };
 
-  const handleAcceptProposal = async () => {
-    router.push('/confirmacion-contrato');
-  };
+  // const handleAcceptProposal = () => {
+  //   setIsGenerating(true);
+  //   setTimeout(() => {
+  //     router.push(`/chat/${expertId}/negociacion`);
+  //   }, 3000);
+  // };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -318,7 +316,7 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
     // Simulate sending a file message
     const newAttachment: Message = {
       id: Math.random().toString(36).substr(2, 9),
-      sender_id: currentUser?.id,
+      sender_id: (currentUser?.id as string),
       text: `He enviado un archivo: ${file.name}`,
       created_at: new Date().toISOString(),
       is_expert: false,
@@ -355,14 +353,14 @@ export default function ChatInterface({ negotiationId, expertData, currentUser }
           <div className="flex items-center gap-3">
             <div className="relative">
               <img 
-                src={expertData.foto_perfil} 
-                alt={expertData.nombre_completo} 
+                src={expertData?.foto_perfil as string} 
+                alt={expertData?.nombre_completo as string} 
                 className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-white shadow-sm"
               />
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
             </div>
             <div>
-              <h1 className="text-[#0d1c2e] font-bold text-lg leading-tight">{expertData.nombre_completo}</h1>
+              <h1 className="text-[#0d1c2e] font-bold text-lg leading-tight">{expertData?.nombre_completo as string}</h1>
               <p className="text-[12px] text-[#5e6f79] font-medium flex items-center gap-1">
                 Expert Professional <span className="w-1 h-1 bg-gray-300 rounded-full"></span> Online
               </p>

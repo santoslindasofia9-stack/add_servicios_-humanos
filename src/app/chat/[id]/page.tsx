@@ -120,6 +120,7 @@ export default async function ChatPage({
 
   return (
     <ChatInterface 
+      expertId={expertId}
       negotiationId={`neg_${expertId}`} // In a real app, this would be a real negotiation UUID
       expertData={expert}
       currentUser={user || { id: 'temp_user_id', email: 'guest@example.com' }}

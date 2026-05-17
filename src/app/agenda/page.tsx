@@ -63,6 +63,11 @@ export default function WorkAgendaPage() {
   const [newEventDay, setNewEventDay] = useState<number>(7);
   const [newEventClientType, setNewEventClientType] = useState<"person" | "corp">("person");
 
+  // Escrow deposit notification modal
+  const [escrowModal, setEscrowModal] = useState(false);
+  const [escrowAmount, setEscrowAmount] = useState(0);
+  const [escrowClient, setEscrowClient] = useState("");
+
   // User details load
   const [userName, setUserName] = useState("Elena Martínez");
   const [userAvatar, setUserAvatar] = useState("https://lh3.googleusercontent.com/aida-public/AB6AXuCK3_JnyJWRxCmrlviTSm-rKEiZuojrmB0WnnB5BvKsFCJGaFfPzGS5kqHNzeytLq_ePt1prTwKyyyZEHJWSMcF_AsRvUBpRu0SFpx_B_DJ3vDJf9hadi1R8-M9GSIGKGAomltp3WiaaHjAoNQeAapDKCNtKi_MaYuEPjC2tmM8RH4_6sp2ZplEGJxr7lXyoKpPusP-UsG8cpb_P25zBtc5E6WK8cCfF9uPALOa2AaV7OYrpOupKde8gtqeeGqvE8kX_HNDp4T0kg");
@@ -72,6 +77,17 @@ export default function WorkAgendaPage() {
     const savedAvatar = localStorage.getItem("userAvatar");
     if (savedName) setUserName(savedName);
     if (savedAvatar) setUserAvatar(savedAvatar);
+    // Check if we came from accepting a contract
+    const pendingEscrow = localStorage.getItem("pendingEscrow");
+    if (pendingEscrow) {
+      try {
+        const data = JSON.parse(pendingEscrow) as { amount: number; client: string };
+        setEscrowAmount(data.amount);
+        setEscrowClient(data.client);
+        setEscrowModal(true);
+      } catch { /* ignore */ }
+      localStorage.removeItem("pendingEscrow");
+    }
   }, []);
 
   const handleToggleStatus = (day: number, id: string) => {
@@ -85,6 +101,43 @@ export default function WorkAgendaPage() {
       });
       return { ...prev, [day]: updated };
     });
+  };
+
+  // ── Export agenda as downloadable .txt file ──────────────────────────────
+  const handleExport = () => {
+    const lines: string[] = [];
+    lines.push("INFORME DE AGENDA LABORAL - OCTUBRE 2024");
+    lines.push(`Profesional: ${userName}`);
+    lines.push(`Fecha de exportación: ${new Date().toLocaleDateString("es-CO", { dateStyle: "long" })}`);
+    lines.push("");
+    lines.push("══════════════════════════════════════════");
+    lines.push("");
+
+    const allDays = Object.keys(events).map(Number).sort((a, b) => a - b);
+    if (allDays.length === 0) {
+      lines.push("Sin eventos registrados.");
+    } else {
+      for (const day of allDays) {
+        const dayEvts = events[day];
+        if (!dayEvts || dayEvts.length === 0) continue;
+        lines.push(`── ${day} de Octubre, 2024 ──`);
+        for (const evt of dayEvts) {
+          const status = evt.status === "completed" ? "[✓ Completado]" : "[  Pendiente ]";
+          lines.push(`  ${status} ${evt.time} ${evt.period}  |  ${evt.title}  |  Cliente: ${evt.client}`);
+        }
+        lines.push("");
+      }
+    }
+    lines.push("══════════════════════════════════════════");
+    lines.push("Generado por TrustMarket Agenda Pro");
+
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `agenda_octubre_2024_${Date.now()}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleAddEvent = (e: React.FormEvent) => {
@@ -181,7 +234,10 @@ export default function WorkAgendaPage() {
             <h2 className="text-2xl font-black text-[#0d1c2e] mt-1">Mi Agenda de Trabajo</h2>
           </div>
           <div className="flex gap-3 w-full md:w-auto">
-            <button className="flex-1 md:flex-none px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 border border-slate-200/50">
+            <button
+              onClick={handleExport}
+              className="flex-1 md:flex-none px-5 py-2.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold rounded-xl text-xs transition-all flex items-center justify-center gap-2 border border-slate-200/50"
+            >
               <Download size={14} />
               <span>Exportar</span>
             </button>
@@ -366,7 +422,7 @@ export default function WorkAgendaPage() {
                 <p className="text-[11px] text-slate-300 font-medium mb-4">Los fondos están resguardados hasta la entrega final.</p>
                 <button 
                   onClick={() => router.push("/dashboard-pro")}
-                  className="w-full py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-900/30 flex items-center justify-center gap-1.5"
+                  className="w-full py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-900/30 flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <TrendingUp size={14} />
                   Revisar Garantías
@@ -476,6 +532,68 @@ export default function WorkAgendaPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ── Escrow Deposit Notification Modal ──────────────────────────────── */}
+      {escrowModal && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center px-4">
+          <div className="bg-white rounded-[32px] p-8 w-full max-w-sm shadow-2xl border border-sky-50 animate-fadeIn">
+            {/* Header */}
+            <div className="flex flex-col items-center text-center mb-6">
+              <div className="w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center mb-4 shadow-md">
+                <ShieldCheck size={28} className="text-emerald-500" />
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-emerald-600 mb-1">¡Consignación Exitosa!</span>
+              <h3 className="text-xl font-black text-[#0d1c2e] leading-tight">Anticipo en Escrow Recibido</h3>
+              <p className="text-xs text-slate-400 font-medium mt-2">
+                {escrowClient ? `${escrowClient} ha` : "El cliente ha"} consignado el 50% inicial del contrato acordado de forma automática y segura.
+              </p>
+            </div>
+
+            {/* Amount display */}
+            <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl p-5 text-white mb-5 relative overflow-hidden">
+              <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/10 rounded-full blur-xl" />
+              <div className="relative z-10">
+                <span className="text-[10px] font-black uppercase tracking-widest opacity-80 block mb-1">Fondos Bloqueados en Custodia</span>
+                <span className="text-4xl font-black tracking-tight">
+                  ${(escrowAmount / 2).toLocaleString("en-US", { minimumFractionDigits: 2 })} USD
+                </span>
+                <p className="text-[11px] font-semibold opacity-75 mt-1">
+                  50% del total acordado: ${escrowAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })} USD
+                </p>
+              </div>
+            </div>
+
+            {/* Details */}
+            <ul className="space-y-2.5 mb-6">
+              {[
+                { icon: "🔒", label: "Los fondos están protegidos hasta la entrega final." },
+                { icon: "📄", label: "El contrato inteligente fue activado automáticamente." },
+                { icon: "💸", label: "El 50% restante se liberará al completar el servicio." },
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-xs text-slate-600 font-medium bg-slate-50 p-3 rounded-xl border border-slate-100">
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setEscrowModal(false); router.push("/dashboard-pro"); }}
+                className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors active:scale-95"
+              >
+                Ver Dashboard
+              </button>
+              <button
+                onClick={() => setEscrowModal(false)}
+                className="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-105 text-white font-black rounded-xl text-xs transition-all shadow-md shadow-emerald-100 active:scale-95"
+              >
+                ¡Entendido!
+              </button>
+            </div>
           </div>
         </div>
       )}

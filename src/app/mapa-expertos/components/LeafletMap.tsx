@@ -229,9 +229,20 @@ export default function LeafletMap({
     setTimeout(() => {
       setAcceptingId(null);
       setAcceptSuccessId(jobId);
+      // Store escrow data for the Agenda escrow notification
+      const job = jobs.find(j => j.id === jobId);
+      if (job) {
+        const escrowData = {
+          amount: parseFloat(job.pago) || 0,
+          client: job.cliente_nombre
+        };
+        localStorage.setItem("pendingEscrow", JSON.stringify(escrowData));
+      }
       setTimeout(() => {
         setAcceptSuccessId(null);
         onAcceptJob(jobId);
+        // Navigate to agenda to show the escrow deposit notification
+        router.push("/agenda");
       }, 2000);
     }, 2500);
   };

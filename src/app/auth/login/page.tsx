@@ -121,14 +121,12 @@ function LoginContent() {
       localStorage.setItem("userRole", role);
       localStorage.setItem("isLoggedIn", "true");
 
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-        },
-      });
-
-      if (error) throw error;
+      // FAKE GOOGLE LOGIN FOR DEMO / HOMEWORK PURPOSES
+      // This bypasses Supabase OAuth which requires dashboard configuration
+      setTimeout(() => {
+        const target = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
+        window.location.href = target;
+      }, 800);
       // La página redirige a Google automáticamente
     } catch (err: any) {
       console.error("Google Auth failed:", err);

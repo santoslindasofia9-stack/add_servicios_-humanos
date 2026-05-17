@@ -11,7 +11,7 @@ const navItems = [
   { icon: "person", label: "Perfil", href: "/perfil" },
 ];
 
-export default function BottomNav() {
+export default function BottomNav({ onMessagesClick }: { onMessagesClick?: (e: React.MouseEvent) => void }) {
   const pathname = usePathname();
 
   return (
@@ -19,11 +19,18 @@ export default function BottomNav() {
       {navItems.map((item) => {
         // Simple active check
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+        const isMessages = item.label === "Mensajes";
 
         return (
           <Link
             key={item.label}
-            href={item.href}
+            href={isMessages && onMessagesClick ? "#" : item.href}
+            onClick={(e) => {
+              if (isMessages && onMessagesClick) {
+                e.preventDefault();
+                onMessagesClick(e);
+              }
+            }}
             className="flex flex-col items-center justify-center min-w-[64px] h-full gap-1 group relative cursor-pointer"
           >
             {/* Icon Pill Container */}

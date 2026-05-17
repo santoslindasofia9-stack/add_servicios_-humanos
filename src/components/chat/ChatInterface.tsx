@@ -312,23 +312,12 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
   const handleAcceptProposal = () => {
     setIsGenerating(true);
     setTimeout(() => {
-      router.push(`/chat/${expertId}/negociacion`);
+      router.push(`/confirmacion-contrato`);
     }, 3000);
   };
 
   const handleContraoferta = () => {
-    const amount = prompt("Ingresa el monto de tu contraoferta (USD):", `${(offer.amount * 0.9).toFixed(2)}`);
-    if (amount) {
-      const newMsg: Message = {
-        id: Math.random().toString(36).substr(2, 9),
-        sender_id: (currentUser?.id as string) || 'client_user',
-        text: `He propuesto una contraoferta formal de $${amount} USD para este proyecto. ¿Qué te parece?`,
-        created_at: new Date().toISOString(),
-        is_expert: false
-      };
-      setMessages(prev => [...prev, newMsg]);
-      setOffer(prev => ({ ...prev, amount: parseFloat(amount), description: `Contraoferta propuesta por el cliente: $${amount} USD.` }));
-    }
+    router.push(`/chat/${expertId}/contraoferta`);
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

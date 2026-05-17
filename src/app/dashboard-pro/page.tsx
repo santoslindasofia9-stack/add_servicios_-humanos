@@ -24,7 +24,11 @@ import {
   Camera,
   Loader2,
   X,
-  MapPin
+  MapPin,
+  ThumbsUp,
+  History,
+  Check,
+  CreditCard
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -52,6 +56,15 @@ export default function DashboardPro() {
   // GPS state variables
   const [gpsLoading, setGpsLoading] = useState(false);
   const [gpsStatus, setGpsStatus] = useState<"idle" | "loading" | "success" | "estimated">("idle");
+
+  // States for Withdraw Funds Modal
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [withdrawMethod, setWithdrawMethod] = useState("bank");
+  const [withdrawAmount, setWithdrawAmount] = useState("4250.00");
+  const [withdrawStatus, setWithdrawStatus] = useState<"idle" | "processing" | "success">("idle");
+
+  // Toast Notification state
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     // Read details from localStorage set during verification
@@ -105,6 +118,12 @@ export default function DashboardPro() {
     localStorage.setItem("proAvatar", editAvatar);
 
     setShowProfileModal(false);
+    triggerToast("✓ Perfil actualizado con éxito");
+  };
+
+  const triggerToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -182,6 +201,18 @@ export default function DashboardPro() {
     }
   };
 
+  const handleWithdrawSubmit = () => {
+    setWithdrawStatus("processing");
+    setTimeout(() => {
+      setWithdrawStatus("success");
+      setTimeout(() => {
+        setShowWithdrawModal(false);
+        setWithdrawStatus("idle");
+        triggerToast(`✓ Retiro de $${withdrawAmount} USD procesado con éxito.`);
+      }, 2000);
+    }, 2500);
+  };
+
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = "/auth/login";
@@ -196,7 +227,7 @@ export default function DashboardPro() {
   }
 
   return (
-    <main className="relative min-h-screen bg-[#f8f9ff] font-plus-jakarta pb-16">
+    <main className="relative min-h-screen bg-[#f8f9ff] font-plus-jakarta pb-28">
       {/* Decorative background gradients */}
       <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-[#E0F2FE]/60 to-transparent -z-10" />
       
@@ -232,16 +263,16 @@ export default function DashboardPro() {
         <div className="lg:col-span-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/70 backdrop-blur-md border border-white p-6 rounded-[28px] shadow-sm">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-sky-600 uppercase tracking-widest">Panel Profesional</span>
+              <span className="text-sm font-bold text-sky-600 uppercase tracking-widest">Resumen de Cuenta</span>
               <span className="flex items-center gap-1 text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full uppercase">
-                <Shield size={10} className="fill-emerald-700 text-white" /> Verificado Premium
+                <Shield size={10} className="fill-emerald-700 text-white" /> Perfil Verificado Nivel Premium
               </span>
             </div>
             <h1 className="text-3xl font-extrabold text-[#0d1c2e] mt-1 tracking-tight">
-              ¡Bienvenido de nuevo, {nombre}!
+              Tu Panel de Reputación
             </h1>
             <p className="text-sm text-slate-500 font-semibold mt-0.5">
-              Tu perfil está activo y visible para miles de clientes que buscan servicios profesionales en Latinoamérica.
+              Administra tu confiabilidad, ganancias y contratos firmados con garantía TrustMarket.
             </p>
           </div>
 
@@ -253,137 +284,234 @@ export default function DashboardPro() {
           </div>
         </div>
 
-        {/* Left Side: Stats and Performance Grid */}
+        {/* Left Side: Stats and Bento Grid */}
         <div className="lg:col-span-8 space-y-8">
           
-          {/* Key Metrics Cards Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Bento Grid Reputation */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col justify-between h-28">
-              <div className="flex justify-between items-center text-slate-400">
-                <DollarSign size={20} className="text-emerald-500" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Ingresos</span>
+            {/* Reputación General (Featured Card, spans 2 columns on desktop) */}
+            <div className="md:col-span-2 bg-white border border-slate-100 p-6 rounded-[28px] shadow-sm flex flex-col justify-between">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-lg font-bold text-[#0d1c2e]">Reputación General</h3>
+                  <p className="text-xs text-slate-400 font-medium">Basado en los últimos 124 contratos</p>
+                </div>
+                <div className="flex items-center gap-1 bg-[#F4DCE4] px-3 py-1.5 rounded-full border border-pink-100/50">
+                  <Star size={16} className="text-[#D81B60] fill-[#D81B60]" />
+                  <span className="text-xs font-extrabold text-[#D81B60]">4.9 / 5.0</span>
+                </div>
               </div>
-              <div>
-                <span className="block text-2xl font-extrabold text-[#0d1c2e]">$1,480.00</span>
-                <span className="text-[9px] font-bold text-emerald-600">+$350 esta semana</span>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-[#f8f9ff] p-4 rounded-2xl border border-sky-50">
+                  <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                    <ThumbsUp size={14} className="text-sky-500" />
+                    <span className="text-[9px] font-bold uppercase tracking-wider">CONFIANZA</span>
+                  </div>
+                  <span className="block text-xl font-black text-[#0d1c2e]">98%</span>
+                  <span className="text-[9px] text-slate-400 font-semibold">Recomendado</span>
+                </div>
+
+                <div className="bg-[#f8f9ff] p-4 rounded-2xl border border-sky-50">
+                  <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                    <Clock size={14} className="text-emerald-500" />
+                    <span className="text-[9px] font-bold uppercase tracking-wider">PUNTUALIDAD</span>
+                  </div>
+                  <span className="block text-xl font-black text-[#0d1c2e]">100%</span>
+                  <span className="text-[9px] text-slate-400 font-semibold">Entregas a tiempo</span>
+                </div>
+
+                <div className="bg-[#f8f9ff] p-4 rounded-2xl border border-sky-50">
+                  <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                    <MessageSquare size={14} className="text-pink-500" />
+                    <span className="text-[9px] font-bold uppercase tracking-wider">COMUNICACIÓN</span>
+                  </div>
+                  <span className="block text-xl font-black text-[#0d1c2e]">4.8</span>
+                  <span className="text-[9px] text-slate-400 font-semibold">Calidad de respuesta</span>
+                </div>
               </div>
             </div>
 
-            <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col justify-between h-28">
-              <div className="flex justify-between items-center text-slate-400">
-                <Briefcase size={20} className="text-sky-500" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Trabajos</span>
-              </div>
+            {/* Earnings Quick View */}
+            <div className="bg-gradient-to-tr from-pink-500 to-rose-400 p-6 rounded-[28px] shadow-lg flex flex-col justify-between relative overflow-hidden text-white">
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
               <div>
-                <span className="block text-2xl font-extrabold text-[#0d1c2e]">4 Activos</span>
-                <span className="text-[9px] font-bold text-sky-600">2 Contratos firmados</span>
+                <span className="text-xs font-bold text-white/80 uppercase tracking-widest">Ganancias Retirables</span>
+                <p className="text-3xl font-black mt-2 tracking-tighter">$4,250.00 USD</p>
+                <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full mt-1.5 inline-block border border-white/10 font-bold">Este Mes</span>
               </div>
-            </div>
 
-            <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col justify-between h-28">
-              <div className="flex justify-between items-center text-slate-400">
-                <Star size={20} className="text-amber-500 fill-amber-500" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Calificación</span>
-              </div>
-              <div>
-                <span className="block text-2xl font-extrabold text-[#0d1c2e]">5.0</span>
-                <span className="text-[9px] font-bold text-amber-600">100% comentarios pos.</span>
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col justify-between h-28">
-              <div className="flex justify-between items-center text-slate-400">
-                <Clock size={20} className="text-pink-500" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Respuesta</span>
-              </div>
-              <div>
-                <span className="block text-2xl font-extrabold text-[#0d1c2e]">12 Min</span>
-                <span className="text-[9px] font-bold text-emerald-600">Tiempo de respuesta rápido</span>
-              </div>
+              <button 
+                onClick={() => setShowWithdrawModal(true)}
+                className="w-full bg-white text-pink-600 hover:bg-slate-50 font-extrabold py-3 rounded-2xl shadow-md transition-all active:scale-[0.98] mt-6 text-sm cursor-pointer"
+              >
+                Retirar Fondos
+              </button>
             </div>
 
           </div>
 
-          {/* Active Projects Timeline */}
+          {/* Realized Contracts Section */}
           <div className="bg-white border border-slate-100 rounded-[28px] p-6 shadow-sm space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-lg font-bold text-[#0d1c2e]">Tus Proyectos Activos</h3>
-                <p className="text-xs text-slate-400">Seguimiento de contratos protegidos con garantía TrustMarket</p>
+                <h3 className="text-lg font-bold text-[#0d1c2e]">Contratos Realizados</h3>
+                <p className="text-xs text-slate-400">Tus contratos completados y auditados satisfactoriamente</p>
+              </div>
+              <button className="text-xs font-bold text-sky-600 hover:underline flex items-center gap-1">
+                <span>Ver todos</span>
+                <ChevronRight size={14} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              
+              {/* Contract 1 */}
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-sky-100/55 transition-all gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center font-bold">
+                    AR
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#0d1c2e]">Alejandro Ruiz</h4>
+                    <p className="text-xs text-slate-400 font-semibold">Consultoría de Negocios Digitales</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
+                  <div className="text-left md:text-right">
+                    <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">FECHA</span>
+                    <span className="text-xs font-bold text-[#0d1c2e]">12 Oct, 2023</span>
+                  </div>
+
+                  <div className="text-left md:text-right">
+                    <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">MONTO</span>
+                    <span className="text-xs font-extrabold text-emerald-600">$850.00 USD</span>
+                  </div>
+
+                  <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" /> Completado
+                  </span>
+                </div>
+              </div>
+
+              {/* Contract 2 */}
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-sky-100/55 transition-all gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold">
+                    TS
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#0d1c2e]">TechSolutions Inc.</h4>
+                    <p className="text-xs text-slate-400 font-semibold">Diseño de Interfaz Ethereal</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
+                  <div className="text-left md:text-right">
+                    <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">FECHA</span>
+                    <span className="text-xs font-bold text-[#0d1c2e]">08 Oct, 2023</span>
+                  </div>
+
+                  <div className="text-left md:text-right">
+                    <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">MONTO</span>
+                    <span className="text-xs font-extrabold text-emerald-600">$1,200.00 USD</span>
+                  </div>
+
+                  <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" /> Completado
+                  </span>
+                </div>
+              </div>
+
+              {/* Contract 3 */}
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-sky-100/55 transition-all gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center font-bold">
+                    MG
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#0d1c2e]">Mariana Gómez</h4>
+                    <p className="text-xs text-slate-400 font-semibold">Auditoría de UX Boutique</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
+                  <div className="text-left md:text-right">
+                    <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">FECHA</span>
+                    <span className="text-xs font-bold text-[#0d1c2e]">02 Oct, 2023</span>
+                  </div>
+
+                  <div className="text-left md:text-right">
+                    <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">MONTO</span>
+                    <span className="text-xs font-extrabold text-emerald-600">$450.00 USD</span>
+                  </div>
+
+                  <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" /> Completado
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Escrow Active Projects */}
+          <div className="bg-white border border-slate-100 rounded-[28px] p-6 shadow-sm space-y-6">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="text-lg font-bold text-[#0d1c2e]">Proyectos Escrow en Proceso</h3>
+                <p className="text-xs text-slate-400">Fondos bloqueados de forma segura en garantía</p>
               </div>
               <button className="text-xs font-bold text-sky-600 hover:underline">Ver todo</button>
             </div>
 
             <div className="space-y-4">
-              
-              {/* Project Item 1 */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl gap-4">
+              {/* Project 1 */}
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-[#f8f9ff] rounded-2xl border border-sky-50 hover:border-pink-100/50 transition-all gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center text-pink-600 font-bold shrink-0">
-                    <MessageSquare size={18} />
+                  <div className="w-10 h-10 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center font-bold">
+                    <FileText size={18} />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-[#0d1c2e]">Desarrollo de Dashboard Corporativo</h4>
-                    <p className="text-xs text-slate-400">Cliente: Inmobiliaria Andina • Contrato digital firmado con IA</p>
+                    <span className="text-[10px] font-bold bg-[#E0F2FE] text-sky-700 px-2 py-0.5 rounded-full">Garantía Escrow Activa</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between md:justify-end gap-6">
-                  <div className="text-right">
-                    <span className="block text-sm font-extrabold text-[#0d1c2e]">$850.00</span>
-                    <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Protegido en Escrow</span>
+                <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                  <div className="text-left md:text-right">
+                    <span className="block text-[8px] font-bold text-slate-400 uppercase tracking-widest">FONDO</span>
+                    <span className="text-xs font-extrabold text-[#0d1c2e]">$850.00 USD</span>
                   </div>
-                  <ChevronRight size={18} className="text-slate-400 hidden md:block" />
+                  <button className="px-4 py-2 bg-[#0d1c2e] hover:bg-black text-white font-bold text-xs rounded-xl transition-all">
+                    Detalles
+                  </button>
                 </div>
               </div>
 
-              {/* Project Item 2 */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl gap-4">
+              {/* Project 2 */}
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-[#f8f9ff] rounded-2xl border border-sky-50 hover:border-pink-100/50 transition-all gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center text-sky-600 font-bold shrink-0">
-                    <Award size={18} />
+                  <div className="w-10 h-10 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center font-bold">
+                    <FileText size={18} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#0d1c2e]">Auditoría de Sistemas Cloud & Seguridad</h4>
-                    <p className="text-xs text-slate-400">Cliente: Startup Tech Solutions • Hito 1 Completado</p>
+                    <h4 className="text-sm font-bold text-[#0d1c2e]">Optimización de Base de Datos</h4>
+                    <span className="text-[10px] font-bold bg-[#E0F2FE] text-sky-700 px-2 py-0.5 rounded-full">Garantía Escrow Activa</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between md:justify-end gap-6">
-                  <div className="text-right">
-                    <span className="block text-sm font-extrabold text-[#0d1c2e]">$630.00</span>
-                    <span className="text-[10px] font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full">Liberación en Progreso</span>
+                <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                  <div className="text-left md:text-right">
+                    <span className="block text-[8px] font-bold text-slate-400 uppercase tracking-widest">FONDO</span>
+                    <span className="text-xs font-extrabold text-[#0d1c2e]">$450.00 USD</span>
                   </div>
-                  <ChevronRight size={18} className="text-slate-400 hidden md:block" />
+                  <button className="px-4 py-2 bg-[#0d1c2e] hover:bg-black text-white font-bold text-xs rounded-xl transition-all">
+                    Detalles
+                  </button>
                 </div>
-              </div>
-
-            </div>
-          </div>
-
-          {/* Security & Reputational Trust Center */}
-          <div className="bg-gradient-to-br from-[#0d1c2e] to-slate-900 text-white rounded-[28px] p-6 shadow-xl relative overflow-hidden">
-            <div className="absolute top-[-30px] right-[-30px] w-48 h-48 bg-sky-500/10 rounded-full blur-xl" />
-            
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sky-400 text-xs font-bold tracking-widest uppercase">
-                  <Shield size={14} className="fill-sky-400/20" />
-                  <span>Seguridad de Contratos Inteligentes</span>
-                </div>
-                <h3 className="text-xl font-extrabold tracking-tight">
-                  Tus fondos están protegidos mediante depósito en garantía (Escrow).
-                </h3>
-                <p className="text-xs text-slate-300 leading-relaxed max-w-xl">
-                  En TrustMarket, el cliente deposita el pago por adelantado. Una vez finalizado el trabajo, el dinero se deposita directamente en tu cuenta bancaria de forma 100% automática y transparente.
-                </p>
-              </div>
-
-              <div className="shrink-0 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex flex-col items-center justify-center text-center w-full md:w-36">
-                <span className="text-xs font-bold text-slate-300">Nivel de Confianza</span>
-                <span className="text-3xl font-extrabold text-sky-400 mt-1">AAA</span>
-                <span className="text-[9px] font-semibold text-emerald-400 mt-0.5">Excelente Historial</span>
               </div>
             </div>
           </div>
@@ -544,6 +672,159 @@ export default function DashboardPro() {
           </a>
         </div>
       </nav>
+
+      {/* INTERACTIVE WITHDRAW FUNDS MODAL */}
+      <AnimatePresence>
+        {showWithdrawModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 10 }}
+              className="bg-white rounded-[32px] border border-slate-100 p-8 w-full max-w-md shadow-2xl relative"
+            >
+              <button 
+                onClick={() => setShowWithdrawModal(false)}
+                className="absolute top-6 right-6 p-2 bg-slate-50 hover:bg-slate-100 rounded-full text-slate-400 transition-colors"
+              >
+                <X size={16} />
+              </button>
+
+              {withdrawStatus === "idle" && (
+                <div>
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold text-[#0d1c2e] tracking-tight">Retirar Fondos</h3>
+                    <p className="text-xs text-slate-400 mt-1">Envía tus ganancias acumuladas de forma segura a tu cuenta favorita.</p>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="bg-[#f8f9ff] p-5 rounded-2xl border border-sky-100 flex justify-between items-center">
+                      <div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">SALDO DISPONIBLE</span>
+                        <span className="text-2xl font-black text-[#0d1c2e]">$4,250.00 USD</span>
+                      </div>
+                      <CreditCard size={28} className="text-pink-500" />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Método de Retiro</label>
+                      <div className="space-y-3">
+                        <label className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                          withdrawMethod === "bank" ? "border-pink-500 bg-pink-50/20" : "border-slate-200 bg-white"
+                        }`}>
+                          <div className="flex items-center gap-3">
+                            <input 
+                              type="radio" 
+                              name="method" 
+                              value="bank" 
+                              checked={withdrawMethod === "bank"} 
+                              onChange={() => setWithdrawMethod("bank")}
+                              className="text-pink-600 focus:ring-pink-500" 
+                            />
+                            <div>
+                              <span className="block text-xs font-bold text-[#0d1c2e]">Transferencia Bancaria Directa</span>
+                              <span className="text-[10px] text-slate-400 font-semibold">Comisión: 0% • Tiempo: 24h hábiles</span>
+                            </div>
+                          </div>
+                        </label>
+
+                        <label className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                          withdrawMethod === "paypal" ? "border-pink-500 bg-pink-50/20" : "border-slate-200 bg-white"
+                        }`}>
+                          <div className="flex items-center gap-3">
+                            <input 
+                              type="radio" 
+                              name="method" 
+                              value="paypal" 
+                              checked={withdrawMethod === "paypal"} 
+                              onChange={() => setWithdrawMethod("paypal")}
+                              className="text-pink-600 focus:ring-pink-500" 
+                            />
+                            <div>
+                              <span className="block text-xs font-bold text-[#0d1c2e]">PayPal Express</span>
+                              <span className="text-[10px] text-slate-400 font-semibold">Comisión: 1.5% • Tiempo: Instantáneo</span>
+                            </div>
+                          </div>
+                        </label>
+
+                        <label className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                          withdrawMethod === "wallet" ? "border-pink-500 bg-pink-50/20" : "border-slate-200 bg-white"
+                        }`}>
+                          <div className="flex items-center gap-3">
+                            <input 
+                              type="radio" 
+                              name="method" 
+                              value="wallet" 
+                              checked={withdrawMethod === "wallet"} 
+                              onChange={() => setWithdrawMethod("wallet")}
+                              className="text-pink-600 focus:ring-pink-500" 
+                            />
+                            <div>
+                              <span className="block text-xs font-bold text-[#0d1c2e]">TrustPay Escrow Wallet</span>
+                              <span className="text-[10px] text-slate-400 font-semibold">Comisión: 0% • Tiempo: Instantáneo</span>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Monto a Retirar (USD)</label>
+                      <input 
+                        type="number" 
+                        value={withdrawAmount}
+                        onChange={e => setWithdrawAmount(e.target.value)}
+                        max="4250.00"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold text-[#0d1c2e] focus:bg-white focus:border-pink-300 outline-none"
+                      />
+                    </div>
+
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => setShowWithdrawModal(false)}
+                        className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-[#0d1c2e] font-bold rounded-2xl text-sm transition-colors active:scale-95"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        onClick={handleWithdrawSubmit}
+                        className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 text-white font-bold rounded-2xl text-sm transition-all active:scale-95 shadow-md shadow-pink-100"
+                      >
+                        Confirmar Retiro
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {withdrawStatus === "processing" && (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <Loader2 size={48} className="animate-spin text-pink-500 mb-4" />
+                  <h4 className="text-lg font-bold text-[#0d1c2e]">Procesando Transferencia</h4>
+                  <p className="text-xs text-slate-400 mt-1 max-w-xs">Estamos conectando con el nodo encriptado de TrustPay para liberar tus fondos de manera segura.</p>
+                </div>
+              )}
+
+              {withdrawStatus === "success" && (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center mb-4 text-emerald-500 animate-bounce">
+                    <Check size={32} />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#0d1c2e]">¡Retiro Completado!</h4>
+                  <p className="text-xs text-slate-500 font-semibold mt-1">Los fondos se han transferido correctamente a tu cuenta.</p>
+                  <p className="text-[10px] text-slate-400 mt-2">ID de Transacción: TR-98520-LX</p>
+                </div>
+              )}
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* EDIT PROFILE SIDEBAR MODAL */}
       <AnimatePresence>
@@ -711,6 +992,20 @@ export default function DashboardPro() {
                 </div>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Toast Notification Banner */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 24, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 24, x: "-50%" }}
+            className="fixed bottom-24 left-1/2 z-[100] bg-[#0d1c2e] text-white px-6 py-3 rounded-full shadow-2xl text-xs font-bold border border-white/10 uppercase tracking-wider"
+          >
+            {toastMessage}
           </motion.div>
         )}
       </AnimatePresence>

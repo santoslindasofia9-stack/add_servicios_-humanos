@@ -62,7 +62,7 @@ function LoginContent() {
           localStorage.setItem("userRole", role);
           localStorage.setItem("userName", displayName);
           localStorage.setItem("isLoggedIn", "true");
-          window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+          window.location.href = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
           return;
         }
 
@@ -72,7 +72,7 @@ function LoginContent() {
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
-        window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+        window.location.href = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
 
       } else {
         // — INICIO DE SESIÓN —
@@ -93,7 +93,7 @@ function LoginContent() {
         localStorage.setItem("userName", displayName);
         localStorage.setItem("isLoggedIn", "true");
 
-        window.location.href = role === "client" ? "/home-cliente" : "/dashboard-pro";
+        window.location.href = role === "client" ? "/home-cliente" : "/auth/verificacion-pro";
       }
     } catch (err: any) {
       console.error("Auth error:", err);

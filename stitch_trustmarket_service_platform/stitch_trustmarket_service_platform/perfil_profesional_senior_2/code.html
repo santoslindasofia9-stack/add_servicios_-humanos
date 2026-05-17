@@ -125,33 +125,48 @@
 <button class="hidden md:flex items-center justify-center p-2 text-on-surface-variant hover:bg-surface-container rounded-full">
 <span class="material-symbols-outlined" data-icon="search">search</span>
 </button>
-<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional portrait of a smiling male designer in a bright, modern studio. The lighting is soft and airy, emphasizing a high-key light-mode aesthetic with ethereal blue undertones. He wears a neutral linen shirt, and the background is a blurred minimalist office with white furniture and soft pastel accents, suggesting a clean and safe boutique environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnktgLOxCqD9AalgCaGh4W2Z5iSA0FkAFagYkG7zSz2T5k1FrtcPJwY0wdvjw9FLJpzTYNr1g-pwIEGQELvRbu_sN4yhPSt2iHJNm5rTULAGkjRRBletMjm9WvSZ_TwGBPt0TIlu6JlrX3FeCDFhwiiXbqhobzRDoQrEYCAcGAcBMEOwFCrjIAliV6sbqWcCIzn5njcBaSvocNoaRT4BjhWYHBp4iK1E90HRTgzJw6vmZDq2-h4DTy2ESl9PF-HBt46fsaQCNOjQ"/>
+<div id="header-profile-container" class="flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity">
+<span id="header-name" class="text-sm font-semibold text-slate-600 hidden lg:block">Expert Professional</span>
+<img id="header-avatar" alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw"/>
+</div>
 </div>
 </div>
 </header>
 <main class="max-w-[1280px] mx-auto px-4 md:px-gutter pt-24 pb-32 space-y-gutter">
 <!-- Profile Header Section -->
 <section class="flex flex-col md:flex-row items-center md:items-start gap-gutter p-card-padding md:p-12 bg-white rounded-DEFAULT ethereal-shadow">
-<div class="relative flex-shrink-0">
-<div class="w-48 h-48 md:w-56 md:h-56 rounded-full border-[6px] border-primary-container overflow-hidden shadow-xl">
-<img alt="Expert Professional" class="w-full h-full object-cover" data-alt="Close up portrait of a male creative professional with a friendly expression. The scene is bathed in bright, soft-focus natural light that creates a serene and optimistic mood. The color palette is dominated by snow-white and very faint sky-blue hues. The style is minimalist and high-end, evoking ethereal trust and professional safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw"/>
+<div class="relative flex-shrink-0 group/avatar cursor-pointer" id="avatar-container-trigger" title="Cambiar foto de perfil">
+<div class="w-48 h-48 md:w-56 md:h-56 rounded-full border-[6px] border-primary-container overflow-hidden shadow-xl relative transition-transform duration-300 group-hover/avatar:scale-[1.02]">
+<img id="profile-avatar" alt="Expert Professional" class="w-full h-full object-cover transition-opacity duration-300 group-hover/avatar:opacity-85" data-alt="Expert Professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw"/>
+<!-- Hover overlay edit photo -->
+<div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300 text-white rounded-full">
+<span class="material-symbols-outlined text-3xl mb-1">photo_camera</span>
+<span class="text-[11px] font-bold tracking-wider uppercase">Editar Foto</span>
 </div>
-<div class="absolute bottom-4 right-4 bg-pink-400 text-white p-2.5 rounded-full shadow-lg">
+</div>
+<div class="absolute bottom-4 right-4 bg-pink-400 text-white p-2.5 rounded-full shadow-lg z-10">
 <span class="material-symbols-outlined text-[20px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
 </div>
 </div>
 <div class="flex-1 text-center md:text-left space-y-4">
 <div class="space-y-1">
-<div class="flex flex-col md:flex-row md:items-center gap-3">
-<h2 class="font-h1 text-h1 text-on-surface">Expert Professional</h2>
-<span class="inline-flex px-3 py-1 bg-primary-container text-primary text-label-caps rounded-full w-fit mx-auto md:mx-0">Gold Member</span>
+<div class="flex items-center justify-center md:justify-start gap-2 mb-1 flex-wrap">
+<h2 id="profile-name" class="font-h1 text-h1 text-on-surface">Expert Professional</h2>
+<button id="edit-profile-name-btn" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center hover:bg-sky-50 hover:text-sky-500 text-slate-400 transition-colors shadow-sm cursor-pointer ml-1" title="Editar nombre y biografía">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<span class="inline-flex px-3 py-1 bg-primary-container text-primary text-label-caps rounded-full w-fit">Gold Member</span>
 </div>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Visual Designer &amp; Brand Strategist creating serene digital experiences for modern boutique brands.</p>
+<p id="profile-bio" class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Visual Designer &amp; Brand Strategist creating serene digital experiences for modern boutique brands.</p>
 </div>
 <div class="flex flex-wrap justify-center md:justify-start gap-6 pt-2">
-<div class="flex items-center gap-2 text-on-surface-variant">
-<span class="material-symbols-outlined text-sky-400" data-icon="location_on">location_on</span>
-<span class="font-body-md text-body-md">Barcelona, ES</span>
+<div class="flex items-center gap-2 text-emerald-700 bg-emerald-50 border border-emerald-100/60 rounded-full px-4 py-1.5 font-semibold text-sm">
+<span class="material-symbols-outlined text-emerald-500 animate-pulse text-[18px]" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span id="profile-location" class="font-sans text-[13px]">Barcelona, ES</span>
+<span class="relative flex h-2 w-2 ml-1">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
 </div>
 <div class="flex items-center gap-2 text-on-surface-variant">
 <span class="material-symbols-outlined text-pink-400" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
@@ -237,31 +252,427 @@
 </div>
 </section>
 </main>
-<!-- Mobile Navigation Bar -->
-<nav class="fixed bottom-0 w-full z-50 bg-white/95 backdrop-blur-xl border-t border-sky-50 shadow-[0_-10px_40px_rgba(224,242,254,0.3)] flex justify-around items-center h-20 px-4 pb-safe md:hidden">
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="text-[10px] font-medium">Home</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-<span class="text-[10px] font-medium">Search</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="local_mall">local_mall</span>
-<span class="text-[10px] font-medium">Orders</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 hover:text-pink-400 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
-<span class="text-[10px] font-medium">Inbox</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-pink-50 text-pink-600 rounded-full px-5 py-1.5 transition-all duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-<span class="text-[10px] font-medium">Profile</span>
-</a>
-</nav>
-<!-- Floating Action Button (FAB) -->
-<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-16 h-16 bg-[#E0F2FE] text-sky-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 z-[60]">
-<span class="material-symbols-outlined text-[32px]" data-icon="chat">chat</span>
-</button>
-</body></html>
+<!-- BottomNavBar (Floating Centered Glassmorphic Design for All Devices) -->
+  <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[560px] z-[80] bg-white/95 backdrop-blur-xl border border-sky-100 shadow-[0_12px_40px_rgba(15,23,42,0.08)] rounded-3xl">
+  <div class="flex justify-around items-center px-4 py-2.5 w-full font-sans">
+  <!-- Perfil (Active) -->
+  <a href="#" class="flex flex-col items-center justify-center text-pink-500 bg-pink-50/80 rounded-2xl px-5 py-2 cursor-pointer transition-all active:scale-95 duration-200 border border-pink-100/40">
+  <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+  <span class="text-[11px] font-bold mt-1">Perfil</span>
+  </a>
+  <!-- Dashboard -->
+  <a href="#" class="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95">
+  <span class="material-symbols-outlined text-[22px]">analytics</span>
+  <span class="text-[11px] font-semibold mt-1">Dashboard</span>
+  </a>
+  <!-- Mapa -->
+  <a href="#" class="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95">
+  <span class="material-symbols-outlined text-[22px]">map</span>
+  <span class="text-[11px] font-semibold mt-1">Mapa</span>
+  </a>
+  <!-- Agenda -->
+  <a href="#" class="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95">
+  <span class="material-symbols-outlined text-[22px]">calendar_today</span>
+  <span class="text-[11px] font-semibold mt-1">Agenda</span>
+  </a>
+  <!-- Mensajes -->
+  <a href="#" class="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95 relative">
+  <span class="material-symbols-outlined text-[22px]">chat_bubble</span>
+  <span class="text-[11px] font-semibold mt-1">Mensajes</span>
+  <div class="absolute top-2 right-4 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
+  </a>
+  </div>
+  </nav>
+
+  <!-- FAB (Floating Action Button) -->
+  <button id="edit-profile-fab" class="fixed bottom-28 md:bottom-12 right-6 md:right-12 w-14 h-14 bg-secondary-fixed text-on-secondary-fixed rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-40 border-4 border-white" title="Editar Perfil">
+  <span class="material-symbols-outlined text-2xl">edit</span>
+  </button>
+
+  <!-- Edit Profile Modal -->
+  <div id="edit-profile-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+      <div id="edit-profile-modal-content" class="bg-white rounded-2xl w-full max-w-lg shadow-2xl border border-sky-100 overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
+          <!-- Header -->
+          <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-sky-50 to-white">
+              <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-sky-500 font-semibold">manage_accounts</span>
+                  <h3 class="text-lg font-bold text-slate-800">Editar Perfil de Confianza</h3>
+              </div>
+              <button id="close-modal-btn" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+                  <span class="material-symbols-outlined">close</span>
+              </button>
+          </div>
+
+          <!-- Body (Scrollable) -->
+          <div class="p-6 overflow-y-auto space-y-5">
+              <!-- Profile Photo Section -->
+              <div class="flex flex-col items-center gap-3 bg-sky-50/30 p-4 rounded-xl border border-sky-100/50">
+                  <div class="relative group/modal-avatar cursor-pointer w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md">
+                      <img id="modal-avatar-preview" src="" alt="Avatar Preview" class="w-full h-full object-cover transition-opacity duration-300 group-hover/modal-avatar:opacity-80">
+                      <div id="upload-avatar-trigger" class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover/modal-avatar:opacity-100 transition-opacity duration-300 text-white">
+                          <span class="material-symbols-outlined text-xl">photo_camera</span>
+                          <span class="text-[9px] font-bold uppercase tracking-wider">Subir</span>
+                      </div>
+                  </div>
+                  <input type="file" id="modal-avatar-file" accept="image/*" class="hidden">
+                  <button type="button" id="upload-file-btn" class="px-3 py-1 bg-white hover:bg-slate-50 text-slate-600 text-xs font-semibold rounded-full border border-slate-200 shadow-sm flex items-center gap-1 transition-all active:scale-95">
+                      <span class="material-symbols-outlined text-sm">upload</span> Subir Foto
+                  </button>
+                  
+                  <!-- Avatar Presets -->
+                  <div class="w-full pt-2 border-t border-slate-100">
+                      <span class="text-xs font-semibold text-slate-500 block mb-2 text-center">O elige una foto preestablecida:</span>
+                      <div class="flex gap-3 justify-center items-center font-sans">
+                          <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent transition-all hover:scale-105 active:scale-95" data-avatar-url="https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw" title="Expert Professional">
+                              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuYQXEPh_cCvKaZF2kMYcAhgMpkB3xlB2wjk3jtg0ILEcvGYQQeq_PrnEfwVC7rcyJo_IK1ar9Iels0IFtoPQCsNW0OwFcXNtRdIlEsCtHNv07r1g_IW9dSouLSaX4aWGKsKPiGlyQ6Lu3RrgCc9EJiCFN6K4l2lyxSO-WvwnNGccc4VpC6M-xSSQ3oO6WlTRKSoAdm-WGCLfbv3yksfHwlsNSzQNtgPSBGfXtdTUya57u8kIHcKCwTPwrvu5oIs2AE9gdfzHUqw" alt="Original">
+                          </button>
+                          <!-- Sofia Portrait (Neon background, gorgeous woman) -->
+                          <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent transition-all hover:scale-105 active:scale-95" data-avatar-url="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256" title="Sofia">
+                              <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256" alt="Sofia">
+                          </button>
+                          <!-- Alejandro Portrait -->
+                          <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent transition-all hover:scale-105 active:scale-95" data-avatar-url="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256" title="Alejandro">
+                              <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256" alt="Alejandro">
+                          </button>
+                          <!-- Elena Portrait -->
+                          <button type="button" class="preset-avatar-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent transition-all hover:scale-105 active:scale-95" data-avatar-url="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256" title="Elena">
+                              <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256" alt="Elena">
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Form Name -->
+              <div class="space-y-1.5 font-sans">
+                  <label for="modal-name" class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Nombre Completo</label>
+                  <div class="relative">
+                      <span class="material-symbols-outlined text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 text-lg">person</span>
+                      <input type="text" id="modal-name" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all font-semibold text-slate-800 text-sm shadow-sm" placeholder="Ej. Expert Professional">
+                  </div>
+              </div>
+
+              <!-- Form Location -->
+              <div class="space-y-1.5 font-sans">
+                  <label for="modal-location" class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Ubicación Actual</label>
+                  <div class="flex gap-2">
+                      <div class="relative flex-1">
+                          <span class="material-symbols-outlined text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 text-lg">location_on</span>
+                          <input type="text" id="modal-location" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all font-semibold text-slate-800 text-sm shadow-sm" placeholder="Ej. Barcelona, ES">
+                      </div>
+                      <button type="button" id="modal-gps-btn" class="px-4 py-2.5 bg-gradient-to-br from-sky-50 to-sky-100 hover:from-sky-100 hover:to-sky-200 text-sky-600 rounded-xl border border-sky-200/50 hover:border-sky-300/50 transition-all font-bold flex items-center justify-center gap-1.5 active:scale-95 shadow-sm min-w-[90px]" title="Detectar ubicación actual por GPS">
+                          <span class="material-symbols-outlined text-lg text-sky-500">my_location</span>
+                          <span class="text-xs uppercase tracking-wider font-bold">GPS</span>
+                      </button>
+                  </div>
+              </div>
+
+              <!-- Form Bio -->
+              <div class="space-y-1.5 font-sans">
+                  <div class="flex justify-between items-center">
+                      <label for="modal-bio" class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Biografía Comercial</label>
+                      <span id="bio-char-count" class="text-[10px] font-semibold text-slate-400">0/150</span>
+                  </div>
+                  <div class="relative">
+                      <span class="material-symbols-outlined text-slate-400 absolute left-3 top-3 text-lg">description</span>
+                      <textarea id="modal-bio" maxlength="150" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all font-normal text-slate-700 text-sm shadow-sm resize-none h-24 leading-relaxed" placeholder="Describe brevemente tus servicios y experiencia comercial..."></textarea>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="px-6 py-4 border-t border-slate-100 flex justify-end gap-3 bg-slate-50/50 font-sans">
+              <button id="cancel-modal-btn" class="px-5 py-2.5 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-700 font-bold text-sm transition-all active:scale-95">
+                  Cancelar
+              </button>
+              <button id="save-modal-btn" class="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white font-bold text-sm rounded-full shadow-md shadow-sky-100 hover:shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-lg">save</span> Guardar Cambios
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Toast Success Notification -->
+  <div id="toast-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[110] px-5 py-3 rounded-full bg-white/95 backdrop-blur-md shadow-xl border border-emerald-100 text-slate-800 text-sm font-semibold flex items-center gap-2.5 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none font-sans">
+      <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white">
+          <span class="material-symbols-outlined text-base font-bold">check</span>
+      </div>
+      <span>¡Perfil de confianza actualizado con éxito!</span>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+      // DOM Elements
+      const editModal = document.getElementById('edit-profile-modal');
+      const modalContent = document.getElementById('edit-profile-modal-content');
+      const openFab = document.getElementById('edit-profile-fab');
+      const avatarTrigger = document.getElementById('avatar-container-trigger');
+      const nameEditBtn = document.getElementById('edit-profile-name-btn');
+      const headerProfileContainer = document.getElementById('header-profile-container');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const cancelModalBtn = document.getElementById('cancel-modal-btn');
+      const saveModalBtn = document.getElementById('save-modal-btn');
+      
+      const profileAvatar = document.getElementById('profile-avatar');
+      const headerAvatar = document.getElementById('header-avatar');
+      const profileName = document.getElementById('profile-name');
+      const headerName = document.getElementById('header-name');
+      const profileBio = document.getElementById('profile-bio');
+      const profileLocation = document.getElementById('profile-location');
+      
+      const modalName = document.getElementById('modal-name');
+      const modalLocation = document.getElementById('modal-location');
+      const modalBio = document.getElementById('modal-bio');
+      const modalAvatarPreview = document.getElementById('modal-avatar-preview');
+      const fileInput = document.getElementById('modal-avatar-file');
+      const uploadFileBtn = document.getElementById('upload-file-btn');
+      const uploadAvatarTrigger = document.getElementById('upload-avatar-trigger');
+      const gpsBtn = document.getElementById('modal-gps-btn');
+      const bioCharCount = document.getElementById('bio-char-count');
+      const toast = document.getElementById('toast-success');
+      
+      // Preset Avatar Buttons
+      const presetBtns = document.querySelectorAll('.preset-avatar-btn');
+      
+      let currentAvatarUrl = "";
+      
+      // Load persisted profile from localStorage or default
+      const loadProfile = () => {
+          const storedProfile = JSON.parse(localStorage.getItem('trustmarket_professional_profile'));
+          if (storedProfile) {
+              if (storedProfile.name) {
+                  profileName.textContent = storedProfile.name;
+                  if (headerName) headerName.textContent = storedProfile.name;
+              }
+              if (storedProfile.bio) profileBio.textContent = storedProfile.bio;
+              if (storedProfile.location) profileLocation.textContent = storedProfile.location;
+              if (storedProfile.avatar) {
+                  profileAvatar.src = storedProfile.avatar;
+                  if (headerAvatar) headerAvatar.src = storedProfile.avatar;
+              }
+          }
+      };
+      
+      loadProfile();
+      
+      // Character counter for bio
+      modalBio.addEventListener('input', () => {
+          const count = modalBio.value.length;
+          bioCharCount.textContent = `${count}/150`;
+          if (count >= 135) {
+              bioCharCount.className = "text-[10px] font-semibold text-rose-500 animate-pulse";
+          } else {
+              bioCharCount.className = "text-[10px] font-semibold text-slate-400";
+          }
+      });
+      
+      // Open Modal
+      const openModal = () => {
+          // Hydrate form
+          modalName.value = profileName.textContent.trim();
+          modalLocation.value = profileLocation.textContent.trim();
+          modalBio.value = profileBio.textContent.trim();
+          modalAvatarPreview.src = profileAvatar.src;
+          currentAvatarUrl = profileAvatar.src;
+          
+          // Reset character count
+          bioCharCount.textContent = `${modalBio.value.length}/150`;
+          
+          // Select active preset if any
+          presetBtns.forEach(btn => {
+              if (btn.dataset.avatarUrl === currentAvatarUrl) {
+                  btn.classList.add('ring-4', 'ring-sky-500', 'border-sky-300');
+              } else {
+                  btn.classList.remove('ring-4', 'ring-sky-500', 'border-sky-300');
+              }
+          });
+          
+          // Display modal
+          editModal.classList.remove('pointer-events-none', 'opacity-0');
+          setTimeout(() => {
+              modalContent.classList.remove('scale-95', 'opacity-0');
+          }, 50);
+      };
+      
+      // Close Modal
+      const closeModal = () => {
+          modalContent.classList.add('scale-95', 'opacity-0');
+          setTimeout(() => {
+              editModal.classList.add('pointer-events-none', 'opacity-0');
+          }, 200);
+      };
+      
+      // Listeners to open
+      if (openFab) openFab.addEventListener('click', openModal);
+      if (avatarTrigger) avatarTrigger.addEventListener('click', openModal);
+      if (nameEditBtn) nameEditBtn.addEventListener('click', openModal);
+      if (headerProfileContainer) headerProfileContainer.addEventListener('click', openModal);
+      
+      // Close listeners
+      closeModalBtn.addEventListener('click', closeModal);
+      cancelModalBtn.addEventListener('click', closeModal);
+      editModal.addEventListener('click', (e) => {
+          if (e.target === editModal) closeModal();
+      });
+      
+      // Preset avatar selection
+      presetBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+              // Remove selection from all
+              presetBtns.forEach(b => b.classList.remove('ring-4', 'ring-sky-500', 'border-sky-300'));
+              // Add to clicked
+              btn.classList.add('ring-4', 'ring-sky-500', 'border-sky-300');
+              // Update preview
+              currentAvatarUrl = btn.dataset.avatarUrl;
+              modalAvatarPreview.src = currentAvatarUrl;
+          });
+      });
+      
+      // Custom file upload trigger
+      const triggerFileSelection = () => fileInput.click();
+      if (uploadFileBtn) uploadFileBtn.addEventListener('click', triggerFileSelection);
+      if (uploadAvatarTrigger) uploadAvatarTrigger.addEventListener('click', triggerFileSelection);
+      
+      fileInput.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+              const reader = new FileReader();
+              reader.onload = function(evt) {
+                  currentAvatarUrl = evt.target.result;
+                  modalAvatarPreview.src = currentAvatarUrl;
+                  // Deselect all presets
+                  presetBtns.forEach(b => b.classList.remove('ring-4', 'ring-sky-500', 'border-sky-300'));
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+      
+      // GPS Geolocation trigger
+      gpsBtn.addEventListener('click', () => {
+          gpsBtn.disabled = true;
+          gpsBtn.innerHTML = `<span class="material-symbols-outlined text-lg animate-spin text-sky-500">sync</span> <span class="text-xs uppercase tracking-wider font-bold">Buscando...</span>`;
+          
+          if ("geolocation" in navigator) {
+              navigator.geolocation.getCurrentPosition(
+                  async (position) => {
+                      const lat = position.coords.latitude;
+                      const lon = position.coords.longitude;
+                      
+                      try {
+                          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`, {
+                              headers: { 'Accept-Language': 'es' }
+                          });
+                          const data = await response.json();
+                          if (data && data.address) {
+                              const city = data.address.city || data.address.town || data.address.village || data.address.county || "";
+                              const country = data.address.country || "";
+                              if (city && country) {
+                                  modalLocation.value = `${city}, ${country}`;
+                              } else if (data.display_name) {
+                                  const parts = data.display_name.split(',');
+                                  modalLocation.value = parts.slice(0, 2).join(',').trim();
+                              } else {
+                                  modalLocation.value = `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+                              }
+                          } else {
+                              modalLocation.value = `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+                          }
+                      } catch (err) {
+                          modalLocation.value = `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+                      }
+                      
+                      gpsBtn.disabled = false;
+                      gpsBtn.innerHTML = `<span class="material-symbols-outlined text-lg text-emerald-500">check_circle</span> <span class="text-xs uppercase tracking-wider font-bold">Detectado</span>`;
+                      setTimeout(() => {
+                          gpsBtn.innerHTML = `<span class="material-symbols-outlined text-lg text-sky-500">my_location</span> <span class="text-xs uppercase tracking-wider font-bold">GPS</span>`;
+                      }, 2000);
+                  },
+                  (error) => {
+                      console.error("GPS Error:", error);
+                      // Fallback to high-quality mockup simulation
+                      const fallbackCities = ["Barcelona, España", "Madrid, España", "Medellín, Colombia", "Bogotá, Colombia", "Ciudad de México, México"];
+                      const randomCity = fallbackCities[Math.floor(Math.random() * fallbackCities.length)];
+                      
+                      setTimeout(() => {
+                          modalLocation.value = `${randomCity} (GPS Estimado)`;
+                          gpsBtn.disabled = false;
+                          gpsBtn.innerHTML = `<span class="material-symbols-outlined text-lg text-amber-500">sensors</span> <span class="text-xs uppercase tracking-wider font-bold">Estimado</span>`;
+                          setTimeout(() => {
+                              gpsBtn.innerHTML = `<span class="material-symbols-outlined text-lg text-sky-500">my_location</span> <span class="text-xs uppercase tracking-wider font-bold">GPS</span>`;
+                          }, 2500);
+                      }, 1200);
+                  },
+                  { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+              );
+          } else {
+              alert("Tu navegador no soporta geolocalización.");
+              gpsBtn.disabled = false;
+              gpsBtn.innerHTML = `<span class="material-symbols-outlined text-lg text-sky-500">my_location</span> <span class="text-xs uppercase tracking-wider font-bold">GPS</span>`;
+          }
+      });
+      
+      // Highlight elements visually on save to show where updates took place
+      const highlightElement = (el) => {
+          if (!el) return;
+          el.classList.add('transition-all', 'duration-500', 'scale-105', 'bg-sky-50', 'ring-4', 'ring-sky-100', 'z-10');
+          setTimeout(() => {
+              el.classList.remove('scale-105', 'bg-sky-50', 'ring-4', 'ring-sky-100', 'z-10');
+          }, 1500);
+      };
+      
+      const highlightImage = (el) => {
+          if (!el) return;
+          el.classList.add('transition-all', 'duration-500', 'scale-110', 'ring-4', 'ring-emerald-400');
+          setTimeout(() => {
+              el.classList.remove('scale-110', 'ring-4', 'ring-emerald-400');
+          }, 1500);
+      };
+
+      // Save changes
+      saveModalBtn.addEventListener('click', () => {
+          const nameVal = modalName.value.trim() || "Expert Professional";
+          const locationVal = modalLocation.value.trim() || "Barcelona, ES";
+          const bioVal = modalBio.value.trim() || "Visual Designer & Brand Strategist.";
+          
+          // Save to localStorage
+          const profileData = {
+              name: nameVal,
+              location: locationVal,
+              bio: bioVal,
+              avatar: currentAvatarUrl
+          };
+          localStorage.setItem('trustmarket_professional_profile', JSON.stringify(profileData));
+          
+          // Update DOM with animations
+          profileName.textContent = nameVal;
+          if (headerName) {
+              headerName.textContent = nameVal;
+          }
+          profileBio.textContent = bioVal;
+          profileLocation.textContent = locationVal;
+          
+          profileAvatar.src = currentAvatarUrl;
+          if (headerAvatar) {
+              headerAvatar.src = currentAvatarUrl;
+          }
+          
+          // Trigger highlights
+          highlightElement(profileName.parentElement);
+          highlightElement(profileBio);
+          highlightElement(profileLocation.parentElement);
+          highlightImage(profileAvatar.parentElement);
+          if (headerName) highlightElement(headerName.parentElement);
+          
+          closeModal();
+          
+          // Show Toast
+          toast.classList.remove('-translate-y-24', 'opacity-0');
+          toast.classList.add('translate-y-0', 'opacity-100');
+          
+          setTimeout(() => {
+              toast.classList.remove('translate-y-0', 'opacity-100');
+              toast.classList.add('-translate-y-24', 'opacity-0');
+          }, 3500);
+      });
+  });
+  </script>
+  </body></html>

@@ -130,7 +130,7 @@
 <div class="flex items-center gap-3 md:gap-6">
 <div class="hidden md:flex items-center bg-slate-100/50 rounded-full px-4 py-2 border border-transparent focus-within:border-sky-200 focus-within:bg-white transition-all w-64 xl:w-96">
 <span class="material-symbols-outlined text-slate-400 text-[20px]">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400" placeholder="Buscar servicios o expertos..." type="text"/>
+<input id="header-search-input" class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400" placeholder="Buscar servicios o expertos..." type="text"/>
 </div>
 <div class="flex items-center gap-4">
 <button class="p-2 text-slate-400 hover:text-sky-500 transition-colors relative">
@@ -147,7 +147,7 @@
 <div class="mb-8 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
 <div class="max-w-2xl">
 <span class="font-label-caps text-[12px] text-sky-400 mb-3 block uppercase tracking-[0.2em]">Descubre Expertos</span>
-<h2 class="font-h2 text-3xl md:text-5xl text-on-background leading-tight">Resultados de Búsqueda</h2>
+<h2 id="search-results-title" class="font-h2 text-3xl md:text-5xl text-on-background leading-tight">Resultados de Búsqueda</h2>
 <p class="font-body-md text-lg text-slate-500 mt-4 max-w-lg">Hemos seleccionado cuidadosamente a los mejores profesionales que encajan con la visión de tu próximo proyecto.</p>
 </div>
 <div class="flex gap-3 self-start md:self-end">
@@ -368,4 +368,41 @@
 </div>
 </div>
 </footer>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const queryInput = document.getElementById("header-search-input");
+        const resultsTitle = document.getElementById("search-results-title");
+
+        // Cargar búsqueda desde localStorage
+        const lastQuery = localStorage.getItem("lastSearchQuery");
+        if (lastQuery) {
+            if (queryInput) {
+                queryInput.value = lastQuery;
+            }
+            if (resultsTitle) {
+                resultsTitle.textContent = `Resultados para: "${lastQuery}"`;
+            }
+            // Limpiar localStorage una vez cargado para evitar persistencia obsoleta
+            localStorage.removeItem("lastSearchQuery");
+        }
+
+        // Permitir buscar de nuevo desde esta página de resultados
+        if (queryInput) {
+            queryInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    const query = queryInput.value.trim();
+                    if (query) {
+                        if (resultsTitle) {
+                            resultsTitle.textContent = `Resultados para: "${query}"`;
+                        }
+                    } else {
+                        if (resultsTitle) {
+                            resultsTitle.textContent = "Resultados de Búsqueda";
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
 </body></html>

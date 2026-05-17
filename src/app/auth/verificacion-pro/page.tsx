@@ -109,11 +109,13 @@ export default function VerificacionPro() {
   const [descripcion, setDescripcion] = useState("");
   const [experiencia, setExperiencia] = useState("3");
   const [tarifa, setTarifa] = useState("35");
+  const [ubicacion, setUbicacion] = useState("Medellín, Colombia");
   
   // Security checks states
   const [nombreError, setNombreError] = useState<string | null>(null);
   const [descripcionError, setDescripcionError] = useState<string | null>(null);
   const [customEspecialidadError, setCustomEspecialidadError] = useState<string | null>(null);
+  const [ubicacionError, setUbicacionError] = useState<string | null>(null);
 
   // File upload simulation states
   const [cvFile, setCvFile] = useState<string | null>(null);
@@ -175,6 +177,14 @@ export default function VerificacionPro() {
       setCustomEspecialidadError(null);
     }
   }, [customEspecialidad]);
+
+  useEffect(() => {
+    if (ubicacion.trim() && hasInappropriateWords(ubicacion)) {
+      setUbicacionError("Política de Seguridad: Término inapropiado detectado en la ubicación.");
+    } else {
+      setUbicacionError(null);
+    }
+  }, [ubicacion]);
 
   // Combined customized specialty
   const displayedEspecialidad = especialidad === "Otro (Escribir especialidad personalizada)"
@@ -303,17 +313,18 @@ export default function VerificacionPro() {
           localStorage.setItem("proDescription", descripcion);
           localStorage.setItem("proTarifa", tarifa);
           localStorage.setItem("proExperiencia", experiencia);
+          localStorage.setItem("proLocation", ubicacion);
           localStorage.setItem("proCertificadosCount", certificados.length.toString());
 
-          // Redireccionar al panel
-          window.location.href = "/dashboard-pro";
+          // Redireccionar al editor de servicios profesional recién creado
+          window.location.href = "/perfil-y-editor-de-servicios-2";
         }, 1500);
       }
     }, 600);
   };
 
   // Check if step 1 has any validation error to block progress
-  const hasStep1Errors = !!(nombreError || descripcionError || customEspecialidadError || !nombre.trim() || !descripcion.trim() || (especialidad === "Otro (Escribir especialidad personalizada)" && !customEspecialidad.trim()));
+  const hasStep1Errors = !!(nombreError || descripcionError || customEspecialidadError || ubicacionError || !nombre.trim() || !descripcion.trim() || !ubicacion.trim() || (especialidad === "Otro (Escribir especialidad personalizada)" && !customEspecialidad.trim()));
 
   return (
     <main className="relative min-h-screen w-full bg-[#f8f9ff] font-plus-jakarta overflow-hidden pb-12">
@@ -379,20 +390,22 @@ export default function VerificacionPro() {
                 </div>
               </div>
               
-              <div className="space-y-1">
+              <div className="space-y-1 flex-1">
                 <h3 className={`text-xl font-bold leading-none transition-colors ${nombreError ? "text-red-500" : "text-[#0d1c2e]"}`}>
                   {nombreError ? "Nombre Inapropiado" : (nombre || "Tu nombre aquí")}
                 </h3>
                 <p className={`text-sm font-semibold transition-colors ${customEspecialidadError ? "text-red-500" : "text-sky-600"}`}>
                   {customEspecialidadError ? "Especialidad Inapropiada" : displayedEspecialidad}
                 </p>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+                <div className="flex items-center gap-2 text-xs font-medium text-slate-500 flex-wrap">
                   <div className="flex items-center text-amber-400">
                     {"★".repeat(5)}
                   </div>
                   <span>5.0 (0 Reseñas)</span>
                   <span className="w-1 h-1 rounded-full bg-slate-300" />
-                  <span className="text-emerald-600 font-bold">Nuevo</span>
+                  <span className={`font-bold transition-colors ${ubicacionError ? "text-red-500" : "text-slate-600"}`}>
+                    📍 {ubicacionError ? "Ubicación no apta" : (ubicacion || "Ubicación")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -715,6 +728,31 @@ export default function VerificacionPro() {
                     </div>
                   </div>
 
+                  {/* Dynamic Location Field */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-[#0d1c2e]">Ubicación del Profesional</label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">📍</span>
+                      <input
+                        type="text"
+                        value={ubicacion}
+                        onChange={(e) => setUbicacion(e.target.value)}
+                        placeholder="Ej. Medellín, Colombia o Remoto"
+                        className={`w-full pl-10 pr-4 py-3.5 bg-slate-50 border rounded-2xl focus:outline-none focus:bg-white transition-all font-medium text-[#0d1c2e] ${
+                          ubicacionError
+                            ? "border-red-300 focus:border-red-400 focus:ring-4 focus:ring-red-100/50 text-red-700 bg-red-50/10"
+                            : "border-slate-100 focus:border-[#FCE4EC] focus:ring-4 focus:ring-[#FCE4EC]/30"
+                        }`}
+                      />
+                    </div>
+                    {ubicacionError && (
+                      <div className="flex gap-2 text-xs font-semibold text-red-600 bg-red-50 border border-red-100 p-2.5 rounded-xl items-center">
+                        <AlertTriangle className="shrink-0 text-red-500" size={14} />
+                        <span>{ubicacionError}</span>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Biography Area */}
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-[#0d1c2e]">Breve descripción sobre en qué trabajas</label>
@@ -891,7 +929,7 @@ export default function VerificacionPro() {
                         className="w-full flex items-center justify-center gap-1 py-2 bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#0d1c2e] font-bold text-xs rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                       >
                         <Plus size={14} />
-                        Cargar Certificado con Validación
+                        Cargar Certificado con Validation
                       </button>
                     </div>
 

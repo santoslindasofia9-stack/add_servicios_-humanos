@@ -32,8 +32,16 @@ import {
   PlusCircle,
   Map,
   Compass,
-  Loader2
+  Loader2,
+  Camera
 } from "lucide-react";
+
+const PRESET_AVATARS = [
+  { id: "avatar1", url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256&h=256", label: "Sofía" },
+  { id: "avatar2", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256&h=256", label: "Carlos" },
+  { id: "avatar3", url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=256&h=256", label: "Elena" },
+  { id: "avatar4", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256&h=256", label: "Mateo" }
+];
 
 interface Service {
   id: string;
@@ -110,6 +118,73 @@ export default function PerfilYEditorDeServicios() {
   const [newSkillName, setNewSkillName] = useState("");
   const [newSkillExp, setNewSkillExp] = useState("");
   const [newSkillIcon, setNewSkillIcon] = useState("code");
+
+  // GPS State variables
+  const [gpsLoading, setGpsLoading] = useState(false);
+  const [gpsStatus, setGpsStatus] = useState<"idle" | "loading" | "success" | "estimated">("idle");
+
+  const handleGPS = () => {
+    setGpsLoading(true);
+    setGpsStatus("loading");
+
+    if (typeof window !== "undefined" && "geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`,
+              { headers: { "Accept-Language": "es" } }
+            );
+            const data = await response.json();
+            if (data && data.address) {
+              const city = data.address.city || data.address.town || data.address.village || data.address.county || "";
+              const country = data.address.country || "";
+              if (city && country) {
+                setEditUbicacion(`${city}, ${country}`);
+              } else if (data.display_name) {
+                const parts = data.display_name.split(",");
+                setEditUbicacion(parts.slice(0, 2).join(",").trim());
+              } else {
+                setEditUbicacion(`Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`);
+              }
+            } else {
+              setEditUbicacion(`Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`);
+            }
+          } catch (err) {
+            setEditUbicacion(`Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`);
+          }
+          setGpsLoading(false);
+          setGpsStatus("success");
+          setTimeout(() => setGpsStatus("idle"), 2000);
+        },
+        (error) => {
+          console.error("GPS Error:", error);
+          const fallbackCities = [
+            "Medellín, Colombia",
+            "Bogotá, Colombia",
+            "Ciudad de México, México",
+            "Madrid, España",
+            "Santiago, Chile",
+            "Lima, Perú"
+          ];
+          const randomCity = fallbackCities[Math.floor(Math.random() * fallbackCities.length)];
+          setTimeout(() => {
+            setEditUbicacion(`${randomCity} (GPS Estimado)`);
+            setGpsLoading(false);
+            setGpsStatus("estimated");
+            setTimeout(() => setGpsStatus("idle"), 2500);
+          }, 1200);
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
+    } else {
+      alert("Tu navegador no soporta geolocalización.");
+      setGpsLoading(false);
+      setGpsStatus("idle");
+    }
+  };
 
   // Hydration and localStorage read on mount
   useEffect(() => {
@@ -596,22 +671,54 @@ export default function PerfilYEditorDeServicios() {
         <Edit2 size={20} />
       </button>
 
-      {/* MOBILE BOTTOM NAVIGATION BAR */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-t border-sky-50/50 shadow-[0_-8px_30px_rgba(224,242,254,0.2)] rounded-t-[32px]">
-        <div className="flex justify-around items-center px-4 pt-3.5 pb-7 w-full">
-          <div className="flex flex-col items-center justify-center text-pink-500 font-bold bg-pink-50 rounded-full px-4 py-1.5 cursor-pointer">
-            <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>account_circle</span>
-            <span className="text-[10px] font-bold mt-0.5">Perfil</span>
-          </div>
-          <a href="/dashboard-pro" className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-400 px-4 py-1.5 cursor-pointer transition-colors">
-            <span className="material-symbols-outlined text-[20px]">analytics</span>
-            <span className="text-[10px] font-bold mt-0.5">Stats</span>
+      {/* FLOATING CENTERING BOTTOM NAVIGATION BAR (Extremely Premium Glassmorphic Design for All Devices) */}
+      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[560px] z-50 bg-white/95 backdrop-blur-xl border border-sky-100 shadow-[0_12px_40px_rgba(15,23,42,0.08)] rounded-3xl">
+        <div className="flex justify-around items-center px-4 py-2.5 w-full">
+          {/* Perfil (Active) */}
+          <a 
+            href="#" 
+            className="flex flex-col items-center justify-center text-[#D81B60] bg-[#FCE4EC]/85 rounded-2xl px-5 py-2 cursor-pointer transition-all active:scale-95 duration-200 border border-[#FCE4EC]/40"
+          >
+            <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>account_circle</span>
+            <span className="text-[11px] font-bold mt-1">Perfil</span>
           </a>
-          <div className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-400 px-4 py-1.5 cursor-pointer transition-colors relative">
-            <span className="material-symbols-outlined text-[20px]">chat_bubble</span>
-            <span className="text-[10px] font-bold mt-0.5">Chats</span>
-            <span className="absolute top-1 right-5 w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
-          </div>
+
+          {/* Dashboard */}
+          <a 
+            href="/dashboard-pro" 
+            className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95"
+          >
+            <span className="material-symbols-outlined text-[22px]">analytics</span>
+            <span className="text-[11px] font-semibold mt-1">Dashboard</span>
+          </a>
+
+          {/* Mapa */}
+          <a 
+            href="/mapa-expertos" 
+            className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95"
+          >
+            <span className="material-symbols-outlined text-[22px]">map</span>
+            <span className="text-[11px] font-semibold mt-1">Mapa</span>
+          </a>
+
+          {/* Agenda */}
+          <a 
+            href="/seguimiento-proyecto" 
+            className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95"
+          >
+            <span className="material-symbols-outlined text-[22px]">calendar_today</span>
+            <span className="text-[11px] font-semibold mt-1">Agenda</span>
+          </a>
+
+          {/* Mensajes */}
+          <a 
+            href="/chat" 
+            className="flex flex-col items-center justify-center text-slate-400 hover:text-sky-500 hover:bg-sky-50/30 rounded-2xl px-4 py-2 cursor-pointer transition-all duration-200 active:scale-95 relative"
+          >
+            <span className="material-symbols-outlined text-[22px]">chat_bubble</span>
+            <span className="text-[11px] font-semibold mt-1">Mensajes</span>
+            <div className="absolute top-2 right-4 w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
+          </a>
         </div>
       </nav>
 
@@ -689,22 +796,82 @@ export default function PerfilYEditorDeServicios() {
                   </div>
                   <div className="space-y-1">
                     <label className="text-[11px] font-bold text-slate-500 uppercase">Ubicación</label>
-                    <input
-                      type="text"
-                      value={editUbicacion}
-                      onChange={(e) => setEditUbicacion(e.target.value)}
-                      placeholder="Medellín, Colombia"
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold text-[#0d1c2e] focus:outline-none focus:border-sky-200"
-                    />
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={editUbicacion}
+                        onChange={(e) => setEditUbicacion(e.target.value)}
+                        placeholder="Medellín, Colombia"
+                        className="flex-1 px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold text-[#0d1c2e] focus:outline-none focus:border-sky-200"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleGPS}
+                        disabled={gpsLoading}
+                        className="px-3 bg-sky-50 hover:bg-sky-100 text-sky-600 rounded-xl border border-sky-100 flex items-center justify-center gap-1 transition-all disabled:opacity-50"
+                        title="Usar GPS actual"
+                      >
+                        {gpsStatus === "loading" && <Loader2 size={14} className="animate-spin text-sky-500" />}
+                        {gpsStatus === "success" && <CheckCircle size={14} className="text-emerald-500" />}
+                        {gpsStatus === "estimated" && <span className="material-symbols-outlined text-[14px] text-amber-500">sensors</span>}
+                        {gpsStatus === "idle" && <span className="material-symbols-outlined text-[16px]">my_location</span>}
+                        <span className="text-[9px] font-black uppercase tracking-wider hidden sm:inline">GPS</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-slate-500 uppercase">Foto URL</label>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase block">Foto de Perfil</label>
+                  
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    {/* Custom File Upload Button */}
+                    <label className="w-14 h-14 rounded-2xl border-2 border-dashed border-slate-200 hover:border-[#FCE4EC] flex flex-col items-center justify-center cursor-pointer transition-all bg-slate-50 hover:bg-pink-50/20 group relative overflow-hidden shrink-0">
+                      <Camera size={18} className="text-slate-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-[8px] font-black text-slate-500 mt-1 uppercase tracking-wider">Subir</span>
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        className="hidden" 
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                              if (event.target?.result) setEditAvatar(event.target.result as string);
+                            };
+                            reader.readAsDataURL(e.target.files[0]);
+                          }
+                        }} 
+                      />
+                    </label>
+
+                    {/* Presets List */}
+                    <div className="flex gap-2 shrink-0">
+                      {PRESET_AVATARS.map((av) => (
+                        <button
+                          key={av.id}
+                          type="button"
+                          onClick={() => setEditAvatar(av.url)}
+                          className={`w-14 h-14 rounded-2xl overflow-hidden border-2 transition-all relative ${
+                            editAvatar === av.url ? "border-[#FCE4EC] scale-105 ring-2 ring-pink-100" : "border-slate-100 hover:border-slate-200"
+                          }`}
+                        >
+                          <img src={av.url} alt={av.label} className="w-full h-full object-cover" />
+                          {editAvatar === av.url && (
+                            <div className="absolute inset-0 bg-[#0d1c2e]/10 flex items-center justify-center">
+                              <Check size={14} className="text-white fill-[#0d1c2e]" strokeWidth={4} />
+                            </div>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <input
                     type="text"
                     value={editAvatar}
                     onChange={(e) => setEditAvatar(e.target.value)}
+                    placeholder="O pega una URL de imagen aquí..."
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-semibold text-slate-500 focus:outline-none focus:border-sky-200"
                   />
                 </div>

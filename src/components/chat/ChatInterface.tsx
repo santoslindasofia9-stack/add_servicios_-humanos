@@ -99,7 +99,12 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
   const [inputText, setInputText] = useState('');
   const [offer, setOffer] = useState(getInitialOffer);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [userRole, setUserRole] = useState('client');
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setUserRole(localStorage.getItem('userRole') || 'client');
+  }, []);
 
   // Filter for phone numbers and emails
   const filterContactInfo = (text: string) => {
@@ -302,12 +307,27 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
     setInputText('');
   };
 
-  // const handleAcceptProposal = () => {
-  //   setIsGenerating(true);
-  //   setTimeout(() => {
-  //     router.push(`/chat/${expertId}/negociacion`);
-  //   }, 3000);
-  // };
+  const handleAcceptProposal = () => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      router.push(`/chat/${expertId}/negociacion`);
+    }, 3000);
+  };
+
+  const handleContraoferta = () => {
+    const amount = prompt("Ingresa el monto de tu contraoferta (USD):", `${(offer.amount * 0.9).toFixed(2)}`);
+    if (amount) {
+      const newMsg: Message = {
+        id: Math.random().toString(36).substr(2, 9),
+        sender_id: (currentUser?.id as string) || 'client_user',
+        text: `He propuesto una contraoferta formal de $${amount} USD para este proyecto. ¿Qué te parece?`,
+        created_at: new Date().toISOString(),
+        is_expert: false
+      };
+      setMessages(prev => [...prev, newMsg]);
+      setOffer(prev => ({ ...prev, amount: parseFloat(amount), description: `Contraoferta propuesta por el cliente: $${amount} USD.` }));
+    }
+  };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -558,6 +578,24 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
                   <span className="text-sm font-medium text-[#0d1c2e]">Soporte incluido</span>
                 </li>
               </ul>
+
+              {userRole === 'client' && (
+                <div className="mt-8 pt-6 border-t border-sky-50 flex flex-col gap-3">
+                  <button
+                    onClick={handleAcceptProposal}
+                    className="w-full py-4 bg-[#FCE4EC] hover:bg-[#fbd1de] text-[#0d1c2e] font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Check className="w-5 h-5 text-[#D81B60]" />
+                    <span>Aceptar Propuesta</span>
+                  </button>
+                  <button
+                    onClick={handleContraoferta}
+                    className="w-full py-3.5 bg-white border-2 border-[#E0F2FE] hover:bg-[#E0F2FE]/30 text-[#0d1c2e] font-bold rounded-2xl shadow-sm hover:shadow transition-all active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Contraofertar</span>
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
         </aside>

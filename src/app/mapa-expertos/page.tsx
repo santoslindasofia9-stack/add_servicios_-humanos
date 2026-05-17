@@ -17,6 +17,7 @@ import { supabase } from "@/lib/supabase";
 import FiltrosUbicacion from "./components/FiltrosUbicacion";
 import MapaBase from "./components/MapaBase";
 import PanelLateral from "./components/PanelLateral";
+import BottomNav from "@/components/dashboard/BottomNav";
 
 // ─── Interfaces ──────────────────────────────────────────────────────────────
 interface Expert {
@@ -306,7 +307,18 @@ export default function MapaExpertos() {
   const router = useRouter();
 
   // Mode state: dynamic segmented control in header
-  const [mode, setMode] = useState<"experts" | "jobs">("jobs"); // Default to jobs map for professionals
+  const [mode, setMode] = useState<"experts" | "jobs">("experts");
+  const [userRole, setUserRole] = useState<string>("client");
+
+  useEffect(() => {
+    const role = localStorage.getItem("userRole") || "client";
+    setUserRole(role);
+    if (role === "pro") {
+      setMode("jobs");
+    } else {
+      setMode("experts");
+    }
+  }, []);
   
   // Lists
   const [experts, setExperts] = useState<Expert[]>([]);
@@ -739,55 +751,59 @@ export default function MapaExpertos() {
       </main>
 
       {/* ── Navigation Bottom Bar ────────────────────────────────────────────── */}
-      <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-3 pb-8 bg-white/90 backdrop-blur-xl border-t border-sky-50 shadow-[0_-10px_40px_rgba(13,28,46,0.06)] rounded-t-[32px] z-50">
-        <div className="flex justify-around items-center w-full max-w-lg mx-auto">
-          {/* Perfil */}
-          <a 
-            href="/perfil-y-editor-de-servicios-2" 
-            className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[24px]">account_circle</span>
-            <span className="text-[10px] font-semibold mt-1">Perfil</span>
-          </a>
+      {userRole === "client" ? (
+        <BottomNav />
+      ) : (
+        <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-3 pb-8 bg-white/90 backdrop-blur-xl border-t border-sky-50 shadow-[0_-10px_40px_rgba(13,28,46,0.06)] rounded-t-[32px] z-50">
+          <div className="flex justify-around items-center w-full max-w-lg mx-auto">
+            {/* Perfil */}
+            <a 
+              href="/perfil-y-editor-de-servicios-2" 
+              className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[24px]">account_circle</span>
+              <span className="text-[10px] font-semibold mt-1">Perfil</span>
+            </a>
 
-          {/* Dashboard */}
-          <a 
-            href="/dashboard-pro" 
-            className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[24px]">analytics</span>
-            <span className="text-[10px] font-semibold mt-1">Dashboard</span>
-          </a>
+            {/* Dashboard */}
+            <a 
+              href="/dashboard-pro" 
+              className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[24px]">analytics</span>
+              <span className="text-[10px] font-semibold mt-1">Dashboard</span>
+            </a>
 
-          {/* Mapa (Active - Pink style matching requested bottom nav layout) */}
-          <a 
-            href="#" 
-            className="flex flex-col items-center justify-center text-[#D81B60] bg-[#FCE4EC]/85 rounded-2xl px-5 py-2 cursor-pointer transition-all border border-[#FCE4EC]/40"
-          >
-            <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>map</span>
-            <span className="text-[10px] font-bold mt-1">Mapa</span>
-          </a>
+            {/* Mapa (Active - Pink style matching requested bottom nav layout) */}
+            <a 
+              href="#" 
+              className="flex flex-col items-center justify-center text-[#D81B60] bg-[#FCE4EC]/85 rounded-2xl px-5 py-2 cursor-pointer transition-all border border-[#FCE4EC]/40"
+            >
+              <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>map</span>
+              <span className="text-[10px] font-bold mt-1">Mapa</span>
+            </a>
 
-          {/* Agenda */}
-          <a 
-            href="/agenda" 
-            className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[24px]">calendar_today</span>
-            <span className="text-[10px] font-semibold mt-1">Agenda</span>
-          </a>
+            {/* Agenda */}
+            <a 
+              href="/agenda" 
+              className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[24px]">calendar_today</span>
+              <span className="text-[10px] font-semibold mt-1">Agenda</span>
+            </a>
 
-          {/* Mensajes */}
-          <a 
-            href="/chat" 
-            className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer relative"
-          >
-            <span className="material-symbols-outlined text-[24px]">chat_bubble</span>
-            <span className="text-[10px] font-semibold mt-1">Mensajes</span>
-            <div className="absolute top-0 right-3 w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse" />
-          </a>
-        </div>
-      </nav>
+            {/* Mensajes */}
+            <a 
+              href="/chat" 
+              className="flex flex-col items-center justify-center text-slate-400 hover:text-[#0d1c2e] transition-colors cursor-pointer relative"
+            >
+              <span className="material-symbols-outlined text-[24px]">chat_bubble</span>
+              <span className="text-[10px] font-semibold mt-1">Mensajes</span>
+              <div className="absolute top-0 right-3 w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse" />
+            </a>
+          </div>
+        </nav>
+      )}
 
       {/* ── Toast Notifications ──────────────────────────────────────────────── */}
       <AnimatePresence>

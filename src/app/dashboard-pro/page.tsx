@@ -64,6 +64,11 @@ export default function DashboardPro() {
   const [withdrawMethod, setWithdrawMethod] = useState("bank");
   const [withdrawAmount, setWithdrawAmount] = useState("4250.00");
   const [withdrawStatus, setWithdrawStatus] = useState<"idle" | "processing" | "success">("idle");
+  const [bankName, setBankName] = useState("");
+  const [bankAccount, setBankAccount] = useState("");
+  const [paypalEmail, setPaypalEmail] = useState("");
+  const [walletPhone, setWalletPhone] = useState("");
+  const [isFundsWithdrawn, setIsFundsWithdrawn] = useState(false);
 
   // Toast Notification state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -229,6 +234,7 @@ export default function DashboardPro() {
       setTimeout(() => {
         setShowWithdrawModal(false);
         setWithdrawStatus("idle");
+        setIsFundsWithdrawn(true);
         triggerToast(`✓ Retiro de $${withdrawAmount} USD procesado con éxito.`);
       }, 2000);
     }, 2500);
@@ -305,6 +311,29 @@ export default function DashboardPro() {
           </div>
         </div>
 
+        {/* Successful Withdrawal Alert Banner */}
+        {isFundsWithdrawn && (
+          <div className="lg:col-span-12 bg-emerald-50 border border-emerald-200 text-emerald-800 p-5 rounded-[24px] shadow-sm flex items-center justify-between animate-fadeIn">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shadow-inner">
+                <CheckCircle2 size={20} className="fill-emerald-100" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold">¡Retiro Exitoso en tu Home!</h4>
+                <p className="text-xs font-semibold text-emerald-700 mt-0.5">
+                  El dinero por valor de <strong className="font-extrabold">${withdrawAmount} USD</strong> ya fue retirado de tu balance de TrustMarket y está siendo transferido a tu cuenta.
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setIsFundsWithdrawn(false)}
+              className="text-emerald-600 hover:text-emerald-800 text-xs font-bold bg-white px-3 py-1.5 rounded-lg border border-emerald-200 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              Entendido
+            </button>
+          </div>
+        )}
+
         {/* Left Side: Stats and Bento Grid */}
         <div className="lg:col-span-8 space-y-8">
           
@@ -359,15 +388,22 @@ export default function DashboardPro() {
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
               <div>
                 <span className="text-xs font-bold text-white/80 uppercase tracking-widest">Ganancias Retirables</span>
-                <p className="text-3xl font-black mt-2 tracking-tighter">$4,250.00 USD</p>
+                <p className="text-3xl font-black mt-2 tracking-tighter">
+                  {isFundsWithdrawn ? "$0.00 USD" : "$4,250.00 USD"}
+                </p>
                 <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full mt-1.5 inline-block border border-white/10 font-bold">Este Mes</span>
               </div>
 
               <button 
-                onClick={() => setShowWithdrawModal(true)}
-                className="w-full bg-white text-pink-600 hover:bg-slate-50 font-extrabold py-3 rounded-2xl shadow-md transition-all active:scale-[0.98] mt-6 text-sm cursor-pointer"
+                onClick={() => !isFundsWithdrawn && setShowWithdrawModal(true)}
+                disabled={isFundsWithdrawn}
+                className={`w-full bg-white font-extrabold py-3 rounded-2xl shadow-md transition-all mt-6 text-sm cursor-pointer ${
+                  isFundsWithdrawn 
+                    ? "text-slate-400 bg-slate-100 cursor-not-allowed opacity-80" 
+                    : "text-pink-600 hover:bg-slate-50 active:scale-[0.98]"
+                }`}
               >
-                Retirar Fondos
+                {isFundsWithdrawn ? "Retiro Procesado" : "Retirar Fondos"}
               </button>
             </div>
 
@@ -754,6 +790,32 @@ export default function DashboardPro() {
                           </div>
                         </label>
 
+                        {/* Conditional Fields for Bank */}
+                        {withdrawMethod === "bank" && (
+                          <div className="space-y-3 p-4 bg-slate-50 rounded-2xl border border-slate-100/80 animate-fadeIn">
+                            <div>
+                              <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Nombre del Banco</label>
+                              <input 
+                                type="text" 
+                                placeholder="ej. Bancolombia, BBVA, Citibanamex" 
+                                value={bankName}
+                                onChange={e => setBankName(e.target.value)}
+                                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-[#0d1c2e] focus:border-pink-300 outline-none"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Número de Cuenta / CLABE (18 dígitos)</label>
+                              <input 
+                                type="text" 
+                                placeholder="012 345 6789 0123 4567" 
+                                value={bankAccount}
+                                onChange={e => setBankAccount(e.target.value)}
+                                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-[#0d1c2e] focus:border-pink-300 outline-none"
+                              />
+                            </div>
+                          </div>
+                        )}
+
                         <label className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
                           withdrawMethod === "paypal" ? "border-pink-500 bg-pink-50/20" : "border-slate-200 bg-white"
                         }`}>
@@ -773,6 +835,20 @@ export default function DashboardPro() {
                           </div>
                         </label>
 
+                        {/* Conditional Fields for PayPal */}
+                        {withdrawMethod === "paypal" && (
+                          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100/80 animate-fadeIn">
+                            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Correo Electrónico de PayPal</label>
+                            <input 
+                              type="email" 
+                              placeholder="ejemplo@paypal.com" 
+                              value={paypalEmail}
+                              onChange={e => setPaypalEmail(e.target.value)}
+                              className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-[#0d1c2e] focus:border-pink-300 outline-none"
+                            />
+                          </div>
+                        )}
+
                         <label className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
                           withdrawMethod === "wallet" ? "border-pink-500 bg-pink-50/20" : "border-slate-200 bg-white"
                         }`}>
@@ -791,6 +867,20 @@ export default function DashboardPro() {
                             </div>
                           </div>
                         </label>
+
+                        {/* Conditional Fields for Wallet */}
+                        {withdrawMethod === "wallet" && (
+                          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100/80 animate-fadeIn">
+                            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Número de Teléfono Registrado</label>
+                            <input 
+                              type="tel" 
+                              placeholder="+57 300 123 4567" 
+                              value={walletPhone}
+                              onChange={e => setWalletPhone(e.target.value)}
+                              className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-[#0d1c2e] focus:border-pink-300 outline-none"
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -814,7 +904,22 @@ export default function DashboardPro() {
                       </button>
                       <button
                         onClick={handleWithdrawSubmit}
-                        className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 text-white font-bold rounded-2xl text-sm transition-all active:scale-95 shadow-md shadow-pink-100"
+                        disabled={
+                          !(
+                            (withdrawMethod === "bank" && bankName.trim() && bankAccount.trim()) ||
+                            (withdrawMethod === "paypal" && paypalEmail.trim() && paypalEmail.includes("@")) ||
+                            (withdrawMethod === "wallet" && walletPhone.trim())
+                          )
+                        }
+                        className={`flex-1 py-3 font-bold rounded-2xl text-sm transition-all shadow-md ${
+                          (
+                            (withdrawMethod === "bank" && bankName.trim() && bankAccount.trim()) ||
+                            (withdrawMethod === "paypal" && paypalEmail.trim() && paypalEmail.includes("@")) ||
+                            (withdrawMethod === "wallet" && walletPhone.trim())
+                          )
+                            ? "bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white shadow-pink-100 cursor-pointer"
+                            : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-80"
+                        }`}
                       >
                         Confirmar Retiro
                       </button>

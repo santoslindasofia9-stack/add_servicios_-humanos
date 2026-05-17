@@ -195,7 +195,7 @@
 </div>
 <!-- Action Button Section -->
 <div class="flex flex-col items-center gap-6">
-<button class="w-full md:w-auto px-12 py-5 bg-[#FCE4EC] hover:scale-[1.02] transition-transform duration-300 ease-out text-pink-600 font-bold text-lg rounded-full shadow-[0_15px_30px_rgba(252,228,236,0.5)]">
+<button onclick="openPaymentModal()" class="w-full md:w-auto px-12 py-5 bg-[#FCE4EC] hover:scale-[1.02] transition-transform duration-300 ease-out text-pink-600 font-bold text-lg rounded-full shadow-[0_15px_30px_rgba(252,228,236,0.5)]">
                     Confirmar y Pagar
                 </button>
 <button onclick="window.location.href='../contrato_inteligente_ia_2/code.html'" class="text-outline hover:text-on-surface-variant transition-colors font-body-md">
@@ -207,5 +207,221 @@
 <!-- Success Feedback (Soft Cloud Shape Decorative Element) -->
 <div class="fixed -bottom-20 -right-20 w-80 h-80 bg-primary-container/20 rounded-full blur-[80px] pointer-events-none"></div>
 <div class="fixed -top-20 -left-20 w-64 h-64 bg-secondary-container/20 rounded-full blur-[60px] pointer-events-none"></div>
-<!-- No NavBar as per Transactional/Focus rule -->
+
+<!-- Modal de Pago Completo e Interactivo -->
+<div id="payment-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+  <div class="bg-white rounded-[2rem] w-full max-w-md shadow-2xl overflow-hidden transition-all duration-300">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between px-6 pt-6 pb-4 border-b border-slate-50">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#880e4f]" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+        </div>
+        <div>
+          <p class="font-extrabold text-slate-900 text-base">Método de Pago</p>
+          <p class="text-xs text-slate-400 font-medium">Total a Liberar: $1,245.00</p>
+        </div>
+      </div>
+      <button onclick="closePaymentModal()" class="p-2 hover:bg-slate-100 rounded-xl transition-colors">
+        <span class="material-symbols-outlined text-slate-400">close</span>
+      </button>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-6 space-y-4">
+      <!-- Step 1: Selection List -->
+      <div id="modal-step-select" class="space-y-3">
+        <p class="text-sm text-slate-500 leading-relaxed mb-2">Selecciona la forma de pago para liquidar el saldo final del contrato:</p>
+        
+        <!-- PayPal -->
+        <button onclick="selectMethod('paypal')" class="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 border border-slate-100 rounded-2xl shadow-sm transition-all text-left group">
+          <div class="w-14 h-14 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 80 32" class="w-12 h-6">
+              <text x="2" y="24" fontSize="24" fontWeight="900" fill="#003087" fontFamily="Arial, sans-serif">P</text>
+              <text x="12" y="26" fontSize="22" fontWeight="900" fill="#009cde" fontFamily="Arial, sans-serif">P</text>
+              <text x="24" y="24" fontSize="16" fontWeight="700" fill="#003087" fontFamily="Arial, sans-serif">ayPal</text>
+            </svg>
+          </div>
+          <div class="flex-grow">
+            <p class="font-bold text-slate-900">PayPal</p>
+            <p class="text-xs text-slate-400 font-medium leading-snug">Saldo PayPal o tarjetas internacionales.</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 group-hover:text-slate-400">chevron_right</span>
+        </button>
+
+        <!-- Nequi -->
+        <button onclick="selectMethod('nequi')" class="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 border border-slate-100 rounded-2xl shadow-sm transition-all text-left group">
+          <div class="w-14 h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center shrink-0 relative">
+            <div class="absolute top-2 left-2 w-3.5 h-3.5 rounded bg-[#FF0090]"></div>
+            <span class="font-black text-2xl text-[#1a0a2e] font-sans" style="line-height:1; margin-top: 10px;">N</span>
+          </div>
+          <div class="flex-grow">
+            <p class="font-bold text-slate-900">Nequi</p>
+            <p class="text-xs text-slate-400 font-medium leading-snug">Billetera digital desde tu celular.</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 group-hover:text-slate-400">chevron_right</span>
+        </button>
+
+        <!-- Bancolombia -->
+        <button onclick="selectMethod('bancolombia')" class="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 border border-slate-100 rounded-2xl shadow-sm transition-all text-left group">
+          <div class="w-14 h-14 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 bg-[#FFCC00] rounded-xl flex items-center justify-center text-[#0a2240] font-black text-xl">B</div>
+          </div>
+          <div class="flex-grow">
+            <p class="font-bold text-slate-900">Bancolombia</p>
+            <p class="text-xs text-slate-400 font-medium leading-snug">Transferencia directa o app móvil.</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 group-hover:text-slate-400">chevron_right</span>
+        </button>
+
+        <!-- Daviplata -->
+        <button onclick="selectMethod('daviplata')" class="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 border border-slate-100 rounded-2xl shadow-sm transition-all text-left group">
+          <div class="w-14 h-14 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 bg-[#E0001B] rounded-xl flex flex-col items-center justify-center text-white leading-none">
+              <span class="text-[9px] font-black">Davi</span>
+              <span class="text-[8px] font-bold">plata</span>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <p class="font-bold text-slate-900">Daviplata</p>
+            <p class="text-xs text-slate-400 font-medium leading-snug">Paga fácil y rápido desde tu celular.</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 group-hover:text-slate-400">chevron_right</span>
+        </button>
+
+        <!-- PSE -->
+        <button onclick="selectMethod('pse')" class="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 border border-slate-100 rounded-2xl shadow-sm transition-all text-left group">
+          <div class="w-14 h-14 bg-blue-50 border border-blue-200 rounded-2xl flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 bg-[#0D3F8F] rounded-xl flex items-center justify-center text-white font-black text-[13px] tracking-tight">PSE</div>
+          </div>
+          <div class="flex-grow">
+            <p class="font-bold text-slate-900">PSE</p>
+            <p class="text-xs text-slate-400 font-medium leading-snug">Débito directo desde cualquier banco.</p>
+          </div>
+          <span class="material-symbols-outlined text-slate-300 group-hover:text-slate-400">chevron_right</span>
+        </button>
+      </div>
+
+      <!-- Step 2: Details Input -->
+      <div id="modal-step-details" class="hidden space-y-4">
+        <button onclick="backToSelect()" class="text-xs text-slate-400 hover:text-slate-600 transition-colors font-bold uppercase tracking-wider flex items-center gap-1 mb-2">
+          ← Volver a Métodos
+        </button>
+        
+        <!-- Input Field Container -->
+        <div id="payment-input-container" class="space-y-4">
+          <!-- Dynamic input content -->
+        </div>
+
+        <button onclick="startProcessing()" id="btn-pay-action" class="w-full py-4 text-white font-bold rounded-full transition-all active:scale-95 shadow-md mt-4">
+          Confirmar Pago · $1,245.00
+        </button>
+      </div>
+
+      <!-- Step 3: Loading -->
+      <div id="modal-step-loading" class="hidden flex flex-col items-center py-12 gap-4 text-center">
+        <div class="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-slate-700 font-bold text-lg">Procesando pago final...</p>
+        <p class="text-slate-400 text-sm">Por favor espera, no cierres esta ventana.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentSelectedMethod = '';
+
+  function openPaymentModal() {
+    document.getElementById('payment-modal').classList.remove('hidden');
+    backToSelect();
+  }
+
+  function closePaymentModal() {
+    document.getElementById('payment-modal').classList.add('hidden');
+  }
+
+  function selectMethod(method) {
+    currentSelectedMethod = method;
+    document.getElementById('modal-step-select').classList.add('hidden');
+    document.getElementById('modal-step-details').classList.remove('hidden');
+
+    const container = document.getElementById('payment-input-container');
+    const payBtn = document.getElementById('btn-pay-action');
+    container.innerHTML = '';
+
+    if (method === 'paypal') {
+      payBtn.style.backgroundColor = '#003087';
+      payBtn.textContent = 'Pagar con PayPal · $1,245.00';
+      container.innerHTML = `
+        <p class="text-sm text-slate-500">Ingresa tu correo de PayPal para autorizar el pago de <strong class="text-slate-800">$1,245.00</strong>.</p>
+        <div>
+          <label class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Correo PayPal</label>
+          <input type="email" id="input-paypal-email" placeholder="tucorreo@paypal.com" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none" required />
+        </div>
+      `;
+    } else if (method === 'nequi') {
+      payBtn.style.backgroundColor = '#6c00ea';
+      payBtn.textContent = 'Enviar solicitud Nequi · $1,245.00';
+      container.innerHTML = `
+        <p class="text-sm text-slate-500">Ingresa tu número de celular registrado en Nequi para recibir la solicitud de pago.</p>
+        <div>
+          <label class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Celular Nequi</label>
+          <input type="tel" id="input-nequi-phone" placeholder="3XX XXX XXXX" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-purple-400 outline-none" required />
+        </div>
+      `;
+    } else if (method === 'bancolombia') {
+      payBtn.style.backgroundColor = '#f5a800';
+      payBtn.style.color = '#0a2240';
+      payBtn.textContent = 'Confirmar transferencia · $1,245.00';
+      container.innerHTML = `
+        <p class="text-sm text-slate-500">Transfiere a la cuenta autorizada de la plataforma e ingresa el comprobante.</p>
+        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 space-y-2 text-xs">
+          <p><strong>Ahorros Bancolombia:</strong> 420-123456-78</p>
+          <p><strong>NIT:</strong> 900.123.456-7</p>
+          <p><strong>Referencia:</strong> TM-FINAL-883</p>
+        </div>
+      `;
+    } else if (method === 'daviplata') {
+      payBtn.style.backgroundColor = '#e0001b';
+      payBtn.textContent = 'Pagar con Daviplata · $1,245.00';
+      container.innerHTML = `
+        <p class="text-sm text-slate-500">Ingresa tu celular Daviplata. Recibirás un código para autorizar el débito.</p>
+        <div>
+          <label class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Celular Daviplata</label>
+          <input type="tel" id="input-davi-phone" placeholder="3XX XXX XXXX" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-400 outline-none" required />
+        </div>
+      `;
+    } else if (method === 'pse') {
+      payBtn.style.backgroundColor = '#0d47a1';
+      payBtn.textContent = 'Ir a pagar con PSE · $1,245.00';
+      container.innerHTML = `
+        <p class="text-sm text-slate-500">Paga en línea a través de PSE debitando de tu banco preferido.</p>
+        <div>
+          <label class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Selecciona tu Banco</label>
+          <select class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 outline-none bg-white">
+            <option>Bancolombia</option>
+            <option>Banco de Bogotá</option>
+            <option>Davivienda</option>
+            <option>BBVA Colombia</option>
+          </select>
+        </div>
+      `;
+    }
+  }
+
+  function backToSelect() {
+    document.getElementById('modal-step-select').classList.remove('hidden');
+    document.getElementById('modal-step-details').classList.add('hidden');
+    document.getElementById('modal-step-loading').classList.add('hidden');
+  }
+
+  function startProcessing() {
+    document.getElementById('modal-step-details').classList.add('hidden');
+    document.getElementById('modal-step-loading').classList.remove('hidden');
+
+    setTimeout(() => {
+      window.location.href = '../confirmaci_n_de_pago_final_2/code.html';
+    }, 2500);
+  }
+</script>
 </body></html>

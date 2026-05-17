@@ -186,10 +186,10 @@ export default function LiberacionFondosPage() {
             <p className="text-2xl font-black text-green-600">{TOTAL}</p>
           </div>
           <button
-            onClick={() => router.push('/home-cliente')}
+            onClick={() => router.push('/confirmacion-pago-final')}
             className="mt-4 w-full py-4 bg-[#0d1c2e] text-white font-bold rounded-2xl hover:bg-slate-800 transition-all active:scale-95"
           >
-            Ir al Inicio
+            Ver Recibo de Pago
           </button>
         </motion.div>
       );

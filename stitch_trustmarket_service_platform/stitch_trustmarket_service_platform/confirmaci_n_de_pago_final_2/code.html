@@ -119,33 +119,46 @@
 <p class="text-body-lg font-body-lg text-on-surface-variant max-w-md">
                 El profesional ha recibido sus fondos. Tu transacción se ha completado con éxito y de forma segura.
             </p>
-<!-- Details Section (Bento Style Sub-info) -->
-<div class="mt-12 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="bg-white/60 p-6 rounded-lg text-left shadow-sm flex items-start gap-4">
-<div class="p-2 bg-primary-container rounded-full flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+<!-- Details Section (Stacked Vertically exactly as screen.png) -->
+<div class="mt-8 w-full max-w-sm flex flex-col gap-4 mx-auto">
+  <div class="bg-white/60 p-5 rounded-[1.5rem] text-left shadow-sm flex items-center gap-4 border border-white/40">
+    <div class="p-3 bg-sky-50 rounded-full flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-sky-400 text-[22px]" data-icon="person">person</span>
+    </div>
+    <div>
+      <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Profesional</p>
+      <p class="font-extrabold text-on-surface text-sm">Expert Professional</p>
+    </div>
+  </div>
+  <div class="bg-white/60 p-5 rounded-[1.5rem] text-left shadow-sm flex items-center gap-4 border border-white/40">
+    <div class="p-3 bg-pink-50 rounded-full flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[#880e4f] text-[22px]" data-icon="receipt_long">receipt_long</span>
+    </div>
+    <div>
+      <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Referencia</p>
+      <p class="font-extrabold text-on-surface text-sm">#MP-8829-XQ</p>
+    </div>
+  </div>
 </div>
-<div>
-<p class="text-label-caps text-on-surface-variant uppercase mb-1">Profesional</p>
-<p class="font-semibold text-on-surface">Expert Professional</p>
-</div>
-</div>
-<div class="bg-white/60 p-6 rounded-lg text-left shadow-sm flex items-start gap-4">
-<div class="p-2 bg-secondary-container rounded-full flex items-center justify-center">
-<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="receipt_long">receipt_long</span>
-</div>
-<div>
-<p class="text-label-caps text-on-surface-variant uppercase mb-1">Referencia</p>
-<p class="font-semibold text-on-surface">#MP-8829-XQ</p>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="mt-12 flex flex-col sm:flex-row gap-4 w-full justify-center">
-<button class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-8 py-4 rounded-full shadow-md hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">CALIFICACION</button>
-<button class="bg-white text-on-surface font-semibold px-8 py-4 rounded-full border border-sky-100 hover:bg-sky-50 transition-colors flex items-center justify-center">
-                    Ir a Mis Pedidos
-                </button>
+
+<!-- Action Buttons (Vertically Stacked as screen.png) -->
+<div class="mt-8 flex flex-col gap-3 w-full max-w-sm mx-auto">
+  <!-- Descargar Recibo -->
+  <button onclick="downloadFinalReceiptPDF()" class="w-full bg-[#fce4ec] text-[#880e4f] hover:bg-[#fbd1de] font-bold py-4 rounded-full shadow-sm hover:scale-[1.01] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+    <span class="material-symbols-outlined text-sm">download</span>
+    Descargar Recibo
+  </button>
+  
+  <!-- Calificar -->
+  <button onclick="window.location.href='../calificaci_n_del_servicio_2/code.html'" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-4 rounded-full border border-slate-200 shadow-sm hover:scale-[1.01] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+    <span class="material-symbols-outlined text-sm">star</span>
+    Calificar
+  </button>
+
+  <!-- Volver a Home -->
+  <button onclick="window.location.href='../home_marketplace_de_confianza_2/code.html'" class="w-full text-center text-outline hover:text-on-surface transition-colors font-semibold text-xs py-2 uppercase tracking-wider mt-2">
+    Volver a Home
+  </button>
 </div>
 </div>
 <!-- Supportive Visual (Abstract Trust) -->
@@ -153,5 +166,67 @@
 <img class="w-full h-48 object-cover rounded-xl grayscale-[0.2] sepia-[0.1]" data-alt="A serene and ethereal abstract digital background featuring soft gradients of sky blue and snow white. The visual composition creates a sense of profound trust and security through its smooth transitions and vast whitespace. Delicate pastel pink accents float subtly in the composition like soft clouds during a calm sunset. The overall mood is optimistic, safe, and highly curated to reflect a premium boutique aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPRzjeOIXfc7eJYV7JuF_oUFWJmHUVTkJrnRckWNE_bSmhpMaohx9MR2QkWvjgnxSGQE2mmzHmX2sguYIgImvrbTn_ZqeLW6_83MfYo6CGy1F3P8jPs6r0CX7b5fK5niF-0AjdY8m8MrGDPPvcaWHhYf2_2Ir6Lnk66cr9Z6i9nkNgeyCnkLOdzIfLxN0IxDDBu5JAS0M8CT_D9wSX0V12TtugvDKho6TGh4nwFSSE83LBVF5CRVy_8rifkLWk61V6LXfSZes_Hw">
 </div>
 </main>
-<!-- Navigation suppressed for confirmation splash -->
+
+<script>
+  function downloadFinalReceiptPDF() {
+    const docContent = `%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 3 0 R ] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [ 0 0 595 842 ] /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 320 >>
+stream
+BT
+/F1 20 Tf
+50 750 Td
+(TRUSTMARKET - RECIBO DE PAGO FINAL) Tj
+/F1 12 Tf
+0 -40 Td
+(Referencia de Pago: #MP-8829-XQ) Tj
+0 -20 Td
+(Estado: EXITOSO) Tj
+0 -20 Td
+(Monto Liberado: $1,245.00 USD) Tj
+0 -20 Td
+(Profesional Beneficiario: Expert Professional) Tj
+0 -20 Td
+(Servicio: Diseno de Identidad Visual Premium) Tj
+0 -20 Td
+(Fecha de Pago: 24 de Mayo, 2026) Tj
+0 -30 Td
+(Este documento es un comprobante de transaccion emitida de forma segura por TrustMarket.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000068 00000 n 
+0000000130 00000 n 
+0000000257 00000 n 
+0000000329 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+700
+%%EOF`;
+
+    const blob = new Blob([docContent], { type: 'application/pdf' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Recibo_Pago_Final_TrustMarket.pdf';
+    link.click();
+  }
+</script>
 </body></html>

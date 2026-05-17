@@ -38,11 +38,30 @@ export default function CalificacionPage() {
 
   useEffect(() => {
     const savedName = localStorage.getItem("currentExpertName");
-    const savedImage = localStorage.getItem("currentExpertImage");
+    const savedImage = localStorage.getItem("currentExpertAvatar") || localStorage.getItem("currentExpertImage");
     const savedRole = localStorage.getItem("currentExpertRole");
     
+    const fallbackAvatars: Record<string, string> = {
+      "Elena Rodríguez": "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400",
+      "Julián Martínez": "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&q=80&w=400",
+      "Sofía López": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400",
+      "Carlos Torres": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
+      "Marta Valls": "https://lh3.googleusercontent.com/aida-public/AB6AXuAtczwaCBZDrakoJIvPXavRcfa_YWopKVV-7E7HQr1nuY1tk4Idv_KTZUmHIGTzsIPind-7xfjHamETjNysRRKAQ2ThKrJDlj6a5FhixgOXvC1i6jrRwwX-ysP3e7a9-yOoxp5NBSo4JPs_XDtNyLYRMUdnZsBicPKX-pX_Iv_hg37hGYdoAeMGNiLdo1f6Ed-T0_Ydjpy_b6DDORFaWAIhHLSdMQcDWLI9UOcZw-UVdUucDKpWNB6PVOvoF76-4pbY0nZ0NpBlTQ",
+      "David García": "https://lh3.googleusercontent.com/aida-public/AB6AXuB8PciBPx8J_AUKCIHBcXBGUlgRG_SmQklphaaOPBS7Io20uuJq9Yqq-LmnM5BE-jHMcSyCpPIvnICQJWKKlKTgI19ULZNR0yb5Zy2WjUz8C9GFMo8ovXVyg3r11ofkBuX3rfH-4GmDWyNrDpT_y2GPaEybrpRNVbFfVCdj5jBUsHDOQlJ4dx1n1IFo4WvjuYtSZiPl6qsw4viIzPKZwxMjTn_4NAFIUWX18Dnqf0EOhnKuC7df6IwgwyT-oAmPAOQZwqp9EHv3YQ",
+      "Valeria Gómez": "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&q=80&w=400",
+      "Andrés Silva": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
+      "Lucía Ortiz": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+      "Roberto Sánchez": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
+      "Carolina Ruiz": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200",
+      "Diego Castro": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200",
+      "Laura Vásquez": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
+    };
+
     if (savedName) setExpertName(savedName);
-    if (savedImage) setExpertImage(savedImage);
+    
+    const finalImage = savedImage || (savedName ? fallbackAvatars[savedName] : null);
+    if (finalImage) setExpertImage(finalImage);
+    
     if (savedRole) setExpertRole(savedRole);
   }, []);
 
@@ -96,7 +115,6 @@ export default function CalificacionPage() {
         <div className="hidden md:flex items-center gap-8">
           <button onClick={() => router.push('/home-cliente')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Inicio</button>
           <button onClick={() => router.push('/resultados')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Buscar</button>
-          <button className="text-sm font-bold text-sky-600 border-b-2 border-sky-600 pb-1">Calificación</button>
           <button onClick={() => router.push('/chat')} className="text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors">Mensajes</button>
         </div>
         <div className="flex items-center gap-4">

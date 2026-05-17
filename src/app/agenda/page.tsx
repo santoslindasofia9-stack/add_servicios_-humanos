@@ -77,11 +77,12 @@ export default function WorkAgendaPage() {
   const handleToggleStatus = (day: number, id: string) => {
     setEvents(prev => {
       const dayEvents = prev[day] || [];
-      const updated = dayEvents.map(evt => 
-        evt.id === id 
-          ? { ...evt, status: evt.status === "completed" ? "pending" : "completed" as const }
-          : evt
-      );
+      const updated: EventItem[] = dayEvents.map(evt => {
+        if (evt.id === id) {
+          return { ...evt, status: evt.status === "completed" ? "pending" : "completed" };
+        }
+        return evt;
+      });
       return { ...prev, [day]: updated };
     });
   };

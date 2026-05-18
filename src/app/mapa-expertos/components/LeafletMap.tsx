@@ -338,9 +338,9 @@ export default function LeafletMap({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 120, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="lg:hidden absolute bottom-28 left-4 right-4 z-[400] bg-white/98 backdrop-blur-xl rounded-[20px] shadow-2xl border border-white p-4 flex items-center gap-4"
+            className="lg:hidden absolute bottom-24 sm:bottom-28 left-4 right-4 z-[400] bg-white/98 backdrop-blur-xl rounded-[24px] shadow-[0_20px_60px_rgba(13,28,46,0.2)] border border-white p-4 flex items-center gap-3 sm:gap-4"
           >
-            <div className="w-14 h-14 rounded-xl overflow-hidden bg-[#E0F2FE] flex-shrink-0">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-[#E0F2FE] flex-shrink-0 border-2 border-white shadow-sm">
               {selectedExpert.foto_perfil ? (
                 <img src={selectedExpert.foto_perfil} alt={selectedExpert.nombre_completo} className="w-full h-full object-cover" />
               ) : (
@@ -349,21 +349,30 @@ export default function LeafletMap({
                 </div>
               )}
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-[#D81B60] uppercase tracking-wide">{selectedExpert.categoria}</p>
-              <h3 className="font-bold text-[#0d1c2e] leading-tight line-clamp-1">{selectedExpert.nombre_completo}</h3>
-              <div className="flex items-center gap-1 mt-0.5">
+            <div className="flex-1 min-w-0 pr-2">
+              <p className="text-[10px] font-extrabold text-[#D81B60] uppercase tracking-wider">{selectedExpert.categoria}</p>
+              <h3 className="font-extrabold text-[#0d1c2e] text-sm sm:text-base leading-tight line-clamp-1">{selectedExpert.nombre_completo}</h3>
+              <p className="text-xs text-[#5e6f79] font-medium line-clamp-1 mt-0.5">{selectedExpert.titulo_profesional}</p>
+              <div className="flex items-center gap-1.5 mt-1">
                 <span className="text-yellow-400 text-xs">★</span>
-                <span className="text-xs font-bold">{selectedExpert.calificacion}</span>
+                <span className="text-xs font-bold text-[#0d1c2e]">{selectedExpert.calificacion}</span>
                 {selectedExpert.tarifa && <span className="text-xs text-[#0288D1] font-bold ml-2">{selectedExpert.tarifa}</span>}
               </div>
             </div>
-            <button
-              onClick={() => onVerPerfil(selectedExpert.id)}
-              className="px-4 py-2.5 bg-[#0d1c2e] text-white font-bold rounded-full text-sm hover:bg-[#1a2e44] transition-colors"
-            >
-              Ver
-            </button>
+            <div className="flex flex-col items-end gap-2 shrink-0">
+              <button 
+                onClick={(e) => { e.stopPropagation(); onSelectExpert(null); }}
+                className="w-6 h-6 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-xs transition-colors"
+              >
+                ✕
+              </button>
+              <button
+                onClick={() => onVerPerfil(selectedExpert.id)}
+                className="px-4 py-2 bg-[#0d1c2e] text-white font-bold rounded-full text-xs sm:text-sm hover:bg-[#1a2e44] transition-colors shadow-sm"
+              >
+                Ver Perfil
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -376,106 +385,108 @@ export default function LeafletMap({
             animate={{ y: 0, opacity: 1, x: "-50%" }}
             exit={{ y: 150, opacity: 0, x: "-50%" }}
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
-            className="absolute bottom-28 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-md z-[400] bg-white/98 backdrop-blur-xl rounded-[28px] border border-sky-100 shadow-[0_20px_60px_rgba(13,28,46,0.18)] p-6"
+            className="absolute bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] sm:w-[calc(100%-32px)] max-w-md z-[400] bg-white/98 backdrop-blur-xl rounded-[28px] border border-sky-100 shadow-[0_20px_60px_rgba(13,28,46,0.25)] p-5 sm:p-6 max-h-[65vh] overflow-y-auto no-scrollbar flex flex-col justify-between"
             onClick={(e) => e.stopPropagation()}
           >
             {acceptingId === selectedJob.id ? (
-              <div className="flex flex-col items-center justify-center py-8 text-center animate-fadeIn">
+              <div className="flex flex-col items-center justify-center py-8 text-center animate-fadeIn my-auto">
                 <Loader2 size={44} className="animate-spin text-pink-500 mb-4" />
                 <h4 className="text-base font-extrabold text-[#0d1c2e]">Firmando Contrato en la Blockchain</h4>
-                <p className="text-xs text-slate-400 font-semibold mt-1.5 max-w-xs">
+                <p className="text-xs text-slate-400 font-semibold mt-1.5 max-w-xs mx-auto">
                   Generando billetera multifirma e inicializando custodia inteligente de TrustPay (Garantía Escrow).
                 </p>
               </div>
             ) : acceptSuccessId === selectedJob.id ? (
-              <div className="flex flex-col items-center justify-center py-6 text-center animate-fadeIn">
-                <div className="w-16 h-16 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center mb-4 text-emerald-500 animate-bounce">
+              <div className="flex flex-col items-center justify-center py-6 text-center animate-fadeIn my-auto">
+                <div className="w-16 h-16 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center mb-4 text-emerald-500 animate-bounce mx-auto">
                   <CheckCircle2 size={36} className="fill-emerald-50" />
                 </div>
                 <h4 className="text-base font-extrabold text-emerald-700">¡Contrato Activado con Éxito!</h4>
                 <p className="text-xs text-slate-500 font-semibold mt-1 mb-4">El trabajo ha sido añadido a tu Agenda.</p>
                 <button
                   onClick={() => router.push(`/chat/${selectedJob.id}`)}
-                  className="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-100 flex items-center gap-1.5 justify-center"
+                  className="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-100 flex items-center gap-1.5 justify-center mx-auto"
                 >
                   <MessageSquare size={14} />
                   Chat de Negociación
                 </button>
               </div>
             ) : (
-              <div>
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold shadow-sm">
-                      {selectedJob.cliente_nombre.substring(0, 2).toUpperCase()}
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">CLIENTE</span>
-                      <h4 className="text-sm font-bold text-[#0d1c2e]">{selectedJob.cliente_nombre}</h4>
-                      <div className="flex items-center gap-1 mt-0.5">
-                        <span className="text-amber-400 text-xs">★</span>
-                        <span className="text-[10px] font-bold text-slate-600">{selectedJob.cliente_calificacion} / 5.0</span>
+              <div className="flex flex-col h-full justify-between">
+                <div>
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-3.5 gap-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold shadow-sm shrink-0 text-sm sm:text-base">
+                        {selectedJob.cliente_nombre.substring(0, 2).toUpperCase()}
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block">CLIENTE</span>
+                        <h4 className="text-xs sm:text-sm font-bold text-[#0d1c2e] truncate">{selectedJob.cliente_nombre}</h4>
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <span className="text-amber-400 text-xs">★</span>
+                          <span className="text-[10px] font-bold text-slate-600">{selectedJob.cliente_calificacion} / 5.0</span>
+                        </div>
                       </div>
                     </div>
+                    <button 
+                      onClick={() => onSelectJob(null)}
+                      className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-500 shrink-0 transition-colors"
+                    >
+                      <X size={16} />
+                    </button>
                   </div>
-                  <button 
-                    onClick={() => onSelectJob(null)}
-                    className="p-1.5 bg-slate-50 hover:bg-slate-100 rounded-full text-slate-400"
-                  >
-                    <X size={16} />
-                  </button>
-                </div>
 
-                {/* Job Title & Distance */}
-                <div className="mb-4">
-                  <div className="flex justify-between items-start gap-3">
-                    <h3 className="text-base font-black text-[#0d1c2e] leading-snug">{selectedJob.titulo_trabajo}</h3>
-                    <span className="bg-sky-50 text-sky-700 text-[10px] font-bold px-2.5 py-1 rounded-full border border-sky-100/50 flex-shrink-0 flex items-center gap-1">
-                      <MapPin size={10} /> {selectedJob.distancia_km} km
-                    </span>
+                  {/* Job Title & Distance */}
+                  <div className="mb-3.5">
+                    <div className="flex justify-between items-start gap-2 mb-1.5">
+                      <h3 className="text-sm sm:text-base font-black text-[#0d1c2e] leading-snug line-clamp-2">{selectedJob.titulo_trabajo}</h3>
+                      <span className="bg-sky-50 text-sky-700 text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-sky-100/50 shrink-0 flex items-center gap-1">
+                        <MapPin size={10} /> {selectedJob.distancia_km} km
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-4 sm:line-clamp-none">
+                      {selectedJob.descripcion}
+                    </p>
                   </div>
-                  <p className="text-xs text-slate-500 font-semibold mt-2 leading-relaxed">
-                    {selectedJob.descripcion}
-                  </p>
-                </div>
 
-                {/* Job Terms Box */}
-                <div className="bg-[#fcf8f2] border border-amber-100 rounded-2xl p-3.5 mb-5 flex gap-2.5 items-start">
-                  <ShieldCheck size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-[10px] font-extrabold text-amber-800 uppercase tracking-widest block mb-0.5">TÉRMINOS Y GARANTÍA</span>
-                    <p className="text-[11px] text-amber-700 font-bold leading-relaxed">{selectedJob.terminos}</p>
+                  {/* Job Terms Box */}
+                  <div className="bg-[#fcf8f2] border border-amber-100 rounded-2xl p-3 mb-4 flex gap-2.5 items-start">
+                    <ShieldCheck size={18} className="text-amber-600 shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <span className="text-[9px] font-extrabold text-amber-800 uppercase tracking-widest block mb-0.5">TÉRMINOS Y GARANTÍA</span>
+                      <p className="text-[11px] text-amber-700 font-bold leading-relaxed line-clamp-3 sm:line-clamp-none">{selectedJob.terminos}</p>
+                    </div>
                   </div>
                 </div>
 
                 {/* Footer and Actions */}
-                <div className="flex items-center justify-between gap-4 pt-3 border-t border-slate-100">
-                  <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 mt-auto">
+                  <div className="flex items-center justify-between sm:flex-col sm:items-start">
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">PRESUPUESTO</span>
-                    <span className="text-lg font-black text-emerald-600">{selectedJob.pago} USD</span>
+                    <span className="text-base sm:text-lg font-black text-emerald-600">{selectedJob.pago} USD</span>
                   </div>
 
-                  <div className="flex gap-2 flex-1 justify-end">
+                  <div className="flex gap-2 w-full sm:w-auto justify-end">
                     <button 
                       onClick={() => router.push(`/chat/${selectedJob.id}`)}
-                      className="p-2.5 bg-pink-50 hover:bg-pink-100 text-[#D81B60] font-bold rounded-xl text-xs transition-colors flex items-center justify-center shadow-sm"
+                      className="p-2.5 bg-pink-50 hover:bg-pink-100 text-[#D81B60] font-bold rounded-xl text-xs transition-colors flex items-center justify-center shadow-sm shrink-0"
                       title="Mensaje para negociar presupuesto"
                     >
                       <MessageSquare size={16} />
                     </button>
                     <button 
                       onClick={() => onDeclineJob(selectedJob.id)}
-                      className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-[#0d1c2e] font-bold rounded-xl text-xs transition-colors"
+                      className="px-3 sm:px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-[#0d1c2e] font-bold rounded-xl text-xs transition-colors flex-1 sm:flex-none text-center"
                     >
                       Rechazar
                     </button>
                     <button 
                       onClick={() => handleLocalAcceptJob(selectedJob.id)}
-                      className="px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-100 flex items-center gap-1"
+                      className="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-105 active:scale-95 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-pink-100 flex items-center gap-1 justify-center flex-1 sm:flex-none"
                     >
-                      <Briefcase size={12} />
-                      Aceptar Trabajo
+                      <Briefcase size={12} className="shrink-0" />
+                      <span className="truncate">Aceptar Trabajo</span>
                     </button>
                   </div>
                 </div>

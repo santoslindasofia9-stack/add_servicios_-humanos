@@ -254,19 +254,19 @@ export default function DashboardPro() {
   }
 
   return (
-    <main className="relative min-h-screen bg-[#f8f9ff] font-plus-jakarta pb-28">
+    <main className="relative min-h-screen bg-[#f8f9ff] font-plus-jakarta pb-28 overflow-x-hidden">
       {/* Decorative background gradients */}
       <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-[#E0F2FE]/60 to-transparent -z-10" />
       
       {/* Top Navbar */}
-      <nav className="w-full bg-white/80 backdrop-blur-md border-b border-sky-50 py-4 px-6 sticky top-0 z-40 shadow-sm">
+      <nav className="w-full bg-white/80 backdrop-blur-md border-b border-sky-50 py-3 px-4 md:px-6 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <span className="w-9 h-9 rounded-xl bg-pink-100 flex items-center justify-center text-pink-600 font-bold shadow-sm">T</span>
-            <span className="text-lg font-bold text-[#0d1c2e] tracking-tight">TrustMarket Pro</span>
+          <div className="flex items-center gap-2 md:gap-3">
+            <span className="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-pink-100 flex items-center justify-center text-pink-600 font-bold shadow-sm text-sm">T</span>
+            <span className="text-base md:text-lg font-bold text-[#0d1c2e] tracking-tight">TrustMarket Pro</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <button className="relative p-2 text-slate-400 hover:text-slate-600 bg-slate-50 rounded-full hover:scale-105 transition-all">
               <Bell size={20} />
               <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-pink-500 rounded-full border-2 border-white animate-pulse" />
@@ -274,17 +274,17 @@ export default function DashboardPro() {
             
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs rounded-full border border-pink-100 transition-all hover:scale-[1.02]"
+              className="flex items-center gap-1.5 px-3 md:px-4 py-2 bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs rounded-full border border-pink-100 transition-all hover:scale-[1.02]"
             >
               <LogOut size={14} />
-              Cerrar Sesión
+              <span className="hidden sm:inline">Cerrar Sesión</span>
             </button>
           </div>
         </div>
       </nav>
 
       {/* Main Grid Layout */}
-      <div className="max-w-7xl mx-auto px-6 pt-8 grid lg:grid-cols-12 gap-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-8 grid lg:grid-cols-12 gap-6 md:gap-8">
         
         {/* Header Hero Area */}
         <div className="lg:col-span-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/70 backdrop-blur-md border border-white p-6 rounded-[28px] shadow-sm">

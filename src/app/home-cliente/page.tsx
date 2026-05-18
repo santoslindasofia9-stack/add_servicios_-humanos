@@ -268,11 +268,11 @@ export default function HomeCliente() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#f8f9ff] font-sans pb-24 selection:bg-[#E0F2FE]">
+    <div className="relative min-h-screen bg-[#f8f9ff] font-sans pb-24 selection:bg-[#E0F2FE] overflow-x-hidden">
       
       {/* 1. Header (Identical to layout, using our colors) */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#e6eeff] h-16 md:h-20 flex items-center">
-        <div className="max-w-[1280px] mx-auto w-full px-4 md:px-6 flex justify-between items-center">
+        <div className="max-w-[1280px] mx-auto w-full px-3 md:px-6 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <button className="md:hidden text-[#5e6f79] p-2">
               <Menu size={24} />
@@ -463,12 +463,12 @@ export default function HomeCliente() {
         </div>
       </header>
 
-      <main className="pt-24 md:pt-32 pb-16">
+      <main className="pt-20 md:pt-32 pb-16">
         <div className="max-w-[1280px] mx-auto px-4 md:px-6">
           
           {/* 2. Hero Section */}
-          <section className="mb-12 md:mb-16 flex flex-col items-center text-center">
-            <h2 className="text-4xl md:text-[56px] font-extrabold text-[#0d1c2e] mb-6 max-w-3xl leading-tight tracking-tight">
+          <section className="mb-8 md:mb-16 flex flex-col items-center text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-[56px] font-extrabold text-[#0d1c2e] mb-4 md:mb-6 max-w-3xl leading-tight tracking-tight px-2">
               Ayuda experta para tu próximo gran proyecto.
             </h2>
             <form 
@@ -482,13 +482,13 @@ export default function HomeCliente() {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Busca expertos, servicios o ubicaciones..." 
-                className="w-full h-14 md:h-16 pl-14 pr-32 rounded-full border border-gray-200 bg-white shadow-sm focus:ring-4 focus:ring-[#E0F2FE] focus:border-[#0d1c2e] transition-all text-lg font-medium text-[#0d1c2e] placeholder:text-[#5e6f79]/60 outline-none"
+                placeholder="Busca expertos, servicios..." 
+                className="w-full h-12 md:h-16 pl-10 md:pl-14 pr-24 md:pr-32 rounded-full border border-gray-200 bg-white shadow-sm focus:ring-4 focus:ring-[#E0F2FE] focus:border-[#0d1c2e] transition-all text-sm md:text-lg font-medium text-[#0d1c2e] placeholder:text-[#5e6f79]/60 outline-none"
               />
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#5e6f79] pointer-events-none" size={24} />
+              <Search className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 text-[#5e6f79] pointer-events-none" size={18} />
               <button 
                 type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0d1c2e] text-white px-6 py-2.5 md:py-3 rounded-full font-bold text-sm hover:bg-[#233144] transition-all flex items-center justify-center"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0d1c2e] text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-bold text-xs md:text-sm hover:bg-[#233144] transition-all flex items-center justify-center"
               >
                 Buscar
               </button>

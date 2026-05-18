@@ -433,7 +433,7 @@ export default function PerfilYEditorDeServicios() {
 
       {/* FIXED TOP NAVIGATION BAR */}
       <header className="fixed top-0 left-0 right-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-sky-50/50 shadow-sm transition-all">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 md:px-8 py-3.5">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 py-3">
           <div className="flex items-center gap-4">
             <span className="material-symbols-outlined text-slate-400 hover:opacity-80 transition-opacity cursor-pointer md:hidden">menu</span>
             <div className="flex items-center gap-2">
@@ -493,14 +493,14 @@ export default function PerfilYEditorDeServicios() {
       </header>
 
       {/* MAIN CONTAINER */}
-      <main className="pt-28 pb-32 md:pb-12 px-6 md:px-8 max-w-7xl mx-auto relative z-10">
+      <main className="pt-20 md:pt-28 pb-32 md:pb-12 px-4 md:px-8 max-w-7xl mx-auto relative z-10">
         
         {/* Responsive layout: 12-column grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT SIDEBAR: PROFILE & GENERAL METRICS */}
           <aside className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-            <section className="bg-white rounded-[32px] p-8 shadow-2xl border border-white relative overflow-hidden group">
+            <section className="bg-white rounded-[32px] p-6 md:p-8 shadow-2xl border border-white relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-100/10 rounded-bl-[100px] -z-10" />
               
               {/* Photo & Status Badge */}

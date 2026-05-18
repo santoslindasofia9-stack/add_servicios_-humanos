@@ -182,11 +182,11 @@ export default function InboxPage() {
   );
 
   return (
-    <div className="h-screen w-screen bg-[#f8f9ff] flex flex-col font-plus-jakarta pb-28 overflow-hidden select-none">
+    <div className="h-screen w-screen bg-[#f8f9ff] flex flex-col font-plus-jakarta pb-28 overflow-hidden select-none overflow-x-hidden">
       
       {/* ── Top Header ───────────────────────────────────────────────────────── */}
-      <header className="bg-white border-b border-sky-50 px-6 py-4 flex items-center justify-between flex-shrink-0 z-50 shadow-sm">
-        <div className="flex items-center gap-3">
+      <header className="bg-white border-b border-sky-50 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between flex-shrink-0 z-50 shadow-sm">
+        <div className="flex items-center gap-2 md:gap-3">
           <button 
             onClick={() => router.back()}
             className="p-2 hover:bg-slate-50 rounded-full text-slate-500 transition-colors"
@@ -194,21 +194,22 @@ export default function InboxPage() {
             <ArrowLeft size={18} />
           </button>
           <div>
-            <h1 className="text-lg font-black text-[#0d1c2e] leading-none">Centro de Mensajes</h1>
+            <h1 className="text-base md:text-lg font-black text-[#0d1c2e] leading-none">Centro de Mensajes</h1>
             <p className="text-[11px] text-slate-400 font-bold mt-1 uppercase tracking-wider">Historial y Garantías</p>
           </div>
         </div>
 
         <button 
           onClick={handleMarkAllRead}
-          className="px-3.5 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-[#0d1c2e] rounded-full text-xs font-bold transition-all border border-slate-100/50"
+          className="px-2.5 md:px-3.5 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-[#0d1c2e] rounded-full text-xs font-bold transition-all border border-slate-100/50 whitespace-nowrap"
         >
-          Marcar todo como leído
+          <span className="hidden sm:inline">Marcar todo como leído</span>
+          <span className="sm:hidden">Leído</span>
         </button>
       </header>
 
       {/* ── Dynamic Tab Segmented Control ────────────────────────────────────── */}
-      <div className="bg-white px-6 py-3 border-b border-sky-50 flex items-center justify-between flex-shrink-0 z-40">
+      <div className="bg-white px-4 md:px-6 py-3 border-b border-sky-50 flex items-center justify-between flex-shrink-0 z-40">
         <div className="flex bg-slate-100 p-1 rounded-full w-full max-w-md border border-slate-200/50 shadow-inner">
           <button
             onClick={() => setActiveTab("chats")}
@@ -271,7 +272,7 @@ export default function InboxPage() {
       )}
 
       {/* ── Main List Container ──────────────────────────────────────────────── */}
-      <main className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+      <main className="flex-1 overflow-y-auto px-4 md:px-6 py-4 space-y-4">
         {activeTab === "chats" ? (
           // Chats tab render
           filteredChats.length === 0 ? (

@@ -19,7 +19,6 @@ import {
   Menu
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "@/lib/supabase";
 import BottomNav from "@/components/dashboard/BottomNav";
 
 const CATEGORIES = [
@@ -117,90 +116,22 @@ export default function HomeCliente() {
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
   useEffect(() => {
-    const initData = async () => {
-      // 0. Detectar si venimos de Google OAuth y guardar sesión
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session && !localStorage.getItem("isLoggedIn")) {
-        const googleName =
-          session.user.user_metadata?.full_name ||
-          session.user.user_metadata?.name ||
-          session.user.email?.split("@")[0] ||
-          "Usuario";
-        localStorage.setItem("userName", googleName);
-        localStorage.setItem("userRole", localStorage.getItem("userRole") || "client");
-        localStorage.setItem("isLoggedIn", "true");
-        if (session.user.user_metadata?.avatar_url) {
-          localStorage.setItem("userAvatar", session.user.user_metadata.avatar_url);
-        }
-      }
+    // ── MODO DEMO: carga inmediata sin Supabase ──
+    const currentRole = localStorage.getItem("userRole");
+    if (currentRole === "pro") {
+      const isVerified = localStorage.getItem("isProVerified") === "true";
+      window.location.replace(isVerified ? "/dashboard-pro" : "/auth/verificacion-pro");
+      return;
+    }
 
-      // Redirección obligatoria para profesionales
-      const currentRole = localStorage.getItem("userRole");
-      if (currentRole === "pro") {
-        const isVerified = localStorage.getItem("isProVerified") === "true";
-        window.location.replace(isVerified ? "/dashboard-pro" : "/auth/verificacion-pro");
-        return;
-      }
+    const savedName = localStorage.getItem("userName") || "Usuario";
+    const savedAvatar = localStorage.getItem("userAvatar") || null;
+    setUserName(savedName);
+    if (savedAvatar) setUserAvatar(savedAvatar);
 
-      // 1. Get User — localStorage SIEMPRE tiene prioridad sobre Supabase
-      // para respetar los cambios que el usuario haya guardado en su perfil.
-      const savedName = typeof window !== 'undefined' ? localStorage.getItem("userName") : null;
-      const savedAvatar = typeof window !== 'undefined' ? localStorage.getItem("userAvatar") : null;
-
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-
-      if (savedName) {
-        // El usuario ya personalizó su perfil → usar esos datos
-        setUserName(savedName);
-        if (savedAvatar) setUserAvatar(savedAvatar);
-        else if (!userError && user) setUserAvatar(user.user_metadata?.avatar_url || null);
-      } else if (!userError && user) {
-        // Primera vez — usar datos de Supabase y guardarlos en localStorage
-        const name = user.user_metadata?.full_name ||
-                     user.user_metadata?.first_name ||
-                     user.user_metadata?.username ||
-                     user.email?.split('@')[0] ||
-                     "Usuario";
-        setUserName(name);
-        localStorage.setItem("userName", name);
-        const avatar = user.user_metadata?.avatar_url || null;
-        setUserAvatar(avatar);
-        if (avatar) localStorage.setItem("userAvatar", avatar);
-      } else {
-        // Sin sesión ni historial → nombre por defecto
-        setUserName("Usuario");
-      }
-
-
-      // 2. Fetch Professionals
-      try {
-        const { data, error } = await supabase
-          .from('perfiles_profesionales')
-          .select('*');
-        
-        if (error || !data || data.length === 0) {
-          setProfessionals(FALLBACK_PROS);
-        } else {
-          // Asegurar que si la DB tiene fotos rotas, usemos los fallbacks de alta calidad
-          const validatedData = data.map((pro: any) => {
-            const fallback = FALLBACK_PROS.find(f => f.nombre_completo === pro.nombre_completo);
-            return {
-              ...pro,
-              foto_perfil: pro.foto_perfil && pro.foto_perfil.includes('http') 
-                ? pro.foto_perfil 
-                : (fallback?.foto_perfil || FALLBACK_PROS[0].foto_perfil)
-            };
-          });
-          setProfessionals(validatedData);
-        }
-      } catch (err) {
-        setProfessionals(FALLBACK_PROS);
-      }
-
-      setLoading(false);
-    };
-
-    initData();
+    // Usar datos de demostración directamente
+    setProfessionals(FALLBACK_PROS);
+    setLoading(false);
   }, []);
 
   // Carousel timer
@@ -443,10 +374,9 @@ export default function HomeCliente() {
 
                       <div className="border-t border-gray-100 pt-4 mt-2">
                         <button 
-                          onClick={async () => {
-                            // Solo limpiar la sesión — conservar nombre y foto del perfil
+                          onClick={() => {
                             localStorage.removeItem("userRole");
-                            await supabase.auth.signOut();
+                            localStorage.removeItem("isLoggedIn");
                             window.location.replace("/auth/login");
                           }}
                           className="w-full py-3 text-red-500 font-bold hover:bg-red-50 rounded-xl transition-all"

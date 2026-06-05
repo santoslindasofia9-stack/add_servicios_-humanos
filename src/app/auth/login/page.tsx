@@ -38,117 +38,37 @@ function LoginContent() {
     setLoading(true);
     setError(null);
 
-    try {
-      if (mode === "register") {
-        // — REGISTRO —
-        const { data, error: signUpError } = await supabase.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            data: {
-              nombre_completo: formData.username,
-              telefono: formData.phone,
-              rol: role,
-            },
-          },
-        });
+    // ── MODO DEMO: funciona sin Supabase ──
+    // Simula un breve tiempo de carga para realismo
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-        if (signUpError) throw signUpError;
+    const displayName =
+      formData.username ||
+      formData.email.split("@")[0] ||
+      "Usuario";
 
-        // Supabase puede requerir confirmación de correo.
-        // Si el usuario ya existe en la sesión, redirigimos directamente.
-        if (data.session) {
-          const displayName = formData.username || data.user?.email?.split("@")[0] || "Usuario";
-          localStorage.setItem("userRole", role);
-          localStorage.setItem("userName", displayName);
-          localStorage.setItem("isLoggedIn", "true");
-          if (role === "client") {
-            router.push("/home-cliente");
-          } else {
-            router.push("/auth/verificacion-pro");
-          }
-          return;
-        }
+    localStorage.setItem("userRole", role);
+    localStorage.setItem("userName", displayName);
+    localStorage.setItem("isLoggedIn", "true");
 
-        // Si no hay sesión inmediata (correo por confirmar), igual dejamos pasar
-        // con datos locales para no bloquear al usuario durante desarrollo
-        const displayName = formData.username || formData.email.split("@")[0] || "Usuario";
-        localStorage.setItem("userRole", role);
-        localStorage.setItem("userName", displayName);
-        localStorage.setItem("isLoggedIn", "true");
-        if (role === "client") {
-          router.push("/home-cliente");
-        } else {
-          router.push("/auth/verificacion-pro");
-        }
-
-      } else {
-        // — INICIO DE SESIÓN —
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (signInError) throw signInError;
-
-        const displayName =
-          data.user?.user_metadata?.nombre_completo ||
-          data.user?.user_metadata?.full_name ||
-          formData.email.split("@")[0] ||
-          "Usuario";
-
-        localStorage.setItem("userRole", role);
-        localStorage.setItem("userName", displayName);
-        localStorage.setItem("isLoggedIn", "true");
-
-        if (role === "client") {
-          router.push("/home-cliente");
-        } else {
-          router.push("/auth/verificacion-pro");
-        }
-      }
-    } catch (err: any) {
-      console.error("Auth error:", err);
-      const msg = err.message || "";
-
-      if (msg.includes("Email not confirmed")) {
-        setError("Tu correo aún no está verificado. Ve a Supabase → Authentication → Providers → Email → apaga 'Confirm email'.");
-      } else if (msg.includes("Invalid login credentials") || msg.includes("invalid_credentials")) {
-        setError("El correo o la contraseña son incorrectos. Verifica tus datos.");
-      } else if (msg.includes("User already registered")) {
-        setError("Ya existe una cuenta con este correo. Intenta iniciar sesión.");
-      } else {
-        setError(msg || "Ocurrió un error. Inténtalo de nuevo.");
-      }
-      setLoading(false);
+    if (role === "client") {
+      router.push("/home-cliente");
+    } else {
+      router.push("/auth/verificacion-pro");
     }
   };
 
   const handleGoogleLogin = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Guardamos el rol antes de salir
-      localStorage.setItem("userRole", role);
-      localStorage.setItem("isLoggedIn", "true");
-
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `https://trustmarke-qjy2.vercel.app/auth/callback?role=${role}`,
-          queryParams: {
-            prompt: 'select_account',
-          },
-        },
-      });
-
-      if (error) throw error;
-      // La página redirige a Google automáticamente
-    } catch (err: any) {
-      console.error("Google Auth failed:", err);
-      setError(err.message || "Error al iniciar sesión con Google.");
-      setLoading(false);
+    // ── MODO DEMO: Google login también funciona localmente ──
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    localStorage.setItem("userRole", role);
+    localStorage.setItem("userName", "Usuario Google");
+    localStorage.setItem("isLoggedIn", "true");
+    if (role === "client") {
+      router.push("/home-cliente");
+    } else {
+      router.push("/auth/verificacion-pro");
     }
   };
 

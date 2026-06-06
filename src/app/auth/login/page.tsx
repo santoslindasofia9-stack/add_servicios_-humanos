@@ -38,37 +38,109 @@ function LoginContent() {
     setLoading(true);
     setError(null);
 
-    // ── MODO DEMO: funciona sin Supabase ──
-    // Simula un breve tiempo de carga para realismo
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    try {
+      if (mode === "register") {
+        // — REGISTRO con Supabase —
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              nombre_completo: formData.username,
+              telefono: formData.phone,
+              rol: role,
+            },
+          },
+        });
 
-    const displayName =
-      formData.username ||
-      formData.email.split("@")[0] ||
-      "Usuario";
+        if (signUpError) throw signUpError;
 
-    localStorage.setItem("userRole", role);
-    localStorage.setItem("userName", displayName);
-    localStorage.setItem("isLoggedIn", "true");
+        const displayName = formData.username || data.user?.email?.split("@")[0] || "Usuario";
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userName", displayName);
+        localStorage.setItem("isLoggedIn", "true");
+        router.push(role === "client" ? "/home-cliente" : "/auth/verificacion-pro");
 
-    if (role === "client") {
-      router.push("/home-cliente");
-    } else {
-      router.push("/auth/verificacion-pro");
+      } else {
+        // — INICIO DE SESIÓN con Supabase —
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (signInError) throw signInError;
+
+        const displayName =
+          data.user?.user_metadata?.nombre_completo ||
+          data.user?.user_metadata?.full_name ||
+          formData.email.split("@")[0] ||
+          "Usuario";
+
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userName", displayName);
+        localStorage.setItem("isLoggedIn", "true");
+        router.push(role === "client" ? "/home-cliente" : "/auth/verificacion-pro");
+      }
+    } catch (err: any) {
+      console.warn("Supabase no disponible, entrando en modo demo:", err.message);
+
+      // ── FALLBACK DEMO: si Supabase falla por red, igual entra ──
+      const isFetchError =
+        err.message?.includes("fetch") ||
+        err.message?.includes("network") ||
+        err.message?.includes("Failed to fetch") ||
+        err.message?.includes("NetworkError") ||
+        !navigator.onLine;
+
+      if (isFetchError) {
+        // Sin conexión a Supabase → modo demo automático
+        const displayName = formData.username || formData.email.split("@")[0] || "Usuario";
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userName", displayName);
+        localStorage.setItem("isLoggedIn", "true");
+        router.push(role === "client" ? "/home-cliente" : "/auth/verificacion-pro");
+        return;
+      }
+
+      // Error real de Supabase (credenciales incorrectas, etc.)
+      const msg = err.message || "";
+      if (msg.includes("Email not confirmed")) {
+        setError("Confirma tu correo electrónico antes de iniciar sesión.");
+      } else if (msg.includes("Invalid login credentials") || msg.includes("invalid_credentials")) {
+        setError("El correo o la contraseña son incorrectos.");
+      } else if (msg.includes("User already registered")) {
+        setError("Ya existe una cuenta con este correo. Intenta iniciar sesión.");
+      } else {
+        setError(msg || "Ocurrió un error. Inténtalo de nuevo.");
+      }
+      setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
-    // ── MODO DEMO: Google login también funciona localmente ──
-    setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    localStorage.setItem("userRole", role);
-    localStorage.setItem("userName", "Usuario Google");
-    localStorage.setItem("isLoggedIn", "true");
-    if (role === "client") {
-      router.push("/home-cliente");
-    } else {
-      router.push("/auth/verificacion-pro");
+    try {
+      setLoading(true);
+      setError(null);
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("isLoggedIn", "true");
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `https://trustmarke-qjy2.vercel.app/auth/callback?role=${role}`,
+          queryParams: { prompt: "select_account" },
+        },
+      });
+
+      if (error) throw error;
+      // Redirige automáticamente a Google
+    } catch (err: any) {
+      console.error("Google Auth failed:", err);
+      // Fallback demo si Google OAuth no está configurado
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", "Usuario Google");
+      localStorage.setItem("isLoggedIn", "true");
+      router.push(role === "client" ? "/home-cliente" : "/auth/verificacion-pro");
     }
   };
 

@@ -11,9 +11,10 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "TrustMarket – Marketplace de Confianza para Servicios Profesionales",
+  title: "TrustMarket - Marketplace de Confianza para Servicios Profesionales",
   description:
-    "Contrata profesionales con pago garantizado por Escrow, negociación de precios y contratos inteligentes por IA.",
+    "Contrata profesionales con pago garantizado por Escrow, negociación de precios y contratos inteligentes.",
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {

@@ -8,9 +8,9 @@
   "description": "Marketplace de Confianza para Servicios Profesionales",
   "icons": [
     {
-      "src": "/nexora.png",
+      "src": "/nexora.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpg"
     }
   ]
 }

@@ -5,9 +5,10 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ff69b4",
+  "description": "Marketplace de Confianza para Servicios Profesionales",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/pwabuilder/PWABuilder/main/assets/icon-512.png",
+      "src": "https://www.pwabuilder.com/assets/images/icon-512.pnGemini_Generated_Image_qy46iwqy46iwqy46.pn",
       "sizes": "512x512",
       "type": "image/png"
     }

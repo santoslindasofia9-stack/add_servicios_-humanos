@@ -4,61 +4,51 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  /* ClassMarket Official Brand Palette */
-  --color-primary-navy: #0A192F;
-  --color-primary-deep: #002147;
-  --color-secondary-gold: #C5A880;
-  --color-secondary-accent: #D4AF37;
-  --color-background-cream: #FDFBF7;
-  --color-surface-cream: #F9F6F0;
-  --color-text-main: #111111;
-  --color-text-muted: #555555;
-
-  /* Custom Colors mapped from Stitch to ClassMarket */
-  --color-secondary-container: #F4E8D8;
+  /* Custom Colors from Stitch */
+  --color-secondary-container: #f4dce4;
   --color-error: #ba1a1a;
-  --color-tertiary-container: #F9F6F0;
-  --color-surface-tint: #0A192F;
-  --color-on-tertiary-fixed: #111111;
-  --color-primary-fixed-dim: #C5A880;
-  --color-on-primary-fixed: #0A192F;
-  --color-inverse-surface: #0A192F;
-  --color-on-primary-container: #0A192F;
-  --color-primary-fixed: #EAE3D2;
-  --color-on-tertiary-container: #333333;
-  --color-on-secondary-fixed: #111111;
-  --color-surface: #FFFFFF;
-  --color-tertiary: #C5A880;
-  --color-surface-bright: #FDFBF7;
-  --color-secondary: #C5A880;
+  --color-tertiary-container: #efefef;
+  --color-surface-tint: #50616b;
+  --color-on-tertiary-fixed: #1a1c1c;
+  --color-primary-fixed-dim: #b7c9d5;
+  --color-on-primary-fixed: #0c1e26;
+  --color-inverse-surface: #233144;
+  --color-on-primary-container: #5e6f79;
+  --color-primary-fixed: #d3e5f1;
+  --color-on-tertiary-container: #6b6c6d;
+  --color-on-secondary-fixed: #25181e;
+  --color-surface: #f8f9ff;
+  --color-tertiary: #5d5f5f;
+  --color-surface-bright: #f8f9ff;
+  --color-secondary: #6b5a60;
   --color-on-primary: #ffffff;
-  --color-surface-container-low: #FDFBF7;
-  --color-inverse-primary: #C5A880;
-  --color-on-secondary-container: #111111;
-  --color-on-background: #111111;
-  --color-tertiary-fixed-dim: #D4AF37;
-  --color-primary-brand: #0A192F;
-  --color-surface-container-high: #F3EBDD;
-  --color-secondary-fixed: #F9F6F0;
+  --color-surface-container-low: #eff4ff;
+  --color-inverse-primary: #b7c9d5;
+  --color-on-secondary-container: #716066;
+  --color-on-background: #0d1c2e;
+  --color-tertiary-fixed-dim: #c6c6c7;
+  --color-primary-brand: #50616b;
+  --color-surface-container-high: #dce9ff;
+  --color-secondary-fixed: #f4dce4;
   --color-on-error-container: #93000a;
-  --color-on-surface: #111111;
-  --color-primary-container: #EAE3D2;
+  --color-on-surface: #0d1c2e;
+  --color-primary-container: #e0f2fe;
   --color-on-tertiary: #ffffff;
   --color-error-container: #ffdad6;
   --color-surface-container-lowest: #ffffff;
-  --color-on-surface-variant: #444444;
-  --color-tertiary-fixed: #F9F6F0;
-  --color-surface-dim: #EDE7DC;
-  --color-surface-container: #F9F6F0;
-  --color-inverse-on-surface: #FDFBF7;
-  --color-outline-variant: #D9D2C5;
-  --color-surface-variant: #F9F6F0;
-  --color-secondary-fixed-dim: #C5A880;
-  --color-on-tertiary-fixed-variant: #333333;
-  --color-surface-container-highest: #EAE3D2;
-  --color-on-secondary-fixed-variant: #111111;
-  --color-outline: #8C8275;
-  --color-on-primary-fixed-variant: #002147;
+  --color-on-surface-variant: #43474b;
+  --color-tertiary-fixed: #e2e2e2;
+  --color-surface-dim: #ccdbf3;
+  --color-surface-container: #e6eeff;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-outline-variant: #c3c7cb;
+  --color-surface-variant: #d5e3fc;
+  --color-secondary-fixed-dim: #d7c1c8;
+  --color-on-tertiary-fixed-variant: #454747;
+  --color-surface-container-highest: #d5e3fc;
+  --color-on-secondary-fixed-variant: #524249;
+  --color-outline: #73787b;
+  --color-on-primary-fixed-variant: #384953;
   --color-on-secondary: #ffffff;
   --color-on-error: #ffffff;
 
@@ -85,11 +75,11 @@
   --spacing-gutter: 32px;
   --spacing-base: 8px;
 
-  /* Brand Theme Colors */
-  --color-crema: #FDFBF7;
-  --color-celeste-pastel: #EAE3D2;
-  --color-rosa-claro: #F5EFEB;
-  --color-dark-blue-gray: #0A192F;
+  /* Splash Screen Colors */
+  --color-crema: #FFFDD0;
+  --color-celeste-pastel: #E0F2FE;
+  --color-rosa-claro: #FCE4EC;
+  --color-dark-blue-gray: #374151;
 
   /* Animations */
   @keyframes shimmer {
@@ -132,11 +122,8 @@
 }
 
 :root {
-  --background: #FDFBF7;
-  --foreground: #111111;
-  --primary-navy: #0A192F;
-  --secondary-gold: #C5A880;
-  --cream-bg: #FDFBF7;
+  --background: #f8f9ff;
+  --foreground: #0d1c2e;
 }
 
 @layer base {
@@ -147,8 +134,8 @@
   }
 
   body {
-    background: #FDFBF7;
-    color: #111111;
+    background: var(--background);
+    color: var(--foreground);
     font-family: var(--font-plus-jakarta-sans), sans-serif;
     margin: 0;
     padding: 0;

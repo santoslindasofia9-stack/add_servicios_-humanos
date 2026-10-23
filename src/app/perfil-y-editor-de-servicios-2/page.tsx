@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import ClassMarketLogo from '@/components/common/ClassMarketLogo';
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
@@ -437,10 +438,10 @@ export default function PerfilYEditorDeServicios() {
           <div className="flex items-center gap-4">
             <span className="material-symbols-outlined text-slate-400 hover:opacity-80 transition-opacity cursor-pointer md:hidden">menu</span>
             <div className="flex items-center gap-2">
-              <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-400 to-sky-400 flex items-center justify-center text-white font-bold shadow-md shadow-sky-100/50 text-sm">T</span>
-              <div className="text-xl font-black text-[#0d1c2e] tracking-tight">
-                TrustMarket <span className="bg-gradient-to-r from-sky-600 to-teal-500 bg-clip-text text-transparent text-xs font-extrabold uppercase ml-1">Pro Studio</span>
-              </div>
+              <ClassMarketLogo size="sm" showSlogan={false} href="/home-cliente" />
+              <span className="text-xl font-black text-[#0b2545] tracking-tight">
+                ClassMarket <span className="bg-gradient-to-r from-sky-600 to-teal-500 bg-clip-text text-transparent text-xs font-extrabold uppercase ml-1">Pro Studio</span>
+              </span>
             </div>
           </div>
           
@@ -581,7 +582,13 @@ export default function PerfilYEditorDeServicios() {
           {/* RIGHT MAIN PANEL: SERVICES & SKILLS EDITOR */}
           <div className="lg:col-span-8 space-y-8">
             
-            {/* Services Management */}
+            {/* Services Management */
+{/* AI Assistant Block */}
+<div className="p-6 bg-[#fdfbf7] rounded-[24px] border border-[#c4a47c]/30 shadow-md mb-8">
+  <h2 className="text-xl font-bold text-[#0b2545] mb-2">✨ Asistente IA ClassMarket (Google Gemini)</h2>
+  <p className="text-sm text-[#1a1a1a] mb-4">Genera automáticamente una descripción de servicio a partir de una idea clave.</p>
+  <button className="bg-[#c4a47c] hover:bg-[#d4af37] text-[#0b2545] font-semibold py-2 px-4 rounded-full shadow">Generar Descripción Automática con IA</button>
+</div>}
             <section className="bg-white rounded-[32px] p-8 shadow-xl border border-slate-50">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
                 <div>

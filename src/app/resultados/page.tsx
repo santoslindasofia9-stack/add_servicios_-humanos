@@ -41,6 +41,43 @@ const FALLBACK_EXPERTS = [
     calificacion: 5,
     tarifa: 150,
     foto_perfil: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400"
+  }
+];
+  {
+    id: "f1",
+    nombre_completo: "Elena Rodríguez",
+    titulo_profesional: "Especialista en diseño de interiores con enfoque en minimalismo nórdico y espacios zen.",
+    categoria: "Hogar",
+    calificacion: 5,
+    tarifa: 85,
+    foto_perfil: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "f2",
+    nombre_completo: "Julián Martínez",
+    titulo_profesional: "Consultor de branding estratégico para marcas emergentes que buscan impacto visual.",
+    categoria: "Creativo",
+    calificacion: 5,
+    tarifa: 120,
+    foto_perfil: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "f3",
+    nombre_completo: "Sofía López",
+    titulo_profesional: "Redactora creativa y especialista en storytelling emocional para catálogos de lujo.",
+    categoria: "Creativo",
+    calificacion: 5,
+    tarifa: 55,
+    foto_perfil: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "f4",
+    nombre_completo: "Carlos Torres",
+    titulo_profesional: "Desarrollador web full-stack enfocado en experiencias interactivas fluidas y seguras.",
+    categoria: "Tech",
+    calificacion: 5,
+    tarifa: 150,
+    foto_perfil: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400"
   },
   {
     id: "f5",
@@ -159,7 +196,7 @@ export default async function ResultadosBusqueda({
   const { data: experts, error } = await dbQuery;
 
   // Fallback si no hay data o hay error
-  let displayedExperts = (experts && experts.length > 0) ? experts : FALLBACK_EXPERTS;
+  let displayedExperts = (experts && experts.length > 0) ? experts : FALLBACK_EXPERTS.slice(0, 4);
   
   // If fallback is used, simulate filtering for demo purposes
   if (displayedExperts === FALLBACK_EXPERTS) {
@@ -250,8 +287,8 @@ export default async function ResultadosBusqueda({
             <div className="w-16 h-16 bg-[#f8f9ff] rounded-full flex items-center justify-center mx-auto mb-4 text-[#5e6f79]">
               <span className="material-symbols-outlined text-[32px]">search</span>
             </div>
-            <h3 className="text-lg font-bold text-[#0d1c2e] mb-2">No se encontraron profesionales</h3>
-            <p className="text-[#5e6f79]">Intenta buscar con otros términos o cambia la categoría.</p>
+            <h3 className="text-lg font-bold text-primary mb-2">No se encontraron talentos</h3>
+            <p className="text-primary">Intenta buscar con otros términos o cambia la categoría.</p>
             <Link 
               href="/home-cliente"
               className="mt-6 inline-block text-[#0288D1] font-bold underline"

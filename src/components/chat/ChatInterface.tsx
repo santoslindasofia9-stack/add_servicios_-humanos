@@ -126,7 +126,7 @@ export default function ChatInterface({ expertId: propExpertId, negotiationId, e
       localStorage.setItem('currentExpertId', expertId);
     }
     if (expertData) {
-      localStorage.setItem('currentExpertName', (expertData.nombre_completo as string) || 'Profesional');
+      localStorage.setItem('currentExpertName', (expertData.nombre_completo as string) || 'Talento');
       localStorage.setItem('currentExpertAvatar', (expertData.foto_perfil as string) || '');
     }
   }, [expertId, expertData]);

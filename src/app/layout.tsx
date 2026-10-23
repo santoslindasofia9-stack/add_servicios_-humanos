@@ -11,9 +11,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "TrustMarket - Marketplace de Confianza para Servicios Profesionales",
+  title: "ClassMarket - Educación e Intercambio Real",
   description:
-    "Contrata profesionales con pago garantizado por Escrow, negociación de precios y contratos inteligentes.",
+    "Comunidad escolar y de estudiantes para el intercambio y contratación de talento, microservicios y tutorías con compromiso garantizado.",
   manifest: "/manifest.json",
 };
 

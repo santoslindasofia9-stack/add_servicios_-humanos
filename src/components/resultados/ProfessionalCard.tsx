@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-interface ProfessionalCardProps {
+interface ServiceCardProps {
   id: string;
   nombre_completo: string;
   titulo_profesional: string;
@@ -10,7 +10,7 @@ interface ProfessionalCardProps {
   foto_perfil: string;
 }
 
-export default function ProfessionalCard({
+export default function ServiceCard({
   id,
   nombre_completo,
   titulo_profesional,
@@ -18,7 +18,7 @@ export default function ProfessionalCard({
   reseñas = 0,
   tarifa,
   foto_perfil,
-}: ProfessionalCardProps) {
+}: ServiceCardProps) {
   // Asegurar que la tarifa se muestre bien
   const precio = typeof tarifa === "number" ? `$${tarifa}` : tarifa;
   
@@ -26,8 +26,8 @@ export default function ProfessionalCard({
   const estrellas = Array.from({ length: 5 }, (_, i) => i < Math.round(calificacion || 0));
 
   return (
-    <article className="bg-white rounded-[24px] p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-500 flex flex-col items-center text-center group border border-gray-100 hover:border-sky-100">
-      <div className="w-24 h-24 rounded-full overflow-hidden mb-6 ring-4 ring-[#FCE4EC] transition-transform duration-500 group-hover:scale-110 relative">
+    <article className="bg-white rounded-[24px] p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-500 flex flex-col items-center text-center group border border-gray-100 hover:border-primary">
+      <div className="w-24 h-24 rounded-full overflow-hidden mb-6 ring-4 ring-primary transition-transform duration-500 group-hover:scale-110 relative">
         <img 
           src={foto_perfil || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200"} 
           alt={nombre_completo} 
@@ -35,15 +35,15 @@ export default function ProfessionalCard({
         />
       </div>
       
-      <h3 className="font-bold text-xl text-[#0d1c2e] mb-2 group-hover:text-[#D81B60] transition-colors line-clamp-1">
+      <h3 className="font-bold text-xl text-primary mb-2 group-hover:text-secondary transition-colors line-clamp-1">
         {nombre_completo}
       </h3>
       
       <p className="text-sm text-[#5e6f79] mb-6 line-clamp-2 px-2 h-10">
-        {titulo_profesional}
+        {titulo_profesional} (Talento Estudiantil)
       </p>
       
-      <div className="flex items-center gap-1 mb-8 text-[#FBBF24]">
+      <div className="flex items-center gap-1 mb-8 text-secondary">
         {estrellas.map((llena, index) => (
           <span 
             key={index} 
@@ -60,16 +60,16 @@ export default function ProfessionalCard({
       
       <div className="mt-auto w-full pt-6 border-t border-slate-50 flex items-center justify-between">
         <div className="text-left">
-          <span className="text-[10px] uppercase tracking-[0.05em] font-bold text-slate-400 block mb-0.5">
+          <span className="text-[10px] uppercase tracking-[0.05em] font-bold text-primary block mb-0.5">
             DESDE
           </span>
-          <span className="font-bold text-2xl text-[#D81B60] tracking-tight">
+          <span className="font-bold text-2xl text-secondary tracking-tight">
             {precio}
           </span>
         </div>
         <Link 
           href={`/expertos/${id}`}
-          className="px-6 py-2.5 bg-[#FCE4EC] text-[#D81B60] rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#fbd1de] transition-all duration-300 active:scale-95 inline-block text-center"
+          className="px-6 py-2.5 bg-primary/10 text-primary rounded-full font-bold text-xs uppercase tracking-wider hover:bg-primary/20 transition-all duration-300 active:scale-95 inline-block text-center"
         >
           Perfil
         </Link>
